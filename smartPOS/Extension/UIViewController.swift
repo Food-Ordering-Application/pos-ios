@@ -17,6 +17,10 @@ extension UIViewController {
         self.slideMenuController()?.removeRightGestures()
         self.slideMenuController()?.addLeftGestures()
         self.slideMenuController()?.addRightGestures()
+        let navBar = self.navigationController?.navigationBar
+        navBar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navBar?.shadowImage = UIImage()
+        navBar?.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Poppins-Bold", size: 23) ?? UIFont.systemFont(ofSize: 23, weight: .semibold)]
     }
     
     func removeNavigationBarItem() {

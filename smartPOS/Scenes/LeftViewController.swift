@@ -9,24 +9,23 @@ import UIKit
 
 enum LeftMenu: Int {
     case main = 0
-    case swift
+    case checkout
     case java
-    case go
+    case setting
     case nonMenu
 }
 
-protocol LeftMenuProtocol : class {
+protocol LeftMenuProtocol: class {
     func changeViewController(_ menu: LeftMenu)
 }
 
-class LeftViewController : UIViewController, LeftMenuProtocol {
-    
-    @IBOutlet weak var tableView: UITableView!
-    var menus = ["Main", "Swift", "Java", "Go", "NonMenu"]
+class LeftViewController: UIViewController, LeftMenuProtocol {
+    @IBOutlet var tableView: UITableView!
+    var menus = ["Main", "Checkout",  "Java", "Setting", "NonMenu"]
     var mainViewController: UIViewController!
-    var swiftViewController: UIViewController!
+    var checkoutViewController: UIViewController!
     var javaViewController: UIViewController!
-    var goViewController: UIViewController!
+    var settingViewController: UIViewController!
     var nonMenuViewController: UIViewController!
     var imageHeaderView: ImageHeaderView!
     
@@ -40,14 +39,14 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
         self.tableView.separatorColor = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let swiftViewController = storyboard.instantiateViewController(withIdentifier: "SwiftViewController") as! SwiftViewController
-        self.swiftViewController = UINavigationController(rootViewController: swiftViewController)
+        let checkoutViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
+        self.checkoutViewController = UINavigationController(rootViewController: checkoutViewController)
         
         let javaViewController = storyboard.instantiateViewController(withIdentifier: "JavaViewController") as! JavaViewController
         self.javaViewController = UINavigationController(rootViewController: javaViewController)
         
-        let goViewController = storyboard.instantiateViewController(withIdentifier: "GoViewController") as! GoViewController
-        self.goViewController = UINavigationController(rootViewController: goViewController)
+        let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+        self.settingViewController = UINavigationController(rootViewController: settingViewController)
         
         let nonMenuController = storyboard.instantiateViewController(withIdentifier: "NonMenuController") as! NonMenuController
         nonMenuController.delegate = self
@@ -71,25 +70,25 @@ class LeftViewController : UIViewController, LeftMenuProtocol {
     
     func changeViewController(_ menu: LeftMenu) {
         switch menu {
+        case .checkout:
+            self.slideMenuController()?.changeMainViewController(self.checkoutViewController, close: true)
         case .main:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
-        case .swift:
-            self.slideMenuController()?.changeMainViewController(self.swiftViewController, close: true)
         case .java:
             self.slideMenuController()?.changeMainViewController(self.javaViewController, close: true)
-        case .go:
-            self.slideMenuController()?.changeMainViewController(self.goViewController, close: true)
+        case .setting:
+            self.slideMenuController()?.changeMainViewController(self.settingViewController, close: true)
         case .nonMenu:
             self.slideMenuController()?.changeMainViewController(self.nonMenuViewController, close: true)
         }
     }
 }
 
-extension LeftViewController : UITableViewDelegate {
+extension LeftViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .main, .swift, .java, .go, .nonMenu:
+            case .checkout, .main, .java, .setting, .nonMenu:
                 return BaseTableViewCell.height()
             }
         }
@@ -103,30 +102,24 @@ extension LeftViewController : UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.tableView == scrollView {
-            
-        }
+        if self.tableView == scrollView {}
     }
 }
 
-extension LeftViewController : UITableViewDataSource {
-    
+extension LeftViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menus.count
+        return self.menus.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .main, .swift, .java, .go, .nonMenu:
+            case .checkout, .main, .java, .setting, .nonMenu:
                 let cell = BaseTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: BaseTableViewCell.identifier)
-                cell.setData(menus[indexPath.row])
+                cell.setData(self.menus[indexPath.row])
                 return cell
             }
         }
         return UITableViewCell()
     }
-    
-    
 }

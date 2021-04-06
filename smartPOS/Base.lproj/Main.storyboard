@@ -994,7 +994,7 @@
         <!--Left View Controller-->
         <scene sceneID="Bfz-dk-hjm">
             <objects>
-                <viewController storyboardIdentifier="LeftViewController" id="GuF-Hj-QEN" customClass="LeftViewController" customModule="SlideMenuControllerSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeftViewController" id="GuF-Hj-QEN" customClass="LeftViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rlT-zV-Z1Y"/>
                         <viewControllerLayoutGuide type="bottom" id="b5B-tw-c56"/>
@@ -1032,10 +1032,10 @@
             </objects>
             <point key="canvasLocation" x="1012" y="2490"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Checkout View Controller-->
         <scene sceneID="2DP-Bw-hNC">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="Iw8-5D-6AA" customClass="MainViewController" customModule="SlideMenuControllerSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CheckoutViewController" id="Iw8-5D-6AA" customClass="CheckoutViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CEd-wj-1Rt"/>
                         <viewControllerLayoutGuide type="bottom" id="cSx-BV-0Lu"/>
@@ -1072,10 +1072,10 @@
             </objects>
             <point key="canvasLocation" x="1011" y="3148"/>
         </scene>
-        <!--Swift View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="24O-Ty-CZN">
             <objects>
-                <viewController storyboardIdentifier="SwiftViewController" id="yOy-vi-Vl8" customClass="SwiftViewController" customModule="SlideMenuControllerSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="yOy-vi-Vl8" customClass="MainViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="n2K-mn-18X"/>
                         <viewControllerLayoutGuide type="bottom" id="elZ-fX-UYp"/>
@@ -1084,7 +1084,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SwiftViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTk-DT-gFb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CheckoutViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTk-DT-gFb">
                                 <rect key="frame" x="180" y="80" width="240" height="93"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="93" id="Mxx-XC-a42"/>
@@ -1113,7 +1113,7 @@
         <!--Java View Controller-->
         <scene sceneID="Xym-SM-t3Z">
             <objects>
-                <viewController storyboardIdentifier="JavaViewController" id="TQe-fH-aPX" customClass="JavaViewController" customModule="SlideMenuControllerSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JavaViewController" id="TQe-fH-aPX" customClass="JavaViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pMw-T7-eyZ"/>
                         <viewControllerLayoutGuide type="bottom" id="2mn-Ii-whh"/>
@@ -1148,10 +1148,10 @@
             </objects>
             <point key="canvasLocation" x="1003" y="3816"/>
         </scene>
-        <!--Go View Controller-->
+        <!--Setting View Controller-->
         <scene sceneID="tBm-s9-Lt4">
             <objects>
-                <viewController storyboardIdentifier="GoViewController" id="ekP-k0-wXg" customClass="GoViewController" customModule="SlideMenuControllerSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingViewController" id="ekP-k0-wXg" customClass="SettingViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fKv-oV-gcm"/>
                         <viewControllerLayoutGuide type="bottom" id="D3C-Om-KB4"/>
@@ -1160,7 +1160,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GoViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JkO-Xu-Bjf">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SettingViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JkO-Xu-Bjf">
                                 <rect key="frame" x="180" y="80" width="240" height="93"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="l2u-cG-Fps"/>
@@ -1189,7 +1189,7 @@
         <!--Non Menu Controller-->
         <scene sceneID="Uiv-zd-NOZ">
             <objects>
-                <viewController storyboardIdentifier="NonMenuController" id="ger-IT-ryb" customClass="NonMenuController" customModule="SlideMenuControllerSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NonMenuController" id="ger-IT-ryb" customClass="NonMenuController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bl7-qq-lxg"/>
                         <viewControllerLayoutGuide type="bottom" id="8Li-U0-1Kp"/>

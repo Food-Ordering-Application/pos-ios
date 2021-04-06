@@ -82,8 +82,8 @@
 		9BC2F791261C511F00D5CFBC /* ExSlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F787261C511E00D5CFBC /* ExSlideMenuController.swift */; };
 		9BC2F792261C511F00D5CFBC /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F788261C511E00D5CFBC /* RightViewController.swift */; };
 		9BC2F793261C511F00D5CFBC /* NonMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F789261C511E00D5CFBC /* NonMenuController.swift */; };
-		9BC2F794261C511F00D5CFBC /* GoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F78A261C511F00D5CFBC /* GoViewController.swift */; };
-		9BC2F795261C511F00D5CFBC /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F78B261C511F00D5CFBC /* SwiftViewController.swift */; };
+		9BC2F794261C511F00D5CFBC /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F78A261C511F00D5CFBC /* SettingViewController.swift */; };
+		9BC2F795261C511F00D5CFBC /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F78B261C511F00D5CFBC /* CheckoutViewController.swift */; };
 		9BC2F796261C511F00D5CFBC /* JavaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F78C261C511F00D5CFBC /* JavaViewController.swift */; };
 		9BC2F844261C51C300D5CFBC /* ImageHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC2F842261C51C300D5CFBC /* ImageHeaderView.xib */; };
 		9BC2F845261C51C300D5CFBC /* ImageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F843261C51C300D5CFBC /* ImageHeaderView.swift */; };
@@ -204,8 +204,8 @@
 		9BC2F787261C511E00D5CFBC /* ExSlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExSlideMenuController.swift; sourceTree = "<group>"; };
 		9BC2F788261C511E00D5CFBC /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
 		9BC2F789261C511E00D5CFBC /* NonMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonMenuController.swift; sourceTree = "<group>"; };
-		9BC2F78A261C511F00D5CFBC /* GoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoViewController.swift; sourceTree = "<group>"; };
-		9BC2F78B261C511F00D5CFBC /* SwiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftViewController.swift; sourceTree = "<group>"; };
+		9BC2F78A261C511F00D5CFBC /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		9BC2F78B261C511F00D5CFBC /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		9BC2F78C261C511F00D5CFBC /* JavaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavaViewController.swift; sourceTree = "<group>"; };
 		9BC2F842261C51C300D5CFBC /* ImageHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageHeaderView.xib; sourceTree = "<group>"; };
 		9BC2F843261C51C300D5CFBC /* ImageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHeaderView.swift; sourceTree = "<group>"; };
@@ -332,7 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				9BC2F787261C511E00D5CFBC /* ExSlideMenuController.swift */,
-				9BC2F78A261C511F00D5CFBC /* GoViewController.swift */,
+				9BC2F78A261C511F00D5CFBC /* SettingViewController.swift */,
 				9BC2F78C261C511F00D5CFBC /* JavaViewController.swift */,
 				9BC2F786261C511E00D5CFBC /* LeftViewController.swift */,
 				9BC2F783261C511D00D5CFBC /* MainViewController.swift */,
@@ -340,7 +340,7 @@
 				9BC2F788261C511E00D5CFBC /* RightViewController.swift */,
 				9BC2F784261C511D00D5CFBC /* SubContentsViewController.storyboard */,
 				9BC2F785261C511E00D5CFBC /* SubContentsViewController.swift */,
-				9BC2F78B261C511F00D5CFBC /* SwiftViewController.swift */,
+				9BC2F78B261C511F00D5CFBC /* CheckoutViewController.swift */,
 				9B968207261B506800D1980B /* Dashboard */,
 				71528342221334BE004602FF /* ListOrders */,
 				71528335221315F8004602FF /* CreateOrder */,
@@ -838,7 +838,7 @@
 				715283412213167B004602FF /* CreateOrderInteractor.swift in Sources */,
 				7152833D2213167B004602FF /* CreateOrderWorker.swift in Sources */,
 				7152836022137C9B004602FF /* ShowOrderWorker.swift in Sources */,
-				9BC2F795261C511F00D5CFBC /* SwiftViewController.swift in Sources */,
+				9BC2F795261C511F00D5CFBC /* CheckoutViewController.swift in Sources */,
 				715283402213167B004602FF /* CreateOrderViewController.swift in Sources */,
 				7152836222137C9B004602FF /* ShowOrderModels.swift in Sources */,
 				9BC2F792261C511F00D5CFBC /* RightViewController.swift in Sources */,
@@ -873,7 +873,7 @@
 				9BC2F860261C51DC00D5CFBC /* UIImageView.swift in Sources */,
 				71F123412214EA580009FC03 /* ManagedOrder+CoreDataProperties.swift in Sources */,
 				7152834E221334D8004602FF /* ListOrdersInteractor.swift in Sources */,
-				9BC2F794261C511F00D5CFBC /* GoViewController.swift in Sources */,
+				9BC2F794261C511F00D5CFBC /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
