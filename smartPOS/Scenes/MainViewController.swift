@@ -1,16 +1,19 @@
 //
 //  ViewController.swift
-//  SlideMenuControllerSwift
+//  smartPOS
 //
-//  Created by Yuji Hato on 12/3/14.
+//  Created by I Am Focused on 06/3/21.
 //
 
 import SlideMenuControllerSwift
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, SlideMenuControllerDelegate {
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupNavBar()
+      
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -19,44 +22,15 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-}
-    
-extension MainViewController: SlideMenuControllerDelegate {
-    func leftWillOpen() {
-        print("SlideMenuControllerDelegate: leftWillOpen")
-    }
-    
-    func leftDidOpen() {
-        print("SlideMenuControllerDelegate: leftDidOpen")
-    }
-    
-    func leftWillClose() {
-        print("SlideMenuControllerDelegate: leftWillClose")
-    }
-    
-    func leftDidClose() {
-        print("SlideMenuControllerDelegate: leftDidClose")
-    }
-    
-    func rightWillOpen() {
-        print("SlideMenuControllerDelegate: rightWillOpen")
-    }
-    
-    func rightDidOpen() {
-        print("SlideMenuControllerDelegate: rightDidOpen")
-    }
-    
-    func rightWillClose() {
-        print("SlideMenuControllerDelegate: rightWillClose")
-    }
-    
-    func rightDidClose() {
-        print("SlideMenuControllerDelegate: rightDidClose")
+   
+    fileprivate func setupNavBar() {
+        navigationItem.title = "Checkout"
+        self.setNavigationBarItem()
     }
 }
+    

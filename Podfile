@@ -8,7 +8,7 @@ target 'smartPOS' do
   # Pods for smartPOS
 	
   pod 'SlideMenuControllerSwift'
-
+  pod "BouncyLayout"
 
 
   target 'smartPOSTests' do
