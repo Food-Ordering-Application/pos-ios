@@ -19,8 +19,8 @@ class ItemsCollectionViewController: UIViewController {
     
     lazy var sizes: [CGSize] = {
         (0..<self.numberOfItems).map { _ in
-            return  CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: floor((UIScreen.main.bounds.width - (5 * 10)) / 7))
-//            return  CGSize(width: 120, height: 60)
+//            CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: floor((UIScreen.main.bounds.width - (5 * 10)) / 7))
+            return  CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: 126)
         }
     }()
     
@@ -43,8 +43,9 @@ class ItemsCollectionViewController: UIViewController {
         view.showsHorizontalScrollIndicator = false
         view.delegate = self
         view.dataSource = self
-        view.register(Cell.self, forCellWithReuseIdentifier: Cell.reuseIdentifier)
-        
+//        view.register(Cell.self, forCellWithReuseIdentifier: Cell.reuseIdentifier)
+//        view.register(UINib(nibName: ItemCollectionViewCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ItemCollectionViewCell.reuseIdentifier)
+        view.register(ItemCollectionViewCell.nib, forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
         return view
     }()
     
@@ -53,7 +54,7 @@ class ItemsCollectionViewController: UIViewController {
         return UIColor.white.withAlphaComponent(0.98)
     }
     
-    convenience init( ) {
+    convenience init() {
         self.init()
     }
     
@@ -79,7 +80,6 @@ class ItemsCollectionViewController: UIViewController {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
     }
-    
 }
 
 extension ItemsCollectionViewController: UICollectionViewDataSource {
@@ -88,7 +88,9 @@ extension ItemsCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath)
+//        return collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath)
+//        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.reuseIdentifier, for: indexPath)
+        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -110,4 +112,3 @@ extension ItemsCollectionViewController: UICollectionViewDelegateFlowLayout {
         return 10
     }
 }
-

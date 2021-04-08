@@ -77,6 +77,8 @@
 		9B968240261B559200D1980B /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B96822D261B559200D1980B /* Poppins-Italic.ttf */; };
 		9B968241261B559200D1980B /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B96822E261B559200D1980B /* Poppins-MediumItalic.ttf */; };
 		9BC1C6DA261D4488006502F8 /* OrderCheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1C6D9261D4488006502F8 /* OrderCheckoutViewController.swift */; };
+		9BC1C6E9261D6925006502F8 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */; };
+		9BC1C6EA261D6925006502F8 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */; };
 		9BC2F78D261C511F00D5CFBC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F783261C511D00D5CFBC /* MainViewController.swift */; };
 		9BC2F78E261C511F00D5CFBC /* SubContentsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BC2F784261C511D00D5CFBC /* SubContentsViewController.storyboard */; };
 		9BC2F78F261C511F00D5CFBC /* SubContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F785261C511E00D5CFBC /* SubContentsViewController.swift */; };
@@ -100,6 +102,8 @@
 		9BC2F85F261C51DC00D5CFBC /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F857261C51DC00D5CFBC /* UIViewController.swift */; };
 		9BC2F860261C51DC00D5CFBC /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F858261C51DC00D5CFBC /* UIImageView.swift */; };
 		9BC2F861261C51DC00D5CFBC /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F859261C51DC00D5CFBC /* UIView.swift */; };
+		9BCB7851261F6D5000AD29E5 /* MenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB784F261F6D5000AD29E5 /* MenuItemTableViewCell.swift */; };
+		9BCB7852261F6D5000AD29E5 /* MenuItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BCB7850261F6D5000AD29E5 /* MenuItemTableViewCell.xib */; };
 		9F8FB053ABB2B4B50BFA882F /* Pods_smartPOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4979C1A7B297667E44D77BB1 /* Pods_smartPOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -201,6 +205,8 @@
 		9B96822D261B559200D1980B /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		9B96822E261B559200D1980B /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
 		9BC1C6D9261D4488006502F8 /* OrderCheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCheckoutViewController.swift; sourceTree = "<group>"; };
+		9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		9BC2F783261C511D00D5CFBC /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9BC2F784261C511D00D5CFBC /* SubContentsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SubContentsViewController.storyboard; sourceTree = "<group>"; };
 		9BC2F785261C511E00D5CFBC /* SubContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubContentsViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +230,8 @@
 		9BC2F857261C51DC00D5CFBC /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		9BC2F858261C51DC00D5CFBC /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		9BC2F859261C51DC00D5CFBC /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		9BCB784F261F6D5000AD29E5 /* MenuItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemTableViewCell.swift; sourceTree = "<group>"; };
+		9BCB7850261F6D5000AD29E5 /* MenuItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuItemTableViewCell.xib; sourceTree = "<group>"; };
 		C2D2C7F49934219DF4A8F720 /* Pods-smartPOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS.release.xcconfig"; path = "Target Support Files/Pods-smartPOS/Pods-smartPOS.release.xcconfig"; sourceTree = "<group>"; };
 		E26DE8D32A94BA2C1C722DE7 /* Pods-smartPOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOSTests.release.xcconfig"; path = "Target Support Files/Pods-smartPOSTests/Pods-smartPOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F83F18F6B29A4C7F9E835502 /* Pods-smartPOS-smartPOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS-smartPOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-smartPOS-smartPOSUITests/Pods-smartPOS-smartPOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -334,14 +342,13 @@
 		71528334221315DB004602FF /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9BC1C6E6261D682E006502F8 /* SideBar */,
 				9B15E3A5261C7B6E00CB252B /* Checkout */,
 				9BC2F787261C511E00D5CFBC /* ExSlideMenuController.swift */,
 				9BC2F78A261C511F00D5CFBC /* SettingViewController.swift */,
 				9BC2F78C261C511F00D5CFBC /* JavaViewController.swift */,
-				9BC2F786261C511E00D5CFBC /* LeftViewController.swift */,
 				9BC2F783261C511D00D5CFBC /* MainViewController.swift */,
 				9BC2F789261C511E00D5CFBC /* NonMenuController.swift */,
-				9BC2F788261C511E00D5CFBC /* RightViewController.swift */,
 				9BC2F784261C511D00D5CFBC /* SubContentsViewController.storyboard */,
 				9BC2F785261C511E00D5CFBC /* SubContentsViewController.swift */,
 				9BC2F78B261C511F00D5CFBC /* CheckoutViewController.swift */,
@@ -528,6 +535,15 @@
 			path = Poppins;
 			sourceTree = "<group>";
 		};
+		9BC1C6E6261D682E006502F8 /* SideBar */ = {
+			isa = PBXGroup;
+			children = (
+				9BC2F786261C511E00D5CFBC /* LeftViewController.swift */,
+				9BC2F788261C511E00D5CFBC /* RightViewController.swift */,
+			);
+			path = SideBar;
+			sourceTree = "<group>";
+		};
 		9BC2F83F261C518800D5CFBC /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +551,8 @@
 				9BC2F842261C51C300D5CFBC /* ImageHeaderView.xib */,
 				9B15E39F261C792E00CB252B /* Cell.swift */,
 				9BC2F841261C51B000D5CFBC /* TableViewCell */,
+				9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */,
+				9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -560,6 +578,8 @@
 				9BC2F849261C51CC00D5CFBC /* BaseTableViewCell.swift */,
 				9BC2F84B261C51CC00D5CFBC /* DataTableViewCell.swift */,
 				9BC2F84A261C51CC00D5CFBC /* DataTableViewCell.xib */,
+				9BCB784F261F6D5000AD29E5 /* MenuItemTableViewCell.swift */,
+				9BCB7850261F6D5000AD29E5 /* MenuItemTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -695,6 +715,7 @@
 				9B968231261B559200D1980B /* Poppins-ExtraLightItalic.ttf in Resources */,
 				9B968238261B559200D1980B /* Poppins-BlackItalic.ttf in Resources */,
 				9B96822F261B559200D1980B /* Poppins-ExtraLight.ttf in Resources */,
+				9BCB7852261F6D5000AD29E5 /* MenuItemTableViewCell.xib in Resources */,
 				9B96823F261B559200D1980B /* Poppins-SemiBold.ttf in Resources */,
 				9B968232261B559200D1980B /* Poppins-BoldItalic.ttf in Resources */,
 				9B968233261B559200D1980B /* Poppins-Light.ttf in Resources */,
@@ -702,6 +723,7 @@
 				9B968240261B559200D1980B /* Poppins-Italic.ttf in Resources */,
 				9BC2F844261C51C300D5CFBC /* ImageHeaderView.xib in Resources */,
 				9B968237261B559200D1980B /* Poppins-ExtraBold.ttf in Resources */,
+				9BC1C6EA261D6925006502F8 /* ItemCollectionViewCell.xib in Resources */,
 				9B96823B261B559200D1980B /* Poppins-LightItalic.ttf in Resources */,
 				715283112213143D004602FF /* LaunchScreen.storyboard in Resources */,
 				9BC2F84D261C51CC00D5CFBC /* DataTableViewCell.xib in Resources */,
@@ -871,6 +893,7 @@
 				9BC2F861261C51DC00D5CFBC /* UIView.swift in Sources */,
 				9BC2F85E261C51DC00D5CFBC /* UITableViewExtension.swift in Sources */,
 				9BC2F85B261C51DC00D5CFBC /* UIApplication.swift in Sources */,
+				9BCB7851261F6D5000AD29E5 /* MenuItemTableViewCell.swift in Sources */,
 				9BC2F85F261C51DC00D5CFBC /* UIViewController.swift in Sources */,
 				9BC2F796261C511F00D5CFBC /* JavaViewController.swift in Sources */,
 				7152833C2213167B004602FF /* CreateOrderPresenter.swift in Sources */,
@@ -886,6 +909,7 @@
 				7152835722137458004602FF /* OrdersMemStore.swift in Sources */,
 				9BC2F793261C511F00D5CFBC /* NonMenuController.swift in Sources */,
 				9BC2F791261C511F00D5CFBC /* ExSlideMenuController.swift in Sources */,
+				9BC1C6E9261D6925006502F8 /* ItemCollectionViewCell.swift in Sources */,
 				9BC2F860261C51DC00D5CFBC /* UIImageView.swift in Sources */,
 				71F123412214EA580009FC03 /* ManagedOrder+CoreDataProperties.swift in Sources */,
 				7152834E221334D8004602FF /* ListOrdersInteractor.swift in Sources */,

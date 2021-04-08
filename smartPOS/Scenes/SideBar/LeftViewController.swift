@@ -15,28 +15,49 @@ enum LeftMenu: Int {
     case nonMenu
 }
 
-protocol LeftMenuProtocol: class {
+protocol LeftMenuProtocol: AnyObject {
     func changeViewController(_ menu: LeftMenu)
 }
 
 class LeftViewController: UIViewController, LeftMenuProtocol {
+//    @IBOutlet var tableView: UITableView!
+    
     @IBOutlet var tableView: UITableView!
-    var menus = ["Main", "Checkout",  "Java", "Setting", "NonMenu"]
+    @IBOutlet var imgUserAvatar: UIView!
+    @IBOutlet var vBackgroundHeader: UIView!
+    @IBOutlet var lbUsername: UILabel!
+    
+//    var menus = ["Checkout", "Đơn hàng", "Quản lý kho", "Cài đặt", "NonMenu"]
+    var menus: [SideMenuModel] = [
+        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Home"),
+        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Music"),
+        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Movies"),
+        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Books"),
+        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Profile"),
+        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Settings"),
+        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Like us on facebook")
+    ]
     var mainViewController: UIViewController!
     var checkoutViewController: UIViewController!
     var javaViewController: UIViewController!
     var settingViewController: UIViewController!
     var nonMenuViewController: UIViewController!
     var imageHeaderView: ImageHeaderView!
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.separatorColor = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
+        // TableView
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorStyle = .none
+        // Set Highlighted Cell
+        DispatchQueue.main.async {
+            let defaultRow = IndexPath(row: 0, section: 0)
+            self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
+        }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let checkoutViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
@@ -52,10 +73,16 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         nonMenuController.delegate = self
         self.nonMenuViewController = UINavigationController(rootViewController: nonMenuController)
         
-        self.tableView.registerCellClass(BaseTableViewCell.self)
+//        self.tableView.registerCellClass(MenuItemTableViewCell.self)
+        // Register TableView Cell
+        self.tableView.register(MenuItemTableViewCell.nib, forCellReuseIdentifier: MenuItemTableViewCell.identifier)
+
+        // Update TableView with the data
+        self.tableView.reloadData()
+//        self.imageHeaderView = ImageHeaderView.loadNib()
+//        self.view.addSubview(self.imageHeaderView)
         
-        self.imageHeaderView = ImageHeaderView.loadNib()
-        self.view.addSubview(self.imageHeaderView)
+        setupHeader()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,10 +91,20 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 160)
+//        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 160)
         self.view.layoutIfNeeded()
     }
+
+    fileprivate func setupHeader() {
+        self.vBackgroundHeader.layer.cornerRadius = 40
+        self.vBackgroundHeader.clipsToBounds = true
+        
+        self.imgUserAvatar.layer.cornerRadius = 40
+        self.imgUserAvatar.clipsToBounds = true
     
+        self.lbUsername?.text = "Nguyễn Văn A"
+    }
+
     func changeViewController(_ menu: LeftMenu) {
         switch menu {
         case .checkout:
@@ -89,7 +126,7 @@ extension LeftViewController: UITableViewDelegate {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
             case .checkout, .main, .java, .setting, .nonMenu:
-                return BaseTableViewCell.height()
+                return MenuItemTableViewCell.height()
             }
         }
         return 0
@@ -115,8 +152,14 @@ extension LeftViewController: UITableViewDataSource {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
             case .checkout, .main, .java, .setting, .nonMenu:
-                let cell = BaseTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: BaseTableViewCell.identifier)
+//                let cell = MenuItemTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: MenuItemTableViewCell.identifier)
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuItemTableViewCell.identifier, for: indexPath) as? MenuItemTableViewCell else { fatalError("xib doesn't exist") }
+
                 cell.setData(self.menus[indexPath.row])
+                // Highlighted color
+                let myCustomSelectionColorView = UIView()
+                myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
+                cell.selectedBackgroundView = myCustomSelectionColorView
                 return cell
             }
         }

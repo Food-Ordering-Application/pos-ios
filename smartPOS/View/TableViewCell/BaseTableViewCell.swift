@@ -21,18 +21,19 @@ open class BaseTableViewCell : UITableViewCell {
     }
     
     open override func awakeFromNib() {
+        
     }
     
     open func setup() {
     }
     
     open class func height() -> CGFloat {
-        return 48
+        return 60
     }
     
     open func setData(_ data: Any?) {
         self.backgroundColor = UIColor(hex: "F1F8E9")
-        self.textLabel?.font = UIFont.italicSystemFont(ofSize: 18)
+        self.textLabel?.font = UIFont.init(name: "Poppins-Regular", size: 18)
         self.textLabel?.textColor = UIColor(hex: "9E9E9E")
         if let menuText = data as? String {
             self.textLabel?.text = menuText
@@ -49,6 +50,7 @@ open class BaseTableViewCell : UITableViewCell {
     
     // ignore the default handling
     override open func setSelected(_ selected: Bool, animated: Bool) {
+        
     }
   
 }
