@@ -33,16 +33,18 @@ class OrderCheckoutViewController: UIViewController {
      */
 
     func setupLayout(){
-        self.addLeftBorder()
+//        self.addLeftBorder()
         self.mainView.backgroundColor = UIColor.white.withAlphaComponent(0.98)
         self.mainView.layer.cornerRadius = 15
+
     }
     
-    func addLeftBorder() {
-        let thickness: CGFloat = 2.0
-        let leftBorder = CALayer()
-        leftBorder.frame = CGRect(x: 0.0, y: 0.0, width: thickness, height: self.mainView.frame.size.height)
-        leftBorder.backgroundColor = UIColor.orange.withAlphaComponent(0.6).cgColor
-        self.mainView.layer.addSublayer(leftBorder)
-    }
+//    func addLeftBorder() {
+//        let thickness: CGFloat = 2.0
+//
+//        let leftBorder = CALayer()
+//        leftBorder.frame = CGRect(x: 0.0, y: 0.0, width: thickness, height: self.mainView.frame.size.height)
+//        leftBorder.backgroundColor = UIColor.orange.withAlphaComponent(0.4).cgColor
+//
+//    }
 }

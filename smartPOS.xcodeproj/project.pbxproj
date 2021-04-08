@@ -547,12 +547,11 @@
 		9BC2F83F261C518800D5CFBC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9BCB7853261F806C00AD29E5 /* CollectionViewCell */,
 				9BC2F843261C51C300D5CFBC /* ImageHeaderView.swift */,
 				9BC2F842261C51C300D5CFBC /* ImageHeaderView.xib */,
 				9B15E39F261C792E00CB252B /* Cell.swift */,
 				9BC2F841261C51B000D5CFBC /* TableViewCell */,
-				9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */,
-				9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -582,6 +581,15 @@
 				9BCB7850261F6D5000AD29E5 /* MenuItemTableViewCell.xib */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		9BCB7853261F806C00AD29E5 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */,
+				9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		D778AE1625F0EF0C443B5762 /* Pods */ = {

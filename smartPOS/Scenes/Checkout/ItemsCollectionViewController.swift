@@ -11,7 +11,6 @@ import UIKit
 class ItemsCollectionViewController: UIViewController {
     let numberOfItems = 50
     var randomCellStyle: CellStyle { return arc4random_uniform(10) % 2 == 0 ? .blue : .gray }
-    
     lazy var style: [CellStyle] = { (0..<self.numberOfItems).map { _ in self.randomCellStyle } }()
 //    lazy var style: [CellStyle] = { (0..<self.numberOfItems).map { _ in .blue } }()
 //    lazy var topOffset: [CGFloat] = { (0..<self.numberOfItems).map { _ in CGFloat(arc4random_uniform(250)) } }()

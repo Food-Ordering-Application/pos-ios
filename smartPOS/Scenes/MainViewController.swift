@@ -9,7 +9,6 @@ import SlideMenuControllerSwift
 import UIKit
 
 class MainViewController: UIViewController, SlideMenuControllerDelegate {
-   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavBar()
@@ -22,6 +21,7 @@ class MainViewController: UIViewController, SlideMenuControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
     }
     
     override func didReceiveMemoryWarning() {
