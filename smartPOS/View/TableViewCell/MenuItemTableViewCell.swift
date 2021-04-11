@@ -53,7 +53,7 @@ class MenuItemTableViewCell: UITableViewCell {
     }
     
     open class func height() -> CGFloat {
-        return 48
+        return 50
     }
     
     open func setData(_ data: SideMenuModel?) {
@@ -63,6 +63,7 @@ class MenuItemTableViewCell: UITableViewCell {
         if let menu = data {
             self.lbText?.text = menu.title
             self.iconImageView?.image = menu.icon
+            self.iconImageView?.tintColor = .orange
         }
     }
     

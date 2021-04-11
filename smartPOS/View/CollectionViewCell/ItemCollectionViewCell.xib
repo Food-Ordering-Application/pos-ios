@@ -37,11 +37,19 @@
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                 <color key="textColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamburger, Trà xanh, Có đường, vị ngọt " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubb-5f-hEL">
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WAE-er-Ghv">
                                 <rect key="frame" x="12" y="39" width="217" height="56"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
-                                <color key="textColor" systemColor="systemGrayColor"/>
-                            </label>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamburger, Trà xanh, Có đường, vị ngọt " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubb-5f-hEL">
+                                        <rect key="frame" x="0.0" y="0.0" width="217" height="39.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="217" id="tvQ-6a-IpW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamburger" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9m-Il-lGV">
                                 <rect key="frame" x="12" y="8" width="281" height="31"/>
                                 <constraints>
@@ -63,14 +71,13 @@
                         <constraints>
                             <constraint firstItem="m9m-Il-lGV" firstAttribute="top" secondItem="vHM-g0-O4A" secondAttribute="top" constant="8" id="1Fq-C4-x51"/>
                             <constraint firstAttribute="bottom" secondItem="IVE-MU-vdL" secondAttribute="bottom" constant="8" id="1yY-KG-90W"/>
+                            <constraint firstItem="WAE-er-Ghv" firstAttribute="top" secondItem="m9m-Il-lGV" secondAttribute="bottom" id="2Iq-Pk-K9X"/>
                             <constraint firstItem="m9m-Il-lGV" firstAttribute="leading" secondItem="vHM-g0-O4A" secondAttribute="leading" constant="12" id="4hS-4S-ebe"/>
-                            <constraint firstItem="ubb-5f-hEL" firstAttribute="leading" secondItem="vHM-g0-O4A" secondAttribute="leading" constant="12" id="56d-bH-e2s"/>
-                            <constraint firstItem="IVE-MU-vdL" firstAttribute="top" secondItem="ubb-5f-hEL" secondAttribute="bottom" id="CNu-A2-QQQ"/>
                             <constraint firstAttribute="trailing" secondItem="vcM-db-qqZ" secondAttribute="trailing" constant="8" id="Ebw-qq-D4G"/>
-                            <constraint firstItem="ubb-5f-hEL" firstAttribute="top" secondItem="m9m-Il-lGV" secondAttribute="bottom" id="EkD-Ce-ecv"/>
-                            <constraint firstItem="vcM-db-qqZ" firstAttribute="leading" secondItem="ubb-5f-hEL" secondAttribute="trailing" id="LSz-bU-iKh"/>
                             <constraint firstAttribute="trailing" secondItem="m9m-Il-lGV" secondAttribute="trailing" constant="8" id="Na6-bQ-Dut"/>
                             <constraint firstAttribute="bottom" secondItem="vcM-db-qqZ" secondAttribute="bottom" constant="8" id="g7e-pK-Ebe"/>
+                            <constraint firstItem="IVE-MU-vdL" firstAttribute="top" secondItem="WAE-er-Ghv" secondAttribute="bottom" id="mT2-xz-HWO"/>
+                            <constraint firstItem="WAE-er-Ghv" firstAttribute="leading" secondItem="vHM-g0-O4A" secondAttribute="leading" constant="12" id="tpq-Qe-K64"/>
                             <constraint firstItem="IVE-MU-vdL" firstAttribute="leading" secondItem="vHM-g0-O4A" secondAttribute="leading" constant="12" id="ybI-Kf-5Gi"/>
                             <constraint firstItem="vcM-db-qqZ" firstAttribute="leading" secondItem="IVE-MU-vdL" secondAttribute="trailing" id="ysZ-Ez-dGW"/>
                         </constraints>
@@ -92,7 +99,7 @@
                 <outlet property="lbPrice" destination="IVE-MU-vdL" id="reu-23-dtK"/>
                 <outlet property="viewBackground" destination="vHM-g0-O4A" id="hSE-Dh-pIk"/>
             </connections>
-            <point key="canvasLocation" x="-276.08695652173913" y="-9.0401785714285712"/>
+            <point key="canvasLocation" x="78" y="-32"/>
         </collectionViewCell>
     </objects>
     <resources>

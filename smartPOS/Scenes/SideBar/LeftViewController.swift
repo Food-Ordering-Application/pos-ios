@@ -29,12 +29,11 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     
 //    var menus = ["Checkout", "Đơn hàng", "Quản lý kho", "Cài đặt", "NonMenu"]
     var menus: [SideMenuModel] = [
-        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Checkout"),
-        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Đơn hàng"),
-        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Quản lý kho"),
-        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Quản lý nhân viên"),
-        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Cài đặt"),
-        SideMenuModel(icon: UIImage(named: "ic_feed")!, title: "Cài đặt"),
+        SideMenuModel(icon: UIImage(named: "shop")!, title: "Đặt hàng"),
+        SideMenuModel(icon: UIImage(named: "track-order")!, title: "Giao hàng"),
+        SideMenuModel(icon: UIImage(named: "purchase-order")!, title: "Đơn hàng"),
+        SideMenuModel(icon: UIImage(named: "in-inventory")!, title: "Kho hàng"),
+        SideMenuModel(icon: UIImage(named: "store-setting")!, title: "Cài đặt"),
     ]
     var mainViewController: UIViewController!
     var checkoutViewController: UIViewController!

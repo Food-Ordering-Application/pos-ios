@@ -1117,13 +1117,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSd-OV-iTF">
-                                <rect key="frame" x="20" y="606" width="117" height="28"/>
+                                <rect key="frame" x="20" y="614" width="117" height="28"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nK-me-GD2">
-                                <rect key="frame" x="0.0" y="109" width="666.5" height="488"/>
+                                <rect key="frame" x="0.0" y="109" width="666.5" height="496"/>
                                 <connections>
                                     <segue destination="5s4-un-ywg" kind="embed" id="ZIJ-OQ-iCA"/>
                                 </connections>
@@ -1164,7 +1164,7 @@
                             <constraint firstItem="0ox-W5-TWo" firstAttribute="leading" secondItem="cDn-zy-M70" secondAttribute="leading" id="7CV-gE-sV5"/>
                             <constraint firstItem="SY6-Id-z4d" firstAttribute="trailing" secondItem="cDn-zy-M70" secondAttribute="trailing" id="ECx-4a-E0O"/>
                             <constraint firstItem="eSd-OV-iTF" firstAttribute="leading" secondItem="cDn-zy-M70" secondAttribute="leading" constant="20" id="GcJ-dc-Zms"/>
-                            <constraint firstItem="0ox-W5-TWo" firstAttribute="top" secondItem="eSd-OV-iTF" secondAttribute="bottom" constant="8" id="OHG-Cy-LgN"/>
+                            <constraint firstItem="0ox-W5-TWo" firstAttribute="top" secondItem="eSd-OV-iTF" secondAttribute="bottom" id="OHG-Cy-LgN"/>
                             <constraint firstItem="2nK-me-GD2" firstAttribute="leading" secondItem="cDn-zy-M70" secondAttribute="leading" id="Ue7-OM-gRp"/>
                             <constraint firstItem="SY6-Id-z4d" firstAttribute="width" relation="lessThanOrEqual" secondItem="Yh0-T1-d1r" secondAttribute="width" multiplier="0.35" id="ZPM-zC-uN2"/>
                             <constraint firstItem="SY6-Id-z4d" firstAttribute="top" secondItem="cDn-zy-M70" secondAttribute="top" id="ahH-HL-vsh"/>
@@ -1190,7 +1190,7 @@
             <objects>
                 <viewController storyboardIdentifier="ItemsCollectionViewController" id="5s4-un-ywg" customClass="ItemsCollectionViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DaY-Pa-bCw">
-                        <rect key="frame" x="0.0" y="0.0" width="666.5" height="488"/>
+                        <rect key="frame" x="0.0" y="0.0" width="666.5" height="496"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="RgF-kV-ptd"/>
                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
@@ -1209,16 +1209,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNi-Vq-SMA">
-                                <rect key="frame" x="155" y="14" width="48.5" height="22.5"/>
+                                <rect key="frame" x="152" y="14" width="55" height="27"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKz-FY-glP">
-                                <rect key="frame" x="312.5" y="10" width="30" height="32"/>
+                                <rect key="frame" x="274.5" y="10" width="68" height="36"/>
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="17"/>
                                 <size key="titleShadowOffset" width="6" height="0.0"/>
-                                <state key="normal" title="Xoá">
+                                <state key="normal" title="Huỷ đơn">
                                     <color key="titleColor" systemColor="systemRedColor"/>
                                 </state>
                             </button>
@@ -1251,8 +1251,8 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H6Q-Lf-KBj">
-                                <rect key="frame" x="10" y="60.5" width="338.5" height="489.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="10" y="65" width="338.5" height="485"/>
+                                <color key="backgroundColor" red="0.93066646812410259" green="0.93988098761047978" blue="0.93988098761047978" alpha="0.27727099286009937" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="dOy-eZ-Rln" id="Mjj-68-RcZ"/>
                                     <outlet property="delegate" destination="dOy-eZ-Rln" id="wY4-Kn-BkO"/>

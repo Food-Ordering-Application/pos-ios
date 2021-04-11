@@ -79,6 +79,8 @@
 		9B96823F261B559200D1980B /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B96822C261B559200D1980B /* Poppins-SemiBold.ttf */; };
 		9B968240261B559200D1980B /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B96822D261B559200D1980B /* Poppins-Italic.ttf */; };
 		9B968241261B559200D1980B /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B96822E261B559200D1980B /* Poppins-MediumItalic.ttf */; };
+		9B9CF5AB26229B320023C83A /* PromotionItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9CF5A926229B320023C83A /* PromotionItemCollectionViewCell.swift */; };
+		9B9CF5AC26229B320023C83A /* PromotionItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9CF5AA26229B320023C83A /* PromotionItemCollectionViewCell.xib */; };
 		9BC1C6DA261D4488006502F8 /* OrderCheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1C6D9261D4488006502F8 /* OrderCheckoutViewController.swift */; };
 		9BC1C6E9261D6925006502F8 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */; };
 		9BC1C6EA261D6925006502F8 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */; };
@@ -210,6 +212,8 @@
 		9B96822C261B559200D1980B /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		9B96822D261B559200D1980B /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		9B96822E261B559200D1980B /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		9B9CF5A926229B320023C83A /* PromotionItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		9B9CF5AA26229B320023C83A /* PromotionItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		9BC1C6D9261D4488006502F8 /* OrderCheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCheckoutViewController.swift; sourceTree = "<group>"; };
 		9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -597,6 +601,8 @@
 			children = (
 				9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */,
 				9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */,
+				9B9CF5A926229B320023C83A /* PromotionItemCollectionViewCell.swift */,
+				9B9CF5AA26229B320023C83A /* PromotionItemCollectionViewCell.xib */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -752,6 +758,7 @@
 				9B968230261B559200D1980B /* Poppins-ThinItalic.ttf in Resources */,
 				9BC2F78E261C511F00D5CFBC /* SubContentsViewController.storyboard in Resources */,
 				9B968234261B559200D1980B /* Poppins-Medium.ttf in Resources */,
+				9B9CF5AC26229B320023C83A /* PromotionItemCollectionViewCell.xib in Resources */,
 				7152830E2213143D004602FF /* Assets.xcassets in Resources */,
 				7152830C2213143A004602FF /* Main.storyboard in Resources */,
 			);
@@ -902,6 +909,7 @@
 				7152835F22137C9B004602FF /* ShowOrderPresenter.swift in Sources */,
 				7152833E2213167B004602FF /* CreateOrderRouter.swift in Sources */,
 				9BC2F85C261C51DC00D5CFBC /* String.swift in Sources */,
+				9B9CF5AB26229B320023C83A /* PromotionItemCollectionViewCell.swift in Sources */,
 				71F123402214EA580009FC03 /* ManagedOrder+CoreDataClass.swift in Sources */,
 				71528349221334D8004602FF /* ListOrdersPresenter.swift in Sources */,
 				9BC2F790261C511F00D5CFBC /* LeftViewController.swift in Sources */,

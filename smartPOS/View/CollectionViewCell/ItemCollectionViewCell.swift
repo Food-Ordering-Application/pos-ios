@@ -16,7 +16,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet var lbPrice: UILabel!
     @IBOutlet var imageItem: UIImageView!
     @IBOutlet var viewBackground: UIView!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,11 +33,15 @@ class ItemCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([top, left, bottom, right])
 
         clipsToBounds = true
+       
     }
 
     lazy var top: NSLayoutConstraint = self.viewBackground.topAnchor.constraint(equalTo: self.contentView.topAnchor)
     lazy var left: NSLayoutConstraint = self.viewBackground.leftAnchor.constraint(equalTo: self.contentView.leftAnchor)
     lazy var bottom: NSLayoutConstraint = self.viewBackground.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
     lazy var right: NSLayoutConstraint = self.viewBackground.rightAnchor.constraint(equalTo: self.contentView.rightAnchor)
+    
+    
+    
 
 }

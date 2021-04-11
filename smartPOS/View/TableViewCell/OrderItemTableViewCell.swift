@@ -32,6 +32,8 @@ class OrderItemTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        
+        print("Selected Item:\(self.lbName.text!)")
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -78,7 +80,7 @@ class OrderItemTableViewCell: UITableViewCell {
 //            return
 //        }
 //        print(curAmount)
-        print("Minus \(String(describing: self.lbName?.text))")
+        print("Minus \(self.lbName.text!)")
         
     }
     
