@@ -17,7 +17,7 @@ class PromotionsViewController: UIViewController {
     
     lazy var sizes: [CGSize] = {
         (0..<self.numberOfItems).map { _ in
-            return  CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: 100)
+            return  CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 3), height: 90)
         }
     }()
     
@@ -40,7 +40,7 @@ class PromotionsViewController: UIViewController {
         view.showsHorizontalScrollIndicator = false
         view.delegate = self
         view.dataSource = self
-        view.register(ItemCollectionViewCell.nib, forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
+        view.register(PromotionItemCollectionViewCell.nib, forCellWithReuseIdentifier: PromotionItemCollectionViewCell.identifier)
         return view
     }()
     
@@ -82,7 +82,7 @@ extension PromotionsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { 
-        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath)
+        return collectionView.dequeueReusableCell(withReuseIdentifier: PromotionItemCollectionViewCell.identifier, for: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

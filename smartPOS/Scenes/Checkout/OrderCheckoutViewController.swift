@@ -85,7 +85,7 @@ extension OrderCheckoutViewController: UITableViewDataSource {
                 // Highlighted color
                 let myCustomSelectionColorView = UIView()
                 myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
-                myCustomSelectionColorView.layer.cornerRadius = 15
+                myCustomSelectionColorView.layer.cornerRadius = 8
                 cell.selectedBackgroundView = myCustomSelectionColorView
                 return cell
             }

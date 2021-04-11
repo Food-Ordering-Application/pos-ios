@@ -37,19 +37,6 @@
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                 <color key="textColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WAE-er-Ghv">
-                                <rect key="frame" x="12" y="39" width="217" height="56"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamburger, Trà xanh, Có đường, vị ngọt " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubb-5f-hEL">
-                                        <rect key="frame" x="0.0" y="0.0" width="217" height="39.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="217" id="tvQ-6a-IpW"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamburger" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9m-Il-lGV">
                                 <rect key="frame" x="12" y="8" width="281" height="31"/>
                                 <constraints>
@@ -59,13 +46,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hamburger" translatesAutoresizingMaskIntoConstraints="NO" id="vcM-db-qqZ">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="vcM-db-qqZ">
                                 <rect key="frame" x="229" y="55" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="YiD-re-smq"/>
                                     <constraint firstAttribute="width" constant="64" id="ddn-ad-n5G"/>
                                 </constraints>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WAE-er-Ghv">
+                                <rect key="frame" x="12" y="39" width="217" height="56"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamburger, Trà xanh, Có đường, vị ngọt " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubb-5f-hEL">
+                                        <rect key="frame" x="0.0" y="0.0" width="217" height="39.5"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -75,6 +72,7 @@
                             <constraint firstItem="m9m-Il-lGV" firstAttribute="leading" secondItem="vHM-g0-O4A" secondAttribute="leading" constant="12" id="4hS-4S-ebe"/>
                             <constraint firstAttribute="trailing" secondItem="vcM-db-qqZ" secondAttribute="trailing" constant="8" id="Ebw-qq-D4G"/>
                             <constraint firstAttribute="trailing" secondItem="m9m-Il-lGV" secondAttribute="trailing" constant="8" id="Na6-bQ-Dut"/>
+                            <constraint firstItem="vcM-db-qqZ" firstAttribute="leading" secondItem="WAE-er-Ghv" secondAttribute="trailing" id="PJR-uk-j2U"/>
                             <constraint firstAttribute="bottom" secondItem="vcM-db-qqZ" secondAttribute="bottom" constant="8" id="g7e-pK-Ebe"/>
                             <constraint firstItem="IVE-MU-vdL" firstAttribute="top" secondItem="WAE-er-Ghv" secondAttribute="bottom" id="mT2-xz-HWO"/>
                             <constraint firstItem="WAE-er-Ghv" firstAttribute="leading" secondItem="vHM-g0-O4A" secondAttribute="leading" constant="12" id="tpq-Qe-K64"/>
@@ -103,7 +101,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Hamburger" width="450" height="450"/>
+        <image name="pizza" width="50" height="50"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

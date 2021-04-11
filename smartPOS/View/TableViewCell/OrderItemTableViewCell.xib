@@ -92,7 +92,7 @@
                             <constraint firstItem="aXQ-b8-bxa" firstAttribute="top" secondItem="zk5-EX-48D" secondAttribute="bottom" id="mgv-S9-0Sj"/>
                         </constraints>
                     </stackView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hamburger" translatesAutoresizingMaskIntoConstraints="NO" id="cC1-g5-Z34">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="cC1-g5-Z34">
                         <rect key="frame" x="8" y="13.5" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="41F-c3-m6I"/>
@@ -126,8 +126,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Hamburger" width="450" height="450"/>
         <image name="minus" catalog="system" width="128" height="24"/>
+        <image name="pizza" width="50" height="50"/>
         <image name="plus" catalog="system" width="128" height="113"/>
     </resources>
 </document>

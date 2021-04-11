@@ -1169,6 +1169,7 @@
                             <constraint firstItem="SY6-Id-z4d" firstAttribute="width" relation="lessThanOrEqual" secondItem="Yh0-T1-d1r" secondAttribute="width" multiplier="0.35" id="ZPM-zC-uN2"/>
                             <constraint firstItem="SY6-Id-z4d" firstAttribute="top" secondItem="cDn-zy-M70" secondAttribute="top" id="ahH-HL-vsh"/>
                             <constraint firstItem="SY6-Id-z4d" firstAttribute="leading" secondItem="2nK-me-GD2" secondAttribute="trailing" constant="-1" id="b1m-Td-mIE"/>
+                            <constraint firstItem="0ox-W5-TWo" firstAttribute="top" secondItem="eSd-OV-iTF" secondAttribute="bottom" id="bKj-sM-nNd"/>
                             <constraint firstItem="2nK-me-GD2" firstAttribute="top" secondItem="ODl-3z-4TA" secondAttribute="bottom" constant="14" id="dYc-Jd-vIW"/>
                             <constraint firstItem="SY6-Id-z4d" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eSd-OV-iTF" secondAttribute="trailing" constant="8" symbolic="YES" id="efH-fU-fZI"/>
                             <constraint firstItem="ODl-3z-4TA" firstAttribute="top" secondItem="cDn-zy-M70" secondAttribute="top" constant="14" id="gIi-lU-X54"/>
