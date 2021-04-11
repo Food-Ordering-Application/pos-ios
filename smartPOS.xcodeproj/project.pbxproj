@@ -57,6 +57,9 @@
 		71F1235D2214EF1C0009FC03 /* ShowOrderInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F1235A2214EF1C0009FC03 /* ShowOrderInteractorTests.swift */; };
 		9B15E3A0261C792E00CB252B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B15E39F261C792E00CB252B /* Cell.swift */; };
 		9B15E3B2261CCF4900CB252B /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B15E3B1261CCF4900CB252B /* ItemsCollectionViewController.swift */; };
+		9B7E0A5326202E2C00DAEABB /* OrderItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7E0A5126202E2C00DAEABB /* OrderItemTableViewCell.swift */; };
+		9B7E0A5426202E2C00DAEABB /* OrderItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B7E0A5226202E2C00DAEABB /* OrderItemTableViewCell.xib */; };
+		9B85808E262183FC00BBC550 /* PromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B85808D262183FC00BBC550 /* PromotionsViewController.swift */; };
 		9B96822F261B559200D1980B /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B96821C261B559200D1980B /* Poppins-ExtraLight.ttf */; };
 		9B968230261B559200D1980B /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B96821D261B559200D1980B /* Poppins-ThinItalic.ttf */; };
 		9B968231261B559200D1980B /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B96821E261B559200D1980B /* Poppins-ExtraLightItalic.ttf */; };
@@ -185,6 +188,9 @@
 		83F7CE37DC57B6E9EFE144C1 /* Pods-smartPOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOSTests.debug.xcconfig"; path = "Target Support Files/Pods-smartPOSTests/Pods-smartPOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B15E39F261C792E00CB252B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		9B15E3B1261CCF4900CB252B /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
+		9B7E0A5126202E2C00DAEABB /* OrderItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemTableViewCell.swift; sourceTree = "<group>"; };
+		9B7E0A5226202E2C00DAEABB /* OrderItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderItemTableViewCell.xib; sourceTree = "<group>"; };
+		9B85808D262183FC00BBC550 /* PromotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionsViewController.swift; sourceTree = "<group>"; };
 		9B96821C261B559200D1980B /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		9B96821D261B559200D1980B /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		9B96821E261B559200D1980B /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -490,6 +496,7 @@
 			children = (
 				9B15E3B1261CCF4900CB252B /* ItemsCollectionViewController.swift */,
 				9BC1C6D9261D4488006502F8 /* OrderCheckoutViewController.swift */,
+				9B85808D262183FC00BBC550 /* PromotionsViewController.swift */,
 			);
 			path = Checkout;
 			sourceTree = "<group>";
@@ -579,6 +586,8 @@
 				9BC2F84A261C51CC00D5CFBC /* DataTableViewCell.xib */,
 				9BCB784F261F6D5000AD29E5 /* MenuItemTableViewCell.swift */,
 				9BCB7850261F6D5000AD29E5 /* MenuItemTableViewCell.xib */,
+				9B7E0A5126202E2C00DAEABB /* OrderItemTableViewCell.swift */,
+				9B7E0A5226202E2C00DAEABB /* OrderItemTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -718,6 +727,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B96823E261B559200D1980B /* Poppins-Thin.ttf in Resources */,
+				9B7E0A5426202E2C00DAEABB /* OrderItemTableViewCell.xib in Resources */,
 				9B968241261B559200D1980B /* Poppins-MediumItalic.ttf in Resources */,
 				9B968239261B559200D1980B /* OFL.txt in Resources */,
 				9B968231261B559200D1980B /* Poppins-ExtraLightItalic.ttf in Resources */,
@@ -872,6 +882,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7152834C221334D8004602FF /* ListOrdersModels.swift in Sources */,
+				9B7E0A5326202E2C00DAEABB /* OrderItemTableViewCell.swift in Sources */,
 				7152834D221334D8004602FF /* ListOrdersViewController.swift in Sources */,
 				7152836122137C9B004602FF /* ShowOrderRouter.swift in Sources */,
 				71528354221372BA004602FF /* Order.swift in Sources */,
@@ -922,6 +933,7 @@
 				71F123412214EA580009FC03 /* ManagedOrder+CoreDataProperties.swift in Sources */,
 				7152834E221334D8004602FF /* ListOrdersInteractor.swift in Sources */,
 				9BC2F794261C511F00D5CFBC /* SettingViewController.swift in Sources */,
+				9B85808E262183FC00BBC550 /* PromotionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,35 +1,31 @@
 //
-//  MenuItemTableViewCell.swift
+//  OrderItemTableViewCell.swift
 //  smartPOS
 //
-//  Created by I Am Focused on 08/04/2021.
+//  Created by I Am Focused on 09/04/2021.
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
 import UIKit
-struct SideMenuModel {
-    var icon: UIImage
-    var title: String
+struct OrderItem {
+    var name: String?
 }
-class MenuItemTableViewCell: UITableViewCell {
+
+class OrderItemTableViewCell: UITableViewCell {
     class var identifier: String { return String.className(self) }
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
     
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var lbText: UILabel!
-    
+    @IBOutlet var imageItem: UIImageView!
+    @IBOutlet var lbName: UILabel!
+    @IBOutlet var lbDescription: UILabel!
+    @IBOutlet var lbPrice: UILabel!
+    @IBOutlet var lbAmount: UILabel!
+    @IBOutlet var btnMinusItem: UIButton!
+    @IBOutlet var btnPlusItem: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        // Background
-        self.backgroundColor = .clear
-        
-        // Icon
-        self.iconImageView?.tintColor = .white
-        
-        // Title
-        self.lbText?.textColor = .white
+        self.layer.cornerRadius = 15
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,32 +34,30 @@ class MenuItemTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
+        self.setup()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
+        self.setup()
     }
     
-    open func setup() {
-    }
+    open func setup() {}
     
     open class func height() -> CGFloat {
-        return 48
+        return 60
     }
     
-    open func setData(_ data: SideMenuModel?) {
+    open func setData(_ data: OrderItem?) {
 //        self.backgroundColor = UIColor(hex: "F1F8E9")
 //        self.textLabel?.font = UIFont.init(name: "Poppins-Regular", size: 18)
-        self.lbText?.textColor = UIColor(hex: "9E9E9E")
+//        self.lbText?.textColor = UIColor(hex: "9E9E9E")
         if let menu = data {
-            self.lbText?.text = menu.title
-            self.iconImageView?.image = menu.icon
+            self.lbName?.text = menu.name
         }
+        print(data!)
     }
     
     override open func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -74,4 +68,21 @@ class MenuItemTableViewCell: UITableViewCell {
         }
     }
 
+    func doRemoveItem(_ sender: Any) {
+        print("Remove")
+    }
+
+    @IBAction func doMinusItem(_ sender: Any) {
+//        guard lbAmount.text as NumberFormatter else {
+//            doRemoveItem(sender)
+//            return
+//        }
+//        print(curAmount)
+        print("Minus \(String(describing: self.lbName?.text))")
+        
+    }
+    
+    @IBAction func doPlusItem(_ sender: Any) {
+        print("Plus")
+    }
 }
