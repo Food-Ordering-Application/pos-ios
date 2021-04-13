@@ -75,21 +75,13 @@ extension OrderCheckoutViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let menu = LeftMenu(rawValue: indexPath.row) {
-            switch menu {
-            case .checkout, .main, .java, .setting, .nonMenu:
-//                let cell = MenuItemTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: MenuItemTableViewCell.identifier)
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: OrderItemTableViewCell.identifier, for: indexPath) as? OrderItemTableViewCell else { fatalError("xib doesn't exist") }
-
-                cell.setData(self.orderItems[indexPath.row])
-                // Highlighted color
-                let myCustomSelectionColorView = UIView()
-                myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
-                myCustomSelectionColorView.layer.cornerRadius = 8
-                cell.selectedBackgroundView = myCustomSelectionColorView
-                return cell
-            }
-        }
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: OrderItemTableViewCell.identifier, for: indexPath) as? OrderItemTableViewCell else { fatalError("xib doesn't exist") }
+        cell.setData(self.orderItems[indexPath.row])
+        // Highlighted color
+        let myCustomSelectionColorView = UIView()
+        myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
+        myCustomSelectionColorView.layer.cornerRadius = 8
+        cell.selectedBackgroundView = myCustomSelectionColorView
+        return cell
     }
 }

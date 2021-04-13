@@ -362,7 +362,6 @@
 				9BC2F784261C511D00D5CFBC /* SubContentsViewController.storyboard */,
 				9BC2F785261C511E00D5CFBC /* SubContentsViewController.swift */,
 				9BC2F78B261C511F00D5CFBC /* CheckoutViewController.swift */,
-				9B968207261B506800D1980B /* Dashboard */,
 				71528342221334BE004602FF /* ListOrders */,
 				71528335221315F8004602FF /* CreateOrder */,
 				7152835822137C7A004602FF /* ShowOrder */,
@@ -503,13 +502,6 @@
 				9B85808D262183FC00BBC550 /* PromotionsViewController.swift */,
 			);
 			path = Checkout;
-			sourceTree = "<group>";
-		};
-		9B968207261B506800D1980B /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		9B96820D261B52B700D1980B /* Resources */ = {

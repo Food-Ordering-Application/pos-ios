@@ -48,7 +48,7 @@ extension PromotionItemCollectionViewCell {
         primaryView.layer.shadowPath = UIBezierPath(rect: viewBackground.bounds).cgPath
         primaryView.layer.cornerRadius = 15
         primaryView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        primaryView.backgroundColor = .orange.withAlphaComponent(0.1)
+        primaryView.backgroundColor = UIColor.orange.withAlphaComponent(0.1)
         
         // Setup Layout for actionView
         actionView.layer.borderWidth = 1
@@ -56,7 +56,7 @@ extension PromotionItemCollectionViewCell {
         actionView.layer.shadowPath = UIBezierPath(rect: viewBackground.bounds).cgPath
         actionView.layer.cornerRadius = 15
         actionView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        actionView.backgroundColor = .orange.withAlphaComponent(0.1)
+        actionView.backgroundColor = UIColor.orange.withAlphaComponent(0.1)
         
         NSLayoutConstraint.activate([
             actionView.leftAnchor.constraint(equalTo: primaryView.rightAnchor, constant: -1)

@@ -7,21 +7,15 @@
 //
 import BouncyLayout
 import UIKit
+struct ItemCollection {
+    var id: String?
+    var name: String?
+}
 
 class ItemsCollectionViewController: UIViewController {
-    let numberOfItems = 50
-    var randomCellStyle: CellStyle { return arc4random_uniform(10) % 2 == 0 ? .blue : .gray }
-    lazy var style: [CellStyle] = { (0..<self.numberOfItems).map { _ in self.randomCellStyle } }()
-//    lazy var style: [CellStyle] = { (0..<self.numberOfItems).map { _ in .blue } }()
-//    lazy var topOffset: [CGFloat] = { (0..<self.numberOfItems).map { _ in CGFloat(arc4random_uniform(250)) } }()
-    lazy var topOffset: [CGFloat] = { (0..<self.numberOfItems).map { _ in CGFloat(200) } }()
-    
-    lazy var sizes: [CGSize] = {
-        (0..<self.numberOfItems).map { _ in
-//            CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: floor((UIScreen.main.bounds.width - (5 * 10)) / 7))
-            return  CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: 126)
-        }
-    }()
+    let numberOfItems = 20
+    lazy var items: [ItemCollection] = { (0 ..< self.numberOfItems).map { ItemCollection(id: String($0), name: "Hamburger \($0)") } }()
+    lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: 126)
     
     var insets: UIEdgeInsets {
         return UIEdgeInsets(top: 200, left: 0, bottom: 200, right: 0)
@@ -43,13 +37,11 @@ class ItemsCollectionViewController: UIViewController {
         view.delegate = self
         view.dataSource = self
 //        view.register(Cell.self, forCellWithReuseIdentifier: Cell.reuseIdentifier)
-//        view.register(UINib(nibName: ItemCollectionViewCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ItemCollectionViewCell.reuseIdentifier)
         view.register(ItemCollectionViewCell.nib, forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
         return view
     }()
     
     func backgroundColor() -> UIColor {
-//        return UIColor(red: 0 / 255, green: 153 / 255, blue: 202 / 255, alpha: 1)
         return UIColor.white.withAlphaComponent(0.98)
     }
     
@@ -88,19 +80,34 @@ extension ItemsCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        return collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath)
-//        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.reuseIdentifier, for: indexPath)
-        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath)
+//        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath)
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { fatalError("xib doesn't exist") }
+        
+        cell.setCell(self.items[indexPath.row])
+    
+        // Highlighted color
+        let myCustomSelectionColorView = UIView()
+        myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
+        myCustomSelectionColorView.layer.cornerRadius = 8
+        cell.selectedBackgroundView = myCustomSelectionColorView
+        return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? Cell else { return }
-        cell.setCell(style: style[indexPath.row])
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let cell = cell as? ItemCollectionViewCell else { return }
+//        cell.setCell(self.items[indexPath.row])
+//    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Selected menuItem", self.items[indexPath.row])
+        
     }
 }
 
 extension ItemsCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return sizes[indexPath.row]
+        return size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
