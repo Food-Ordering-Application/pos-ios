@@ -55,6 +55,9 @@
 		71F1235B2214EF1C0009FC03 /* ShowOrderViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F123582214EF1C0009FC03 /* ShowOrderViewControllerTests.swift */; };
 		71F1235C2214EF1C0009FC03 /* ShowOrderPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F123592214EF1C0009FC03 /* ShowOrderPresenterTests.swift */; };
 		71F1235D2214EF1C0009FC03 /* ShowOrderInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F1235A2214EF1C0009FC03 /* ShowOrderInteractorTests.swift */; };
+		9B08712B262868A100DD465C /* RadioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B087129262868A100DD465C /* RadioTableViewCell.swift */; };
+		9B08712C262868A100DD465C /* RadioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B08712A262868A100DD465C /* RadioTableViewCell.xib */; };
+		9B087131262868ED00DD465C /* LTHRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B087130262868ED00DD465C /* LTHRadioButton.swift */; };
 		9B15E3A0261C792E00CB252B /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B15E39F261C792E00CB252B /* Cell.swift */; };
 		9B15E3B2261CCF4900CB252B /* ItemsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B15E3B1261CCF4900CB252B /* ItemsCollectionViewController.swift */; };
 		9B3383FE2627F09F00026A36 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3383FD2627F09F00026A36 /* PaddingLabel.swift */; };
@@ -108,6 +111,7 @@
 		9B9926FC262695E000B6FDF9 /* Merchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9926FB262695E000B6FDF9 /* Merchant.swift */; };
 		9B9CF5AB26229B320023C83A /* PromotionItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9CF5A926229B320023C83A /* PromotionItemCollectionViewCell.swift */; };
 		9B9CF5AC26229B320023C83A /* PromotionItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B9CF5AA26229B320023C83A /* PromotionItemCollectionViewCell.xib */; };
+		9BAD8904262870C00003C746 /* SelectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAD8903262870C00003C746 /* SelectionHeaderView.swift */; };
 		9BC1C6DA261D4488006502F8 /* OrderCheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1C6D9261D4488006502F8 /* OrderCheckoutViewController.swift */; };
 		9BC1C6E9261D6925006502F8 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */; };
 		9BC1C6EA261D6925006502F8 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */; };
@@ -220,6 +224,9 @@
 		71F1235A2214EF1C0009FC03 /* ShowOrderInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowOrderInteractorTests.swift; sourceTree = "<group>"; };
 		756B49B95E7629404DAC3C16 /* Pods-smartPOS-smartPOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS-smartPOSUITests.release.xcconfig"; path = "Target Support Files/Pods-smartPOS-smartPOSUITests/Pods-smartPOS-smartPOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		83F7CE37DC57B6E9EFE144C1 /* Pods-smartPOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOSTests.debug.xcconfig"; path = "Target Support Files/Pods-smartPOSTests/Pods-smartPOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9B087129262868A100DD465C /* RadioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioTableViewCell.swift; sourceTree = "<group>"; };
+		9B08712A262868A100DD465C /* RadioTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioTableViewCell.xib; sourceTree = "<group>"; };
+		9B087130262868ED00DD465C /* LTHRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTHRadioButton.swift; sourceTree = "<group>"; };
 		9B15E39F261C792E00CB252B /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		9B15E3B1261CCF4900CB252B /* ItemsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCollectionViewController.swift; sourceTree = "<group>"; };
 		9B3383FD2627F09F00026A36 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
@@ -273,6 +280,7 @@
 		9B9926FB262695E000B6FDF9 /* Merchant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merchant.swift; sourceTree = "<group>"; };
 		9B9CF5A926229B320023C83A /* PromotionItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		9B9CF5AA26229B320023C83A /* PromotionItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PromotionItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		9BAD8903262870C00003C746 /* SelectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionHeaderView.swift; sourceTree = "<group>"; };
 		9BC1C6D9261D4488006502F8 /* OrderCheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCheckoutViewController.swift; sourceTree = "<group>"; };
 		9BC1C6E7261D6925006502F8 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		9BC1C6E8261D6925006502F8 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -728,6 +736,8 @@
 				9BC2F857261C51DC00D5CFBC /* UIViewController.swift */,
 				9B3383FD2627F09F00026A36 /* PaddingLabel.swift */,
 				9BC31F6226280A3B003AAB3A /* UIButton.swift */,
+				9B087130262868ED00DD465C /* LTHRadioButton.swift */,
+				9BAD8903262870C00003C746 /* SelectionHeaderView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -742,6 +752,8 @@
 				9BCB7850261F6D5000AD29E5 /* MenuItemTableViewCell.xib */,
 				9B7E0A5126202E2C00DAEABB /* OrderItemTableViewCell.swift */,
 				9B7E0A5226202E2C00DAEABB /* OrderItemTableViewCell.xib */,
+				9B087129262868A100DD465C /* RadioTableViewCell.swift */,
+				9B08712A262868A100DD465C /* RadioTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -909,6 +921,7 @@
 				9B968236261B559200D1980B /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				9B96823C261B559200D1980B /* Poppins-Bold.ttf in Resources */,
 				9B968230261B559200D1980B /* Poppins-ThinItalic.ttf in Resources */,
+				9B08712C262868A100DD465C /* RadioTableViewCell.xib in Resources */,
 				9BC2F78E261C511F00D5CFBC /* SubContentsViewController.storyboard in Resources */,
 				9BCF66062626AA76008841BA /* MenuItemDetailView.xib in Resources */,
 				9B968234261B559200D1980B /* Poppins-Medium.ttf in Resources */,
@@ -1044,12 +1057,14 @@
 			files = (
 				7152834C221334D8004602FF /* ListOrdersModels.swift in Sources */,
 				9B7E0A5326202E2C00DAEABB /* OrderItemTableViewCell.swift in Sources */,
+				9B087131262868ED00DD465C /* LTHRadioButton.swift in Sources */,
 				7152834D221334D8004602FF /* ListOrdersViewController.swift in Sources */,
 				7152836122137C9B004602FF /* ShowOrderRouter.swift in Sources */,
 				9B9926D02626816000B6FDF9 /* ToppingItem.swift in Sources */,
 				71528354221372BA004602FF /* Order.swift in Sources */,
 				7152834B221334D8004602FF /* ListOrdersRouter.swift in Sources */,
 				9BC2F78F261C511F00D5CFBC /* SubContentsViewController.swift in Sources */,
+				9B08712B262868A100DD465C /* RadioTableViewCell.swift in Sources */,
 				7152834A221334D8004602FF /* ListOrdersWorker.swift in Sources */,
 				9B9926E9262681DD00B6FDF9 /* CouponCode.swift in Sources */,
 				9B9926912625F01900B6FDF9 /* UIView+Nib.swift in Sources */,
@@ -1069,6 +1084,7 @@
 				9B9926A32625F3BD00B6FDF9 /* PresetsDataSource.swift in Sources */,
 				9B15E3A0261C792E00CB252B /* Cell.swift in Sources */,
 				9B9926D52626817B00B6FDF9 /* RestaurantAddress.swift in Sources */,
+				9BAD8904262870C00003C746 /* SelectionHeaderView.swift in Sources */,
 				7152835F22137C9B004602FF /* ShowOrderPresenter.swift in Sources */,
 				7152833E2213167B004602FF /* CreateOrderRouter.swift in Sources */,
 				9BC2F85C261C51DC00D5CFBC /* String.swift in Sources */,
