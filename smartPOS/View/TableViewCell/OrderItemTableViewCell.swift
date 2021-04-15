@@ -26,6 +26,8 @@ class OrderItemTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.layer.cornerRadius = 15
+        btnPlusItem.layer.cornerRadius = 8
+        btnMinusItem.layer.cornerRadius = 8
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -46,10 +48,13 @@ class OrderItemTableViewCell: UITableViewCell {
         self.setup()
     }
     
-    open func setup() {}
+    open func setup() {
+        
+        
+    }
     
     open class func height() -> CGFloat {
-        return 60
+        return 70
     }
     
     open func setData(_ data: OrderItem?) {

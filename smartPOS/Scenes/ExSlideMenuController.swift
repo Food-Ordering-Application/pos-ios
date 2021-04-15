@@ -15,7 +15,7 @@ class ExSlideMenuController : SlideMenuController {
         if let vc = UIApplication.topViewController() {
             if vc is MainViewController ||
             vc is CheckoutViewController ||
-            vc is JavaViewController ||
+            vc is DeliveryOrderViewController ||
             vc is SettingViewController {
                 return true
             }

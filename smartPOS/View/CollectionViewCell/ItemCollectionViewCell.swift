@@ -53,7 +53,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
 
         clipsToBounds = true
     }
-    func setCell(_ data: ItemCollection?) {
+    func setCell(_ data: MenuItem?) {
         if let menuItem = data{
             self.lbName?.text = menuItem.name
             print("Setlected CollectionViewCell", menuItem)

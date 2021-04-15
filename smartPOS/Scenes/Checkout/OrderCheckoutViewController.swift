@@ -10,15 +10,37 @@ import UIKit
 
 class OrderCheckoutViewController: UIViewController {
     @IBOutlet var orderItemsTableView: UITableView!
+ 
+    
+    
     var orderItems: [OrderItem] = [
-        OrderItem(name: "OrderItem1"),
-        OrderItem(name: "OrderItem2"),
-        OrderItem(name: "OrderItem3"),
-        OrderItem(name: "OrderItem4"),
-        OrderItem(name: "OrderItem5")
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy")
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        self.view.layer.borderWidth = 1
+        self.view.layer.borderColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 1)
+        self.view.layer.cornerRadius = 15
+        self.view.layer.shadowPath = UIBezierPath(rect: self.view.bounds).cgPath
+//        self.view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+//        self.view.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
+        
         // Register tableView for xib cell
         setupTableView()
     }

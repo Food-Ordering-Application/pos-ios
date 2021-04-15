@@ -10,7 +10,7 @@ import UIKit
 enum LeftMenu: Int {
     case main = 0
     case checkout
-    case java
+    case deliveryOrder
     case setting
     case nonMenu
 }
@@ -37,7 +37,7 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     ]
     var mainViewController: UIViewController!
     var checkoutViewController: UIViewController!
-    var javaViewController: UIViewController!
+    var deliveryOrderViewController: UIViewController!
     var settingViewController: UIViewController!
     var nonMenuViewController: UIViewController!
     var imageHeaderView: ImageHeaderView!
@@ -61,8 +61,8 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         let checkoutViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
         self.checkoutViewController = UINavigationController(rootViewController: checkoutViewController)
         
-        let javaViewController = storyboard.instantiateViewController(withIdentifier: "JavaViewController") as! JavaViewController
-        self.javaViewController = UINavigationController(rootViewController: javaViewController)
+        let deliveryOrderViewController = storyboard.instantiateViewController(withIdentifier: "DeliveryOrderViewController") as! DeliveryOrderViewController
+        self.deliveryOrderViewController = UINavigationController(rootViewController: deliveryOrderViewController)
         
         let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
         self.settingViewController = UINavigationController(rootViewController: settingViewController)
@@ -109,8 +109,8 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
             self.slideMenuController()?.changeMainViewController(self.checkoutViewController, close: true)
         case .main:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
-        case .java:
-            self.slideMenuController()?.changeMainViewController(self.javaViewController, close: true)
+        case .deliveryOrder:
+            self.slideMenuController()?.changeMainViewController(self.deliveryOrderViewController, close: true)
         case .setting:
             self.slideMenuController()?.changeMainViewController(self.settingViewController, close: true)
         case .nonMenu:
@@ -123,7 +123,7 @@ extension LeftViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .checkout, .main, .java, .setting, .nonMenu:
+            case .checkout, .main, .deliveryOrder, .setting, .nonMenu:
                 return MenuItemTableViewCell.height()
             }
         }
@@ -149,7 +149,7 @@ extension LeftViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             switch menu {
-            case .checkout, .main, .java, .setting, .nonMenu:
+            case .checkout, .main, .deliveryOrder, .setting, .nonMenu:
 //                let cell = MenuItemTableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: MenuItemTableViewCell.identifier)
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: MenuItemTableViewCell.identifier, for: indexPath) as? MenuItemTableViewCell else { fatalError("xib doesn't exist") }
 

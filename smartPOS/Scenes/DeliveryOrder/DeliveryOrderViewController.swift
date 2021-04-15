@@ -1,5 +1,5 @@
 //
-//  JavaViewController.swift
+//  DeliveryOrderViewController.swift
 //  SlideMenuControllerSwift
 //
 //  Created by Yuji Hato on 1/19/15.
@@ -8,10 +8,11 @@
 
 import UIKit
 
-class JavaViewController: UIViewController {
+class DeliveryOrderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
  
     override func viewWillAppear(_ animated: Bool) {
