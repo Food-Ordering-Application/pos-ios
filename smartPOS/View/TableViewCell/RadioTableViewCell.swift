@@ -45,9 +45,9 @@ class RadioTableViewCell: UITableViewCell {
     }
     
     open func setData(_ data: RadioItem?) {
-//        if let menu = data {
-//            self.lbName?.text = menu.name
-//        }
+        if let topping = data {
+            self.lbName?.text = topping.name
+        }
         print(data!)
     }
 }
