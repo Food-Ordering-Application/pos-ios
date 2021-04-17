@@ -6,15 +6,13 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
+import EmptyDataSet_Swift
 import UIKit
-
-class OrderCheckoutViewController: UIViewController {
+class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
     @IBOutlet var orderItemsTableView: UITableView!
- 
-    
-    
+
     var orderItems: [OrderItem] = [
-//        OrderItem(name: "Salad sốt chua cayy"),
+        //        OrderItem(name: "Salad sốt chua cayy"),
 //        OrderItem(name: "Salad sốt chua cayy"),
 //        OrderItem(name: "Salad sốt chua cayy"),
 //        OrderItem(name: "Salad sốt chua cayy"),
@@ -31,18 +29,14 @@ class OrderCheckoutViewController: UIViewController {
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
         self.view.layer.borderWidth = 1
         self.view.layer.borderColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 1)
         self.view.layer.cornerRadius = 15
         self.view.layer.shadowPath = UIBezierPath(rect: self.view.bounds).cgPath
 //        self.view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
 //        self.view.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
-        
-        // Register tableView for xib cell
-        setupTableView()
+
+        self.setupTableView()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -60,11 +54,19 @@ class OrderCheckoutViewController: UIViewController {
     func setupLayout() {
 //        self.addLeftBorder()
     }
-    func setupTableView(){
+
+    // MARK: Register tableView for xib cell
+
+    func setupTableView() {
         self.orderItemsTableView.separatorStyle = .none
         self.orderItemsTableView.register(OrderItemTableViewCell.nib, forCellReuseIdentifier: OrderItemTableViewCell.identifier)
+        self.orderItemsTableView.emptyDataSetView { [weak self] view in
+            if let `self` = self {
+                view.titleLabelString(NSAttributedString.init(string:"Empty!"))
+            }
+        }
     }
-    
+
 //    func addLeftBorder() {
 //        let thickness: CGFloat = 2.0
 //
@@ -73,9 +75,19 @@ class OrderCheckoutViewController: UIViewController {
 //        leftBorder.backgroundColor = UIColor.orange.withAlphaComponent(0.4).cgColor
 //
 //    }
+
+//    MARK: Handle add orderItem to Order
+
+    fileprivate func onAddOrderItem() {
+        let orderItem = OrderItem(id: "0", menuItemId: "menuItemId-123", orderId: "orderId-123", price: 99999.0, discount: 0.0, quantity: 1, note: "Không đường, ít đá")
+        self.orderItems.append(orderItem)
+
+        // Update data in tableView
+        self.orderItemsTableView.reloadData()
+    }
 }
 
-extension OrderCheckoutViewController: UITableViewDelegate {
+extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return OrderItemTableViewCell.height()
     }
@@ -89,9 +101,7 @@ extension OrderCheckoutViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.orderItemsTableView == scrollView {}
     }
-}
 
-extension OrderCheckoutViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.orderItems.count
     }

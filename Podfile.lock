@@ -1,28 +1,62 @@
 PODS:
+  - Alamofire (5.4.1)
   - BouncyLayout (2.3.0)
+  - EmptyDataSet-Swift (5.0.0)
+  - Moya (14.0.0):
+    - Moya/Core (= 14.0.0)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - PromiseKit (6.13.1):
+    - PromiseKit/CorePromise (= 6.13.1)
+    - PromiseKit/Foundation (= 6.13.1)
+    - PromiseKit/UIKit (= 6.13.1)
+  - PromiseKit/CorePromise (6.13.1)
+  - PromiseKit/Foundation (6.13.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.13.1):
+    - PromiseKit/CorePromise
   - QuickLayout (3.0.0)
+  - SkeletonView (1.15.0)
   - SlideMenuControllerSwift (4.0.0)
+  - SnapKit (5.0.1)
   - SwiftEntryKit (1.2.7):
     - QuickLayout (= 3.0.0)
 
 DEPENDENCIES:
   - BouncyLayout
+  - EmptyDataSet-Swift (~> 5.0.0)
+  - Moya
+  - PromiseKit
+  - SkeletonView
   - SlideMenuControllerSwift
+  - SnapKit
   - SwiftEntryKit (= 1.2.7)
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - BouncyLayout
+    - EmptyDataSet-Swift
+    - Moya
+    - PromiseKit
     - QuickLayout
+    - SkeletonView
     - SlideMenuControllerSwift
+    - SnapKit
     - SwiftEntryKit
 
 SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
   BouncyLayout: 946047ef4987959bc107731c665ca4fdcdef5e17
+  EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   QuickLayout: 07b45a72b10083fee3f095990cfed1c1e7b27f0a
+  SkeletonView: cac18a3ac4f893b09d99e65072d806ef08377aae
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftEntryKit: 537c92699d6034efb1ef9c32b11e0b37c97aa589
 
-PODFILE CHECKSUM: 759b0d2b5c4a17d11f4781c77cb9501c4b7350c4
+PODFILE CHECKSUM: fad8018babbe515e21d52d2015e6df313fc65b1b
 
 COCOAPODS: 1.10.1

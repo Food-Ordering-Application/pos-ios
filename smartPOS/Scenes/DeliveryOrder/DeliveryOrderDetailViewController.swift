@@ -6,18 +6,15 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 import UIKit
+import EmptyDataSet_Swift
 
-class DeliveryOrderDetailViewController: UIViewController {
+
+class DeliveryOrderDetailViewController: UIViewController,  EmptyDataSetSource, EmptyDataSetDelegate {
     @IBOutlet weak var orderItemsTableView: UITableView!
     @IBOutlet weak var btnAccept: UIButton!
     @IBOutlet weak var btnReject: UIButton!
     
-    var orderItems: [OrderItem] = [
-        OrderItem(name: "Salad sốt chua cayy"),
-        OrderItem(name: "Salad sốt chua cayy"),
-        OrderItem(name: "Salad sốt chua cayy"),
-        OrderItem(name: "Salad sốt chua cayy"),
-    ]
+    var orderItems: [OrderItem] = [ ]
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupLayout()
@@ -51,10 +48,17 @@ class DeliveryOrderDetailViewController: UIViewController {
     func setupTableView(){
         self.orderItemsTableView.separatorStyle = .none
         self.orderItemsTableView.register(OrderItemTableViewCell.nib, forCellReuseIdentifier: OrderItemTableViewCell.identifier)
+        self.orderItemsTableView.emptyDataSetView { [weak self] view in
+            if let `self` = self {
+                view.titleLabelString(NSAttributedString.init(string:"Empty"))
+            }
+        }
     }
 }
 
-extension DeliveryOrderDetailViewController: UITableViewDelegate {
+
+// MARK: Setting DataSorce And Delegate for TableView
+extension DeliveryOrderDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return OrderItemTableViewCell.height()
     }
@@ -68,9 +72,6 @@ extension DeliveryOrderDetailViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.orderItemsTableView == scrollView {}
     }
-}
-
-extension DeliveryOrderDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.orderItems.count
     }
@@ -86,3 +87,4 @@ extension DeliveryOrderDetailViewController: UITableViewDataSource {
         return cell
     }
 }
+

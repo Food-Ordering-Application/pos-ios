@@ -11,7 +11,11 @@ target 'smartPOS' do
   pod 'SlideMenuControllerSwift'
   pod "BouncyLayout"
   pod 'SwiftEntryKit', '1.2.7'
-  
+  pod 'EmptyDataSet-Swift', '~> 5.0.0'
+  pod 'PromiseKit'
+  pod 'Moya'
+  pod 'SkeletonView'
+  pod 'SnapKit'
   
   target 'smartPOSTests' do
     inherit! :search_paths
@@ -38,4 +42,12 @@ post_install do |installer|
     
     config.build_settings['SWIFT_VERSION'] = '4.0'
   end
+  
+  installer.pods_project.targets.each do |target|
+      if ['SlideMenuControllerSwift'].include? target.name
+        target.build_configurations.each do |config|
+          config.build_settings['SWIFT_VERSION'] = '4.0'
+        end
+      end
+    end
 end
