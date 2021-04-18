@@ -19,7 +19,7 @@ enum OrdersPage {
         var date: String?
         var imgUrl: String?
     }
-    
+   
     // MARK: Fetch orders to display during first page load
 
     enum FetchOrders {

@@ -21,7 +21,7 @@ protocol OrdersPageBusinessLogic {
 }
 
 protocol OrdersPageDataStore {
-    var orders: [Order]? { get }
+    var orders: [Order]? { get set }
 }
 
 final class OrdersPageInteractor: OrdersPageBusinessLogic, OrdersPageDataStore {
@@ -92,7 +92,8 @@ extension OrdersPageInteractor {
     private func getFilteredByStatusOrders(_ orders: [Order]?, orderStatus: OrderStatus = .delivering) -> [Order] {
         guard let orders = orders else { return [] }
 //        let isUpcommingOrder = orderStatus == .delivering ? false : true
-        return orders.filter { $0.status == orderStatus }
+//        return orders.filter { $0.status == orderStatus }
+        return orders
     }
     
     /// Get the filtered launches based on a query search

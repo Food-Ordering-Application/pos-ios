@@ -26,9 +26,8 @@ struct APIManager: GeneralAPI {
     static func callApi<Target: TargetType, ReturnedObject: Decodable>(_ target: Target, dataReturnType: ReturnedObject.Type, test: Bool = false, debugMode: Bool = false) -> Promise<ReturnedObject> {
         let loggerConfig = NetworkLoggerPlugin.Configuration(logOptions: .verbose)
         let networkLogger = NetworkLoggerPlugin(configuration: loggerConfig)
-        let provider = test ? (MoyaProvider<Target>(stubClosure: MoyaProvider.immediatelyStub)) :
+        let provider = true ? (MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(1.0), plugins: [networkLogger])) :
             (debugMode ? MoyaProvider<Target>(plugins: [networkLogger]) : MoyaProvider<Target>())
-        
         return Promise { seal in
             provider.request(target) { result in
                 switch result {
@@ -39,6 +38,7 @@ struct APIManager: GeneralAPI {
                         let results = try decoder.decode(ReturnedObject.self, from: response.data)
                         seal.fulfill(results)
                     } catch {
+                        print(error)
                         seal.reject(error)
                     }
                 case let .failure(error):

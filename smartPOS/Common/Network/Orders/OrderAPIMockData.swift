@@ -12,9 +12,9 @@ extension OrderAPI {
     var sampleData: Data {
         switch self {
         case .getAllOrders:
-            return stubbedResponse("Launches")
+            return stubbedResponse("Orders")
         case .getOrder:
-            return stubbedResponse("Launch")
+            return stubbedResponse("Order")
         }
     }
 }

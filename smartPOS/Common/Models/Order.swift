@@ -27,8 +27,29 @@ struct Order: Codable {
     var createdAt: Date
     var deliveredAt: Date
     var updatedAt: Date
-    
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case customerId = "customer_id"
+        case driverId = "driver_id"
+        case subTotal = "sub_total"
+        case itemDiscount = "item_discount"
+        case shippingFee = "shipping_fee"
+        case serviceFee = "service_fee"
+        case promotionId = "promotion_id"
+        case discount
+        case grandTotal = "grand_total"
+        case customerAddressId = "customer_address_id"
+        case paymentMode = "payment_mode"
+        case paymentType = "payment_type"
+        case status
+        case note
+        case createdAt = "created_at"
+        case deliveredAt = "delivered_at"
+        case updatedAt = "updated_at"
+    }
 }
+
 enum OrderStatus: Int, Codable {
     case draft = 0
     case ordered = 1
@@ -39,6 +60,7 @@ enum OrderStatus: Int, Codable {
     public init(from decoder: Decoder) throws {
         self = try OrderStatus(rawValue: decoder.singleValueContainer().decode(Int.self)) ?? .unknown
     }
+
     static func getType(_ type: Int) -> OrderStatus {
         switch type {
         case 0:
@@ -56,6 +78,7 @@ enum OrderStatus: Int, Codable {
         }
     }
 }
+
 enum PaymentMode: Int, Codable {
     case cod = 0
     case preorder = 1
@@ -64,6 +87,7 @@ enum PaymentMode: Int, Codable {
         self = try PaymentMode(rawValue: decoder.singleValueContainer().decode(Int.self)) ?? .unknown
     }
 }
+
 enum PaymentType: Int, Codable {
     case cod = 0
     case momo = 1
@@ -73,4 +97,3 @@ enum PaymentType: Int, Codable {
         self = try PaymentType(rawValue: decoder.singleValueContainer().decode(Int.self)) ?? .unknown
     }
 }
-

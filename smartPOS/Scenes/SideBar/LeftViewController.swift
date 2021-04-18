@@ -37,7 +37,7 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     ]
     var mainViewController: UIViewController!
     var checkoutViewController: UIViewController!
-    var deliveryOrderViewController: UIViewController!
+    var ordersPageViewController: UIViewController!
     var settingViewController: UIViewController!
     var nonMenuViewController: UIViewController!
     var imageHeaderView: ImageHeaderView!
@@ -61,8 +61,8 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         let checkoutViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
         self.checkoutViewController = UINavigationController(rootViewController: checkoutViewController)
         
-        let deliveryOrderViewController = storyboard.instantiateViewController(withIdentifier: "DeliveryOrderViewController") as! DeliveryOrderViewController
-        self.deliveryOrderViewController = UINavigationController(rootViewController: deliveryOrderViewController)
+        let ordersPageViewController = storyboard.instantiateViewController(withIdentifier: "OrdersPageViewController") as! OrdersPageViewController
+        self.ordersPageViewController = UINavigationController(rootViewController: ordersPageViewController)
         
         let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
         self.settingViewController = UINavigationController(rootViewController: settingViewController)
@@ -110,7 +110,7 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         case .main:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
         case .deliveryOrder:
-            self.slideMenuController()?.changeMainViewController(self.deliveryOrderViewController, close: true)
+            self.slideMenuController()?.changeMainViewController(self.ordersPageViewController, close: true)
         case .setting:
             self.slideMenuController()?.changeMainViewController(self.settingViewController, close: true)
         case .nonMenu:

@@ -13,7 +13,7 @@
 import UIKit
 
 @objc protocol OrdersPageRoutingLogic {
-    func showLaunchPage(for id: String)
+    func showOrderPage(for id: String)
 }
 
 protocol OrdersPageDataPassing {
@@ -26,20 +26,22 @@ class OrdersPageRouter: NSObject, OrdersPageRoutingLogic, OrdersPageDataPassing,
   var dataStore: OrdersPageDataStore?
   
   // MARK: Routing
-  
-    func showLaunchPage(for id: String) {
+    func showOrderPage(for id: String) {
 //        let selectedOrder = dataStore?.orders?.first { $0.id == id }
 //        guard let launch = selectedOrder else { return }
 //
-//        show(nibIdentifier: "SingleLaunchPageViewController") { (destinationVC: SingleLaunchPageViewController) in
+//        show(nibIdentifier: "OrderDetailViewController") { (destinationVC: OrderDetailViewController) in
 //            var destinationDS = destinationVC.router!.dataStore!
 //            self.passDataToLaunchPage(source: launch, destination: &destinationDS)
 //        }
     }
-    
+//
     // MARK: Passing data
     
-//    func passDataToLaunchPage(source: Order, destination: inout SingleLaunchPageDataStore) {
+//    func passDataToLaunchPage(source: Order, destination: inout OrderDetailViewController) {
 //        destination.launch = source
 //    }
+    func passDataToOrdersCollectionView(source: [Order], destination: inout OrdersPageDataStore){
+        destination.orders = source
+    }
 }

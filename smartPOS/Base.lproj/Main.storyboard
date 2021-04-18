@@ -1020,7 +1020,7 @@
                                 <rect key="frame" x="-80" y="-80" width="1104" height="240"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhân viên bán hàng số 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qae-4B-dnG">
-                                        <rect key="frame" x="503" y="180" width="178" height="40"/>
+                                        <rect key="frame" x="493.5" y="180" width="197" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="SVY-Z2-vrx"/>
                                         </constraints>
@@ -1497,10 +1497,10 @@
             </objects>
             <point key="canvasLocation" x="-85" y="6087"/>
         </scene>
-        <!--Delivery Order View Controller-->
+        <!--Orders Page View Controller-->
         <scene sceneID="53L-D2-pu9">
             <objects>
-                <viewController storyboardIdentifier="DeliveryOrderViewController" id="5uT-bh-oBi" customClass="DeliveryOrderViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OrdersPageViewController" id="5uT-bh-oBi" customClass="OrdersPageViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e7t-B5-oAh">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1546,10 +1546,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dFj-2I-yN1"/>
+                    <connections>
+                        <outlet property="orderDetailView" destination="34W-SO-R20" id="3hP-8M-Ro6"/>
+                        <outlet property="ordersConllectionView" destination="XrH-Fl-nDg" id="wrG-l9-PUk"/>
+                        <outlet property="segmentedControlStatus" destination="8Oa-L1-MgD" id="6e2-FE-51x"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yc8-Wl-ahg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2261.71875" y="3837.5"/>
+            <point key="canvasLocation" x="2367" y="3759"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BAk-xC-FA5">
@@ -1602,10 +1607,10 @@
             </objects>
             <point key="canvasLocation" x="1488" y="3838"/>
         </scene>
-        <!--Delivery Order Detail View Controller-->
+        <!--Order Detail View Controller-->
         <scene sceneID="cUP-6p-81R">
             <objects>
-                <viewController storyboardIdentifier="DeliveryOrderDetailViewController" id="g8s-Zh-gWD" customClass="DeliveryOrderDetailViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OrderDetailViewController" id="g8s-Zh-gWD" customClass="OrderDetailViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DVM-9k-1r4">
                         <rect key="frame" x="0.0" y="0.0" width="338" height="718"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1995,19 +2000,25 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addressAreaView" destination="PWZ-TV-a5T" id="DtK-SU-ftQ"/>
                         <outlet property="btnAccept" destination="iRy-iC-jqe" id="8s2-fS-wPZ"/>
                         <outlet property="btnReject" destination="kOk-S3-UHB" id="cBg-g2-dq8"/>
+                        <outlet property="lbOrderId" destination="eYC-93-wP0" id="UtG-BV-TVp"/>
+                        <outlet property="noteAreaView" destination="XJa-Gm-ICq" id="suP-xw-4Tb"/>
                         <outlet property="orderItemsTableView" destination="m6F-Xi-Lrb" id="ySZ-qG-9ud"/>
+                        <outlet property="paymentAreaView" destination="F1m-Zb-a2d" id="YLv-9i-q2d"/>
+                        <outlet property="statusAreaView" destination="2DR-7j-kOt" id="PN9-Dg-2qL"/>
+                        <outlet property="timeAreaView" destination="b9w-jI-jKV" id="zt3-FH-Vzc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jz3-KL-gfa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2727.5390625" y="3854.6875"/>
+            <point key="canvasLocation" x="2842" y="3759"/>
         </scene>
-        <!--Delivery Orders Collection View Controller-->
+        <!--Orders Collection View Controller-->
         <scene sceneID="xNZ-ek-14H">
             <objects>
-                <viewController storyboardIdentifier="DeliveryOrdersCollectionViewController" id="hpS-kN-GeV" customClass="DeliveryOrdersCollectionViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OrdersCollectionViewController" id="hpS-kN-GeV" customClass="OrdersCollectionViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bDC-ym-LmX">
                         <rect key="frame" x="0.0" y="0.0" width="679" height="646"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2017,7 +2028,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I4z-9d-uzx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2262" y="4558"/>
+            <point key="canvasLocation" x="2367" y="4472"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

@@ -26,12 +26,15 @@ extension OrdersNetworkInjected {
 
 protocol OrdersDataManager: class {
     func getOrders(limit: Int?, offset: Int?, _ debugMode: Bool) -> Promise<Orders>
-    func getOrder(flightNumber: Int, _ debugMode: Bool) -> Promise<Order>
+    func getOrder(id: String, _ debugMode: Bool) -> Promise<Order>
 }
 
 extension OrdersDataManager {
     func getOrders(limit: Int? = nil, offset: Int? = nil, _ debugMode: Bool = false) -> Promise<Orders> {
         return getOrders(limit: limit, offset: offset, debugMode)
+    }
+    func getOrder(id: String, _ debugMode: Bool) -> Promise<Order> {
+        return getOrder(id: id, debugMode)
     }
 }
 
@@ -45,16 +48,16 @@ final class OrdersNetworkManager: OrdersDataManager {
     ///   - debugMode: Togles Moya's verbose mode in console
     /// - Returns: Promise containing the launches
     func getOrders(limit: Int?, offset: Int?, _ debugMode: Bool) -> Promise<Orders> {
-        return APIManager.callApi(OrderAPI.getAllOrders(limit: nil, offset: nil), dataReturnType: Orders.self, debugMode: debugMode)
+        return APIManager.callApi(OrderAPI.getAllOrders(limit: nil, offset: nil), dataReturnType: Orders.self,  debugMode: debugMode)
     }
     
     /// Get one specific launch
     ///
     /// - Parameters:
-    ///   - flightNumber: The flight number of the desired launch
+    ///   - id: The id number of the desired order
     ///   - debugMode: Togles Moya's verbose mode in console
     /// - Returns: Promise containing a specific launch
-    func getOrder(flightNumber: Int, _ debugMode: Bool) -> Promise<Order> {
-        return APIManager.callApi(OrderAPI.getOrder(flightNumber: flightNumber), dataReturnType: Order.self, debugMode: debugMode)
+    func getOrder(id: String, _ debugMode: Bool) -> Promise<Order> {
+        return APIManager.callApi(OrderAPI.getOrder(id: id), dataReturnType: Order.self,  debugMode: debugMode)
     }
 }

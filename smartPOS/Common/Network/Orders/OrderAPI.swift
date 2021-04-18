@@ -10,7 +10,7 @@ import Moya
 
 enum OrderAPI {
     case getAllOrders(limit: Int?, offset: Int?)
-    case getOrder(flightNumber: Int)
+    case getOrder(id: String)
 }
 
 extension OrderAPI: TargetType {
@@ -22,9 +22,9 @@ extension OrderAPI: TargetType {
     var path: String {
         switch self {
         case .getAllOrders:
-            return "/launches/"
-        case .getOrder(let flightNumber):
-            return "/launches/\(flightNumber)"
+            return "/orders/"
+        case .getOrder(let id):
+            return "/order/\(id)"
         }
     }
     
@@ -52,6 +52,13 @@ extension OrderAPI: TargetType {
         case .getOrder:
             return .requestPlain
         }
+            
+//        case .getOrder(let id):
+//            var params: [String: Any] = [:]
+//            params["id"] = id
+//            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+//        }
+        
     }
 }
 

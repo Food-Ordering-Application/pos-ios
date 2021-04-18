@@ -23,6 +23,14 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
     var interactor: OrdersPageBusinessLogic?
     var router: (NSObjectProtocol & OrdersPageRoutingLogic & OrdersPageDataPassing)?
     
+    @IBOutlet var segmentedControlStatus: UISegmentedControl!
+    
+    @IBOutlet weak var ordersConllectionView: UIView!
+    @IBOutlet weak var orderDetailView: UIView!
+    
+    // MARK: - Variables
+    var displayedOrders: [OrdersPage.DisplayedOrder] = []
+    
     // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -34,22 +42,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
         super.init(coder: aDecoder)
         setup()
     }
-  
-    // MARK: Setup
-  
-    private func setup() {
-        let viewController = self
-        let interactor = OrdersPageInteractor()
-        let presenter = OrdersPagePresenter()
-        let router = OrdersPageRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
-    }
-  
+
     // MARK: Routing
   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,25 +58,19 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        fetchOrders()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setNavigationBarItem()
+        
     }
   
-    // MARK: Do something
-  
-    // @IBOutlet weak var nameTextField: UITextField!
-  
-    func doSomething() {
-        let request = OrdersPage.FetchOrders.Request()
-        interactor?.fetchOrders(request: request)
-    }
-  
-    func displayOrders(viewModel: OrdersPage.FetchOrders.ViewModel) {
-        // nameTextField.text = viewModel.name
-        print("displayOrders")
-    }
     func displaySearchOrders(viewModel: OrdersPage.SearchOrders.ViewModel) {
         print("displaySearchOrders")
     }
+
     func displayOrdersByStatus(viewModel: OrdersPage.FetchOrdersByStatus.ViewModel) {
         print("displayOrdersByStatus")
     }
@@ -91,6 +78,51 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
     func displayRefreshedOrders(viewModel: OrdersPage.RefreshOrders.ViewModel) {
         print("displayRefreshedOrders")
     }
+}
+
+// MARK: Fetch orders on screen load
+
+extension OrdersPageViewController {
+    // MARK: Fetch Data to display in the orders collection view
+
+    func fetchOrders() {
+        let request = OrdersPage.FetchOrders.Request()
+        interactor?.fetchOrders(request: request)
+    }
     
-   
+    func displayOrders(viewModel: OrdersPage.FetchOrders.ViewModel) {
+        view.hideSkeleton()
+        // MARK: Need to do this func after display orders on collection view
+        setupOrdersDisplay(viewModel: viewModel)
+        print("displayOrders")
+    }
+    
+    private func setupOrdersDisplay(viewModel: OrdersPage.FetchOrders.ViewModel) {
+        guard viewModel.error == nil else {
+            Alert.showUnableToRetrieveDataAlert(on: self)
+            return
+        }
+        NotificationCenter.default.post(name: Notification.Name("FetchOrders"), object: viewModel)
+    }
+}
+
+
+
+// MARK: Setup
+
+private extension OrdersPageViewController {
+    private func setup() {
+        let viewController = self
+        let interactor = OrdersPageInteractor()
+        let presenter = OrdersPagePresenter()
+        let router = OrdersPageRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+
+    }
+    
 }
