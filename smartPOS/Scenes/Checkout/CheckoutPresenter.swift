@@ -24,9 +24,9 @@ class CheckoutPresenter: CheckoutPresentationLogic
   // MARK: Do something
   
   func presentFetchedOrder(response: ListMenuItems.FetchMenuItems.Response) {
-    var displayedMenuItems: [ListMenuItems.FetchMenuItems.ViewModel.DisplayedMenuItem] = []
+    var displayedMenuItems: [ListMenuItems.DisplayedMenuItem] = []
     for menuItem in response.menuItems {
-        let displayedMenuItem = ListMenuItems.FetchMenuItems.ViewModel.DisplayedMenuItem(id: menuItem.id, name: menuItem.name, price: menuItem.price)
+        let displayedMenuItem = ListMenuItems.DisplayedMenuItem(id: menuItem.id, name: menuItem.name, price: menuItem.price)
         displayedMenuItems.append(displayedMenuItem)
     }
     let viewModel = ListMenuItems.FetchMenuItems.ViewModel(displayedMenuItems: displayedMenuItems)

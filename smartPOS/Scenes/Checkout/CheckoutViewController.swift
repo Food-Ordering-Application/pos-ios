@@ -11,74 +11,107 @@
 //
 
 import UIKit
+import SlideMenuControllerSwift
 
 protocol CheckoutDisplayLogic: class {
     func displayFetchedMenuItems(viewModel: ListMenuItems.FetchMenuItems.ViewModel)
 }
 
-class CheckoutViewController: UIViewController, CheckoutDisplayLogic {
-  var interactor: CheckoutBusinessLogic?
-  var router: (NSObjectProtocol & CheckoutRoutingLogic & CheckoutDataPassing)?
+class CheckoutViewController: UIViewController, CheckoutDisplayLogic,  SlideMenuControllerDelegate {
+    var interactor: CheckoutBusinessLogic?
+    var router: (NSObjectProtocol & CheckoutRoutingLogic & CheckoutDataPassing)?
 
-  // MARK: Object lifecycle
+    // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup() {
-    let viewController = self
-    let interactor = CheckoutInteractor()
-    let presenter = CheckoutPresenter()
-    let router = CheckoutRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
   
-  // MARK: View lifecycle
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    fetchMenuItems()
-  }
+    // MARK: Setup
+  
+    private func setup() {
+        let viewController = self
+        let interactor = CheckoutInteractor()
+        let presenter = CheckoutPresenter()
+        let router = CheckoutRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+  
+    // MARK: Routing
+  
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+  
+    // MARK: View lifecycle
+  
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupNavBar()
+        fetchMenuItems()
+    }
     
-  
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 }
-// MARK: Handle Fetch List MenuItems
+// MARK: Fetch menuItems on screen load
+
 extension CheckoutViewController {
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+    // MARK: Fetch Data to display in the orders collection view
+
     func fetchMenuItems() {
         let request = ListMenuItems.FetchMenuItems.Request()
-      interactor?.fetchMenuItems(request: request)
+        interactor?.fetchMenuItems(request: request)
     }
     
     func displayFetchedMenuItems(viewModel: ListMenuItems.FetchMenuItems.ViewModel) {
-      //nameTextField.text = viewModel.name
-      print("displayFetchedMenuItems\(viewModel.displayedMenuItems)")
+        print("displayFetchedMenuItems\(viewModel.displayedMenuItems)")
+        setupMenuItemsDisplay(viewModel: viewModel)
     }
+    
+    
+    private func setupMenuItemsDisplay(viewModel: ListMenuItems.FetchMenuItems.ViewModel) {
+        guard viewModel.error == nil else {
+            Alert.showUnableToRetrieveDataAlert(on: self)
+            return
+        }
+        NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: viewModel)
+    }
+}
 
+
+
+
+// MARK: Setup
+
+private extension CheckoutViewController {
+    func setupNavBar() {
+        navigationItem.title = "Checkout"
+        setNavigationBarItem()
+    }
 }

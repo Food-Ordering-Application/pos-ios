@@ -27,20 +27,22 @@ enum Checkout {
 
 
 enum ListMenuItems {
+    struct DisplayedMenuItem {
+        var id: String
+        var name: String
+        var price: Double
+    }
     enum FetchMenuItems{
         struct Request {
                 
         }
         struct Response {
             var menuItems: [MenuItem]
+            var error: MenuItemErrors?
         }
         struct ViewModel {
-            struct DisplayedMenuItem {
-                var id: String
-                var name: String
-                var price: Double
-            }
             var displayedMenuItems: [DisplayedMenuItem]
+            var error: MenuItemErrors?
         }
     }
 }

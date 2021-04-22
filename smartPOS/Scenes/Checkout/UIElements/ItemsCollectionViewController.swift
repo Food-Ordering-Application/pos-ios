@@ -10,8 +10,6 @@ import SwiftEntryKit
 import UIKit
 
 class ItemsCollectionViewController: UIViewController {
-    let numberOfItems = 20
-    lazy var items: [MenuItem] = { (0 ..< self.numberOfItems).map { MenuItem(id: String($0), name: "Hamburger \($0)", price: Double($0 * 100)) } }()
     lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: 126)
     
     var insets: UIEdgeInsets {
@@ -23,9 +21,11 @@ class ItemsCollectionViewController: UIViewController {
     }
     
     private var dataSource = PresetsDataSource()
-
     
-// MARK: Setup to show list item by colection view controller using Bouncylayout
+    var displayedMenuItems: [ListMenuItems.DisplayedMenuItem] = []
+    
+    // MARK: Setup to show list item by colection view controller using Bouncylayout
+
     lazy var layout = BouncyLayout(style: .regular)
     
     lazy var collectionView: UICollectionView = {
@@ -52,7 +52,15 @@ class ItemsCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setup()
+    }
+}
+
+// MARK: Setup and update
+
+extension ItemsCollectionViewController {
+    
+    func setup(){
         title = "Items Collection"
         view.backgroundColor = .white
         view.clipsToBounds = true
@@ -71,17 +79,77 @@ class ItemsCollectionViewController: UIViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
-        
         dataSource.setup()
+        
+        // MARK: Setup notification to fetchOrders from OrdersPageViewController
+
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationFetchMenuItems(_:)), name: Notification.Name("FetchMenuItems"), object: nil)
     }
-  
+    
+    @objc func didGetNotificationFetchMenuItems(_ notification: Notification) {
+        view.hideSkeleton()
+        let viewModel = notification.object as! ListMenuItems.FetchMenuItems.ViewModel
+        self.displayedMenuItems = viewModel.displayedMenuItems
+        collectionView.reloadData()
+        print("updateData-\(displayedMenuItems)")
+    }
+}
+
+// MARK: Handle data in collection view
+
+extension ItemsCollectionViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return displayedMenuItems.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        return collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath)
+//        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath)
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { fatalError("xib doesn't exist") }
+        
+        cell.setCell(displayedMenuItems[indexPath.row])
+    
+        // Highlighted color
+        let myCustomSelectionColorView = UIView()
+        myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
+        myCustomSelectionColorView.layer.cornerRadius = 8
+        cell.selectedBackgroundView = myCustomSelectionColorView
+        return cell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        guard let cell = cell as? ItemCollectionViewCell else { return }
+//        cell.setCell(self.items[indexPath.row])
+//    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let attributes = dataSource[3, 0].attributes
+        let attributes = createAttributePopup().attributes
+        let menuItem = displayedMenuItems[indexPath.row]
+//        showLightAwesomePopupMessage(attributes: attributes)
+        showOrderItemPopupView(attributes: attributes, data: menuItem)
+    }
+}
+
+extension ItemsCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
 }
 
 // MARK: Handle show popup when touch in item collection cell
 
 extension ItemsCollectionViewController {
-    
-    fileprivate func createAttributePopup() -> PresetDescription{
+    fileprivate func createAttributePopup() -> PresetDescription {
         var attributes: EKAttributes
         var description: PresetDescription
         var descriptionString: String
@@ -102,7 +170,6 @@ extension ItemsCollectionViewController {
         return description
     }
     
-    
     private func showLightAwesomePopupMessage(attributes: EKAttributes) {
         let image = UIImage(named: "ic_done_all_light_48pt")!.withRenderingMode(.alwaysTemplate)
         let title = "Awesome!"
@@ -117,9 +184,8 @@ extension ItemsCollectionViewController {
                          image: image)
     }
     
-    
     // Bumps a custom nib originated view
-    private func showOrderItemPopupView(attributes: EKAttributes, data: MenuItem) {
+    private func showOrderItemPopupView(attributes: EKAttributes, data: ListMenuItems.DisplayedMenuItem) {
         SwiftEntryKit.display(entry: MenuItemDetailView(data), using: attributes)
     }
     
@@ -189,56 +255,5 @@ extension ItemsCollectionViewController {
         }
         let contentView = EKPopUpMessageView(with: message)
         SwiftEntryKit.display(entry: contentView, using: attributes)
-    }
-}
-
-
-extension ItemsCollectionViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfItems
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        return collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath)
-//        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath)
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { fatalError("xib doesn't exist") }
-        
-        cell.setCell(items[indexPath.row])
-    
-        // Highlighted color
-        let myCustomSelectionColorView = UIView()
-        myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
-        myCustomSelectionColorView.layer.cornerRadius = 8
-        cell.selectedBackgroundView = myCustomSelectionColorView
-        return cell
-    }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let cell = cell as? ItemCollectionViewCell else { return }
-//        cell.setCell(self.items[indexPath.row])
-//    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected menuItem", indexPath.section, indexPath.row, items[indexPath.row])
-//        let attributes = dataSource[3, 0].attributes
-        let attributes = self.createAttributePopup().attributes
-        let menuItem = items[indexPath.row]
-//        showLightAwesomePopupMessage(attributes: attributes)
-        showOrderItemPopupView(attributes: attributes, data: menuItem )
-    }
-}
-
-extension ItemsCollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return size
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
     }
 }

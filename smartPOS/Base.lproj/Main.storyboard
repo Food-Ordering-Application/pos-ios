@@ -1020,7 +1020,7 @@
                                 <rect key="frame" x="-80" y="-80" width="1104" height="240"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nhân viên bán hàng số 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qae-4B-dnG">
-                                        <rect key="frame" x="493.5" y="180" width="197" height="40"/>
+                                        <rect key="frame" x="503" y="180" width="178" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="SVY-Z2-vrx"/>
                                         </constraints>
@@ -1117,10 +1117,10 @@
             </objects>
             <point key="canvasLocation" x="-86" y="3194"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Checkout View Controller-->
         <scene sceneID="L7I-Zf-OvN">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="92L-df-aKu" customClass="MainViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CheckoutViewController" id="92L-df-aKu" customClass="CheckoutViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yh0-T1-d1r">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1467,12 +1467,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3RT-Zv-9V0">
-                                <rect key="frame" x="218.5" y="213" width="163" height="52"/>
+                                <rect key="frame" x="201" y="213" width="198" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="xWc-3Q-EHf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="To MainViewController">
+                                <state key="normal" title="To CheckoutViewController">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>

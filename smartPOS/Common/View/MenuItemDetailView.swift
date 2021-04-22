@@ -53,7 +53,7 @@ class MenuItemDetailView: UIView {
         setup()
     }
     
-    init(_ data: MenuItem?) {
+    init(_ data: ListMenuItems.DisplayedMenuItem?) {
         super.init(frame: .zero)
         setup()
         if let menuItem = data {
