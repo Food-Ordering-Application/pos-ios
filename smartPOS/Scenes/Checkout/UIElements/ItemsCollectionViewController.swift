@@ -11,7 +11,7 @@ import UIKit
 
 class ItemsCollectionViewController: UIViewController {
     let numberOfItems = 20
-    lazy var items: [MenuItem] = { (0 ..< self.numberOfItems).map { MenuItem(id: String($0), name: "Hamburger \($0)", price: Float($0 * 100000)) } }()
+    lazy var items: [MenuItem] = { (0 ..< self.numberOfItems).map { MenuItem(id: String($0), name: "Hamburger \($0)", price: Double($0 * 100)) } }()
     lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: 126)
     
     var insets: UIEdgeInsets {

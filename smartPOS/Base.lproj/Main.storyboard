@@ -1077,10 +1077,10 @@
             </objects>
             <point key="canvasLocation" x="1022" y="2538"/>
         </scene>
-        <!--Checkout View Controller-->
+        <!--Delivery View Controller-->
         <scene sceneID="2DP-Bw-hNC">
             <objects>
-                <viewController storyboardIdentifier="CheckoutViewController" id="Iw8-5D-6AA" customClass="CheckoutViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DeliveryViewController" id="Iw8-5D-6AA" customClass="DeliveryViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CEd-wj-1Rt"/>
                         <viewControllerLayoutGuide type="bottom" id="cSx-BV-0Lu"/>

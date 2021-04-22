@@ -12,7 +12,7 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
     @IBOutlet var orderItemsTableView: UITableView!
 
     var orderItems: [OrderItem] = [
-        //        OrderItem(name: "Salad sốt chua cayy"),
+//        OrderItem(name: "Salad sốt chua cayy"),
 //        OrderItem(name: "Salad sốt chua cayy"),
 //        OrderItem(name: "Salad sốt chua cayy"),
 //        OrderItem(name: "Salad sốt chua cayy"),

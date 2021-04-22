@@ -1,166 +1,158 @@
-////
-////  OrdersMemStore.swift
-////  smartPOS
-////
-////  Created by Raymond Law on 2/12/19.
-////  Copyright © 2019 Clean Swift LLC. All rights reserved.
-////
 //
-//import Foundation
+//  OrdersMemStore.swift
+//  smartPOS
 //
-//class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol
-//{
-//  // MARK: - Data
-//  
-//  static var orders = [
-//  ]
-//  
-//  // MARK: - CRUD operations - Optional error
-//  
-//  func fetchOrders(completionHandler: @escaping ([Order], OrdersStoreError?) -> Void)
-//  {
-//    completionHandler(type(of: self).orders, nil)
-//  }
-//  
-//  func fetchOrder(id: String, completionHandler: @escaping (Order?, OrdersStoreError?) -> Void)
-//  {
-//    if let index = indexOfOrderWithID(id: id) {
-//      let order = type(of: self).orders[index]
-//      completionHandler(order, nil)
-//    } else {
-//      completionHandler(nil, OrdersStoreError.CannotFetch("Cannot fetch order with id \(id)"))
-//    }
-//  }
-//  
-//  func createOrder(orderToCreate: Order, completionHandler: @escaping (Order?, OrdersStoreError?) -> Void)
-//  {
-//    var order = orderToCreate
-//    generateOrderID(order: &order)
-//    calculateOrderTotal(order: &order)
-//    type(of: self).orders.append(order)
-//    completionHandler(order, nil)
-//  }
-//  
-//  func updateOrder(orderToUpdate: Order, completionHandler: @escaping (Order?, OrdersStoreError?) -> Void)
-//  {
-//    if let index = indexOfOrderWithID(id: orderToUpdate.id) {
-//      type(of: self).orders[index] = orderToUpdate
-//      let order = type(of: self).orders[index]
-//      completionHandler(order, nil)
-//    } else {
-//      completionHandler(nil, OrdersStoreError.CannotUpdate("Cannot fetch order with id \(String(describing: orderToUpdate.id)) to update"))
-//    }
-//  }
-//  
-//  func deleteOrder(id: String, completionHandler: @escaping (Order?, OrdersStoreError?) -> Void)
-//  {
-//    if let index = indexOfOrderWithID(id: id) {
-//      let order = type(of: self).orders.remove(at: index)
-//      completionHandler(order, nil)
-//      return
-//    }
-//    completionHandler(nil, OrdersStoreError.CannotDelete("Cannot fetch order with id \(id) to delete"))
-//  }
-//  
-//  // MARK: - CRUD operations - Generic enum result type
-//  
-//  func fetchOrders(completionHandler: @escaping OrdersStoreFetchOrdersCompletionHandler)
-//  {
-//    completionHandler(OrdersStoreResult.Success(result: type(of: self).orders))
-//  }
-//  
-//  func fetchOrder(id: String, completionHandler: @escaping OrdersStoreFetchOrderCompletionHandler)
-//  {
-//    let order = type(of: self).orders.filter { (order: Order) -> Bool in
-//      return order.id == id
-//      }.first
-//    if let order = order {
-//      completionHandler(OrdersStoreResult.Success(result: order))
-//    } else {
-//      completionHandler(OrdersStoreResult.Failure(error: OrdersStoreError.CannotFetch("Cannot fetch order with id \(id)")))
-//    }
-//  }
-//  
-//  func createOrder(orderToCreate: Order, completionHandler: @escaping OrdersStoreCreateOrderCompletionHandler)
-//  {
-//    var order = orderToCreate
-//    generateOrderID(order: &order)
-//    calculateOrderTotal(order: &order)
-//    type(of: self).orders.append(order)
-//    completionHandler(OrdersStoreResult.Success(result: order))
-//  }
-//  
-//  func updateOrder(orderToUpdate: Order, completionHandler: @escaping OrdersStoreUpdateOrderCompletionHandler)
-//  {
-//    if let index = indexOfOrderWithID(id: orderToUpdate.id) {
-//      type(of: self).orders[index] = orderToUpdate
-//      let order = type(of: self).orders[index]
-//      completionHandler(OrdersStoreResult.Success(result: order))
-//    } else {
-//      completionHandler(OrdersStoreResult.Failure(error: OrdersStoreError.CannotUpdate("Cannot update order with id \(String(describing: orderToUpdate.id)) to update")))
-//    }
-//  }
-//  
-//  func deleteOrder(id: String, completionHandler: @escaping OrdersStoreDeleteOrderCompletionHandler)
-//  {
-//    if let index = indexOfOrderWithID(id: id) {
-//      let order = type(of: self).orders.remove(at: index)
-//      completionHandler(OrdersStoreResult.Success(result: order))
-//      return
-//    }
-//    completionHandler(OrdersStoreResult.Failure(error: OrdersStoreError.CannotDelete("Cannot delete order with id \(id) to delete")))
-//  }
-//  
-//  // MARK: - CRUD operations - Inner closure
-//  
-//  func fetchOrders(completionHandler: @escaping (() throws -> [Order]) -> Void)
-//  {
-//    completionHandler { return type(of: self).orders }
-//  }
-//  
-//  func fetchOrder(id: String, completionHandler: @escaping (() throws -> Order?) -> Void)
-//  {
-//    if let index = indexOfOrderWithID(id: id) {
-//      completionHandler { return type(of: self).orders[index] }
-//    } else {
-//      completionHandler { throw OrdersStoreError.CannotFetch("Cannot fetch order with id \(id)") }
-//    }
-//  }
-//  
-//  func createOrder(orderToCreate: Order, completionHandler: @escaping (() throws -> Order?) -> Void)
-//  {
-//    var order = orderToCreate
-//    generateOrderID(order: &order)
-//    calculateOrderTotal(order: &order)
-//    type(of: self).orders.append(order)
-//    completionHandler { return order }
-//  }
-//  
-//  func updateOrder(orderToUpdate: Order, completionHandler: @escaping (() throws -> Order?) -> Void)
-//  {
-//    if let index = indexOfOrderWithID(id: orderToUpdate.id) {
-//      type(of: self).orders[index] = orderToUpdate
-//      let order = type(of: self).orders[index]
-//      completionHandler { return order }
-//    } else {
-//      completionHandler { throw OrdersStoreError.CannotUpdate("Cannot fetch order with id \(String(describing: orderToUpdate.id)) to update") }
-//    }
-//  }
-//  
-//  func deleteOrder(id: String, completionHandler: @escaping (() throws -> Order?) -> Void)
-//  {
-//    if let index = indexOfOrderWithID(id: id) {
-//      let order = type(of: self).orders.remove(at: index)
-//      completionHandler { return order }
-//    } else {
-//      completionHandler { throw OrdersStoreError.CannotDelete("Cannot fetch order with id \(id) to delete") }
-//    }
-//  }
+//  Created by Raymond Law on 2/12/19.
+//  Copyright © 2019 Clean Swift LLC. All rights reserved.
 //
-//  // MARK: - Convenience methods
-//  
-//  private func indexOfOrderWithID(id: String?) -> Int?
-//  {
-//    return type(of: self).orders.firstIndex { return $0.id == id }
-//  }
-//}
+
+import Foundation
+
+class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol
+{
+    // MARK: - Data
+  
+    static var orders: [Order] = []
+  
+    // MARK: - CRUD operations - Optional error
+  
+    func fetchOrders(completionHandler: @escaping ([Order], OrdersStoreError?) -> Void) {
+        completionHandler(type(of: self).orders, nil)
+    }
+  
+    func fetchOrder(id: String, completionHandler: @escaping (Order?, OrdersStoreError?) -> Void) {
+        if let index = indexOfOrderWithID(id: id)
+        {
+            let order = type(of: self).orders[index]
+            completionHandler(order, nil)
+        }
+        else
+        {
+            completionHandler(nil, OrdersStoreError.CannotFetch("Cannot fetch order with id \(id)"))
+        }
+    }
+  
+    func createOrder(orderToCreate: Order, completionHandler: @escaping (Order?, OrdersStoreError?) -> Void) {
+        var order = orderToCreate
+        generateOrderID(order: &order)
+        calculateOrderTotal(order: &order)
+        type(of: self).orders.append(order)
+        completionHandler(order, nil)
+    }
+  
+    func updateOrder(orderToUpdate: Order, completionHandler: @escaping (Order?, OrdersStoreError?) -> Void) {
+        if let index = indexOfOrderWithID(id: orderToUpdate.id) {
+            type(of: self).orders[index] = orderToUpdate
+            let order = type(of: self).orders[index]
+            completionHandler(order, nil)
+        }
+        else {
+            completionHandler(nil, OrdersStoreError.CannotUpdate("Cannot fetch order with id \(String(describing: orderToUpdate.id)) to update"))
+        }
+    }
+  
+    func deleteOrder(id: String, completionHandler: @escaping (Order?, OrdersStoreError?) -> Void) {
+        if let index = indexOfOrderWithID(id: id) {
+            let order = type(of: self).orders.remove(at: index)
+            completionHandler(order, nil)
+            return
+        }
+        completionHandler(nil, OrdersStoreError.CannotDelete("Cannot fetch order with id \(id) to delete"))
+    }
+  
+    // MARK: - CRUD operations - Generic enum result type
+  
+    func fetchOrders(completionHandler: @escaping OrdersStoreFetchOrdersCompletionHandler) {
+        completionHandler(OrdersStoreResult.Success(result: type(of: self).orders))
+    }
+  
+    func fetchOrder(id: String, completionHandler: @escaping OrdersStoreFetchOrderCompletionHandler) {
+        let order = type(of: self).orders.filter { (order: Order) -> Bool in
+            order.id == id
+        }.first
+        if let order = order {
+            completionHandler(OrdersStoreResult.Success(result: order))
+        }
+        else {
+            completionHandler(OrdersStoreResult.Failure(error: OrdersStoreError.CannotFetch("Cannot fetch order with id \(id)")))
+        }
+    }
+  
+    func createOrder(orderToCreate: Order, completionHandler: @escaping OrdersStoreCreateOrderCompletionHandler) {
+        var order = orderToCreate
+        generateOrderID(order: &order)
+        calculateOrderTotal(order: &order)
+        type(of: self).orders.append(order)
+        completionHandler(OrdersStoreResult.Success(result: order))
+    }
+  
+    func updateOrder(orderToUpdate: Order, completionHandler: @escaping OrdersStoreUpdateOrderCompletionHandler) {
+        if let index = indexOfOrderWithID(id: orderToUpdate.id) {
+            type(of: self).orders[index] = orderToUpdate
+            let order = type(of: self).orders[index]
+            completionHandler(OrdersStoreResult.Success(result: order))
+        }
+        else {
+            completionHandler(OrdersStoreResult.Failure(error: OrdersStoreError.CannotUpdate("Cannot update order with id \(String(describing: orderToUpdate.id)) to update")))
+        }
+    }
+  
+    func deleteOrder(id: String, completionHandler: @escaping OrdersStoreDeleteOrderCompletionHandler) {
+        if let index = indexOfOrderWithID(id: id) {
+            let order = type(of: self).orders.remove(at: index)
+            completionHandler(OrdersStoreResult.Success(result: order))
+            return
+        }
+        completionHandler(OrdersStoreResult.Failure(error: OrdersStoreError.CannotDelete("Cannot delete order with id \(id) to delete")))
+    }
+  
+    // MARK: - CRUD operations - Inner closure
+  
+    func fetchOrders(completionHandler: @escaping (() throws -> [Order]) -> Void) {
+        completionHandler { type(of: self).orders }
+    }
+  
+    func fetchOrder(id: String, completionHandler: @escaping (() throws -> Order?) -> Void) {
+        if let index = indexOfOrderWithID(id: id) {
+            completionHandler { type(of: self).orders[index] }
+        }
+        else {
+            completionHandler { throw OrdersStoreError.CannotFetch("Cannot fetch order with id \(id)") }
+        }
+    }
+  
+    func createOrder(orderToCreate: Order, completionHandler: @escaping (() throws -> Order?) -> Void) {
+        var order = orderToCreate
+        generateOrderID(order: &order)
+        calculateOrderTotal(order: &order)
+        type(of: self).orders.append(order)
+        completionHandler { order }
+    }
+  
+    func updateOrder(orderToUpdate: Order, completionHandler: @escaping (() throws -> Order?) -> Void) {
+        if let index = indexOfOrderWithID(id: orderToUpdate.id) {
+            type(of: self).orders[index] = orderToUpdate
+            let order = type(of: self).orders[index]
+            completionHandler { order }
+        }
+        else {
+            completionHandler { throw OrdersStoreError.CannotUpdate("Cannot fetch order with id \(String(describing: orderToUpdate.id)) to update") }
+        }
+    }
+  
+    func deleteOrder(id: String, completionHandler: @escaping (() throws -> Order?) -> Void) {
+        if let index = indexOfOrderWithID(id: id) {
+            let order = type(of: self).orders.remove(at: index)
+            completionHandler { order }
+        }
+        else {
+            completionHandler { throw OrdersStoreError.CannotDelete("Cannot fetch order with id \(id) to delete") }
+        }
+    }
+
+    // MARK: - Convenience methods
+  
+    private func indexOfOrderWithID(id: String?) -> Int? {
+        return type(of: self).orders.firstIndex { return $0.id == id }
+    }
+}

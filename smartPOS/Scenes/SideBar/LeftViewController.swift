@@ -36,7 +36,7 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         SideMenuModel(icon: UIImage(named: "store-setting")!, title: "Cài đặt"),
     ]
     var mainViewController: UIViewController!
-    var checkoutViewController: UIViewController!
+    var deliveryViewController: UIViewController!
     var ordersPageViewController: UIViewController!
     var settingViewController: UIViewController!
     var nonMenuViewController: UIViewController!
@@ -58,8 +58,8 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let checkoutViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
-        self.checkoutViewController = UINavigationController(rootViewController: checkoutViewController)
+        let deliveryViewController = storyboard.instantiateViewController(withIdentifier: "DeliveryViewController") as! DeliveryViewController
+        self.deliveryViewController = UINavigationController(rootViewController: deliveryViewController)
         
         let ordersPageViewController = storyboard.instantiateViewController(withIdentifier: "OrdersPageViewController") as! OrdersPageViewController
         self.ordersPageViewController = UINavigationController(rootViewController: ordersPageViewController)
@@ -106,7 +106,7 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     func changeViewController(_ menu: LeftMenu) {
         switch menu {
         case .checkout:
-            self.slideMenuController()?.changeMainViewController(self.checkoutViewController, close: true)
+            self.slideMenuController()?.changeMainViewController(self.deliveryViewController, close: true)
         case .main:
             self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
         case .deliveryOrder:

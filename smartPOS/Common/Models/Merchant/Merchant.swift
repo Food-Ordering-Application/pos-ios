@@ -9,4 +9,5 @@
 import Foundation
 struct Merchant {
     var id: String
+    var name: String
 }
