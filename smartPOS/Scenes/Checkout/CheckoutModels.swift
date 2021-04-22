@@ -13,36 +13,137 @@
 import UIKit
 
 enum Checkout {
-  // MARK: Use cases
-  
-  enum Something {
-    struct Request {
-    }
-    struct Response {
-    }
-    struct ViewModel {
-    }
-  }
-}
-
-
-enum ListMenuItems {
+    
+    
+    // MARK: MenuItems
     struct DisplayedMenuItem {
         var id: String
         var name: String
         var price: Double
     }
-    enum FetchMenuItems{
-        struct Request {
-                
-        }
+
+    enum FetchMenuItems {
+        struct Request {}
+
         struct Response {
             var menuItems: [MenuItem]
             var error: MenuItemErrors?
         }
+
         struct ViewModel {
             var displayedMenuItems: [DisplayedMenuItem]
             var error: MenuItemErrors?
         }
     }
+
+    
+    // MARK: OrderItems
+    
+    struct OrderItemFormFields {
+        var id: String?
+        var menuItemId: String
+        var orderId: String
+        var quantity: Int
+        var price: Double
+        var name: String
+    }
+
+    struct DisplayedOrderItem {
+        var id: String
+        var name: String
+        var price: Double
+        var quantity: Int
+    }
+
+    enum FetchOrderItems {
+        struct Request {
+            var orderId: String
+        }
+
+        struct Responce {
+            var orderItems: [OrderItem]
+            var error: OrderItemErrors?
+        }
+
+        struct ViewModel {
+            var displayedOrderItems: [DisplayedOrderItem]
+            var error: OrderItemErrors?
+        }
+    }
+
+    enum CreateOrderItem {
+        struct Request {
+            var orderItemFormFields: OrderItemFormFields
+        }
+
+        struct Response {
+            var orderItem: OrderItem?
+        }
+
+        struct ViewModel {
+            var orderItem: OrderItem?
+        }
+    }
+    
+    
+    enum CreateOrderAndOrderItems {
+        struct Request {
+            var orderItemsFormFields: [OrderItemFormFields]
+        }
+
+        struct Response {
+            var order: Order?
+            var orderItems: [OrderItem]?
+            var error: OrderItemErrors?
+        }
+
+        struct ViewModel {
+            var order: Order?
+            var orderItems: [OrderItem]?
+            var error: OrderItemErrors?
+        }
+    }
+    
+    
+    enum CreateOrderItems {
+        struct Request {
+            var orderItemsFormFields: [OrderItemFormFields]
+        }
+
+        struct Response {
+            var orderItems: [OrderItem]?
+        }
+
+        struct ViewModel {
+            var orderItems: [OrderItem]?
+        }
+    }
+    
+    enum UpdateOrderItem {
+        struct Request {
+            var orderItemFormFields: OrderItemFormFields
+        }
+
+        struct Response {
+            var orderItem: OrderItem?
+        }
+
+        struct ViewModel {
+            var orderItem: OrderItem?
+        }
+    }
+    enum RemoveOrderItem {
+        struct Request {
+            var id: String
+        }
+
+        struct Response {
+            var orderItem: OrderItem?
+        }
+
+        struct ViewModel {
+            var order: OrderItem?
+        }
+    }
+    
 }

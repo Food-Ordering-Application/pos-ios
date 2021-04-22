@@ -8,10 +8,10 @@
 
 import Foundation
 struct OrderItem {
-    var id: String
+    var id: String?
     var menuItemId: String
     var orderId: String
-    var price: Float
+    var price: Double
     var discount: Float
     var quantity: Int
     var note: String

@@ -10,51 +10,70 @@ import EmptyDataSet_Swift
 import UIKit
 class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
     @IBOutlet var orderItemsTableView: UITableView!
-
-    var orderItems: [OrderItem] = [
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy"),
-//        OrderItem(name: "Salad sốt chua cayy")
-    ]
+    @IBOutlet weak var paymentInfoArea: UIView!
+    @IBOutlet weak var btnCancelOrder: UIButton!
+    @IBOutlet weak var lbPriceOrder: UILabel!
+    
+    var order: Order?
+    var orderItems: [OrderItem] = []
     override func viewDidLoad() {
+        self.setup()
+    }
+}
+
+
+extension OrderCheckoutViewController {
+    func setup() {
         super.viewDidLoad()
         self.view.layer.borderWidth = 1
         self.view.layer.borderColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 1)
         self.view.layer.cornerRadius = 15
         self.view.layer.shadowPath = UIBezierPath(rect: self.view.bounds).cgPath
-//        self.view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
-//        self.view.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
-
         self.setupTableView()
+        self.setupOrderView()
+        
+        // MARK: Notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationCreatedOrderItem(_:)), name: Notification.Name("CreatedOrderItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationCreatedOrderAndOrderItems(_:)), name: Notification.Name("CreatedOrderAndOrderItems"), object: nil)
+
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        self.setupLayout()
-    } /*
-     // MARK: - Navigation
-
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-     }
-     */
-
-    func setupLayout() {
-//        self.addLeftBorder()
+    
+    @objc func didGetNotificationCreatedOrderItem(_ notification: Notification) {
+        let viewModel = notification.object as! Checkout.CreateOrderItem.ViewModel
+        updateDataOrderItem(orderItem: viewModel.orderItem)
     }
-
+    
+    @objc func didGetNotificationCreatedOrderAndOrderItems(_ notification: Notification) {
+        let viewModel = notification.object as! Checkout.CreateOrderAndOrderItems.ViewModel
+        updateDataOrder(order: viewModel.order)
+        updateDataOrderItems(orderItems: viewModel.orderItems)
+    }
+    
+    //    MARK: Handle add orderItem to Order
+ 
+    func updateDataOrder(order: Order?){
+        self.order = order
+        guard let orderId = order!.id else { return }
+        self.lbPriceOrder?.text = String(order!.grandTotal)
+        self.setupOrderView(isHidden: false)
+    }
+    func updateDataOrderItem(orderItem: OrderItem?){
+        self.orderItems.append(orderItem!)
+        self.orderItemsTableView.reloadData()
+    }
+    func updateDataOrderItems(orderItems: [OrderItem]?){
+        self.orderItems = orderItems!
+        self.orderItemsTableView.reloadData()
+    }
+    
+    
+    
+    
+    func setupOrderView(isHidden: Bool = true){
+        btnCancelOrder.isHidden = isHidden
+        paymentInfoArea.isHidden = isHidden
+    }
+    
     // MARK: Register tableView for xib cell
 
     func setupTableView() {
@@ -62,31 +81,11 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
         self.orderItemsTableView.register(OrderItemTableViewCell.nib, forCellReuseIdentifier: OrderItemTableViewCell.identifier)
         self.orderItemsTableView.emptyDataSetView { [weak self] view in
             if let `self` = self {
-                view.titleLabelString(NSAttributedString.init(string:"Empty!"))
+                view.titleLabelString(NSAttributedString(string: "Empty!"))
             }
         }
     }
-
-//    func addLeftBorder() {
-//        let thickness: CGFloat = 2.0
-//
-//        let leftBorder = CALayer()
-//        leftBorder.frame = CGRect(x: 0.0, y: 0.0, width: thickness, height: self.mainView.frame.size.height)
-//        leftBorder.backgroundColor = UIColor.orange.withAlphaComponent(0.4).cgColor
-//
-//    }
-
-//    MARK: Handle add orderItem to Order
-
-    fileprivate func onAddOrderItem() {
-        let orderItem = OrderItem(id: "0", menuItemId: "menuItemId-123", orderId: "orderId-123", price: 99999.0, discount: 0.0, quantity: 1, note: "Không đường, ít đá")
-        self.orderItems.append(orderItem)
-
-        // Update data in tableView
-        self.orderItemsTableView.reloadData()
-    }
 }
-
 extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return OrderItemTableViewCell.height()

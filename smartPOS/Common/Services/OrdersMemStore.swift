@@ -8,8 +8,7 @@
 
 import Foundation
 
-class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol
-{
+class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
     // MARK: - Data
   
     static var orders: [Order] = []

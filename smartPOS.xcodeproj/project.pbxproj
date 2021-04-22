@@ -38,6 +38,8 @@
 		9B57A00E26311B5200D521C1 /* OrderItemsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B57A00D26311B5200D521C1 /* OrderItemsWorker.swift */; };
 		9B57A013263126AF00D521C1 /* MenuItemsMemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B57A012263126AF00D521C1 /* MenuItemsMemStore.swift */; };
 		9B57A01E2631302200D521C1 /* MenuItemErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B57A01D2631302200D521C1 /* MenuItemErrors.swift */; };
+		9B57A023263158FA00D521C1 /* OrderItemErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B57A022263158FA00D521C1 /* OrderItemErrors.swift */; };
+		9B57A02826316ACD00D521C1 /* OrderItemsMemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B57A02726316ACD00D521C1 /* OrderItemsMemStore.swift */; };
 		9B5C543A262ABC8600D7120A /* OrdersPagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C5434262ABC8600D7120A /* OrdersPagePresenter.swift */; };
 		9B5C543B262ABC8600D7120A /* OrdersPageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C5435262ABC8600D7120A /* OrdersPageWorker.swift */; };
 		9B5C543C262ABC8600D7120A /* OrdersPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5C5436262ABC8600D7120A /* OrdersPageRouter.swift */; };
@@ -204,6 +206,8 @@
 		9B57A00D26311B5200D521C1 /* OrderItemsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemsWorker.swift; sourceTree = "<group>"; };
 		9B57A012263126AF00D521C1 /* MenuItemsMemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemsMemStore.swift; sourceTree = "<group>"; };
 		9B57A01D2631302200D521C1 /* MenuItemErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemErrors.swift; sourceTree = "<group>"; };
+		9B57A022263158FA00D521C1 /* OrderItemErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemErrors.swift; sourceTree = "<group>"; };
+		9B57A02726316ACD00D521C1 /* OrderItemsMemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderItemsMemStore.swift; sourceTree = "<group>"; };
 		9B5C5434262ABC8600D7120A /* OrdersPagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersPagePresenter.swift; sourceTree = "<group>"; };
 		9B5C5435262ABC8600D7120A /* OrdersPageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersPageWorker.swift; sourceTree = "<group>"; };
 		9B5C5436262ABC8600D7120A /* OrdersPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersPageRouter.swift; sourceTree = "<group>"; };
@@ -441,8 +445,9 @@
 		7152835522137444004602FF /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				9B57A012263126AF00D521C1 /* MenuItemsMemStore.swift */,
 				7152835622137458004602FF /* OrdersMemStore.swift */,
+				9B57A02726316ACD00D521C1 /* OrderItemsMemStore.swift */,
+				9B57A012263126AF00D521C1 /* MenuItemsMemStore.swift */,
 				71F123422214EAD40009FC03 /* OrdersCoreDataStore.swift */,
 				71F123292214E2720009FC03 /* OrdersAPI.swift */,
 			);
@@ -520,6 +525,7 @@
 			children = (
 				9B5C545F262AC66600D7120A /* OrderErrors.swift */,
 				9B57A01D2631302200D521C1 /* MenuItemErrors.swift */,
+				9B57A022263158FA00D521C1 /* OrderItemErrors.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -1081,6 +1087,7 @@
 				9B3CEC54262BFD1E00273A65 /* OrderDetailInteractor.swift in Sources */,
 				9B99269C2625F2E500B6FDF9 /* UIColor+Utils.swift in Sources */,
 				9B9926DA2626819100B6FDF9 /* RestaurantCategory.swift in Sources */,
+				9B57A023263158FA00D521C1 /* OrderItemErrors.swift in Sources */,
 				9BC2F792261C511F00D5CFBC /* RightViewController.swift in Sources */,
 				9B9926A32625F3BD00B6FDF9 /* PresetsDataSource.swift in Sources */,
 				9B15E3A0261C792E00CB252B /* Cell.swift in Sources */,
@@ -1104,6 +1111,7 @@
 				715283072213143A004602FF /* AppDelegate.swift in Sources */,
 				9BC2F84E261C51CC00D5CFBC /* DataTableViewCell.swift in Sources */,
 				9B9926EE262681EF00B6FDF9 /* PromotionCampaign.swift in Sources */,
+				9B57A02826316ACD00D521C1 /* OrderItemsMemStore.swift in Sources */,
 				9BC2F861261C51DC00D5CFBC /* UIView.swift in Sources */,
 				9B5C543C262ABC8600D7120A /* OrdersPageRouter.swift in Sources */,
 				9BCF66012626AA64008841BA /* MenuItemDetailView.swift in Sources */,

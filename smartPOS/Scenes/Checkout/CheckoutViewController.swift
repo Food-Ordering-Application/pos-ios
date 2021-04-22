@@ -10,17 +10,24 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
 import SlideMenuControllerSwift
+import UIKit
 
 protocol CheckoutDisplayLogic: class {
-    func displayFetchedMenuItems(viewModel: ListMenuItems.FetchMenuItems.ViewModel)
+    func displayFetchedMenuItems(viewModel: Checkout.FetchMenuItems.ViewModel)
+    func displayCreatedOrderItem(viewModel: Checkout.CreateOrderItem.ViewModel)
+    func displayCreatedOrderAndOrderItems(viewModel: Checkout.CreateOrderAndOrderItems.ViewModel)
 }
 
-class CheckoutViewController: UIViewController, CheckoutDisplayLogic,  SlideMenuControllerDelegate {
+class CheckoutViewController: UIViewController, CheckoutDisplayLogic, SlideMenuControllerDelegate {
     var interactor: CheckoutBusinessLogic?
     var router: (NSObjectProtocol & CheckoutRoutingLogic & CheckoutDataPassing)?
 
+    // MARK: Variables
+    
+    var order: Order?
+    var orderItems: [OrderItem]?
+    
     // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -32,22 +39,7 @@ class CheckoutViewController: UIViewController, CheckoutDisplayLogic,  SlideMenu
         super.init(coder: aDecoder)
         setup()
     }
-  
-    // MARK: Setup
-  
-    private func setup() {
-        let viewController = self
-        let interactor = CheckoutInteractor()
-        let presenter = CheckoutPresenter()
-        let router = CheckoutRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
-    }
-  
+
     // MARK: Routing
   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,23 +71,23 @@ class CheckoutViewController: UIViewController, CheckoutDisplayLogic,  SlideMenu
         super.didReceiveMemoryWarning()
     }
 }
+
 // MARK: Fetch menuItems on screen load
 
 extension CheckoutViewController {
     // MARK: Fetch Data to display in the orders collection view
 
     func fetchMenuItems() {
-        let request = ListMenuItems.FetchMenuItems.Request()
+        let request = Checkout.FetchMenuItems.Request()
         interactor?.fetchMenuItems(request: request)
     }
     
-    func displayFetchedMenuItems(viewModel: ListMenuItems.FetchMenuItems.ViewModel) {
+    func displayFetchedMenuItems(viewModel: Checkout.FetchMenuItems.ViewModel) {
         print("displayFetchedMenuItems\(viewModel.displayedMenuItems)")
         setupMenuItemsDisplay(viewModel: viewModel)
     }
     
-    
-    private func setupMenuItemsDisplay(viewModel: ListMenuItems.FetchMenuItems.ViewModel) {
+    private func setupMenuItemsDisplay(viewModel: Checkout.FetchMenuItems.ViewModel) {
         guard viewModel.error == nil else {
             Alert.showUnableToRetrieveDataAlert(on: self)
             return
@@ -104,14 +96,86 @@ extension CheckoutViewController {
     }
 }
 
+// MARK: Create Order and OrderItem
 
+extension CheckoutViewController {
+    func createOrderAndOrderItems(orderItems: [OrderItem]) {
+        print("Create OrderItems\(orderItems)")
+        var orderItemsFormFields: [Checkout.OrderItemFormFields] = []
+        for orderItem in orderItems {
+            let orderItemFormFields = Checkout.OrderItemFormFields(menuItemId: orderItem.menuItemId, orderId: orderItem.orderId, quantity: orderItem.quantity, price: orderItem.price, name: orderItem.note)
+            orderItemsFormFields.append(orderItemFormFields)
+        }
+        let request = Checkout.CreateOrderAndOrderItems.Request(orderItemsFormFields: orderItemsFormFields)
+        
+        interactor?.createOrderAndOrderItems(request: request)
+    }
+    
+    func createOrderItem(_ data: OrderItem?) {
+        // MARK: Check already Order to add OrderItem
 
+        guard var orderItem = data else { return }
+        guard let order = self.order else {
+            createOrderAndOrderItems(orderItems: [orderItem])
+            return
+        }
+        let orderId = order.id ?? ""
+        orderItem.orderId = orderId
+        print("createOrderItem-\(orderItem)")
+        let orderItemFormFields = Checkout.OrderItemFormFields(id: orderItem.id, menuItemId: orderItem.menuItemId, orderId: orderItem.orderId, quantity: orderItem.quantity, price: orderItem.price, name: orderItem.note)
+        let request = Checkout.CreateOrderItem.Request(orderItemFormFields: orderItemFormFields)
+        interactor?.createOrderItem(request: request)
+    }
+
+    func displayCreatedOrderItem(viewModel: Checkout.CreateOrderItem.ViewModel) {
+        print("displayCreatedOrderItem\(viewModel)")
+        let orderItem = viewModel.orderItem
+        self.orderItems?.append(orderItem!)
+        NotificationCenter.default.post(name: Notification.Name("CreatedOrderItem"), object: viewModel)
+    }
+    
+    func displayCreatedOrderAndOrderItems(viewModel: Checkout.CreateOrderAndOrderItems.ViewModel){
+        print("displayCreatedOrderAndOrderItems")
+        self.order = viewModel.order
+        self.orderItems = viewModel.orderItems
+        NotificationCenter.default.post(name: Notification.Name("CreatedOrderAndOrderItems"), object: viewModel)
+    }
+    
+}
 
 // MARK: Setup
 
 private extension CheckoutViewController {
+    private func setup() {
+        let viewController = self
+        let interactor = CheckoutInteractor()
+        let presenter = CheckoutPresenter()
+        let router = CheckoutRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+        
+        // Notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationCreateOrderItem(_:)), name: Notification.Name("CreateOrderItem"), object: nil)
+    }
+
     func setupNavBar() {
         navigationItem.title = "Checkout"
         setNavigationBarItem()
+    }
+
+    @objc func didGetNotificationCreateOrderItem(_ notification: Notification) {
+        let viewModel = notification.object as! Checkout.DisplayedMenuItem
+        print("didGetNotificationCreateOrderItem-\(viewModel)")
+        let orderItem = orderItemConvetter(menuItem: viewModel)
+        createOrderItem(orderItem)
+    }
+    
+    func orderItemConvetter(menuItem: Checkout.DisplayedMenuItem) -> OrderItem {
+        let orderItem = OrderItem(id: "", menuItemId: menuItem.id, orderId: "Order-123", price: menuItem.price, discount: 0.0, quantity: 1, note: "Nothing to note")
+        return orderItem
     }
 }

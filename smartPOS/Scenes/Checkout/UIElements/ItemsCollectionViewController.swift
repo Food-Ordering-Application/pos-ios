@@ -22,7 +22,7 @@ class ItemsCollectionViewController: UIViewController {
     
     private var dataSource = PresetsDataSource()
     
-    var displayedMenuItems: [ListMenuItems.DisplayedMenuItem] = []
+    var displayedMenuItems: [Checkout.DisplayedMenuItem] = []
     
     // MARK: Setup to show list item by colection view controller using Bouncylayout
 
@@ -88,7 +88,7 @@ extension ItemsCollectionViewController {
     
     @objc func didGetNotificationFetchMenuItems(_ notification: Notification) {
         view.hideSkeleton()
-        let viewModel = notification.object as! ListMenuItems.FetchMenuItems.ViewModel
+        let viewModel = notification.object as! Checkout.FetchMenuItems.ViewModel
         self.displayedMenuItems = viewModel.displayedMenuItems
         collectionView.reloadData()
         print("updateData-\(displayedMenuItems)")
@@ -103,9 +103,6 @@ extension ItemsCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        return collectionView.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath)
-//        return collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath)
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { fatalError("xib doesn't exist") }
         
         cell.setCell(displayedMenuItems[indexPath.row])
@@ -117,11 +114,7 @@ extension ItemsCollectionViewController: UICollectionViewDataSource {
         cell.selectedBackgroundView = myCustomSelectionColorView
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        guard let cell = cell as? ItemCollectionViewCell else { return }
-//        cell.setCell(self.items[indexPath.row])
-//    }
+
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let attributes = dataSource[3, 0].attributes
@@ -170,90 +163,9 @@ extension ItemsCollectionViewController {
         return description
     }
     
-    private func showLightAwesomePopupMessage(attributes: EKAttributes) {
-        let image = UIImage(named: "ic_done_all_light_48pt")!.withRenderingMode(.alwaysTemplate)
-        let title = "Awesome!"
-        let description = "You are using SwiftEntryKit, and this is a pop up with important content"
-        showPopupMessage(attributes: attributes,
-                         title: title,
-                         titleColor: .white,
-                         description: description,
-                         descriptionColor: .white,
-                         buttonTitleColor: Color.Gray.mid,
-                         buttonBackgroundColor: .white,
-                         image: image)
-    }
-    
     // Bumps a custom nib originated view
-    private func showOrderItemPopupView(attributes: EKAttributes, data: ListMenuItems.DisplayedMenuItem) {
+    private func showOrderItemPopupView(attributes: EKAttributes, data: Checkout.DisplayedMenuItem) {
         SwiftEntryKit.display(entry: MenuItemDetailView(data), using: attributes)
     }
-    
-    private func showPopupMessage(attributes: EKAttributes,
-                                  title: String,
-                                  titleColor: EKColor,
-                                  description: String,
-                                  descriptionColor: EKColor,
-                                  buttonTitleColor: EKColor,
-                                  buttonBackgroundColor: EKColor,
-                                  image: UIImage? = nil)
-    {
-        var themeImage: EKPopUpMessage.ThemeImage?
-        
-        if let image = image {
-            themeImage = EKPopUpMessage.ThemeImage(
-                image: EKProperty.ImageContent(
-                    image: image,
-                    displayMode: .light,
-                    size: CGSize(width: 60, height: 60),
-                    tint: titleColor,
-                    contentMode: .scaleAspectFit
-                )
-            )
-        }
-        let title = EKProperty.LabelContent(
-            text: title,
-            style: .init(
-                font: MainFont.medium.with(size: 24),
-                color: titleColor,
-                alignment: .center,
-                displayMode: .light
-            ),
-            accessibilityIdentifier: "title"
-        )
-        let description = EKProperty.LabelContent(
-            text: description,
-            style: .init(
-                font: MainFont.light.with(size: 16),
-                color: descriptionColor,
-                alignment: .center,
-                displayMode: .light
-            ),
-            accessibilityIdentifier: "description"
-        )
-        let button = EKProperty.ButtonContent(
-            label: .init(
-                text: "Got it!",
-                style: .init(
-                    font: MainFont.bold.with(size: 16),
-                    color: buttonTitleColor,
-                    displayMode: .light
-                )
-            ),
-            backgroundColor: buttonBackgroundColor,
-            highlightedBackgroundColor: buttonTitleColor.with(alpha: 0.05),
-            displayMode: .light,
-            accessibilityIdentifier: "button"
-        )
-        let message = EKPopUpMessage(
-            themeImage: themeImage,
-            title: title,
-            description: description,
-            button: button
-        ) {
-            SwiftEntryKit.dismiss()
-        }
-        let contentView = EKPopUpMessageView(with: message)
-        SwiftEntryKit.display(entry: contentView, using: attributes)
-    }
+
 }

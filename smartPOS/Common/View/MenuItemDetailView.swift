@@ -13,10 +13,10 @@ struct RadioGroup {
     var title: String =  "Group 1"
     var radioItems: [RadioItem] = [RadioItem(name: "Topping 1"), RadioItem(name: "Topping 2")]
 }
-
 struct RadioItem {
     var name: String = "Topping 1"
 }
+
 
 
 class MenuItemDetailView: UIView {
@@ -38,6 +38,7 @@ class MenuItemDetailView: UIView {
         RadioGroup(title: "Group 4")
     ]
     
+    var displayedMenuItem: Checkout.DisplayedMenuItem?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -53,10 +54,11 @@ class MenuItemDetailView: UIView {
         setup()
     }
     
-    init(_ data: ListMenuItems.DisplayedMenuItem?) {
+    init(_ data: Checkout.DisplayedMenuItem?) {
         super.init(frame: .zero)
         setup()
         if let menuItem = data {
+            self.displayedMenuItem = menuItem
             self.lbName!.text = menuItem.name
             self.lbPrice!.text = String(menuItem.price)
         }
@@ -85,10 +87,17 @@ class MenuItemDetailView: UIView {
     }
     @IBAction func doAddMenuItem(_ sender: Any) {
         print("Iam doAddMemuItem")
+        NotificationCenter.default.post(name: Notification.Name("CreateOrderItem"), object: displayedMenuItem)
         SwiftEntryKit.dismiss()
     }
     
 }
+//MARK: Fetch MenuItemDetail when view on Load
+extension MenuItemDetailView {
+    
+}
+
+
 
 // MARK: Setting for Table View
 

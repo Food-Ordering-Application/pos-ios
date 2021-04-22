@@ -22,6 +22,18 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol
         MenuItem(id: "ABC-456", menu: menu, name: "Pizza", description: "Nothing to show more", price: 49000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
         MenuItem(id: "ABC-567", menu: menu, name: "Pizza", description: "Nothing to show more", price: 45000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
         MenuItem(id: "ABC-678", menu: menu, name: "Pizza", description: "Nothing to show more", price: 30000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "DEF-123", menu: menu, name: "Pizza", description: "Nothing to show more", price: 2000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "DEF-234", menu: menu, name: "Hamburger", description: "Nothing to show more", price: 10000, imageUrl: "hamburger", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "DEF-345", menu: menu, name: "Hamburger", description: "Nothing to show more", price: 200000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "DEF-456", menu: menu, name: "Pizza", description: "Nothing to show more", price: 49000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "DEF-567", menu: menu, name: "Pizza", description: "Nothing to show more", price: 45000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "DEF-678", menu: menu, name: "Pizza", description: "Nothing to show more", price: 30000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "LVH-123", menu: menu, name: "Pizza", description: "Nothing to show more", price: 2000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "LVH-234", menu: menu, name: "Hamburger", description: "Nothing to show more", price: 10000, imageUrl: "hamburger", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "LVH-345", menu: menu, name: "Hamburger", description: "Nothing to show more", price: 200000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "LVH-456", menu: menu, name: "Pizza", description: "Nothing to show more", price: 49000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "LVH-567", menu: menu, name: "Pizza", description: "Nothing to show more", price: 45000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
+        MenuItem(id: "LVH-678", menu: menu, name: "Pizza", description: "Nothing to show more", price: 30000, imageUrl: "pizza", numLikes: 100, index: 1, isActive: true),
     ]
   
     // MARK: - CRUD operations - Optional error
@@ -31,13 +43,11 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol
     }
   
     func fetchMenuItem(id: String, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void) {
-        if let index = indexOfMenuItemWithID(id: id)
-        {
+        if let index = indexOfMenuItemWithID(id: id) {
             let menuItem = type(of: self).menuItems[index]
             completionHandler(menuItem, nil)
         }
-        else
-        {
+        else {
             completionHandler(nil, MenuItemsStoreError.CannotFetch("Cannot fetch menuItem with id \(id)"))
         }
     }

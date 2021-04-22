@@ -12,13 +12,13 @@ struct Order: Codable {
     var id: String?
     var customerId: String
     var driverId: String
-    var subTotal: Int32
+    var subTotal: Double
     var itemDiscount: Float
     var shippingFee: Float
     var serviceFee: Float
     var promotionId: String
     var discount: Float
-    var grandTotal: Int32
+    var grandTotal: Double
     var customerAddressId: String
     var paymentMode: PaymentMode
     var paymentType: PaymentType

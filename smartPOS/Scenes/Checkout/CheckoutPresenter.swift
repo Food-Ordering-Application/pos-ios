@@ -12,24 +12,39 @@
 
 import UIKit
 
-protocol CheckoutPresentationLogic
-{
-    func presentFetchedOrder(response: ListMenuItems.FetchMenuItems.Response)
+protocol CheckoutPresentationLogic {
+    func presentFetchedOrder(response: Checkout.FetchMenuItems.Response)
+    func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response)
+    func presentCreateOrderAndOrderItem(response: Checkout.CreateOrderAndOrderItems.Response)
 }
 
-class CheckoutPresenter: CheckoutPresentationLogic
-{
-  weak var viewController: CheckoutDisplayLogic?
+class CheckoutPresenter: CheckoutPresentationLogic {
+    
+    
+    weak var viewController: CheckoutDisplayLogic?
   
-  // MARK: Do something
+    // MARK: Do something
   
-  func presentFetchedOrder(response: ListMenuItems.FetchMenuItems.Response) {
-    var displayedMenuItems: [ListMenuItems.DisplayedMenuItem] = []
-    for menuItem in response.menuItems {
-        let displayedMenuItem = ListMenuItems.DisplayedMenuItem(id: menuItem.id, name: menuItem.name, price: menuItem.price)
-        displayedMenuItems.append(displayedMenuItem)
+    func presentFetchedOrder(response: Checkout.FetchMenuItems.Response) {
+        var displayedMenuItems: [Checkout.DisplayedMenuItem] = []
+        for menuItem in response.menuItems {
+            let displayedMenuItem = Checkout.DisplayedMenuItem(id: menuItem.id, name: menuItem.name, price: menuItem.price)
+            displayedMenuItems.append(displayedMenuItem)
+        }
+        let viewModel = Checkout.FetchMenuItems.ViewModel(displayedMenuItems: displayedMenuItems)
+        viewController?.displayFetchedMenuItems(viewModel: viewModel)
     }
-    let viewModel = ListMenuItems.FetchMenuItems.ViewModel(displayedMenuItems: displayedMenuItems)
-    viewController?.displayFetchedMenuItems(viewModel: viewModel)
-  }
+    
+    func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response) {
+//        var displayedOrderItems: [Checkout.DisplayedOrderItem] = []
+        let orderItem = response.orderItem
+        let viewModel = Checkout.CreateOrderItem.ViewModel(orderItem: orderItem)
+        viewController?.displayCreatedOrderItem(viewModel: viewModel)
+    }
+    func presentCreateOrderAndOrderItem(response: Checkout.CreateOrderAndOrderItems.Response) {
+        let orderItems = response.orderItems
+        let order = response.order
+        let viewModel = Checkout.CreateOrderAndOrderItems.ViewModel(order: order, orderItems: orderItems, error: response.error)
+        viewController?.displayCreatedOrderAndOrderItems(viewModel: viewModel)
+    }
 }

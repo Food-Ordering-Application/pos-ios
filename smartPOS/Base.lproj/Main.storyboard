@@ -1401,7 +1401,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnCancelOrder" destination="RKz-FY-glP" id="wKx-Ut-hTX"/>
+                        <outlet property="lbPriceOrder" destination="x98-2A-yLm" id="Mk8-kh-ZUO"/>
                         <outlet property="orderItemsTableView" destination="H6Q-Lf-KBj" id="l88-eT-VLW"/>
+                        <outlet property="paymentInfoArea" destination="zdm-AR-DFe" id="NhS-M1-B3M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6mG-ub-MhW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

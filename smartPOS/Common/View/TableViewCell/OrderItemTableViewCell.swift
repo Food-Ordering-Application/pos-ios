@@ -56,13 +56,11 @@ class OrderItemTableViewCell: UITableViewCell {
     }
     
     open func setData(_ data: OrderItem?) {
-//        self.backgroundColor = UIColor(hex: "F1F8E9")
-//        self.textLabel?.font = UIFont.init(name: "Poppins-Regular", size: 18)
-//        self.lbText?.textColor = UIColor(hex: "9E9E9E")
         if let orderItem = data {
-//            self.lbName?.text = 
+            self.lbName?.text = "No name field"
+            self.lbPrice?.text = String(orderItem.price)
+            self.lbAmount?.text = String(orderItem.quantity)
         }
-        print(data!)
     }
     
     override open func setHighlighted(_ highlighted: Bool, animated: Bool) {
