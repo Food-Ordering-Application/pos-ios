@@ -233,6 +233,11 @@
             <point key="canvasLocation" x="-575.36231884057975" y="-440.625"/>
         </collectionViewCell>
     </objects>
+    <designables>
+        <designable name="dR0-ZK-Mbc">
+            <size key="intrinsicContentSize" width="94" height="21"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -33,8 +33,9 @@ class NumPadViewController: UIViewController {
     }()
     
     lazy var numPad: NumPad = { [unowned self] in
-        let numPad = DefaultNumPad()
+        let numPad = NumPad(frame: CGRect(x: 0, y: 0, width: 340, height: 800))
         numPad.delegate = self
+        numPad.dataSource = self
         numPad.translatesAutoresizingMaskIntoConstraints = false
         numPad.backgroundColor = self.borderColor
         self.containerView.addSubview(numPad)
@@ -60,7 +61,18 @@ class NumPadViewController: UIViewController {
     
 }
 
-extension NumPadViewController: NumPadDelegate {
+extension NumPadViewController: NumPadDelegate, NumPadDataSource {
+    func numPad(_ numPad: NumPad, itemAtPosition position: Position) -> Item {
+        return Item(title: "1")
+    }
+    
+    func numPad(_ numPad: NumPad, numberOfColumnsInRow row: Row) -> Int {
+        return 4
+    }
+    
+    func numberOfRowsInNumPad(_ numPad: NumPad) -> Int {
+        return 5
+    }
     
     func numPad(_ numPad: NumPad, itemTapped item: Item, atPosition position: Position) {
         switch (position.row, position.column) {

@@ -35,10 +35,9 @@ class ItemCollectionViewCell: UICollectionViewCell {
         viewBackground.layer.shadowOffset = .zero
         viewBackground.layer.shadowOpacity = 0.4
         viewBackground.layer.shouldRasterize = true
-        viewBackground.layer.cornerRadius = 15
-
+        viewBackground.layer.cornerRadius = 8
         viewBackground.backgroundColor = .white
-
+         
         top.constant = 5
         left.constant = 10
         bottom.constant = -5
@@ -49,13 +48,12 @@ class ItemCollectionViewCell: UICollectionViewCell {
 
         clipsToBounds = true
     }
+
     func setCell(_ data: Checkout.DisplayedMenuItem?) {
-        if let menuItem = data{
-            self.lbName?.text = menuItem.name
-            self.lbPrice?.text = String(menuItem.price)
+        if let menuItem = data {
+            lbName?.text = menuItem.name
+            lbPrice?.text = String(menuItem.price)
             print("Setlected CollectionViewCell", menuItem)
         }
     }
-    
-
 }

@@ -10,7 +10,7 @@ import BouncyLayout
 import SkeletonView
 import UIKit
 class OrdersCollectionViewController: UIViewController {
-    lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (2 * 10)) / 4), height: 126)
+    lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (2 * 10)) / 4), height: 140)
     
     // MARK: Setup to show list item by colection view controller using Bouncylayout
 
