@@ -6,19 +6,47 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
+import BouncyLayout
+import SwiftEntryKit
 import EmptyDataSet_Swift
 import UIKit
+import NumPad
+
+
+
 class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
     @IBOutlet var orderItemsTableView: UITableView!
-    @IBOutlet weak var paymentInfoArea: UIView!
+//    @IBOutlet weak var paymentInfoArea: UIView!
     @IBOutlet weak var btnCancelOrder: UIButton!
-    @IBOutlet weak var lbPriceOrder: UILabel!
+    @IBOutlet weak var lbTotal: UILabel!
+    @IBOutlet weak var lbTax: UILabel!
+    @IBOutlet weak var lbDiscounts: UILabel!
+    @IBOutlet weak var lbSubTotal: UILabel!
+    @IBOutlet weak var paymentMethod: UISegmentedControl!
+    
+    @IBOutlet weak var cashPaymentArea: UIStackView!
+    
+    @IBOutlet weak var lbReceivedCash: UILabel!
+    @IBOutlet weak var lbExcessCash: UILabel!
+    
+    @IBOutlet weak var btnPayment: UIButton!
     
     var order: Order?
     var orderItems: [OrderItem] = []
     override func viewDidLoad() {
         self.setup()
     }
+    
+    
+    @IBAction func doPlaceOrder(_ sender: Any) {
+        let attributes = createAttributePopup().attributes
+        
+        
+        self.showInputPadPopup(attributes: attributes)
+        print("doPlaceOrder")
+    }
+    
+    
 }
 
 
@@ -54,7 +82,7 @@ extension OrderCheckoutViewController {
     func updateDataOrder(order: Order?){
         self.order = order
         guard let orderId = order!.id else { return }
-        self.lbPriceOrder?.text = String(order!.grandTotal)
+        self.lbTotal?.text = String(order!.grandTotal)
         self.setupOrderView(isHidden: false)
     }
     func updateDataOrderItem(orderItem: OrderItem?){
@@ -71,7 +99,7 @@ extension OrderCheckoutViewController {
     
     func setupOrderView(isHidden: Bool = true){
         btnCancelOrder.isHidden = isHidden
-        paymentInfoArea.isHidden = isHidden
+//        paymentInfoArea.isHidden = isHidden
     }
     
     // MARK: Register tableView for xib cell
@@ -86,6 +114,41 @@ extension OrderCheckoutViewController {
         }
     }
 }
+
+
+
+// MARK: Handle show Numpad when touch in btnPayment
+
+extension OrderCheckoutViewController {
+    fileprivate func createAttributePopup() -> PresetDescription {
+        var attributes: EKAttributes
+        var description: PresetDescription
+        var descriptionString: String
+        var descriptionThumb: String
+
+        // Preset I
+        attributes = PresetsDataSource().bottomAlertAttributes
+        attributes.displayMode = .light
+        attributes.entryBackground = .color(color: .musicBackground)
+        descriptionString = "Bottom floating popup with dimmed background."
+        descriptionThumb = "ic_bottom_popup"
+        description = .init(
+            with: attributes,
+            title: "Pop Up I",
+            description: descriptionString,
+            thumb: descriptionThumb
+        )
+        return description
+    }
+    
+    // Bumps a custom nib originated view
+    private func showInputPadPopup(attributes: EKAttributes) {
+        let numpadViewController = NumPadViewController()
+        SwiftEntryKit.display(entry: numpadViewController , using: attributes)
+    }
+
+}
+// MARK: Setup tableview for OrderItems
 extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return OrderItemTableViewCell.height()

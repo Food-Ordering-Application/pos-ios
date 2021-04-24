@@ -20,4 +20,18 @@ extension String {
     var length: Int {
         return self.count
     }
+
+    func currency() -> String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        let digits = NSDecimalNumber(string: sanitized())
+        let place = NSDecimalNumber(value: powf(10, 2))
+        return formatter.string(from: digits.dividing(by: place))
+    }
+       
+    func sanitized() -> String {
+        return filter { "01234567890".contains($0) }
+    }
 }

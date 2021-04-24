@@ -6,61 +6,62 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
-import UIKit
 import SwiftEntryKit
+import UIKit
 
 struct RadioGroup {
-    var title: String =  "Group 1"
+    var title: String = "Group 1"
     var radioItems: [RadioItem] = [RadioItem(name: "Topping 1"), RadioItem(name: "Topping 2")]
 }
+
 struct RadioItem {
     var name: String = "Topping 1"
 }
 
-
-
 class MenuItemDetailView: UIView {
-    
     @IBOutlet var contenView: UIView!
-    @IBOutlet weak var btnAdd: UIButton!
-    @IBOutlet weak var lbName: UILabel!
-    @IBOutlet weak var lbPrice: UILabel!
-    @IBOutlet weak var lbWeight: UILabel!
-    @IBOutlet weak var imageItem: UIImageView!
-    @IBOutlet weak var tableViewTopping: UITableView!
+    @IBOutlet var btnAdd: UIButton!
+    @IBOutlet var lbName: UILabel!
+    @IBOutlet var lbPrice: UILabel!
+    @IBOutlet var lbWeight: UILabel!
+    @IBOutlet var imageItem: UIImageView!
+    @IBOutlet var tableViewTopping: UITableView!
+    @IBOutlet var lbQuantity: UILabel!
+    @IBOutlet var btnMinusQuantity: UIButton!
+    @IBOutlet var btnPlusQuantity: UIButton!
     
     var selectedIndexPaths = [IndexPath]()
     
     var toppingSelection: [RadioGroup] = [
         RadioGroup(title: "Group 1"),
         RadioGroup(title: "Group 2"),
-        RadioGroup(title: "Group 3"),
-        RadioGroup(title: "Group 4")
     ]
     
     var displayedMenuItem: Checkout.DisplayedMenuItem?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
+        self.setup()
     }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        self.setup()
     }
     
     init() {
         super.init(frame: .zero)
-        setup()
+        self.setup()
     }
     
     init(_ data: Checkout.DisplayedMenuItem?) {
         super.init(frame: .zero)
-        setup()
+        self.setup()
         if let menuItem = data {
             self.displayedMenuItem = menuItem
             self.lbName!.text = menuItem.name
             self.lbPrice!.text = String(menuItem.price)
+            self.lbQuantity!.text = "1"
         }
     }
     
@@ -68,7 +69,9 @@ class MenuItemDetailView: UIView {
         fromNib()
         clipsToBounds = true
         layer.cornerRadius = 15
-        btnAdd.layer.cornerRadius = 8
+        self.btnAdd.layer.cornerRadius = 8
+        self.btnMinusQuantity.layer.cornerRadius = 8
+        self.btnPlusQuantity.layer.cornerRadius = 8
         self.setupTableViewTopping()
     }
     
@@ -85,15 +88,26 @@ class MenuItemDetailView: UIView {
         // Update TableView with the data
         self.tableViewTopping.reloadData()
     }
+
     @IBAction func doAddMenuItem(_ sender: Any) {
         print("Iam doAddMemuItem")
-        NotificationCenter.default.post(name: Notification.Name("CreateOrderItem"), object: displayedMenuItem)
+        NotificationCenter.default.post(name: Notification.Name("CreateOrderItem"), object: self.displayedMenuItem)
         SwiftEntryKit.dismiss()
     }
-    
+
+    @IBAction func doMinusQuantity(_ sender: Any) {
+        print("doMinusQuantity")
+    }
+
+    @IBAction func doPlusQuantity(_ sender: Any) {
+        print("doPlusQuantity")
+    }
 }
-//MARK: Fetch MenuItemDetail when view on Load
+
+// MARK: Fetch MenuItemDetail when view on Load
+
 extension MenuItemDetailView {
+    
     
 }
 
@@ -103,11 +117,13 @@ extension MenuItemDetailView {
 
 extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return toppingSelection.count
+        return self.toppingSelection.count
     }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.toppingSelection[section].radioItems.count
     }
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
@@ -115,10 +131,11 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 46
-        
     }
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
@@ -128,23 +145,21 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
 //            self.changeViewController(menu)
 //        }
         
-        let selectedIndexPathAtCurrentSection = selectedIndexPaths.filter({ $0.section == indexPath.section})
+        let selectedIndexPathAtCurrentSection = self.selectedIndexPaths.filter { $0.section == indexPath.section }
 
         for indexPath in selectedIndexPathAtCurrentSection {
             tableView.deselectRow(at: indexPath, animated: true)
             if let indexOf = selectedIndexPaths.firstIndex(of: indexPath) {
-                selectedIndexPaths.remove(at: indexOf)
+                self.selectedIndexPaths.remove(at: indexOf)
             }
         }
-        selectedIndexPaths.append(indexPath)
-
+        self.selectedIndexPaths.append(indexPath)
     }
     
     // On DeSelection
-     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if let index = selectedIndexPaths.firstIndex(of: indexPath) {
-            selectedIndexPaths.remove(at: index)
+            self.selectedIndexPaths.remove(at: index)
         }
     }
     
@@ -157,13 +172,13 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
         self.tableViewTopping.cellForRow(at: indexPath)?.setSelected(false, animated: true)
         return indexPath
     }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SelectionHeaderView.className) as! SelectionHeaderView
-        header.text = toppingSelection[section].title
+        header.text = self.toppingSelection[section].title
         header.displayMode = PresetsDataSource.displayMode
         return header
     }
-
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RadioTableViewCell.identifier, for: indexPath) as? RadioTableViewCell else { fatalError("xib doesn't exist") }
@@ -171,8 +186,6 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
         cell.setData(self.toppingSelection[indexPath.section].radioItems[indexPath.row])
         return cell
     }
+
     // MARK: - Selection
-    
-
 }
-

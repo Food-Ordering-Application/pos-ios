@@ -32,6 +32,7 @@
 		9B3CEC52262BFD1E00273A65 /* OrderDetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3CEC4C262BFD1E00273A65 /* OrderDetailModels.swift */; };
 		9B3CEC53262BFD1E00273A65 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3CEC4D262BFD1E00273A65 /* OrderDetailViewController.swift */; };
 		9B3CEC54262BFD1E00273A65 /* OrderDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3CEC4E262BFD1E00273A65 /* OrderDetailInteractor.swift */; };
+		9B41FF55263440FF004E289A /* NumPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B41FF54263440FF004E289A /* NumPadViewController.swift */; };
 		9B4A32AC2627DE3100705D06 /* OrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4A32AA2627DE3100705D06 /* OrderCollectionViewCell.swift */; };
 		9B4A32AD2627DE3100705D06 /* OrderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B4A32AB2627DE3100705D06 /* OrderCollectionViewCell.xib */; };
 		9B57A009263119B200D521C1 /* MenuItemsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B57A008263119B200D521C1 /* MenuItemsWorker.swift */; };
@@ -200,6 +201,7 @@
 		9B3CEC4C262BFD1E00273A65 /* OrderDetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailModels.swift; sourceTree = "<group>"; };
 		9B3CEC4D262BFD1E00273A65 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		9B3CEC4E262BFD1E00273A65 /* OrderDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailInteractor.swift; sourceTree = "<group>"; };
+		9B41FF54263440FF004E289A /* NumPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumPadViewController.swift; sourceTree = "<group>"; };
 		9B4A32AA2627DE3100705D06 /* OrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCell.swift; sourceTree = "<group>"; };
 		9B4A32AB2627DE3100705D06 /* OrderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderCollectionViewCell.xib; sourceTree = "<group>"; };
 		9B57A008263119B200D521C1 /* MenuItemsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemsWorker.swift; sourceTree = "<group>"; };
@@ -679,6 +681,7 @@
 				9BC2F841261C51B000D5CFBC /* TableViewCell */,
 				9BCF66002626AA64008841BA /* MenuItemDetailView.swift */,
 				9BCF66052626AA76008841BA /* MenuItemDetailView.xib */,
+				9B41FF54263440FF004E289A /* NumPadViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1072,6 +1075,7 @@
 				9B3CEC3F262B5E9200273A65 /* Alert.swift in Sources */,
 				9B9926D02626816000B6FDF9 /* ToppingItem.swift in Sources */,
 				9BA4E164262C3B9400BA9F10 /* CheckoutPresenter.swift in Sources */,
+				9B41FF55263440FF004E289A /* NumPadViewController.swift in Sources */,
 				9B5C547B262ACD5300D7120A /* RouterProtocol.swift in Sources */,
 				9BD26983262AD858000CDABE /* OrdersNetworkInjected.swift in Sources */,
 				71528354221372BA004602FF /* Order.swift in Sources */,
@@ -1378,7 +1382,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5LBZDN8XB8;
+				DEVELOPMENT_TEAM = 9Y7YW58Z6E;
 				INFOPLIST_FILE = smartPOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1387,7 +1391,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.lvh.smartPOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/smartPOS.app/smartPOS";
 			};
@@ -1400,7 +1404,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5LBZDN8XB8;
+				DEVELOPMENT_TEAM = 9Y7YW58Z6E;
 				INFOPLIST_FILE = smartPOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1409,7 +1413,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.lvh.smartPOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/smartPOS.app/smartPOS";
 			};
@@ -1430,7 +1434,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.lvh.smartPOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = smartPOS;
 			};
@@ -1451,7 +1455,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dev.lvh.smartPOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = smartPOS;
 			};

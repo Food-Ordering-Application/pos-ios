@@ -16,6 +16,7 @@ target 'smartPOS' do
   pod 'Moya'
   pod 'SkeletonView'
   pod 'SnapKit'
+  pod 'NumPad'
   
   target 'smartPOSTests' do
     inherit! :search_paths
@@ -44,7 +45,7 @@ post_install do |installer|
   end
   
   installer.pods_project.targets.each do |target|
-      if ['SlideMenuControllerSwift'].include? target.name
+      if ['SlideMenuControllerSwift', 'NumPad'].include? target.name
         target.build_configurations.each do |config|
           config.build_settings['SWIFT_VERSION'] = '4.0'
         end
