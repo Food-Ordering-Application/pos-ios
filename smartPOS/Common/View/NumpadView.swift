@@ -7,6 +7,7 @@
 //
 
 import NumPad
+import SwiftEntryKit
 import UIKit
 class NumpadView: UIView {
 //    var view: UIView!
@@ -32,11 +33,11 @@ class NumpadView: UIView {
 //    }()
 //
     
-    @IBOutlet weak var btnBackspace: UIButton!
-    @IBOutlet weak var btnSubmit: UIButton!
+    @IBOutlet var btnBackspace: UIButton!
+    @IBOutlet var btnSubmit: UIButton!
     @IBOutlet var textField: UITextField!
     @IBOutlet var containerView: UIView!
-    var numPad: NumPad = NumPad(frame: CGRect(x: 0, y: 0, width: 600, height: 460))
+    var numPad = NumPad(frame: CGRect(x: 0, y: 0, width: 600, height: 460))
     
     let borderColor = UIColor(white: 0.9, alpha: 1)
     
@@ -61,9 +62,27 @@ class NumpadView: UIView {
 //        }
     }
     
+    @IBAction func onBackspace(_ sender: Any) {
+        var cash = textField.text!.sanitized()
+        print(cash)
+        if cash.length > 0{
+            cash.removeLast()
+        }
+        if cash.length != 0 {
+            textField.text = String(cash).currency()
+            return
+        }
+        textField.text = nil
+    }
+    
+    @IBAction func onSubmit(_ sender: Any) {
+        print("cash-\(textField.text!.sanitized())")
+//        NotificationCenter.default.post(name: Notification.Name("CreateOrderItem"), object: self.displayedMenuItem)
+        SwiftEntryKit.dismiss()
+    }
+    
     private func setup() {
         fromNib()
-
 
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textAlignment = .right
@@ -72,19 +91,16 @@ class NumpadView: UIView {
         textField.placeholder = "0".currency()
         textField.isEnabled = false
     
-        
-        numPad.backgroundColor = self.borderColor
+        numPad.backgroundColor = borderColor
         numPad.dataSource = self
         numPad.delegate = self
-        self.containerView.addSubview(numPad)
-        
+        containerView.addSubview(numPad)
         
         btnSubmit.layer.cornerRadius = 4
         
         btnBackspace.layer.borderWidth = 1.0
-        btnBackspace.layer.borderColor = self.borderColor.cgColor
+        btnBackspace.layer.borderColor = borderColor.cgColor
         btnBackspace.imageEdgeInsets = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
-        
         
         clipsToBounds = true
         layer.cornerRadius = 5
@@ -111,7 +127,7 @@ extension NumpadView: NumPadDelegate, NumPadDataSource {
             case (3, 2):
                 return "00"
             default:
-                var index = (0..<position.row).map { self.numPad(self.numPad, numberOfColumnsInRow: $0) }.reduce(0, +)
+                var index = (0 ..< position.row).map { self.numPad(self.numPad, numberOfColumnsInRow: $0) }.reduce(0, +)
                 index += position.column
                 return "\(index + 1)"
             }

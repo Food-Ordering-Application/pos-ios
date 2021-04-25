@@ -60,7 +60,7 @@ class MenuItemDetailView: UIView {
         if let menuItem = data {
             self.displayedMenuItem = menuItem
             self.lbName!.text = menuItem.name
-            self.lbPrice!.text = String(menuItem.price)
+            self.lbPrice!.text = String(menuItem.price).currency()
             self.lbQuantity!.text = "1"
         }
     }
