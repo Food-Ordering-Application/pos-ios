@@ -30,7 +30,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     lazy var right: NSLayoutConstraint = self.viewBackground.rightAnchor.constraint(equalTo: self.contentView.rightAnchor)
 
     fileprivate func setupStyle() {
-        viewBackground.layer.shadowColor = UIColor.orange.cgColor
+        viewBackground.layer.shadowColor = #colorLiteral(red: 1, green: 0.2705882353, blue: 0.2274509804, alpha: 0.8211163372)
         viewBackground.layer.shadowRadius = 4
         viewBackground.layer.shadowOffset = .zero
         viewBackground.layer.shadowOpacity = 0.4
@@ -52,7 +52,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     func setCell(_ data: Checkout.DisplayedMenuItem?) {
         if let menuItem = data {
             lbName?.text = menuItem.name
-            lbPrice?.text = String(menuItem.price)
+            lbPrice?.text = String(menuItem.price).currency()
             print("Setlected CollectionViewCell", menuItem)
         }
     }

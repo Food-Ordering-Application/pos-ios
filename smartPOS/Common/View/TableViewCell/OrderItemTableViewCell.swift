@@ -58,7 +58,7 @@ class OrderItemTableViewCell: UITableViewCell {
     open func setData(_ data: OrderItem?) {
         if let orderItem = data {
             self.lbName?.text = "No name field"
-            self.lbPrice?.text = String(orderItem.price)
+            self.lbPrice?.text = String(orderItem.price).currency()
             self.lbAmount?.text = String(orderItem.quantity)
         }
     }

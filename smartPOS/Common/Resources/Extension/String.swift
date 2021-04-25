@@ -24,10 +24,11 @@ extension String {
     func currency() -> String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.minimumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
+        formatter.locale = Locale.init(identifier: "vi_VN")
         let digits = NSDecimalNumber(string: sanitized())
-        let place = NSDecimalNumber(value: powf(10, 2))
+        let place = NSDecimalNumber(value: powf(10, 0))
         return formatter.string(from: digits.dividing(by: place))
     }
        

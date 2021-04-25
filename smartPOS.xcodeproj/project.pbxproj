@@ -32,7 +32,6 @@
 		9B3CEC52262BFD1E00273A65 /* OrderDetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3CEC4C262BFD1E00273A65 /* OrderDetailModels.swift */; };
 		9B3CEC53262BFD1E00273A65 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3CEC4D262BFD1E00273A65 /* OrderDetailViewController.swift */; };
 		9B3CEC54262BFD1E00273A65 /* OrderDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3CEC4E262BFD1E00273A65 /* OrderDetailInteractor.swift */; };
-		9B41FF55263440FF004E289A /* NumPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B41FF54263440FF004E289A /* NumPadViewController.swift */; };
 		9B4A32AC2627DE3100705D06 /* OrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4A32AA2627DE3100705D06 /* OrderCollectionViewCell.swift */; };
 		9B4A32AD2627DE3100705D06 /* OrderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B4A32AB2627DE3100705D06 /* OrderCollectionViewCell.xib */; };
 		9B57A009263119B200D521C1 /* MenuItemsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B57A008263119B200D521C1 /* MenuItemsWorker.swift */; };
@@ -145,6 +144,8 @@
 		9BD269CD262AEB86000CDABE /* OrderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD269C8262AEB86000CDABE /* OrderAPI.swift */; };
 		9BD269CE262AEB86000CDABE /* Orders.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BD269CA262AEB86000CDABE /* Orders.json */; };
 		9BD269CF262AEB86000CDABE /* Order.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BD269CB262AEB86000CDABE /* Order.json */; };
+		9BEDEBE9263472560011F71B /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEDEBE8263472560011F71B /* NumpadView.swift */; };
+		9BEDEBEE26347CB00011F71B /* NumpadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BEDEBED26347CB00011F71B /* NumpadView.xib */; };
 		9BF592CE2629683500454A8D /* MenuItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF592CD2629683500454A8D /* MenuItemGroup.swift */; };
 		9F8FB053ABB2B4B50BFA882F /* Pods_smartPOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4979C1A7B297667E44D77BB1 /* Pods_smartPOS.framework */; };
 /* End PBXBuildFile section */
@@ -201,7 +202,6 @@
 		9B3CEC4C262BFD1E00273A65 /* OrderDetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailModels.swift; sourceTree = "<group>"; };
 		9B3CEC4D262BFD1E00273A65 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		9B3CEC4E262BFD1E00273A65 /* OrderDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailInteractor.swift; sourceTree = "<group>"; };
-		9B41FF54263440FF004E289A /* NumPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumPadViewController.swift; sourceTree = "<group>"; };
 		9B4A32AA2627DE3100705D06 /* OrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCell.swift; sourceTree = "<group>"; };
 		9B4A32AB2627DE3100705D06 /* OrderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderCollectionViewCell.xib; sourceTree = "<group>"; };
 		9B57A008263119B200D521C1 /* MenuItemsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemsWorker.swift; sourceTree = "<group>"; };
@@ -314,6 +314,8 @@
 		9BD269C8262AEB86000CDABE /* OrderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderAPI.swift; sourceTree = "<group>"; };
 		9BD269CA262AEB86000CDABE /* Orders.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Orders.json; sourceTree = "<group>"; };
 		9BD269CB262AEB86000CDABE /* Order.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Order.json; sourceTree = "<group>"; };
+		9BEDEBE8263472560011F71B /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
+		9BEDEBED26347CB00011F71B /* NumpadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumpadView.xib; sourceTree = "<group>"; };
 		9BF592CD2629683500454A8D /* MenuItemGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemGroup.swift; sourceTree = "<group>"; };
 		C2D2C7F49934219DF4A8F720 /* Pods-smartPOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS.release.xcconfig"; path = "Target Support Files/Pods-smartPOS/Pods-smartPOS.release.xcconfig"; sourceTree = "<group>"; };
 		E26DE8D32A94BA2C1C722DE7 /* Pods-smartPOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOSTests.release.xcconfig"; path = "Target Support Files/Pods-smartPOSTests/Pods-smartPOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -681,7 +683,8 @@
 				9BC2F841261C51B000D5CFBC /* TableViewCell */,
 				9BCF66002626AA64008841BA /* MenuItemDetailView.swift */,
 				9BCF66052626AA76008841BA /* MenuItemDetailView.xib */,
-				9B41FF54263440FF004E289A /* NumPadViewController.swift */,
+				9BEDEBE8263472560011F71B /* NumpadView.swift */,
+				9BEDEBED26347CB00011F71B /* NumpadView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -906,6 +909,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B96823E261B559200D1980B /* Poppins-Thin.ttf in Resources */,
+				9BEDEBEE26347CB00011F71B /* NumpadView.xib in Resources */,
 				9B7E0A5426202E2C00DAEABB /* OrderItemTableViewCell.xib in Resources */,
 				9B968241261B559200D1980B /* Poppins-MediumItalic.ttf in Resources */,
 				9B968239261B559200D1980B /* OFL.txt in Resources */,
@@ -1075,7 +1079,6 @@
 				9B3CEC3F262B5E9200273A65 /* Alert.swift in Sources */,
 				9B9926D02626816000B6FDF9 /* ToppingItem.swift in Sources */,
 				9BA4E164262C3B9400BA9F10 /* CheckoutPresenter.swift in Sources */,
-				9B41FF55263440FF004E289A /* NumPadViewController.swift in Sources */,
 				9B5C547B262ACD5300D7120A /* RouterProtocol.swift in Sources */,
 				9BD26983262AD858000CDABE /* OrdersNetworkInjected.swift in Sources */,
 				71528354221372BA004602FF /* Order.swift in Sources */,
@@ -1152,6 +1155,7 @@
 				9BC1C6DA261D4488006502F8 /* OrderCheckoutViewController.swift in Sources */,
 				9B15E3B2261CCF4900CB252B /* ItemsCollectionViewController.swift in Sources */,
 				9B9926B2262680D600B6FDF9 /* MenuItemTopping.swift in Sources */,
+				9BEDEBE9263472560011F71B /* NumpadView.swift in Sources */,
 				7152835722137458004602FF /* OrdersMemStore.swift in Sources */,
 				9BC2F793261C511F00D5CFBC /* NonMenuController.swift in Sources */,
 				9BC2F791261C511F00D5CFBC /* ExSlideMenuController.swift in Sources */,

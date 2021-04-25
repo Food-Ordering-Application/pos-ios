@@ -11,9 +11,8 @@ import UIKit
 
 class ItemsCollectionViewController: UIViewController {
     // MARK: Amazing Size for each Item
-    // lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (5 * 10)) / 4), height: floor((UIScreen.main.bounds.height - (14 * 2 + 40 + 30 + 126)) / 3))
     let width = floor((UIScreen.main.bounds.width - (5 * 10)) / 4)
-    let height = max(floor((UIScreen.main.bounds.height - ( 260 + 126 + 20)) / 4), 130)
+    let height = max(floor((UIScreen.main.bounds.height - ( 240 + 126 + 20)) / 4), 136)
     lazy var size = CGSize(width: width, height: height)
     
     

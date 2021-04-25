@@ -82,7 +82,7 @@ extension OrderCheckoutViewController {
     func updateDataOrder(order: Order?){
         self.order = order
         guard let orderId = order!.id else { return }
-        self.lbTotal?.text = String(order!.grandTotal)
+        self.lbTotal?.text = String(order!.grandTotal).currency()
         self.setupOrderView(isHidden: false)
     }
     func updateDataOrderItem(orderItem: OrderItem?){
@@ -143,8 +143,8 @@ extension OrderCheckoutViewController {
     
     // Bumps a custom nib originated view
     private func showInputPadPopup(attributes: EKAttributes) {
-        let numpadViewController = NumPadViewController()
-        SwiftEntryKit.display(entry: numpadViewController , using: attributes)
+        
+        SwiftEntryKit.display(entry: NumpadView(frame: CGRect(x: 0, y: 0, width: 600, height: 800)) , using: attributes)
     }
 
 }
