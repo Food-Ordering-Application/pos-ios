@@ -8,14 +8,10 @@
 
 import SwiftEntryKit
 import UIKit
-
-struct RadioGroup {
-    var title: String = "Group 1"
-    var radioItems: [RadioItem] = [RadioItem(name: "Topping 1"), RadioItem(name: "Topping 2")]
-}
-
-struct RadioItem {
-    var name: String = "Topping 1"
+struct MenuItemAndToppings {
+    let menuItem: MenuItem?
+    let menuItemQuantity: Int?
+    let toppingItems: [ToppingItem]?
 }
 
 class MenuItemDetailView: UIView {
@@ -23,21 +19,25 @@ class MenuItemDetailView: UIView {
     @IBOutlet var btnAdd: UIButton!
     @IBOutlet var lbName: UILabel!
     @IBOutlet var lbPrice: UILabel!
-    @IBOutlet var lbWeight: UILabel!
     @IBOutlet var imageItem: UIImageView!
     @IBOutlet var tableViewTopping: UITableView!
     @IBOutlet var lbQuantity: UILabel!
-    @IBOutlet var btnMinusQuantity: UIButton!
+    @IBOutlet var btnMinusQuantity: UIButton! {
+        didSet {
+            btnMinusQuantity.isEnabled = false
+        }
+    }
     @IBOutlet var btnPlusQuantity: UIButton!
+    
     
     var selectedIndexPaths = [IndexPath]()
     
-    var toppingSelection: [RadioGroup] = [
-        RadioGroup(title: "Group 1"),
-        RadioGroup(title: "Group 2"),
-    ]
+    var toppingSelection: ToppingGroups = []
     
-    var displayedMenuItem: Checkout.DisplayedMenuItem?
+    var menuItem: MenuItem?
+    
+    var menuItemQuantity: Int = 1
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -54,14 +54,16 @@ class MenuItemDetailView: UIView {
         self.setup()
     }
     
-    init(_ data: Checkout.DisplayedMenuItem?) {
+    init(_ data: MenuItem?) {
         super.init(frame: .zero)
         self.setup()
+        
         if let menuItem = data {
-            self.displayedMenuItem = menuItem
+            self.menuItem = menuItem
+            NotificationCenter.default.post(name: Notification.Name("FetchMenuItemToppings"), object: menuItem.id)
             self.lbName!.text = menuItem.name
             self.lbPrice!.text = String(menuItem.price).currency()
-            self.lbQuantity!.text = "1"
+            self.lbQuantity!.text = String(menuItemQuantity)
         }
     }
     
@@ -73,7 +75,15 @@ class MenuItemDetailView: UIView {
         self.btnMinusQuantity.layer.cornerRadius = 8
         self.btnPlusQuantity.layer.cornerRadius = 8
         self.setupTableViewTopping()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchedMenuItemToppings(_:)), name: Notification.Name("FetchedMenuItemToppings"), object: nil)
     }
+    
+    @objc func didGetNotificationFetchedMenuItemToppings(_ notification: Notification) {
+        let toppingGroups = notification.object as! ToppingGroups
+        print("didGetNotificationFetchedMenuItemToppings-\(toppingGroups)")
+        self.onUpdateTopping(toppingGroups: toppingGroups)
+    }
+    
     
     fileprivate func setupTableViewTopping() {
         self.tableViewTopping.separatorStyle = .none
@@ -91,16 +101,30 @@ class MenuItemDetailView: UIView {
 
     @IBAction func doAddMenuItem(_ sender: Any) {
         print("Iam doAddMemuItem")
-        NotificationCenter.default.post(name: Notification.Name("CreateOrderItem"), object: self.displayedMenuItem)
+        
+        print(selectedIndexPaths)
+        var toppingItems: [ToppingItem] = []
+        for indexPath in selectedIndexPaths {
+            let toppingItem = self.toppingSelection[indexPath.section].toppingItems[indexPath.row]
+            toppingItems.append(toppingItem)
+        }
+        let menuItemAndToppings = MenuItemAndToppings(menuItem: self.menuItem, menuItemQuantity: self.menuItemQuantity , toppingItems: toppingItems)
+        NotificationCenter.default.post(name: Notification.Name("CreateOrderItem"), object: menuItemAndToppings)
         SwiftEntryKit.dismiss()
     }
 
     @IBAction func doMinusQuantity(_ sender: Any) {
         print("doMinusQuantity")
+        self.menuItemQuantity -= 1
+        self.lbQuantity!.text = String(menuItemQuantity)
+        self.btnMinusQuantity.isEnabled = self.menuItemQuantity != 1
     }
 
     @IBAction func doPlusQuantity(_ sender: Any) {
         print("doPlusQuantity")
+        self.menuItemQuantity += 1
+        self.lbQuantity!.text = String(menuItemQuantity)
+        self.btnMinusQuantity.isEnabled = self.menuItemQuantity > 1
     }
 }
 
@@ -108,7 +132,10 @@ class MenuItemDetailView: UIView {
 
 extension MenuItemDetailView {
     
-    
+    fileprivate func onUpdateTopping(toppingGroups: ToppingGroups?) {
+        self.toppingSelection = toppingGroups ?? []
+        self.tableViewTopping.reloadData()
+    }
 }
 
 
@@ -121,7 +148,7 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.toppingSelection[section].radioItems.count
+        return self.toppingSelection[section].toppingItems.count
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -141,12 +168,7 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let menu = LeftMenu(rawValue: indexPath.row) {
-//            self.changeViewController(menu)
-//        }
-        
         let selectedIndexPathAtCurrentSection = self.selectedIndexPaths.filter { $0.section == indexPath.section }
-
         for indexPath in selectedIndexPathAtCurrentSection {
             tableView.deselectRow(at: indexPath, animated: true)
             if let indexOf = selectedIndexPaths.firstIndex(of: indexPath) {
@@ -175,7 +197,7 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SelectionHeaderView.className) as! SelectionHeaderView
-        header.text = self.toppingSelection[section].title
+        header.text = self.toppingSelection[section].name
         header.displayMode = PresetsDataSource.displayMode
         return header
     }
@@ -183,7 +205,7 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RadioTableViewCell.identifier, for: indexPath) as? RadioTableViewCell else { fatalError("xib doesn't exist") }
         cell.selectionStyle = .none
-        cell.setData(self.toppingSelection[indexPath.section].radioItems[indexPath.row])
+        cell.setData(self.toppingSelection[indexPath.section].toppingItems[indexPath.row])
         return cell
     }
 

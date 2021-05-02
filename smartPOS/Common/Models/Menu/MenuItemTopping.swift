@@ -7,9 +7,7 @@
 //
 
 import Foundation
-struct MenuItemTopping {
-    var menuItem: MenuItem
-    var restaurent: Restaurant
-    var toppingItem: ToppingItem
-    var customPrice: Float
+struct MenuItemTopping: Decodable {
+    var id: String
+    var customPrice: Double
 }

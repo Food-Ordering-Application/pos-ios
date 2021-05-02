@@ -1,0 +1,55 @@
+{
+    "statusCode": 201,
+    "message": "Order created successfully",
+    "data": {
+        "order": {
+            "customerId": "3e41627a-024a-4841-8648-0024322a49f4",
+            "restaurantId": "4ef64aa6-dd7c-45f6-aa9c-be40d7334305",
+            "paymentType": {
+                "id": "e06bc3b8-1265-4ab4-b9a1-69cbf958aa3d",
+                "name": "COD"
+            },
+            "status": {
+                "id": "244f8f08-1cc1-42d2-8a0a-601ea90125ca",
+                "name": "DRAFT"
+            },
+            "orderItems": [
+                {
+                    "menuItemId": "744b198e-5181-4807-821e-d3f9ea633a26",
+                    "price": 14805,
+                    "quantity": 1,
+                    "orderItemToppings": [
+                        {
+                            "menuItemToppingId": "631ee1f8-7e37-410b-87c6-d5e798b3690f",
+                            "price": 12407,
+                            "quantity": 1,
+                            "state": "IN_STOCK",
+                            "id": "ce0af04e-c553-4ad1-9dbe-cafe24dbdbf0"
+                        },
+                        {
+                            "menuItemToppingId": "762ca198-44d1-4ddc-bbd1-4759ee1ccb8c",
+                            "price": 18067,
+                            "quantity": 1,
+                            "state": "IN_STOCK",
+                            "id": "4bf14699-e4e3-4b2b-8778-193fc0c704ad"
+                        }
+                    ],
+                    "discount": 0,
+                    "id": "e8922a2b-4882-4ee6-921f-c05391d6d683",
+                    "state": "IN_STOCK"
+                }
+            ],
+            "serviceFee": 2000,
+            "shippingFee": 15000,
+            "subTotal": 45279,
+            "grandTotal": 62279,
+            "driverId": null,
+            "itemDiscount": null,
+            "discount": null,
+            "deliveredAt": null,
+            "id": "aa0107ea-86b4-4e04-a6ed-e494cc105a31",
+            "createdAt": "2021-05-01T09:51:03.081Z",
+            "updatedAt": "2021-05-01T09:51:03.081Z"
+        }
+    }
+}

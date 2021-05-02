@@ -27,6 +27,7 @@ extension OrdersNetworkInjected {
 protocol OrdersDataManager: class {
     func getOrders(limit: Int?, offset: Int?, _ debugMode: Bool) -> Promise<Orders>
     func getOrder(id: String, _ debugMode: Bool) -> Promise<Order>
+    func createOrderAndOrderItem(orderAndOrderItemFormFields: Checkout.OrderAndOrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse>
 }
 
 extension OrdersDataManager {
@@ -35,6 +36,9 @@ extension OrdersDataManager {
     }
     func getOrder(id: String, _ debugMode: Bool) -> Promise<Order> {
         return getOrder(id: id, debugMode)
+    }
+    func createOrderAndOrderItem(orderAndOrderItemFormFields: Checkout.OrderAndOrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse> {
+        return createOrderAndOrderItem(orderAndOrderItemFormFields: orderAndOrderItemFormFields, debugMode)
     }
 }
 
@@ -59,5 +63,9 @@ final class OrdersNetworkManager: OrdersDataManager {
     /// - Returns: Promise containing a specific launch
     func getOrder(id: String, _ debugMode: Bool) -> Promise<Order> {
         return APIManager.callApi(OrderAPI.getOrder(id: id), dataReturnType: Order.self,  debugMode: debugMode)
+    }
+    
+    func createOrderAndOrderItem(orderAndOrderItemFormFields: Checkout.OrderAndOrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse> {
+        return APIManager.callApi(OrderAPI.createOrderAndOrderItem(data: orderAndOrderItemFormFields), dataReturnType: CreateOrderAndOrderItemResponse.self, debugMode: debugMode)
     }
 }

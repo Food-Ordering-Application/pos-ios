@@ -93,7 +93,7 @@ protocol OrderItemsStoreUtilityProtocol {}
 extension OrderItemsStoreUtilityProtocol {
     func generateOrderItemID(orderItem: inout OrderItem) {
         guard orderItem.id == nil else { return }
-        orderItem.id = "\(arc4random())"
+//        orderItem.id = "\(arc4random())"
     }
 
     func calculateOrderItemTotal(orderItem: inout OrderItem) {

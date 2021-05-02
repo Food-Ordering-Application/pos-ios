@@ -13,6 +13,7 @@ class RadioTableViewCell: UITableViewCell {
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
     
     @IBOutlet weak var lbName: UILabel!
+    @IBOutlet weak var lbPrice: UILabel!
     @IBOutlet weak var radioButton: LTHRadioButton! = {
         let r = LTHRadioButton()
         r.translatesAutoresizingMaskIntoConstraints = false
@@ -44,10 +45,12 @@ class RadioTableViewCell: UITableViewCell {
         radioButton.deselect(animated: animated)
     }
     
-    open func setData(_ data: RadioItem?) {
+    open func setData(_ data: ToppingItem?) {
         if let topping = data {
-            self.lbName?.text = topping.name
+            self.lbName?.text = topping.description
+            if let menuItemTopping = topping.menuItemToppings.first {
+                self.lbPrice?.text = String(menuItemTopping.customPrice).currency()
+            }
         }
-        print(data!)
     }
 }

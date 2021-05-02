@@ -16,6 +16,7 @@ class MenuItemsWorker {
   }
 
   func fetchMenuItems(completionHandler: @escaping ([MenuItem]) -> Void) {
+    
     menuItemsStore.fetchMenuItems { (menuItems: () throws -> [MenuItem]) -> Void in
       do {
         let menuItems = try menuItems()

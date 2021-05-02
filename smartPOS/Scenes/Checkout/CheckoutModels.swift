@@ -13,39 +13,68 @@
 import UIKit
 
 enum Checkout {
-    
-    
     // MARK: MenuItems
-    struct DisplayedMenuItem {
+
+    struct DisplayedMenuItemGroup {
         var id: String
-        var name: String
-        var price: Double
+        var name: String?
+        var index: Int?
+        var menuItems: [MenuItem]
     }
 
     enum FetchMenuItems {
-        struct Request {}
+        struct Request {
+            var restaurantId: String
+        }
 
         struct Response {
-            var menuItems: [MenuItem]
+            var menu: Menu?
+            var menuGroups: [MenuGroup]?
             var error: MenuItemErrors?
         }
 
         struct ViewModel {
-            var displayedMenuItems: [DisplayedMenuItem]
+            var displayedMenuItemGroups: [DisplayedMenuItemGroup]
             var error: MenuItemErrors?
         }
     }
 
+    // MARK: MenuItemToppings
     
+    
+    enum FetchMenuItemToppings {
+        struct Request {
+            var menuItemId: String
+        }
+
+        struct Response {
+            var toppingGroups: [ToppingGroup]
+        }
+
+        struct ViewModel {
+            var toppingGroups: [ToppingGroup]
+        }
+    }
+
     // MARK: OrderItems
-    
+
+    struct OrderAndOrderItemFormFields {
+        var orderItem: OrderItemFormFields
+        var restaurantId: String
+        var customerId: String
+    }
+
     struct OrderItemFormFields {
-        var id: String?
         var menuItemId: String
-        var orderId: String
+        var price: Double
+        var quantity: Int
+        var orderItemToppings: [OrderItemToppingFormFields]
+    }
+
+    struct OrderItemToppingFormFields {
+        var menuItemToppingId: String
         var quantity: Int
         var price: Double
-        var name: String
     }
 
     struct DisplayedOrderItem {
@@ -73,7 +102,8 @@ enum Checkout {
 
     enum CreateOrderItem {
         struct Request {
-            var orderItemFormFields: OrderItemFormFields
+            var orderId: String?
+            var orderItemFormFields: OrderItemFormFields?
         }
 
         struct Response {
@@ -84,16 +114,14 @@ enum Checkout {
             var orderItem: OrderItem?
         }
     }
-    
-    
+
     enum CreateOrderAndOrderItems {
         struct Request {
-            var orderItemsFormFields: [OrderItemFormFields]
+            var orderAndOrderItemFormFields: OrderAndOrderItemFormFields?
         }
 
         struct Response {
-            var order: Order?
-            var orderItems: [OrderItem]?
+            var order: NestedOrder?
             var error: OrderItemErrors?
         }
 
@@ -103,8 +131,7 @@ enum Checkout {
             var error: OrderItemErrors?
         }
     }
-    
-    
+
     enum CreateOrderItems {
         struct Request {
             var orderItemsFormFields: [OrderItemFormFields]
@@ -118,7 +145,7 @@ enum Checkout {
             var orderItems: [OrderItem]?
         }
     }
-    
+
     enum UpdateOrderItem {
         struct Request {
             var orderItemFormFields: OrderItemFormFields
@@ -132,6 +159,7 @@ enum Checkout {
             var orderItem: OrderItem?
         }
     }
+
     enum RemoveOrderItem {
         struct Request {
             var id: String
@@ -145,5 +173,4 @@ enum Checkout {
             var order: OrderItem?
         }
     }
-    
 }

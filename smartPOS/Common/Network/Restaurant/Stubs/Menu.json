@@ -1,0 +1,88 @@
+{
+    "statusCode": 200,
+    "message": "Restaurant fetched successfully",
+    "data": {
+        "menu": {
+            "id": "688218a3-3d74-4102-9df0-128e13d732fe",
+            "name": "Garland Langworth",
+            "index": 1
+        },
+        "menuGroups": [
+            {
+                "id": "ca1bfca4-21b0-479f-9fd0-1b492eb85839",
+                "name": "Walter Predovic",
+                "index": 1,
+                "menuItems": [
+                    {
+                        "id": "c0fff08c-6e51-4d97-9dcc-0ad1ac9f56f8",
+                        "name": "Orie Hodkiewicz",
+                        "description": "Quae qui omnis qui nam delectus et.",
+                        "price": 14805,
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "index": 1,
+                        "isActive": true
+                    },
+                    {
+                        "id": "3d9a989d-b95a-4ac4-aa25-f9d3acbd8f31",
+                        "name": "Haven Dickens I",
+                        "description": "Expedita magnam nemo at distinctio rerum non non blanditiis expedita.",
+                        "price": 12730,
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "index": 1,
+                        "isActive": true
+                    }
+                ]
+            },
+            {
+                "id": "018285cd-d938-4c5c-a94f-06a8da57cb85",
+                "name": "Mrs. Van Pfeffer",
+                "index": 1,
+                "menuItems": [
+                    {
+                        "id": "56c7c9e0-af7b-4989-b488-4f46cdd30aa0",
+                        "name": "Norval Willms",
+                        "description": "Velit sunt dolor labore omnis.",
+                        "price": 14730,
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "index": 1,
+                        "isActive": true
+                    },
+                    {
+                        "id": "12564be8-42e5-4e02-9626-6e746065dc43",
+                        "name": "Adah Berge I",
+                        "description": "Expedita fugiat omnis eligendi voluptatem.",
+                        "price": 17243,
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "index": 1,
+                        "isActive": true
+                    }
+                ]
+            },
+            {
+                "id": "f88347c4-5b9a-4f0f-ac11-246242c3c68c",
+                "name": "Florine Feil",
+                "index": 1,
+                "menuItems": [
+                    {
+                        "id": "dd6c30cd-e591-4c93-9417-bab771881230",
+                        "name": "Hilda Langworth",
+                        "description": "Alias accusantium aut ab velit.",
+                        "price": 11057,
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "index": 1,
+                        "isActive": true
+                    },
+                    {
+                        "id": "2d1ddde7-06f7-4766-b9d0-1783c2876e0c",
+                        "name": "Mina Skiles",
+                        "description": "Accusamus commodi porro eligendi.",
+                        "price": 9256,
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "index": 1,
+                        "isActive": true
+                    }
+                ]
+            }
+        ]
+    }
+}

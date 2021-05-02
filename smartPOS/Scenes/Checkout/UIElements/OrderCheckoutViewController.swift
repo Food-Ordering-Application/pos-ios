@@ -143,7 +143,6 @@ extension OrderCheckoutViewController {
     
     // Bumps a custom nib originated view
     private func showInputPadPopup(attributes: EKAttributes) {
-        
         SwiftEntryKit.display(entry: NumpadView(frame: CGRect(x: 0, y: 0, width: 600, height: 800)) , using: attributes)
     }
 

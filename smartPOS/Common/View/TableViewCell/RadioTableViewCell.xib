@@ -20,12 +20,6 @@
             <rect key="frame" x="0.0" y="0.0" width="280" height="66"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topping 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvD-r4-d0v">
-                    <rect key="frame" x="44" y="21" width="228" height="24"/>
-                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qa-18-NPC" customClass="LTHRadioButton" customModule="smartPOS" customModuleProvider="target">
                     <rect key="frame" x="16" y="23" width="20" height="20"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -39,15 +33,36 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="9u1-EE-eHZ">
+                    <rect key="frame" x="44" y="21" width="228" height="24"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topping 1Topping 1Topping 1Topping 1Topping 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvD-r4-d0v">
+                            <rect key="frame" x="0.0" y="0.0" width="142" height="24"/>
+                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.000đ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPf-rT-ujG">
+                            <rect key="frame" x="148" y="0.0" width="80" height="24"/>
+                            <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="80" id="2Ja-F7-dof"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="7Yu-4Q-gnv"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="2qa-18-NPC" firstAttribute="leading" secondItem="7Yu-4Q-gnv" secondAttribute="leading" constant="16" id="KIz-DT-H3o"/>
-                <constraint firstItem="tvD-r4-d0v" firstAttribute="leading" secondItem="2qa-18-NPC" secondAttribute="trailing" constant="8" id="b2r-Bv-xPO"/>
-                <constraint firstItem="tvD-r4-d0v" firstAttribute="centerY" secondItem="2qa-18-NPC" secondAttribute="centerY" id="dAQ-jz-Z41"/>
                 <constraint firstItem="2qa-18-NPC" firstAttribute="centerY" secondItem="6AL-Wt-1kK" secondAttribute="centerY" id="dtb-zD-bTG"/>
-                <constraint firstItem="7Yu-4Q-gnv" firstAttribute="trailing" secondItem="tvD-r4-d0v" secondAttribute="trailing" constant="8" id="rDd-YJ-MBe"/>
+                <constraint firstItem="9u1-EE-eHZ" firstAttribute="leading" secondItem="2qa-18-NPC" secondAttribute="trailing" constant="8" id="gBD-8c-8jq"/>
+                <constraint firstAttribute="trailing" secondItem="9u1-EE-eHZ" secondAttribute="trailing" constant="8" id="hQZ-X6-DXk"/>
+                <constraint firstItem="9u1-EE-eHZ" firstAttribute="centerY" secondItem="2qa-18-NPC" secondAttribute="centerY" id="ySL-5H-Lrw"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -63,6 +78,7 @@
             </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="lbName" destination="tvD-r4-d0v" id="iMJ-2z-HRs"/>
+                <outlet property="lbPrice" destination="tPf-rT-ujG" id="HI9-3W-9It"/>
                 <outlet property="radioButton" destination="2qa-18-NPC" id="6Tu-tR-Vjf"/>
             </connections>
             <point key="canvasLocation" x="-455.07246376811599" y="-180.13392857142856"/>

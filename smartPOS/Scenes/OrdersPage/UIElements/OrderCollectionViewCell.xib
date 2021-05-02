@@ -39,7 +39,7 @@
                                 <rect key="frame" x="8" y="8" width="294" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chờ xác nhận" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dR0-ZK-Mbc" customClass="PaddingLabel" customModule="smartPOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="94" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="102" height="20"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="11"/>
@@ -65,13 +65,13 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#HCM-1234" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZD-4X-a3B">
-                                        <rect key="frame" x="122" y="3" width="66" height="14"/>
+                                        <rect key="frame" x="121" y="1.5" width="73" height="17"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lê Thị Họ Tên " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhH-Rg-675">
-                                        <rect key="frame" x="215.5" y="3" width="78.5" height="14"/>
+                                        <rect key="frame" x="213" y="1.5" width="81" height="17"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="12"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -184,13 +184,13 @@
                                 <rect key="frame" x="8" y="78" width="294" height="24"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Ghi chú" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAG-53-bQy">
-                                        <rect key="frame" x="0.0" y="5" width="145" height="14"/>
+                                        <rect key="frame" x="0.0" y="3.5" width="145" height="17"/>
                                         <fontDescription key="fontDescription" name="Poppins-MediumItalic" family="Poppins" pointSize="12"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="130,000 đ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7In-AF-zeN">
-                                        <rect key="frame" x="149" y="2.5" width="145" height="19"/>
+                                        <rect key="frame" x="149" y="1" width="145" height="22.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="16"/>
                                         <color key="textColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -235,7 +235,7 @@
     </objects>
     <designables>
         <designable name="dR0-ZK-Mbc">
-            <size key="intrinsicContentSize" width="94" height="21"/>
+            <size key="intrinsicContentSize" width="102" height="23.5"/>
         </designable>
     </designables>
     <resources>

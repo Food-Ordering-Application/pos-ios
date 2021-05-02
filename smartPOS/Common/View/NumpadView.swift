@@ -10,32 +10,29 @@ import NumPad
 import SwiftEntryKit
 import UIKit
 class NumpadView: UIView {
-//    var view: UIView!
-//    lazy var containerView: UIView = { [unowned self] in
-//        let containerView = UIView()
-//        containerView.layer.borderColor = self.borderColor.cgColor
-//        containerView.layer.borderWidth = 1
-//        self.addSubview(containerView)
-//        containerView.constrainToEdges()
-//        return containerView
-//    }()
-//
-//    lazy var textField: UITextField = { [unowned self] in
-//        let textField = UITextField()
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        textField.textAlignment = .right
-//        textField.textColor = UIColor(white: 0.3, alpha: 1)
-//        textField.font = .systemFont(ofSize: 40)
-//        textField.placeholder = "0".currency()
-//        textField.isEnabled = false
-//        self.containerView.addSubview(textField)
-//        return textField
-//    }()
-//
-    
-    @IBOutlet var btnBackspace: UIButton!
-    @IBOutlet var btnSubmit: UIButton!
-    @IBOutlet var textField: UITextField!
+    @IBOutlet var btnBackspace: UIButton! {
+        didSet {
+            btnBackspace.layer.borderWidth = 1.0
+            btnBackspace.layer.borderColor = borderColor.cgColor
+            btnBackspace.setImage(UIImage(named: "ic_clear"), for: .normal)
+            btnBackspace.imageEdgeInsets = UIEdgeInsets(top: 30, left: 50, bottom: 30, right: 50)
+        }
+    }
+    @IBOutlet var btnSubmit: UIButton! {
+        didSet {
+            btnSubmit.layer.cornerRadius = 4
+        }
+    }
+    @IBOutlet var textField: UITextField!  {
+        didSet {
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            textField.textAlignment = .right
+            textField.textColor = UIColor(white: 0.3, alpha: 1)
+            textField.font = .systemFont(ofSize: 40)
+            textField.placeholder = "0".currency()
+            textField.isEnabled = false
+        }
+    }
     @IBOutlet var containerView: UIView!
     var numPad = NumPad(frame: CGRect(x: 0, y: 0, width: 600, height: 460))
     
@@ -51,7 +48,7 @@ class NumpadView: UIView {
         setup()
     }
     
-    init(_ data: Checkout.DisplayedMenuItem?) {
+    init(_ data: MenuItem?) {
         super.init(frame: .zero)
         setup()
 //        if let menuItem = data {
@@ -84,23 +81,15 @@ class NumpadView: UIView {
     private func setup() {
         fromNib()
 
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textAlignment = .right
-        textField.textColor = UIColor(white: 0.3, alpha: 1)
-        textField.font = .systemFont(ofSize: 40)
-        textField.placeholder = "0".currency()
-        textField.isEnabled = false
     
         numPad.backgroundColor = borderColor
         numPad.dataSource = self
         numPad.delegate = self
         containerView.addSubview(numPad)
         
-        btnSubmit.layer.cornerRadius = 4
+      
         
-        btnBackspace.layer.borderWidth = 1.0
-        btnBackspace.layer.borderColor = borderColor.cgColor
-        btnBackspace.imageEdgeInsets = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
+     
         
         clipsToBounds = true
         layer.cornerRadius = 5

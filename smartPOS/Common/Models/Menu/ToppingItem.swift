@@ -7,12 +7,12 @@
 //
 
 import Foundation
-struct ToppingItem {
+struct ToppingItem: Decodable {
     var id: String
-    var group: ToppingGroup
     var description: String
-    var price: Float
+    var price: Double
     var maxQuantity: Int
     var index: Float
-    var isActice: Bool
+    var isActive: Bool
+    var menuItemToppings: [MenuItemTopping]
 }

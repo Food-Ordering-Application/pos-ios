@@ -11,4 +11,5 @@ import Foundation
 enum OrderItemErrors: Error {
     case couldNotLoadOrderItems(error: String)
     case couldNotLoadOrderItemDetail(error: String)
+    case couldNotLoadCreateOrder(error: String)
 }

@@ -1,0 +1,158 @@
+{
+    "statusCode": 200,
+    "message": "MenuItemToppings fetched successfully",
+    "data": {
+        "toppingGroups": [
+            {
+                "id": "88ce07c9-8e9c-4520-a401-4a1be7dd5959",
+                "name": "Billy Parisian",
+                "index": 1,
+                "isActive": true,
+                "toppingItems": [
+                    {
+                        "id": "a72bd692-64d7-4a57-a020-b895d5265d02",
+                        "description": "Dolorem voluptate consequatur est.",
+                        "price": 43857,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "631ee1f8-7e37-410b-87c6-d5e798b3690f",
+                                "customPrice": 18304
+                            }
+                        ]
+                    },
+                    {
+                        "id": "53856fce-8576-47ca-bfd9-d216e065d79f",
+                        "description": "Quo exercitationem fuga qui velit officiis repellendus.",
+                        "price": 31429,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "7e869265-9b16-4bc2-9183-eff01ebcd93e",
+                                "customPrice": 10309
+                            }
+                        ]
+                    },
+                    {
+                        "id": "23ecddc6-ac7f-4199-989e-abed017aaeb4",
+                        "description": "Quia sit quis voluptas quasi.",
+                        "price": 73672,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "762ca198-44d1-4ddc-bbd1-4759ee1ccb8c",
+                                "customPrice": 10458
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "fc0150b9-d991-4018-b892-dac2dccb13f7",
+                "name": "Zane Waelchi",
+                "index": 1,
+                "isActive": true,
+                "toppingItems": [
+                    {
+                        "id": "fa1fb6c6-0792-4a36-92fd-0ab931ceed73",
+                        "description": "Possimus esse dolorum et placeat ducimus.",
+                        "price": 46066,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "6f73fabb-6285-4f79-8f2b-382b2b1da13e",
+                                "customPrice": 5242
+                            }
+                        ]
+                    },
+                    {
+                        "id": "bdbe44eb-d483-4888-a339-cfda85880674",
+                        "description": "Dolorum saepe deleniti blanditiis nihil odio.",
+                        "price": 88239,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "9a324162-a823-47b0-8a28-3e7c5fbd4715",
+                                "customPrice": 15949
+                            }
+                        ]
+                    },
+                    {
+                        "id": "a7d11bd3-1085-49f3-ac19-5e2ad3b08a58",
+                        "description": "Esse molestiae omnis sunt odit eveniet voluptate earum.",
+                        "price": 45267,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "ad86cc76-eeb9-49b7-aec0-ee7b13cbaab6",
+                                "customPrice": 10790
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "a3f88ced-31d0-4385-a35d-3c742f712b45",
+                "name": "Leta Gaylord",
+                "index": 1,
+                "isActive": true,
+                "toppingItems": [
+                    {
+                        "id": "6216a5b4-9606-454b-a9bd-e70127adb884",
+                        "description": "Voluptatem velit necessitatibus sed iste libero dignissimos possimus.",
+                        "price": 48544,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "1d3430ac-1e82-4f5e-bc90-9f2c8391c171",
+                                "customPrice": 7013
+                            }
+                        ]
+                    },
+                    {
+                        "id": "7e6827d6-afcc-475c-9a84-22f53b13389b",
+                        "description": "Eos non incidunt similique.",
+                        "price": 56413,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "d7f916a3-0c00-48a2-931b-9b931a1b807a",
+                                "customPrice": 18765
+                            }
+                        ]
+                    },
+                    {
+                        "id": "7269887b-4fab-4146-9ef4-8d6dec5ac2ab",
+                        "description": "Nemo et iusto est culpa accusamus itaque omnis ipsum assumenda.",
+                        "price": 86869,
+                        "maxQuantity": 3,
+                        "index": 1,
+                        "isActive": true,
+                        "menuItemToppings": [
+                            {
+                                "id": "c86beacf-2d28-4003-9133-78d49c1e2cf4",
+                                "customPrice": 12339
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

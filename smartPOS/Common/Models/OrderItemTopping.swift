@@ -7,10 +7,10 @@
 //
 
 import Foundation
-struct OrderItemTopping {
-   var id: String
-   var orderItemId: String
-   var toppingId: String
-   var quantity: Int
-   var price: Float
+struct OrderItemTopping: Decodable {
+    let id: String?
+    let state: String?
+    let menuItemToppingId: String?
+    let quantity: Int?
+    let price: Float?
 }

@@ -8,11 +8,11 @@
 
 import Foundation
 struct OrderItem {
-    var id: String?
-    var menuItemId: String
-    var orderId: String
-    var price: Double
-    var discount: Float
-    var quantity: Int
-    var note: String
+    let id: String?
+    let menuItemId: String?
+    let orderId: String?
+    let price: Double?
+    let discount: Float?
+    let quantity: Int?
+    let note: String?
 }

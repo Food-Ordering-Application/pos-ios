@@ -8,25 +8,25 @@
 
 import Foundation
 typealias Orders = [Order]
-struct Order: Codable {
+struct Order: Decodable {
     var id: String?
-    var customerId: String
-    var driverId: String
-    var subTotal: Double
-    var itemDiscount: Float
-    var shippingFee: Float
-    var serviceFee: Float
-    var promotionId: String
-    var discount: Float
+    var customerId: String?
+    var driverId: String?
+    var subTotal: Double?
+    var itemDiscount: Float?
+    var shippingFee: Float?
+    var serviceFee: Float?
+    var promotionId: String?
+    var discount: Float?
     var grandTotal: Double
-    var customerAddressId: String
-    var paymentMode: PaymentMode
-    var paymentType: PaymentType
-    var status: OrderStatus
-    var note: String
-    var createdAt: Date
-    var deliveredAt: Date
-    var updatedAt: Date
+    var customerAddressId: String? = ""
+    var paymentMode: PaymentMode?
+    var paymentType: PaymentType?
+    var status: OrderStatus?
+    var note: String? = ""
+    var createdAt: SafeDateCodableType?
+    var deliveredAt: SafeDateCodableType?
+    var updatedAt: SafeDateCodableType?
 
     enum CodingKeys: String, CodingKey {
         case id

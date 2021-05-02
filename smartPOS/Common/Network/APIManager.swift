@@ -24,10 +24,19 @@ struct APIManager: GeneralAPI {
     ///   - debugMode: Toggle the verbose mode of moya
     /// - Returns: A promise containing the dataReturnType set in function params
     static func callApi<Target: TargetType, ReturnedObject: Decodable>(_ target: Target, dataReturnType: ReturnedObject.Type, test: Bool = false, debugMode: Bool = false) -> Promise<ReturnedObject> {
+        
+        let token = APIConfig.token
+        let authPlugin = AccessTokenPlugin { _ in token }
+
         let loggerConfig = NetworkLoggerPlugin.Configuration(logOptions: .verbose)
         let networkLogger = NetworkLoggerPlugin(configuration: loggerConfig)
-        let provider = true ? (MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(0.0), plugins: [networkLogger])) :
-            (debugMode ? MoyaProvider<Target>(plugins: [networkLogger]) : MoyaProvider<Target>())
+        let provider = test ? (MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(0.0), plugins: [networkLogger])) :
+            (debugMode ? MoyaProvider<Target>(plugins: [networkLogger, authPlugin]) : MoyaProvider<Target>(plugins: [authPlugin]))
+        
+        
+        // MARK: Api for testing
+//        let provider = MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(0.0), plugins: [networkLogger])
+        /// ------------------------------
         return Promise { seal in
             provider.request(target) { result in
                 switch result {
@@ -35,6 +44,8 @@ struct APIManager: GeneralAPI {
                     let decoder = JSONDecoder()
                     decoder.dateDecodingStrategy = .iso8601
                     do {
+                        print("decoder")
+//                        print(response.data)
                         let results = try decoder.decode(ReturnedObject.self, from: response.data)
                         seal.fulfill(results)
                     } catch {

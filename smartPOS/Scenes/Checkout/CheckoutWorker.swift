@@ -12,9 +12,7 @@
 
 import UIKit
 
-class CheckoutWorker
-{
-  func doSomeWork()
-  {
+class CheckoutWorker : RestaurantNetworkInjected{
+  func doSomeWork() {
   }
 }

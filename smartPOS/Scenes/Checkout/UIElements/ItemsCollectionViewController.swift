@@ -14,8 +14,6 @@ class ItemsCollectionViewController: UIViewController {
     let width = floor((UIScreen.main.bounds.width - (5 * 10)) / 4)
     let height = max(floor((UIScreen.main.bounds.height - ( 240 + 126 + 20)) / 4), 136)
     lazy var size = CGSize(width: width, height: height)
-    
-    
     var insets: UIEdgeInsets {
         return UIEdgeInsets(top: 200, left: 0, bottom: 200, right: 0)
     }
@@ -26,7 +24,10 @@ class ItemsCollectionViewController: UIViewController {
     
     private var dataSource = PresetsDataSource()
     
-    var displayedMenuItems: [Checkout.DisplayedMenuItem] = []
+    var menuItems: [MenuItem] = []
+    
+    var currentGroup: Int = 0
+    
     
     // MARK: Setup to show list item by colection view controller using Bouncylayout
 
@@ -92,10 +93,10 @@ extension ItemsCollectionViewController {
     
     @objc func didGetNotificationFetchMenuItems(_ notification: Notification) {
         view.hideSkeleton()
-        let viewModel = notification.object as! Checkout.FetchMenuItems.ViewModel
-        self.displayedMenuItems = viewModel.displayedMenuItems
+        let menuItems = notification.object as! MenuItems
+        self.menuItems = menuItems
         collectionView.reloadData()
-        print("updateData-\(displayedMenuItems)")
+        print("updateData-\(menuItems)")
     }
 }
 
@@ -103,13 +104,14 @@ extension ItemsCollectionViewController {
 
 extension ItemsCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return displayedMenuItems.count
+//        return displayMenuItemGroups[currentGroup].menuItems.count
+        return menuItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { fatalError("xib doesn't exist") }
         
-        cell.setCell(displayedMenuItems[indexPath.row])
+        cell.setCell(menuItems[indexPath.row])
     
         // Highlighted color
         let myCustomSelectionColorView = UIView()
@@ -123,7 +125,7 @@ extension ItemsCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let attributes = dataSource[3, 0].attributes
         let attributes = createAttributePopup().attributes
-        let menuItem = displayedMenuItems[indexPath.row]
+        let menuItem = menuItems[indexPath.row]
 //        showLightAwesomePopupMessage(attributes: attributes)
         showOrderItemPopupView(attributes: attributes, data: menuItem)
     }
@@ -168,7 +170,7 @@ extension ItemsCollectionViewController {
     }
     
     // Bumps a custom nib originated view
-    private func showOrderItemPopupView(attributes: EKAttributes, data: Checkout.DisplayedMenuItem) {
+    private func showOrderItemPopupView(attributes: EKAttributes, data: MenuItem) {
         SwiftEntryKit.display(entry: MenuItemDetailView(data), using: attributes)
     }
 

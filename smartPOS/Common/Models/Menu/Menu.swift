@@ -7,11 +7,15 @@
 //
 
 import Foundation
-struct Menu {
+struct Menu: Codable {
     var id: String
-    var restaurent: Restaurant
     var name: String
     var index: Float
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case index
+    }
 }
 
 

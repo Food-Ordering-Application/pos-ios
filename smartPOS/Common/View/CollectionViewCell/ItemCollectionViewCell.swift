@@ -49,11 +49,22 @@ class ItemCollectionViewCell: UICollectionViewCell {
         clipsToBounds = true
     }
 
-    func setCell(_ data: Checkout.DisplayedMenuItem?) {
+    func setCell(_ data: MenuItem?) {
         if let menuItem = data {
             lbName?.text = menuItem.name
             lbPrice?.text = String(menuItem.price).currency()
-            print("Setlected CollectionViewCell", menuItem)
+//            self.setImage(imageUrl: menuItem.imageUrl)
+            print("Setlected CollectionViewCell",menuItem.imageUrl, menuItem)
+        }
+    }
+    func setImage(imageUrl: String){
+        guard let url = URL(string: imageUrl) else { return }
+            
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            DispatchQueue.main.async {
+                self.imageItem.image = UIImage(data: data!)
+            }
         }
     }
 }

@@ -13,26 +13,31 @@
 import UIKit
 
 protocol CheckoutPresentationLogic {
-    func presentFetchedOrder(response: Checkout.FetchMenuItems.Response)
+    func presentFetchedMenuItemGroups(response: Checkout.FetchMenuItems.Response)
+    func presentFetchedMenuItemToppings(response: Checkout.FetchMenuItemToppings.Response)
     func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response)
     func presentCreateOrderAndOrderItem(response: Checkout.CreateOrderAndOrderItems.Response)
 }
 
 class CheckoutPresenter: CheckoutPresentationLogic {
-    
-    
+ 
     weak var viewController: CheckoutDisplayLogic?
   
     // MARK: Do something
   
-    func presentFetchedOrder(response: Checkout.FetchMenuItems.Response) {
-        var displayedMenuItems: [Checkout.DisplayedMenuItem] = []
-        for menuItem in response.menuItems {
-            let displayedMenuItem = Checkout.DisplayedMenuItem(id: menuItem.id, name: menuItem.name, price: menuItem.price)
-            displayedMenuItems.append(displayedMenuItem)
+    func presentFetchedMenuItemGroups(response: Checkout.FetchMenuItems.Response) {
+        var displayedMenuItemGroups: [Checkout.DisplayedMenuItemGroup] = []
+        var allMenuItem: Checkout.DisplayedMenuItemGroup = Checkout.DisplayedMenuItemGroup(id: "0", name: "Tất cả", index: 0, menuItems: [])
+        for menuItemGroup in response.menuGroups ?? [] {
+            let menuItems = menuItemGroup.menuItems
+            allMenuItem.menuItems.append(contentsOf: menuItems)
+            let displayedMenuItemGroup = Checkout.DisplayedMenuItemGroup(id: menuItemGroup.id, name: menuItemGroup.name, index: menuItemGroup.index, menuItems: menuItems)
+            displayedMenuItemGroups.append(displayedMenuItemGroup)
         }
-        let viewModel = Checkout.FetchMenuItems.ViewModel(displayedMenuItems: displayedMenuItems)
-        viewController?.displayFetchedMenuItems(viewModel: viewModel)
+        displayedMenuItemGroups.insert(allMenuItem, at: 0)
+        
+        let viewModel = Checkout.FetchMenuItems.ViewModel(displayedMenuItemGroups: displayedMenuItemGroups)
+        viewController?.displayFetchedMenuItemGroups(viewModel: viewModel)
     }
     
     func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response) {
@@ -42,9 +47,35 @@ class CheckoutPresenter: CheckoutPresentationLogic {
         viewController?.displayCreatedOrderItem(viewModel: viewModel)
     }
     func presentCreateOrderAndOrderItem(response: Checkout.CreateOrderAndOrderItems.Response) {
-        let orderItems = response.orderItems
-        let order = response.order
-        let viewModel = Checkout.CreateOrderAndOrderItems.ViewModel(order: order, orderItems: orderItems, error: response.error)
+        let separatedNestedOrder = separateOrderAndOrderItem(nestedOrder: response.order)
+        let viewModel = Checkout.CreateOrderAndOrderItems.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
         viewController?.displayCreatedOrderAndOrderItems(viewModel: viewModel)
     }
+     func presentFetchedMenuItemToppings(response: Checkout.FetchMenuItemToppings.Response) {
+        debugPrint("presentFetchedMenuItemToppings")
+        debugPrint(response)
+        let viewModel = Checkout.FetchMenuItemToppings.ViewModel(toppingGroups: response.toppingGroups)
+        viewController?.displayFetchedMenuItemToppings(viewModel: viewModel)
+    }
+    
+   
+}
+
+// MARK: - Helper function
+
+extension CheckoutPresenter {
+    private func separateOrderAndOrderItem(nestedOrder: NestedOrder?) -> SeparatedNestedOrder {
+        let order = Order(id: nestedOrder?.id, customerId: nestedOrder?.customerId!, driverId: nestedOrder?.driverId, subTotal: nestedOrder?.subTotal, itemDiscount: nestedOrder?.itemDiscount, shippingFee: nestedOrder?.shippingFee, serviceFee: nestedOrder?.serviceFee, promotionId: "", discount: nestedOrder?.discount, grandTotal: nestedOrder?.grandTotal ?? 0, paymentMode: PaymentMode.cod, paymentType: PaymentType.cod, status: OrderStatus.checking, note: "", createdAt: nestedOrder?.createdAt, deliveredAt: nestedOrder?.deliveredAt, updatedAt: nestedOrder?.updatedAt)
+
+        var orderItems: [OrderItem] = []
+        for item in nestedOrder?.orderItems ?? [] {
+            let orderItem = OrderItem(id: item.id, menuItemId: item.menuItemId, orderId: nestedOrder?.id, price: item.price, discount: item.discount, quantity: item.quantity, note:"")
+            orderItems.append(orderItem)
+        }
+        return SeparatedNestedOrder(order: order, orderItems: orderItems)
+    }
+}
+struct SeparatedNestedOrder {
+    let order: Order?
+    let orderItems: [OrderItem]?
 }

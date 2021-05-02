@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct MenuItemGroup {
+struct MenuItemGroup: Decodable {
     var id: String
     var name: String
+    var index: Int = 0
 }

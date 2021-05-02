@@ -13,74 +13,163 @@
 import UIKit
 
 protocol CheckoutBusinessLogic {
-    func fetchMenuItems(request: Checkout.FetchMenuItems.Request)
+    func fetchMenuItemGroups(request: Checkout.FetchMenuItems.Request)
+    func fetchMenuItemToppings(request: Checkout.FetchMenuItemToppings.Request)
     func createOrderItem(request: Checkout.CreateOrderItem.Request)
     func createOrderAndOrderItems(request: Checkout.CreateOrderAndOrderItems.Request)
 }
 
 protocol CheckoutDataStore {
     var menuItems: [MenuItem]? { get }
-    var orderItems: [OrderItem]? { get set}
+    var orderItems: [OrderItem]? { get set }
     var order: Order? { get set }
 }
 
 class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
     
     
+    let debugMode = true
     var order: Order?
     var menuItems: [MenuItem]?
     var orderItems: [OrderItem]?
     var presenter: CheckoutPresentationLogic?
-    //  var worker: CheckoutWorker? = CheckoutWorker()
+    // MARK: Fro Network
+    var worker: CheckoutWorker? = CheckoutWorker()
+    var ordersPageWorker: OrdersPageWorker? = OrdersPageWorker()
+    
+    // MARK: For CoreDara
     var menuItemsWorker: MenuItemsWorker? = MenuItemsWorker(menuItemsStore: MenuItemsMemStore())
     var ordersWorker: OrdersWorker? = OrdersWorker(ordersStore: OrdersMemStore())
     var orderItemsWorker: OrderItemsWorker? = OrderItemsWorker(orderItemsStore: OrderItemsMemStore())
-  
+
     // MARK: Fetch MenuItems
-  
-    func fetchMenuItems(request: Checkout.FetchMenuItems.Request) {
-        menuItemsWorker?.fetchMenuItems { (menuItems) -> Void in
-            self.menuItems = menuItems
-            let response = Checkout.FetchMenuItems.Response(menuItems: menuItems)
-            self.presenter?.presentFetchedOrder(response: response)
+
+    func fetchMenuItemGroups(request: Checkout.FetchMenuItems.Request) {
+//        menuItemsWorker?.fetchMenuItems { (menuItems) -> Void in
+//            self.menuItems = menuItems
+//            let response = Checkout.FetchMenuItems.Response(menuItems: menuItems)
+//            self.presenter?.presentFetchedOrder(response: response)
+//        }
+        let restaurantId = request.restaurantId
+        var response: Checkout.FetchMenuItems.Response!
+        worker?.restaurantDataManager.getMenu(restaurantId: restaurantId, false).done { menuRes in
+            print("menuRes")
+
+            // MARK: Need to check status code in here 200 -> 300
+            print(menuRes.data)
+            if menuRes.statusCode == 200 {
+                let data = menuRes.data
+                response = Checkout.FetchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
+            }
+
+//            let filteredOrders = self.getFilteredByStatusOrders(orders)
+//            response = OrdersPage.FetchOrders.Response(orders: filteredOrders, error: nil)
+        }.catch { error in
+            print("ERROR-\(error)")
+            response = Checkout.FetchMenuItems.Response(menu: nil, menuGroups: nil, error: MenuItemErrors.couldNotLoadMenuItems(error: error.localizedDescription))
+        }.finally {
+//            print(response)
+            self.presenter?.presentFetchedMenuItemGroups(response: response)
         }
     }
+
+    // MARK: Fetch MenuItemToppings
+
+    func fetchMenuItemToppings(request: Checkout.FetchMenuItemToppings.Request) {
+        let menuItemId = request.menuItemId
+        var response: Checkout.FetchMenuItemToppings.Response!
+        worker?.restaurantDataManager.getMenuItemToppings(menuItemId: menuItemId, debugMode).done { menuItemToppingRes in
+            print("menuItemToppingRes")
+
+            // MARK: Need to check status code in here 200 -> 300
+            print(menuItemToppingRes.data)
+            if menuItemToppingRes.statusCode == 200 {
+                let data = menuItemToppingRes.data
+                response = Checkout.FetchMenuItemToppings.Response(toppingGroups: data.toppingGroups)
+            }
+        }.catch { error in
+            print("ERROR-\(error)")
+//            response = Checkout.FetchMenuItems.Response(menuItems: <#T##[MenuItem]#>, error: MenuItemErrors.couldNotLoadMenuItems(error: error.localizedDescription)
+        }.finally {
+//            print(response)
+            self.presenter?.presentFetchedMenuItemToppings(response: response)
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     func createOrderItem(request: Checkout.CreateOrderItem.Request) {
-        let orderItem  = buildOrderItemFromOrderItemFormFields(request.orderItemFormFields)
-        orderItemsWorker?.createOrderItem(orderItemToCreate: orderItem) { (orderItem) -> Void in
-            // MARK: ALERT ALERT Please Recheck this line when CRUD OrderItem
-            self.orderItems?.append(orderItem!)
-            let response = Checkout.CreateOrderItem.Response(orderItem: orderItem)
-            self.presenter?.presentCreatedOrderItem(response: response)
-        }
+        print("createOrderItem")
+        print(request)
+//        let orderItem = buildOrderItemFromOrderItemFormFields(request.orderItemFormFields)
+//        orderItemsWorker?.createOrderItem(orderItemToCreate: orderItem) { (orderItem) -> Void in
+//
+//            // MARK: ALERT ALERT Please Recheck this line when CRUD OrderItem
+//
+//            self.orderItems?.append(orderItem!)
+//            let response = Checkout.CreateOrderItem.Response(orderItem: orderItem)
+//            self.presenter?.presentCreatedOrderItem(response: response)
+//        }
     }
+
     func createOrderAndOrderItems(request: Checkout.CreateOrderAndOrderItems.Request) {
+        var response: Checkout.CreateOrderAndOrderItems.Response!
         
-        
-        let order = Order(id: "ORDER-HAHA-123", customerId: "CUS-123", driverId: "DRI-123", subTotal: 100, itemDiscount: 0.0, shippingFee: 12.0, serviceFee: 2.0, promotionId: "PRO-ID", discount: 1.0, grandTotal: 20000, customerAddressId: "CUS-ADD-123", paymentMode: .cod, paymentType: .cod, status: .checking, note: "ORDER NOTED", createdAt: Date(), deliveredAt: Date(), updatedAt: Date())
-        var orderItems: [OrderItem] = []
-        ordersWorker?.createOrder(orderToCreate: order) {(order) in
-            let orderId = order!.id
-            for orderItemFormFields in request.orderItemsFormFields {
-                var orderItem = self.buildOrderItemFromOrderItemFormFields(orderItemFormFields)
-                orderItem.orderId = orderId!
-                orderItems.append(orderItem)
+        ordersPageWorker?.ordersDataManager.createOrderAndOrderItem(orderAndOrderItemFormFields: request.orderAndOrderItemFormFields!, debugMode).done { orderRes in
+            print("orderAndOrderItemFormFields")
+            print(orderRes.data)
+            if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
+                let data = orderRes.data
+                response = Checkout.CreateOrderAndOrderItems.Response(order: data.order, error: nil)
             }
-            self.orderItemsWorker?.createOrderItems(orderItemsToCreate: orderItems, completionHandler: { (orderItems) in
-                self.orderItems  = orderItems
-                let response = Checkout.CreateOrderAndOrderItems.Response(order: order, orderItems: orderItems, error: nil)
-                self.presenter?.presentCreateOrderAndOrderItem(response: response)
-            })
+        }.catch { error in
+            print("ERROR-\(error)")
+            response = Checkout.CreateOrderAndOrderItems.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: error.localizedDescription))
+        }.finally {
+            self.presenter?.presentCreateOrderAndOrderItem(response: response)
         }
+        
+        
+        
+//        let order = Order(id: "ORDER-HAHA-123", customerId: "CUS-123", driverId: "DRI-123", subTotal: 100, itemDiscount: 0.0, shippingFee: 12.0, serviceFee: 2.0, promotionId: "PRO-ID", discount: 1.0, grandTotal: 20000, customerAddressId: "CUS-ADD-123", paymentMode: .cod, paymentType: .cod, status: .checking, note: "ORDER NOTED", createdAt: Date(), deliveredAt: Date(), updatedAt: Date())
+//        var orderItems: [OrderItem] = []
+//        ordersWorker?.createOrder(orderToCreate: order) { order in
+//            let orderId = order!.id
+//            for orderItemFormFields in request.orderItemsFormFields {
+//                var orderItem = self.buildOrderItemFromOrderItemFormFields(orderItemFormFields)
+//                orderItem.orderId = orderId!
+//                orderItems.append(orderItem)
+//            }
+//            self.orderItemsWorker?.createOrderItems(orderItemsToCreate: orderItems, completionHandler: { orderItems in
+//                self.orderItems = orderItems
+//                let response = Checkout.CreateOrderAndOrderItems.Response(order: order, orderItems: orderItems, error: nil)
+//                self.presenter?.presentCreateOrderAndOrderItem(response: response)
+//            })
+//        }
     }
 }
 
 // MARK: - Helper function
 
 extension CheckoutInteractor {
-    
-    private func buildOrderItemFromOrderItemFormFields(_ orderItemFormFields: Checkout.OrderItemFormFields) -> OrderItem {
-        return OrderItem(id: orderItemFormFields.id, menuItemId: orderItemFormFields.menuItemId, orderId: orderItemFormFields.orderId, price: orderItemFormFields.price, discount: 0.0, quantity: orderItemFormFields.quantity, note: "buildOrderItemFromOrderItemFormFields")
-    }
+//    private func buildOrderItemFromOrderItemFormFields(_ orderItemFormFields: Checkout.OrderItemFormFields) -> OrderItem {
+//        return OrderItem(id: orderItemFormFields.id, menuItemId: orderItemFormFields.menuItemId, orderId: orderItemFormFields.orderId, price: orderItemFormFields.price, discount: 0.0, quantity: orderItemFormFields.quantity, note: "buildOrderItemFromOrderItemFormFields")
+//    }
+//    private func separateOrderAndOrderItem(nestedOrder: NestedOrder) -> separatedNestedOrder {
+//        let order = Order(id: nestedOrder.id, customerId: nestedOrder.customerId!, driverId: nestedOrder.driverId!, subTotal: nestedOrder.subTotal, itemDiscount: nestedOrder.itemDiscount, shippingFee: nestedOrder.shippingFee, serviceFee: nestedOrder.serviceFee, promotionId: "", discount: nestedOrder.discount, grandTotal: nestedOrder.grandTotal ?? 0, paymentMode: PaymentMode.cod, paymentType: PaymentType.cod, status: OrderStatus.checking, note: "", createdAt: nestedOrder.createdAt, deliveredAt: nestedOrder.deliveredAt, updatedAt: nestedOrder.updatedAt)
+//
+//        var orderItems: [OrderItem]
+//        for item in nestedOrder.orderItems! {
+//            let orderItem
+//        }
+//    }
 }
+ 
