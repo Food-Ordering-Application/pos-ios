@@ -16,6 +16,12 @@ class OrderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var viewBackground: UIView!
     @IBOutlet weak var lbOrderID: UILabel!
     @IBOutlet weak var lbStatus: PaddingLabel!
+    @IBOutlet weak var lbName: UILabel!
+    @IBOutlet weak var lbTimeRemaining: UILabel!
+    @IBOutlet weak var lbTotalQuantity: UILabel!
+    @IBOutlet weak var lbDistance: UILabel!
+    @IBOutlet weak var lbNote: UILabel!
+    @IBOutlet weak var lbTotal: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,6 +57,12 @@ class OrderCollectionViewCell: UICollectionViewCell {
     func setCell(_ data: Order?) {
         if let order = data {
             self.lbOrderID?.text = order.id
+            self.lbStatus?.text = order.status.map { $0.rawValue }
+            self.lbNote?.text = "_"
+            self.lbTimeRemaining?.text = "14p:20s"
+            self.lbTotalQuantity?.text = "1"
+            self.lbDistance?.text = "4kms"
+            self.lbTotal?.text = String(order.grandTotal).currency()
             print("Setlected CollectionViewCell", order)
         }
     }

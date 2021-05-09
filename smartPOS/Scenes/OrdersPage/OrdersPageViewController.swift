@@ -88,7 +88,7 @@ extension OrdersPageViewController {
 
     func fetchOrders() {
         let restaurantId = APIConfig.restaurantId
-        let query = "SALE"
+        let query = "POS"
         let pageNumber = 1
         let request = OrdersPage.FetchOrders.Request(restaurantId: restaurantId, query: query, pageNumber: pageNumber)
         interactor?.fetchOrders(request: request)
