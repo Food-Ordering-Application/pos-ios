@@ -21,17 +21,15 @@ enum OrderDetail {
         }
 
         struct Response {
-            var order: Order?
+            var order: NestedOrder?
             var error: OrderErrors?
         }
 
         struct ViewModel {
-//            struct DisplayedOrder {
-//
-//            }
-            
-            var displayedOrder: Order
+            var order: Order?
+            var orderItems: [OrderItem]?
             var error: OrderErrors?
         }
+    
     }
 }

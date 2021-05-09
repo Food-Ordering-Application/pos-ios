@@ -22,8 +22,6 @@ class OrderDetailPresenter: OrderDetailPresentationLogic {
   // MARK: Do present Order maybe some needed attr
   
   func presentOrder(response: OrderDetail.GetOrder.Response) {
-    let order = response.order
-    
 //    let date = (launch.launchDateUTC).fromUTCToLocalDateTime()
 //    let title = launch.missionName
 //    var status = FlightStatus.upcoming
@@ -40,9 +38,9 @@ class OrderDetailPresenter: OrderDetailPresentationLogic {
 //    viewController?.displayLaunch(viewModel: viewModel)
 //
     
-    
-    
-    let viewModel = OrderDetail.GetOrder.ViewModel(displayedOrder: order!)
+    let separatedNestedOrder = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: response.order)
+    let viewModel = OrderDetail.GetOrder.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
     viewController?.displayOrder(viewModel: viewModel)
+  
   }
 }

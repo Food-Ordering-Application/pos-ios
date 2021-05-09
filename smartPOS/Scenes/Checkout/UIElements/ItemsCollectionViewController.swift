@@ -8,6 +8,8 @@
 import BouncyLayout
 import SwiftEntryKit
 import UIKit
+import SkeletonView
+
 
 class ItemsCollectionViewController: UIViewController {
     // MARK: Amazing Size for each Item
@@ -42,8 +44,8 @@ class ItemsCollectionViewController: UIViewController {
         view.showsHorizontalScrollIndicator = false
         view.delegate = self
         view.dataSource = self
-//        view.register(Cell.self, forCellWithReuseIdentifier: Cell.reuseIdentifier)
         view.register(ItemCollectionViewCell.nib, forCellWithReuseIdentifier: ItemCollectionViewCell.identifier)
+        view.isSkeletonable = true
         return view
     }()
     
@@ -72,6 +74,8 @@ extension ItemsCollectionViewController {
         
         collectionView.contentInset = UIEdgeInsets(top: insets.top + additionalInsets.top, left: insets.left + additionalInsets.left, bottom: insets.bottom + additionalInsets.bottom, right: insets.right + additionalInsets.right)
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: insets.top, left: insets.left, bottom: insets.bottom, right: insets.right)
+        view.isSkeletonable = true
+        collectionView.isSkeletonable = true
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -92,19 +96,21 @@ extension ItemsCollectionViewController {
     }
     
     @objc func didGetNotificationFetchMenuItems(_ notification: Notification) {
-        view.hideSkeleton()
         let menuItems = notification.object as! MenuItems
         self.menuItems = menuItems
         collectionView.reloadData()
         print("updateData-\(menuItems)")
+        view.hideSkeleton()
     }
 }
 
 // MARK: Handle data in collection view
 
-extension ItemsCollectionViewController: UICollectionViewDataSource {
+extension ItemsCollectionViewController: SkeletonCollectionViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return ItemCollectionViewCell.identifier
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return displayMenuItemGroups[currentGroup].menuItems.count
         return menuItems.count
     }
     
@@ -175,3 +181,4 @@ extension ItemsCollectionViewController {
     }
 
 }
+

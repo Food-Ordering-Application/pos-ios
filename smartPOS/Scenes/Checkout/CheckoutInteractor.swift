@@ -16,6 +16,7 @@ protocol CheckoutBusinessLogic {
     func fetchMenuItemGroups(request: Checkout.FetchMenuItems.Request)
     func fetchMenuItemToppings(request: Checkout.FetchMenuItemToppings.Request)
     func createOrderItem(request: Checkout.CreateOrderItem.Request)
+    func manipulateOrderItem(request: Checkout.ManipulateOrderItemQuantity.Request)
     func createOrderAndOrderItems(request: Checkout.CreateOrderAndOrderItems.Request)
 }
 
@@ -26,6 +27,7 @@ protocol CheckoutDataStore {
 }
 
 class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
+    
     
     
     let debugMode = true
@@ -98,17 +100,44 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+    func manipulateOrderItem(request: Checkout.ManipulateOrderItemQuantity.Request) {
+        print("createOrderItem")
+        let orderId = request.orderId
+        let orderItemId  = request.orderItemId
+        let action = request.action
+        var response: Checkout.ManipulateOrderItemQuantity.Response!
+        ordersPageWorker?.ordersDataManager.manipulateOrderItemQuantity(action: action, orderId: orderId ?? "", orderItemId: orderItemId ?? "", debugMode).done { orderRes in
+            print("manipulateOrderItem")
+            print(orderRes.data)
+            if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
+                let data = orderRes.data
+                response = Checkout.ManipulateOrderItemQuantity.Response(order: data.order, error: nil)
+            }
+        }.catch { error in
+            print("ERROR-\(error)")
+            response = Checkout.ManipulateOrderItemQuantity.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: error.localizedDescription))
+        }.finally {
+            self.presenter?.presentManipulateddOrderItem(response: response)
+        }
+    }
     func createOrderItem(request: Checkout.CreateOrderItem.Request) {
         print("createOrderItem")
-        print(request)
+        let orderId = request.orderId
+        let orderItemFormFields = request.orderItemFormFields
+        var response: Checkout.CreateOrderItem.Response!
+        ordersPageWorker?.ordersDataManager.createOrderItem(orderId: orderId ?? "", orderItemFormFields: orderItemFormFields!, debugMode).done { orderRes in
+            print("orderAndOrderItemFormFields")
+            print(orderRes.data)
+            if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
+                let data = orderRes.data
+                response = Checkout.CreateOrderItem.Response(order: data.order, error: nil)
+            }
+        }.catch { error in
+            print("ERROR-\(error)")
+            response = Checkout.CreateOrderItem.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: error.localizedDescription))
+        }.finally {
+            self.presenter?.presentCreatedOrderItem(response: response)
+        }
 //        let orderItem = buildOrderItemFromOrderItemFormFields(request.orderItemFormFields)
 //        orderItemsWorker?.createOrderItem(orderItemToCreate: orderItem) { (orderItem) -> Void in
 //

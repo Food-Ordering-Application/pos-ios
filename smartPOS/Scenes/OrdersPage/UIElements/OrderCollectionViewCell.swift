@@ -48,7 +48,7 @@ class OrderCollectionViewCell: UICollectionViewCell {
 
         clipsToBounds = true
     }
-    func setCell(_ data: OrdersPage.DisplayedOrder?) {
+    func setCell(_ data: Order?) {
         if let order = data {
             self.lbOrderID?.text = order.id
             print("Setlected CollectionViewCell", order)

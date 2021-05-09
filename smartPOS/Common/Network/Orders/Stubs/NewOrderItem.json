@@ -1,0 +1,66 @@
+{
+    "statusCode": 200,
+    "message": "New orderItem added successfully",
+    "data": {
+        "order": {
+            "id": "2ba4ffd3-e30e-490c-8cfb-11ea5321db5e",
+            "customerId": "942356b0-1738-47ad-b1b7-8b45f73912b6",
+            "driverId": null,
+            "restaurantId": "0628ec9e-13a9-47b4-83c2-a8832fa25395",
+            "subTotal": 90093,
+            "itemDiscount": null,
+            "shippingFee": 15000,
+            "serviceFee": 2000,
+            "discount": null,
+            "grandTotal": 107093,
+            "createdAt": "2021-05-02T11:01:24.812Z",
+            "updatedAt": "2021-05-02T11:03:02.215Z",
+            "deliveredAt": null,
+            "paymentType": "COD",
+            "status": "DRAFT",
+            "orderItems": [
+                {
+                    "id": "95fc9595-7f4b-4337-a52a-618df4c0b6f9",
+                    "menuItemId": "8ae1f35a-dba3-4add-b49a-760359b42016",
+                    "price": 14805,
+                    "quantity": 1,
+                    "discount": 0,
+                    "state": "IN_STOCK",
+                    "orderItemToppings": [
+                        {
+                            "id": "3f628200-7112-4513-9776-3e7df8bcfc40",
+                            "menuItemToppingId": "23837d0b-6b21-45d9-ad71-7fbbb586061c",
+                            "quantity": 1,
+                            "price": 12407,
+                            "state": "IN_STOCK"
+                        },
+                        {
+                            "id": "8722db94-7cc1-4042-8479-730b969e345e",
+                            "menuItemToppingId": "913aaef7-d0c0-40c0-9a1d-e594508446c8",
+                            "quantity": 1,
+                            "price": 18067,
+                            "state": "IN_STOCK"
+                        }
+                    ]
+                },
+                {
+                    "menuItemId": "8ae1f35a-dba3-4add-b49a-760359b42016",
+                    "price": 10000,
+                    "quantity": 2,
+                    "orderItemToppings": [
+                        {
+                            "menuItemToppingId": "a8f94b3f-84cc-4a11-bc33-6ddfaae90d3a",
+                            "price": 12407,
+                            "quantity": 1,
+                            "state": "IN_STOCK",
+                            "id": "4ee70aa4-7c53-4ef4-93fc-14a854db1dfc"
+                        }
+                    ],
+                    "discount": 0,
+                    "id": "1549cb88-b014-484d-8fe7-3155217a12bb",
+                    "state": "IN_STOCK"
+                }
+            ]
+        }
+    }
+}

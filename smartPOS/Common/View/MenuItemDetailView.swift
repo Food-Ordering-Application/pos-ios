@@ -8,6 +8,7 @@
 
 import SwiftEntryKit
 import UIKit
+import SkeletonView
 struct MenuItemAndToppings {
     let menuItem: MenuItem?
     let menuItemQuantity: Int?
@@ -76,12 +77,15 @@ class MenuItemDetailView: UIView {
         self.btnPlusQuantity.layer.cornerRadius = 8
         self.setupTableViewTopping()
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchedMenuItemToppings(_:)), name: Notification.Name("FetchedMenuItemToppings"), object: nil)
+        tableViewTopping.isSkeletonable = true
+        self.tableViewTopping.showAnimatedGradientSkeleton()
     }
     
     @objc func didGetNotificationFetchedMenuItemToppings(_ notification: Notification) {
         let toppingGroups = notification.object as! ToppingGroups
         print("didGetNotificationFetchedMenuItemToppings-\(toppingGroups)")
         self.onUpdateTopping(toppingGroups: toppingGroups)
+        self.tableViewTopping.hideSkeleton()
     }
     
     
@@ -100,9 +104,6 @@ class MenuItemDetailView: UIView {
     }
 
     @IBAction func doAddMenuItem(_ sender: Any) {
-        print("Iam doAddMemuItem")
-        
-        print(selectedIndexPaths)
         var toppingItems: [ToppingItem] = []
         for indexPath in selectedIndexPaths {
             let toppingItem = self.toppingSelection[indexPath.section].toppingItems[indexPath.row]
@@ -116,14 +117,16 @@ class MenuItemDetailView: UIView {
     @IBAction func doMinusQuantity(_ sender: Any) {
         print("doMinusQuantity")
         self.menuItemQuantity -= 1
-        self.lbQuantity!.text = String(menuItemQuantity)
-        self.btnMinusQuantity.isEnabled = self.menuItemQuantity != 1
+        self.updateQuantity(menuItemQuantity)
     }
 
     @IBAction func doPlusQuantity(_ sender: Any) {
         print("doPlusQuantity")
         self.menuItemQuantity += 1
-        self.lbQuantity!.text = String(menuItemQuantity)
+        self.updateQuantity(menuItemQuantity)
+    }
+    fileprivate func updateQuantity(_ quantity: Int){
+        self.lbQuantity!.text = String(quantity)
         self.btnMinusQuantity.isEnabled = self.menuItemQuantity > 1
     }
 }
@@ -142,7 +145,7 @@ extension MenuItemDetailView {
 
 // MARK: Setting for Table View
 
-extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
+extension MenuItemDetailView: SkeletonTableViewDelegate, SkeletonTableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.toppingSelection.count
     }
@@ -165,7 +168,18 @@ extension MenuItemDetailView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+        
     }
+    func numSections(in collectionSkeletonView: UITableView) -> Int {
+        return 2
+    }
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return RadioTableViewCell.identifier
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndexPathAtCurrentSection = self.selectedIndexPaths.filter { $0.section == indexPath.section }

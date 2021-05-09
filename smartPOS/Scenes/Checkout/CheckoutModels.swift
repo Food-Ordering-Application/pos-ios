@@ -107,11 +107,14 @@ enum Checkout {
         }
 
         struct Response {
-            var orderItem: OrderItem?
+            var order: NestedOrder?
+            var error: OrderItemErrors?
         }
 
         struct ViewModel {
-            var orderItem: OrderItem?
+            var order: Order?
+            var orderItems: [OrderItem]?
+            var error: OrderItemErrors?
         }
     }
 
@@ -132,17 +135,42 @@ enum Checkout {
         }
     }
 
+    
+    enum ManipulateOrderItemQuantity {
+        struct Request {
+            var action: ManipulateOrderItemRequest
+            var orderId: String?
+            var orderItemId: String?
+        }
+
+        struct Response {
+            var order: NestedOrder?
+            var error: OrderItemErrors?
+        }
+
+        struct ViewModel {
+            var order: Order?
+            var orderItems: [OrderItem]?
+            var error: OrderItemErrors?
+        }
+    }
+    
+    
+    
     enum CreateOrderItems {
         struct Request {
             var orderItemsFormFields: [OrderItemFormFields]
         }
 
         struct Response {
-            var orderItems: [OrderItem]?
+            var order: NestedOrder?
+            var error: OrderItemErrors?
         }
 
         struct ViewModel {
+            var order: Order?
             var orderItems: [OrderItem]?
+            var error: OrderItemErrors?
         }
     }
 

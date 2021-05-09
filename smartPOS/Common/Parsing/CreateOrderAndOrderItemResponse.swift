@@ -14,26 +14,24 @@ struct CreateOrderAndOrderItemResponse: Decodable {
 }
 
 struct OrderAndOrderItemData: Decodable {
-    let order: NestedOrder
+    let order: NestedOrder?
 }
 
 struct NestedOrder: Decodable {
     let id: String?
-    let status: OrderStatusRes?
-    let customerId: String?
+    let status: OrderStatus?
+    let cashierId: String?
     let restaurantId: String?
-    let paymentType: PaymentTypeRes?
-    let orderItems: [OrderItemRes]?
+    let paymentType: PaymentType?
     let serviceFee: Float?
-    let shippingFee: Float?
     let subTotal: Double?
     let grandTotal: Double?
-    let driverId: String?
     let itemDiscount: Float?
     let discount: Float?
-    let deliveredAt: SafeDateCodableType?
     let createdAt: SafeDateCodableType?
     let updatedAt: SafeDateCodableType?
+    let orderItems: [OrderItemRes]?
+    let delivery: Delivery?
 }
 
 struct OrderItemRes: Decodable {
@@ -45,16 +43,7 @@ struct OrderItemRes: Decodable {
     let quantity: Int?
     let orderItemToppings: [OrderItemTopping]?
 }
-
-struct PaymentTypeRes: Decodable {
-    let id: String?
-    let name: String?
-}
-
-struct OrderStatusRes: Decodable {
-    let id: String?
-    let name: String?
-}
+ 
 public struct SafeDateCodableType: Decodable {
     public var dateValue: Date?
     public init(from decoder: Decoder) throws {

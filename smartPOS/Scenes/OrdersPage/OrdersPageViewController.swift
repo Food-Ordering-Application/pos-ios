@@ -11,7 +11,7 @@
 //
 
 import UIKit
-
+import SkeletonView
 protocol OrdersPageDisplayLogic: class {
     func displayOrders(viewModel: OrdersPage.FetchOrders.ViewModel)
     func displaySearchOrders(viewModel: OrdersPage.SearchOrders.ViewModel)
@@ -29,7 +29,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
     @IBOutlet weak var orderDetailView: UIView!
     
     // MARK: - Variables
-    var displayedOrders: [OrdersPage.DisplayedOrder] = []
+    var displayedOrders: [Order] = []
     
     // MARK: Object lifecycle
   
@@ -58,6 +58,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.showAnimatedGradientSkeleton()
         fetchOrders()
     }
     
@@ -86,7 +87,10 @@ extension OrdersPageViewController {
     // MARK: Fetch Data to display in the orders collection view
 
     func fetchOrders() {
-        let request = OrdersPage.FetchOrders.Request()
+        let restaurantId = APIConfig.restaurantId
+        let query = "SALE"
+        let pageNumber = 1
+        let request = OrdersPage.FetchOrders.Request(restaurantId: restaurantId, query: query, pageNumber: pageNumber)
         interactor?.fetchOrders(request: request)
     }
     

@@ -13,7 +13,7 @@ class RadioTableViewCell: UITableViewCell {
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
     
     @IBOutlet weak var lbName: UILabel!
-    @IBOutlet weak var lbPrice: UILabel!
+    @IBOutlet weak var lbPrice: UILabel!  
     @IBOutlet weak var radioButton: LTHRadioButton! = {
         let r = LTHRadioButton()
         r.translatesAutoresizingMaskIntoConstraints = false

@@ -25,8 +25,8 @@ final class OrdersPagePresenter: OrdersPagePresentationLogic {
     // MARK: Set orders to be display after view did load
     
     func presentOrders(response: OrdersPage.FetchOrders.Response) {
-        let displayedOrders = getDisplayedOrders(response.orders)
-        let viewModel = OrdersPage.FetchOrders.ViewModel(displayedOrders: displayedOrders, error: response.error)
+//        let displayedOrders = getDisplayedOrders(response.orders)
+        let viewModel = OrdersPage.FetchOrders.ViewModel(displayedOrders: response.orders ?? [], error: response.error)
         viewController?.displayOrders(viewModel: viewModel)
     }
     
@@ -49,8 +49,8 @@ final class OrdersPagePresenter: OrdersPagePresentationLogic {
     // MARK: Set orders to be display after a refresh is called on data
 
     func presentRefreshedOrders(response: OrdersPage.RefreshOrders.Response) {
-        let displayedOrders = getDisplayedOrders(response.orders)
-        let viewModel = OrdersPage.RefreshOrders.ViewModel(displayedOrders: displayedOrders, error: response.error)
+//        let displayedOrders = getDisplayedOrders(response.orders)
+        let viewModel = OrdersPage.RefreshOrders.ViewModel(displayedOrders: response.orders ?? [], error: response.error)
         viewController?.displayRefreshedOrders(viewModel: viewModel)
     }
 }

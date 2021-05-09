@@ -3,39 +3,33 @@
     "message": "Order created successfully",
     "data": {
         "order": {
-            "customerId": "3e41627a-024a-4841-8648-0024322a49f4",
-            "restaurantId": "4ef64aa6-dd7c-45f6-aa9c-be40d7334305",
-            "paymentType": {
-                "id": "e06bc3b8-1265-4ab4-b9a1-69cbf958aa3d",
-                "name": "COD"
-            },
-            "status": {
-                "id": "244f8f08-1cc1-42d2-8a0a-601ea90125ca",
-                "name": "DRAFT"
-            },
+            "customerId": "942356b0-1738-47ad-b1b7-8b45f73912b6",
+            "restaurantId": "0628ec9e-13a9-47b4-83c2-a8832fa25395",
+            "paymentType": "COD",
+            "status": "DRAFT",
             "orderItems": [
                 {
-                    "menuItemId": "744b198e-5181-4807-821e-d3f9ea633a26",
+                    "menuItemId": "8ae1f35a-dba3-4add-b49a-760359b42016",
                     "price": 14805,
                     "quantity": 1,
                     "orderItemToppings": [
                         {
-                            "menuItemToppingId": "631ee1f8-7e37-410b-87c6-d5e798b3690f",
+                            "menuItemToppingId": "23837d0b-6b21-45d9-ad71-7fbbb586061c",
                             "price": 12407,
                             "quantity": 1,
                             "state": "IN_STOCK",
-                            "id": "ce0af04e-c553-4ad1-9dbe-cafe24dbdbf0"
+                            "id": "3f628200-7112-4513-9776-3e7df8bcfc40"
                         },
                         {
-                            "menuItemToppingId": "762ca198-44d1-4ddc-bbd1-4759ee1ccb8c",
+                            "menuItemToppingId": "913aaef7-d0c0-40c0-9a1d-e594508446c8",
                             "price": 18067,
                             "quantity": 1,
                             "state": "IN_STOCK",
-                            "id": "4bf14699-e4e3-4b2b-8778-193fc0c704ad"
+                            "id": "8722db94-7cc1-4042-8479-730b969e345e"
                         }
                     ],
                     "discount": 0,
-                    "id": "e8922a2b-4882-4ee6-921f-c05391d6d683",
+                    "id": "95fc9595-7f4b-4337-a52a-618df4c0b6f9",
                     "state": "IN_STOCK"
                 }
             ],
@@ -47,9 +41,9 @@
             "itemDiscount": null,
             "discount": null,
             "deliveredAt": null,
-            "id": "aa0107ea-86b4-4e04-a6ed-e494cc105a31",
-            "createdAt": "2021-05-01T09:51:03.081Z",
-            "updatedAt": "2021-05-01T09:51:03.081Z"
+            "id": "2ba4ffd3-e30e-490c-8cfb-11ea5321db5e",
+            "createdAt": "2021-05-02T11:01:24.812Z",
+            "updatedAt": "2021-05-02T11:01:24.812Z"
         }
     }
 }

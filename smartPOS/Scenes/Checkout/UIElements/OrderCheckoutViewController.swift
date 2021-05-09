@@ -7,29 +7,48 @@
 //
 
 import BouncyLayout
-import SwiftEntryKit
 import EmptyDataSet_Swift
-import UIKit
 import NumPad
+import SwiftEntryKit
+import UIKit
 
-
+struct ManipulateOrderItemModel {
+    let action: ManipulateOrderItemRequest
+    let orderId: String
+    let orderItemId: String
+}
 
 class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
     @IBOutlet var orderItemsTableView: UITableView!
 //    @IBOutlet weak var paymentInfoArea: UIView!
-    @IBOutlet weak var btnCancelOrder: UIButton!
-    @IBOutlet weak var lbTotal: UILabel!
-    @IBOutlet weak var lbTax: UILabel!
-    @IBOutlet weak var lbDiscounts: UILabel!
-    @IBOutlet weak var lbSubTotal: UILabel!
-    @IBOutlet weak var paymentMethod: UISegmentedControl!
+    @IBOutlet var orderInfoArea: UIStackView! {
+        didSet {
+            self.orderInfoArea.isHidden = true
+        }
+    }
+
+    @IBOutlet var btnCancelOrder: UIButton! {
+        didSet {
+            self.btnCancelOrder.isHidden = true
+        }
+    }
+
+    @IBOutlet var lbTotal: UILabel!
+    @IBOutlet var lbTax: UILabel!
+    @IBOutlet var lbDiscounts: UILabel!
+    @IBOutlet var lbSubTotal: UILabel!
+    @IBOutlet var paymentMethod: UISegmentedControl!
     
-    @IBOutlet weak var cashPaymentArea: UIStackView!
+    @IBOutlet var cashPaymentArea: UIStackView! {
+        didSet {
+            self.cashPaymentArea.isHidden = true
+        }
+    }
     
-    @IBOutlet weak var lbReceivedCash: UILabel!
-    @IBOutlet weak var lbExcessCash: UILabel!
+    @IBOutlet var lbReceivedCash: UILabel!
+    @IBOutlet var lbExcessCash: UILabel!
     
-    @IBOutlet weak var btnPayment: UIButton!
+    @IBOutlet var btnPayment: UIButton!
     
     var order: Order?
     var orderItems: [OrderItem] = []
@@ -37,18 +56,13 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
         self.setup()
     }
     
-    
     @IBAction func doPlaceOrder(_ sender: Any) {
         let attributes = createAttributePopup().attributes
-        
         
         self.showInputPadPopup(attributes: attributes)
         print("doPlaceOrder")
     }
-    
-    
 }
-
 
 extension OrderCheckoutViewController {
     func setup() {
@@ -61,45 +75,59 @@ extension OrderCheckoutViewController {
         self.setupOrderView()
         
         // MARK: Notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationCreatedOrderItem(_:)), name: Notification.Name("CreatedOrderItem"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationCreatedOrderAndOrderItems(_:)), name: Notification.Name("CreatedOrderAndOrderItems"), object: nil)
 
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationManipulatedOrderItem(_:)), name: Notification.Name("ManipulatedOrderItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreatedOrderItem(_:)), name: Notification.Name("CreatedOrderItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreatedOrderAndOrderItems(_:)), name: Notification.Name("CreatedOrderAndOrderItems"), object: nil)
+    }
+
+    @objc func didGetNotificationManipulatedOrderItem(_ notification: Notification) {
+        let viewModel = notification.object as! Checkout.ManipulateOrderItemQuantity.ViewModel
+        self.updateDataOrder(order: viewModel.order)
+        self.updateDataOrderItems(orderItems: viewModel.orderItems)
     }
     
     @objc func didGetNotificationCreatedOrderItem(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.CreateOrderItem.ViewModel
-        updateDataOrderItem(orderItem: viewModel.orderItem)
+        self.updateDataOrder(order: viewModel.order)
+        self.updateDataOrderItems(orderItems: viewModel.orderItems)
     }
     
     @objc func didGetNotificationCreatedOrderAndOrderItems(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.CreateOrderAndOrderItems.ViewModel
-        updateDataOrder(order: viewModel.order)
-        updateDataOrderItems(orderItems: viewModel.orderItems)
+        self.updateDataOrder(order: viewModel.order)
+        self.updateDataOrderItems(orderItems: viewModel.orderItems)
     }
     
     //    MARK: Handle add orderItem to Order
  
-    func updateDataOrder(order: Order?){
+    func updateDataOrder(order: Order?) {
         self.order = order
-        guard let orderId = order!.id else { return }
+        guard let orderId = order!.id else {
+            self.orderInfoArea.isHidden = true
+            self.btnCancelOrder.isHidden = true
+            return
+        }
         self.lbTotal?.text = String(order!.grandTotal).currency()
+        self.lbSubTotal?.text = String(order?.grandTotal ?? 0).currency()
+        self.lbDiscounts?.text = String(order?.discount ?? 0).currency()
+        self.lbTax?.text = String(0).currency()
         self.setupOrderView(isHidden: false)
     }
-    func updateDataOrderItem(orderItem: OrderItem?){
+
+    func updateDataOrderItem(orderItem: OrderItem?) {
         self.orderItems.append(orderItem!)
         self.orderItemsTableView.reloadData()
     }
-    func updateDataOrderItems(orderItems: [OrderItem]?){
+
+    func updateDataOrderItems(orderItems: [OrderItem]?) {
         self.orderItems = orderItems!
         self.orderItemsTableView.reloadData()
     }
     
-    
-    
-    
-    func setupOrderView(isHidden: Bool = true){
-        btnCancelOrder.isHidden = isHidden
-//        paymentInfoArea.isHidden = isHidden
+    func setupOrderView(isHidden: Bool = true) {
+        self.btnCancelOrder.isHidden = isHidden
+        self.orderInfoArea.isHidden = isHidden
     }
     
     // MARK: Register tableView for xib cell
@@ -114,8 +142,6 @@ extension OrderCheckoutViewController {
         }
     }
 }
-
-
 
 // MARK: Handle show Numpad when touch in btnPayment
 
@@ -143,11 +169,12 @@ extension OrderCheckoutViewController {
     
     // Bumps a custom nib originated view
     private func showInputPadPopup(attributes: EKAttributes) {
-        SwiftEntryKit.display(entry: NumpadView(frame: CGRect(x: 0, y: 0, width: 600, height: 800)) , using: attributes)
+        SwiftEntryKit.display(entry: NumpadView(frame: CGRect(x: 0, y: 0, width: 600, height: 800)), using: attributes)
     }
-
 }
+
 // MARK: Setup tableview for OrderItems
+
 extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return OrderItemTableViewCell.height()

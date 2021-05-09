@@ -44,9 +44,12 @@ class OrderDetailInteractor: OrderDetailBusinessLogic, OrderDetailDataStore {
         guard let orderId = request.id else { return }
         var response: OrderDetail.GetOrder.Response!
 
-        worker.ordersDataManager.getOrder(id: orderId, debugMode).done { order in
-            self.order = order
-            response = OrderDetail.GetOrder.Response(order: order, error: nil)
+        worker.ordersDataManager.getOrder(id: orderId, debugMode).done { orderRes in
+            print(orderRes.data)
+            if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
+                let data = orderRes.data
+                response = OrderDetail.GetOrder.Response(order: data.order, error: nil)
+            }
         }.catch { error in
             response = OrderDetail.GetOrder.Response(order: nil, error: OrderErrors.couldNotLoadOrderDetail(error: error.localizedDescription))
         }.finally {

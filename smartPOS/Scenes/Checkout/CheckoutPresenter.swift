@@ -16,10 +16,13 @@ protocol CheckoutPresentationLogic {
     func presentFetchedMenuItemGroups(response: Checkout.FetchMenuItems.Response)
     func presentFetchedMenuItemToppings(response: Checkout.FetchMenuItemToppings.Response)
     func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response)
+    func presentManipulateddOrderItem(response: Checkout.ManipulateOrderItemQuantity.Response)
     func presentCreateOrderAndOrderItem(response: Checkout.CreateOrderAndOrderItems.Response)
 }
 
 class CheckoutPresenter: CheckoutPresentationLogic {
+    
+    
  
     weak var viewController: CheckoutDisplayLogic?
   
@@ -39,15 +42,18 @@ class CheckoutPresenter: CheckoutPresentationLogic {
         let viewModel = Checkout.FetchMenuItems.ViewModel(displayedMenuItemGroups: displayedMenuItemGroups)
         viewController?.displayFetchedMenuItemGroups(viewModel: viewModel)
     }
-    
+    func presentManipulateddOrderItem(response: Checkout.ManipulateOrderItemQuantity.Response) {
+        let separatedNestedOrder = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: response.order)
+        let viewModel = Checkout.ManipulateOrderItemQuantity.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
+        viewController?.displayManupulatedOrderItem(viewModel: viewModel)
+    }
     func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response) {
-//        var displayedOrderItems: [Checkout.DisplayedOrderItem] = []
-        let orderItem = response.orderItem
-        let viewModel = Checkout.CreateOrderItem.ViewModel(orderItem: orderItem)
+        let separatedNestedOrder = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: response.order)
+        let viewModel = Checkout.CreateOrderItem.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
         viewController?.displayCreatedOrderItem(viewModel: viewModel)
     }
     func presentCreateOrderAndOrderItem(response: Checkout.CreateOrderAndOrderItems.Response) {
-        let separatedNestedOrder = separateOrderAndOrderItem(nestedOrder: response.order)
+        let separatedNestedOrder = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: response.order)
         let viewModel = Checkout.CreateOrderAndOrderItems.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
         viewController?.displayCreatedOrderAndOrderItems(viewModel: viewModel)
     }
@@ -64,8 +70,8 @@ class CheckoutPresenter: CheckoutPresentationLogic {
 // MARK: - Helper function
 
 extension CheckoutPresenter {
-    private func separateOrderAndOrderItem(nestedOrder: NestedOrder?) -> SeparatedNestedOrder {
-        let order = Order(id: nestedOrder?.id, customerId: nestedOrder?.customerId!, driverId: nestedOrder?.driverId, subTotal: nestedOrder?.subTotal, itemDiscount: nestedOrder?.itemDiscount, shippingFee: nestedOrder?.shippingFee, serviceFee: nestedOrder?.serviceFee, promotionId: "", discount: nestedOrder?.discount, grandTotal: nestedOrder?.grandTotal ?? 0, paymentMode: PaymentMode.cod, paymentType: PaymentType.cod, status: OrderStatus.checking, note: "", createdAt: nestedOrder?.createdAt, deliveredAt: nestedOrder?.deliveredAt, updatedAt: nestedOrder?.updatedAt)
+    public static func separateOrderAndOrderItem(nestedOrder: NestedOrder?) -> SeparatedNestedOrder {
+        let order = Order(id: nestedOrder?.id,cashierId: nestedOrder?.cashierId, restaurantId: nestedOrder?.restaurantId!,  subTotal: nestedOrder?.subTotal, itemDiscount: nestedOrder?.itemDiscount,   serviceFee: nestedOrder?.serviceFee,  discount: nestedOrder?.discount, grandTotal: nestedOrder?.grandTotal ?? 0, paymentType: PaymentType.cod, status: OrderStatus.checking,  createdAt: nestedOrder?.createdAt,   updatedAt: nestedOrder?.updatedAt)
 
         var orderItems: [OrderItem] = []
         for item in nestedOrder?.orderItems ?? [] {

@@ -17,6 +17,11 @@ extension OrderAPI {
             return stubbedResponse("Order")
         case .createOrderAndOrderItem:
             return stubbedResponse("OrderAndOrderItems")
+        case .createOrderItem:
+            return stubbedResponse("NewOrderItem")
+        case .manipulateOrderItemQuantity:
+            return stubbedResponse("ManipulateOrderItem")
         }
+
     }
 }

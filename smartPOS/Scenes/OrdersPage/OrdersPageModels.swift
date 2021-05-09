@@ -23,7 +23,11 @@ enum OrdersPage {
     // MARK: Fetch orders to display during first page load
 
     enum FetchOrders {
-        struct Request {}
+        struct Request {
+            var restaurantId: String?
+            var query: String?
+            var pageNumber: Int?
+        }
         
         struct Response {
             var orders: [Order]?
@@ -31,12 +35,12 @@ enum OrdersPage {
         }
         
         struct ViewModel {
-            var displayedOrders: [DisplayedOrder]
+            var displayedOrders: Orders
             var error: OrderErrors?
         }
     }
 
-    
+
     // MARK: Set orders to dispay during a search
 
     enum SearchOrders {
@@ -44,47 +48,49 @@ enum OrdersPage {
             var query: String?
             var orderStatus: OrderStatus
         }
-        
+
         struct Response {
             var orders: [Order]
         }
-        
+
         struct ViewModel {
             var displayedOrders: [DisplayedOrder]
         }
     }
-    
-    
+
+
     // MARK: Set orders to display when type is changed
 
     enum FetchOrdersByStatus {
         struct Request {
             var orderStatus: OrderStatus
         }
-        
+
         struct Response {
             var orders: [Order]
         }
-        
+
         struct ViewModel {
             var displayedOrders: [DisplayedOrder]
         }
     }
-    
+
     // MARK: Fetch orders to display after page refresh is called
 
     enum RefreshOrders {
         struct Request {
-            var orderStatus: OrderStatus
+            var restaurantId: String?
+            var query: String?
+            var pageNumber: Int?
         }
-        
+
         struct Response {
             var orders: [Order]?
             var error: OrderErrors?
         }
         
         struct ViewModel {
-            var displayedOrders: [DisplayedOrder]
+            var displayedOrders: Orders
             var error: OrderErrors?
         }
     }

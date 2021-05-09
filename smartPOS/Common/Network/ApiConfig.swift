@@ -8,9 +8,12 @@
 
 /// Contains all the information related to the general informations of the API
 struct APIConfig {
-    static let baseUrl = "http://localhost:8000"
+//    static let baseUrl = "http://iamfocused.local:8000"
+    static let baseUrl = "https://api-gateway-pos.herokuapp.com"
 //    static let apiVersion = "v3"
-    static var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjA3Njg3NzczNTIiLCJzdWIiOiIxZDViYjEwZC01MDgyLTQ2MjAtYmRmNi03NzM5M2Y5MDg2OGEiLCJpc0N1c3RvbWVyIjp0cnVlLCJpYXQiOjE2MTk4NTUzMzgsImV4cCI6MTYyMTA2NDkzOH0.Qpdazo1NtTyNiW3V_1lSjgMsJ3v19j66jD1p8WgDJM4"
+    static let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjA3Njg3NzczNTIiLCJzdWIiOiJiMzIyOTVlOS1jYjU3LTQ3YWEtYmFlOC0wNDJkZTJjNzk4NzciLCJpc0N1c3RvbWVyIjp0cnVlLCJpYXQiOjE2MjA0OTI0NTcsImV4cCI6MTYyMTcwMjA1N30.2HiJYhbC8Z3i9iW9D7z_9dPEfzC1V6iXj1jhKPsKBNU"
+    static let restaurantId = "32f49431-e572-4cbb-8f04-34bf858ef3de"
+    static let customerId = "942356b0-1738-47ad-b1b7-8b45f73912b6"
     static let limitDisplay = 20
     static func getBaseUrl() -> String {
 //        return "\(baseUrl)\(apiVersion)"

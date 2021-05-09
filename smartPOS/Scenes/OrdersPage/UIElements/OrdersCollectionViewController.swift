@@ -42,7 +42,7 @@ class OrdersCollectionViewController: UIViewController {
         return UIColor.white.withAlphaComponent(0.98)
     }
     
-    var displayedOrders: [OrdersPage.DisplayedOrder] = []
+    var displayedOrders: [Order] = []
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +72,11 @@ class OrdersCollectionViewController: UIViewController {
     }
 }
 
-extension OrdersCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension OrdersCollectionViewController: SkeletonCollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return OrderCollectionViewCell.identifier
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return displayedOrders.count
     }

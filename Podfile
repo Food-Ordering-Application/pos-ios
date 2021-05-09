@@ -17,6 +17,8 @@ target 'smartPOS' do
   pod 'SkeletonView'
   pod 'SnapKit'
   pod 'NumPad'
+  pod 'ReachabilitySwift'
+  pod 'SwiftEventBus', :tag => '5.1.0', :git => 'https://github.com/cesarferreira/SwiftEventBus.git'
   
   target 'smartPOSTests' do
     inherit! :search_paths

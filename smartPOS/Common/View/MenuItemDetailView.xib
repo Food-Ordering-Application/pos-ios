@@ -70,6 +70,12 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="511" id="d2X-BN-ve7"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="pkx-E9-WaD"/>
                         <outlet property="delegate" destination="-1" id="2KZ-N7-9U1"/>
@@ -83,6 +89,21 @@
                     <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="36"/>
                     <color key="textColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="skeletonLineSpacing">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="lastLineFillPercent">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lVe-Jk-JwJ">
                     <rect key="frame" x="211.66666666666663" y="229" width="120" height="40"/>
@@ -131,13 +152,14 @@
                 <constraint firstItem="NbJ-Kg-9mD" firstAttribute="top" secondItem="lVe-Jk-JwJ" secondAttribute="bottom" constant="8" id="0YV-VN-cgQ"/>
                 <constraint firstItem="hTf-5Z-g39" firstAttribute="leading" secondItem="THz-AE-eBB" secondAttribute="leading" constant="8" id="7XH-ka-IxY"/>
                 <constraint firstItem="THz-AE-eBB" firstAttribute="trailing" secondItem="IVE-cR-aAE" secondAttribute="trailing" constant="8" id="9YV-7d-rr8"/>
-                <constraint firstItem="Q0C-L3-Cbq" firstAttribute="width" secondItem="a4Q-Oa-jzd" secondAttribute="width" multiplier="0.184162" id="ABf-oF-iKL"/>
                 <constraint firstItem="wry-rT-2wK" firstAttribute="width" secondItem="NbJ-Kg-9mD" secondAttribute="width" id="BFt-gB-hYY"/>
                 <constraint firstItem="THz-AE-eBB" firstAttribute="trailing" secondItem="wry-rT-2wK" secondAttribute="trailing" constant="16" id="GFj-eN-cCA"/>
+                <constraint firstItem="Q0C-L3-Cbq" firstAttribute="height" secondItem="a4Q-Oa-jzd" secondAttribute="height" multiplier="0.152905" id="Mau-q3-dRq"/>
                 <constraint firstItem="NbJ-Kg-9mD" firstAttribute="leading" secondItem="THz-AE-eBB" secondAttribute="leading" constant="16" id="P7h-hY-GiY"/>
                 <constraint firstItem="lVe-Jk-JwJ" firstAttribute="centerX" secondItem="a4Q-Oa-jzd" secondAttribute="centerX" id="Rrb-KI-qGm"/>
                 <constraint firstItem="NbJ-Kg-9mD" firstAttribute="height" secondItem="a4Q-Oa-jzd" secondAttribute="height" multiplier="0.321101" constant="86.999945999999994" id="TF7-8e-kWh"/>
                 <constraint firstItem="THz-AE-eBB" firstAttribute="trailing" secondItem="NbJ-Kg-9mD" secondAttribute="trailing" constant="16" id="U2V-FR-ZhM"/>
+                <constraint firstItem="Q0C-L3-Cbq" firstAttribute="width" secondItem="a4Q-Oa-jzd" secondAttribute="width" multiplier="0.184162" id="XzB-u7-nm6"/>
                 <constraint firstItem="IVE-cR-aAE" firstAttribute="top" secondItem="Q0C-L3-Cbq" secondAttribute="bottom" constant="8" id="ZYp-Ph-ji7"/>
                 <constraint firstItem="wry-rT-2wK" firstAttribute="leading" secondItem="THz-AE-eBB" secondAttribute="leading" constant="16" id="aKk-xp-amM"/>
                 <constraint firstItem="wry-rT-2wK" firstAttribute="top" secondItem="NbJ-Kg-9mD" secondAttribute="bottom" constant="16" id="dTm-7U-gC8"/>
@@ -145,14 +167,19 @@
                 <constraint firstItem="THz-AE-eBB" firstAttribute="trailing" secondItem="hTf-5Z-g39" secondAttribute="trailing" constant="8" id="gNF-Mc-FBe"/>
                 <constraint firstItem="Q0C-L3-Cbq" firstAttribute="centerX" secondItem="a4Q-Oa-jzd" secondAttribute="centerX" id="h1x-Qb-cDh"/>
                 <constraint firstItem="IVE-cR-aAE" firstAttribute="leading" secondItem="THz-AE-eBB" secondAttribute="leading" constant="8" id="ohA-X3-Y9o"/>
-                <constraint firstItem="Q0C-L3-Cbq" firstAttribute="height" secondItem="a4Q-Oa-jzd" secondAttribute="height" multiplier="0.152905" id="qLE-c7-csP"/>
                 <constraint firstItem="Q0C-L3-Cbq" firstAttribute="top" secondItem="THz-AE-eBB" secondAttribute="top" constant="20" id="qLN-so-2Nl"/>
                 <constraint firstItem="THz-AE-eBB" firstAttribute="bottom" secondItem="wry-rT-2wK" secondAttribute="bottom" constant="16" id="xqL-0r-gF0"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-887.68115942028987" y="-84.782608695652186"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                    <real key="value" value="2"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="-1272" y="-114"/>
         </view>
     </objects>
     <resources>

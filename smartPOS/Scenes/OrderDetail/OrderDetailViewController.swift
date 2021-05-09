@@ -10,14 +10,14 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
 import EmptyDataSet_Swift
+import UIKit
 
 protocol OrderDetailDisplayLogic: class {
     func displayOrder(viewModel: OrderDetail.GetOrder.ViewModel)
 }
 
-class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic,   EmptyDataSetSource, EmptyDataSetDelegate  {
+class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, EmptyDataSetSource, EmptyDataSetDelegate {
     var interactor: OrderDetailBusinessLogic?
     var router: (NSObjectProtocol & OrderDetailRoutingLogic & OrderDetailDataPassing)?
 
@@ -25,16 +25,46 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic,   Em
     @IBOutlet var btnAccept: UIButton!
     @IBOutlet var btnReject: UIButton!
     
-    @IBOutlet weak var statusAreaView: UIView!
-    @IBOutlet weak var addressAreaView: UIView!
-    @IBOutlet weak var noteAreaView: UIView!
-    @IBOutlet weak var timeAreaView: UIView!
-    @IBOutlet weak var paymentAreaView: UIView!
+    @IBOutlet var statusAreaView: UIView! {
+        didSet {
+            self.statusAreaView.isHidden = true
+        }
+    }
+    @IBOutlet var addressAreaView: UIView! {
+        didSet {
+            self.addressAreaView.isHidden = true
+        }
+    }
 
-    @IBOutlet weak var lbOrderId: UILabel!
+    @IBOutlet var noteAreaView: UIView! {
+        didSet {
+            self.noteAreaView.isHidden = true
+        }
+    }
+
+    @IBOutlet var timeAreaView: UIView! {
+        didSet {
+            self.timeAreaView.isHidden = true
+        }
+    }
+
+    @IBOutlet var paymentAreaView: UIView! {
+        didSet {
+            self.paymentAreaView.isHidden = true
+        }
+    }
+
+    @IBOutlet var lbOrderId: UILabel!
     
+    @IBOutlet weak var lbOrderStatus: UILabel!
+    @IBOutlet weak var lbTotal: UILabel!
+    @IBOutlet weak var lbNote: UILabel!
+    @IBOutlet weak var lbDeliveryAddress: UILabel!
+    @IBOutlet weak var lbDriverAvailabel: UILabel!
+    
+    var order: Order?
     var orderItems: [OrderItem] = []
- 
+
     // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -71,15 +101,13 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic,   Em
     override func viewDidAppear(_ animated: Bool) {
         self.setupLayout()
     }
-    
-   
 }
+
 // MARK: Display order
 
 extension OrderDetailViewController {
     // MARK: Do something
    
-  
     func getOrder(for id: String) {
         let request = OrderDetail.GetOrder.Request(id: id)
         self.interactor?.getOrder(request: request)
@@ -87,27 +115,66 @@ extension OrderDetailViewController {
   
     func displayOrder(viewModel: OrderDetail.GetOrder.ViewModel) {
         // nameTextField.text = viewModel.name
-        view.hideSkeleton()
-        setupOrderDisplay(viewModel: viewModel)
+        self.setupOrderDisplay(viewModel: viewModel)
         print("displayOrder\(viewModel)")
+        view.hideSkeleton()
     }
-    
-    
+
     private func setupOrderDisplay(viewModel: OrderDetail.GetOrder.ViewModel) {
+        print("setupOrderDisplay")
         guard viewModel.error == nil else {
             Alert.showUnableToRetrieveDataAlert(on: self)
             return
         }
-        let order = viewModel.displayedOrder
+        self.updateOrderAndOrderItems(order: viewModel.order, orderItems: viewModel.orderItems)
+    }
+    
+    fileprivate func updateOrderAndOrderItems(order: Order?, orderItems: [OrderItem]?) {
+        self.updateOrder(order: order)
+        self.updateOrderItems(orderItems: orderItems)
+    }
+    
+    fileprivate func updateOrder(order: Order?) {
+        self.order = order
+        guard let order = order else {
+            self.setupOrderView()
+            return
+        }
+        self.setupOrderView(isHidden: false)
         self.lbOrderId!.text = order.id
+        self.lbOrderStatus!.text = order.status.map { $0.rawValue }
+        self.lbTotal!.text = String(order.grandTotal).currency()
+        self.lbDeliveryAddress!.text = "Chưa có địa chỉ giao hàng"
+        self.lbDriverAvailabel!.text = "Chưa có tài xế hoạt động gần đây"
+        
+        
+        /// Need to show or hide note area in here when having data
+        self.noteAreaView.isHidden = true
+        self.timeAreaView.isHidden = true
+        
+        
+        
+        
+    }
+    func setupOrderView(isHidden: Bool = true){
+        self.statusAreaView.isHidden = isHidden
+        self.addressAreaView.isHidden = isHidden
+        self.noteAreaView.isHidden = isHidden
+        self.timeAreaView.isHidden = isHidden
+        self.paymentAreaView.isHidden = isHidden
+    }
+
+    fileprivate func updateOrderItems(orderItems: [OrderItem]?) {
+        self.orderItems = orderItems ?? []
+        self.orderItemsTableView.reloadData()
     }
 }
 
-// MARK : Setup Notification to receive data from Another View Controller
+// MARK: Setup Notification to receive data from Another View Controller
 
 extension OrderDetailViewController {
     func setupNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationOrderDetail(_:)), name: Notification.Name("OrderDetail"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationOrderDetail(_:)), name: Notification.Name("OrderDetail"), object: nil)
     }
     
     @objc func didGetNotificationOrderDetail(_ notification: Notification) {
@@ -116,8 +183,6 @@ extension OrderDetailViewController {
         self.getOrder(for: orderId!)
     }
 }
-
-
 
 // MARK: Setting DataSorce And Delegate for TableView
 
@@ -168,7 +233,7 @@ extension OrderDetailViewController {
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-        setupNotification()
+        self.setupNotification()
     }
     
     func setupButton() {

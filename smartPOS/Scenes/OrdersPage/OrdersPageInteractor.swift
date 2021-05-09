@@ -10,8 +10,8 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
 import PromiseKit
+import UIKit
 
 protocol OrdersPageBusinessLogic {
     func fetchOrders(request: OrdersPage.FetchOrders.Request)
@@ -31,55 +31,65 @@ final class OrdersPageInteractor: OrdersPageBusinessLogic, OrdersPageDataStore {
     let debugMode = false
 
     // MARK: Fetchs launch to display during page loading
-    
+
     func fetchOrders(request: OrdersPage.FetchOrders.Request) {
+        let restaurantId = request.restaurantId
+        let query = request.query
+        let pageNumber = request.pageNumber
+
         var response: OrdersPage.FetchOrders.Response!
-        
-        worker.ordersDataManager.getOrders(limit: nil, offset: nil).done { orders in
-            self.orders = orders
-            let filteredOrders = self.getFilteredByStatusOrders(orders)
-            response = OrdersPage.FetchOrders.Response(orders: filteredOrders, error: nil)
+
+        worker.ordersDataManager.getOrders(restaurantId: restaurantId, query: query, pageNumber: pageNumber).done { ordersRes in
+            print(ordersRes.data)
+            if ordersRes.statusCode >= 200 || ordersRes.statusCode <= 300 {
+                let data = ordersRes.data
+                response = OrdersPage.FetchOrders.Response(orders: data.orders, error: nil)
+            }
+            
         }.catch { error in
             response = OrdersPage.FetchOrders.Response(orders: nil, error: OrderErrors.couldNotLoadOrders(error: error.localizedDescription))
-        }.finally{
+        }.finally {
             self.presenter?.presentOrders(response: response)
         }
-       
-        
     }
-    
+
     // MARK: Fetch launches based on a search query
-    
+
     func fetchSearchOrders(request: OrdersPage.SearchOrders.Request) {
         let filteredLaunches = getFilteredSearchedOrders(orders, query: request.query, orderStatus: request.orderStatus)
         let response = OrdersPage.SearchOrders.Response(orders: filteredLaunches)
-        self.presenter?.presentSearchedOrders(response: response)
+        presenter?.presentSearchedOrders(response: response)
     }
-    
+
     // MARK: Fetch launches based on a launch type
 
-    func fetchOrdersByStatus(request: OrdersPage.FetchOrdersByStatus.Request){
-        let filteredOrders = self.getFilteredByStatusOrders(orders, orderStatus: request.orderStatus)
+    func fetchOrdersByStatus(request: OrdersPage.FetchOrdersByStatus.Request) {
+        let filteredOrders = getFilteredByStatusOrders(orders, orderStatus: request.orderStatus)
         let response = OrdersPage.FetchOrdersByStatus.Response(orders: filteredOrders)
-        self.presenter?.presentSearchedOrdersByStatus(response: response)
+        presenter?.presentSearchedOrdersByStatus(response: response)
     }
-    
+
     // MARK: Refresh launches
 
     func refreshOrders(request: OrdersPage.RefreshOrders.Request) {
+        let restaurantId = request.restaurantId
+        let query = request.query
+        let pageNumber = request.pageNumber
+
         var response: OrdersPage.RefreshOrders.Response!
 
-        worker.ordersDataManager.getOrders(limit: nil, offset: nil).done { orders in
-            self.orders = orders
-            let filteredOrders = self.getFilteredByStatusOrders(orders, orderStatus: request.orderStatus)
-            response = OrdersPage.RefreshOrders.Response(orders: filteredOrders, error: nil)
+        worker.ordersDataManager.getOrders(restaurantId: restaurantId, query: query, pageNumber: pageNumber).done { ordersRes in
+            print(ordersRes.data)
+            if ordersRes.statusCode >= 200 || ordersRes.statusCode <= 300 {
+                let data = ordersRes.data
+                response = OrdersPage.RefreshOrders.Response(orders: data.orders, error: nil)
+            }
         }.catch { error in
             response = OrdersPage.RefreshOrders.Response(orders: nil, error: OrderErrors.couldNotLoadOrders(error: error.localizedDescription))
         }.finally {
             self.presenter?.presentRefreshedOrders(response: response)
         }
     }
-
 }
 
 extension OrdersPageInteractor {
@@ -95,7 +105,7 @@ extension OrdersPageInteractor {
 //        return orders.filter { $0.status == orderStatus }
         return orders
     }
-    
+
     /// Get the filtered launches based on a query search
     ///
     /// - Parameters:
@@ -103,8 +113,8 @@ extension OrdersPageInteractor {
     ///   - query: The query to apply for search
     ///   - typeOfLaunch: The typpe of launches to apply the search to
     /// - Returns: Return a filtered array based on type & query
-    private func getFilteredSearchedOrders(_  orders: [Order]?, query: String?, orderStatus: OrderStatus) -> [Order] {
-        guard let orders = orders  else { return [] }
+    private func getFilteredSearchedOrders(_ orders: [Order]?, query: String?, orderStatus: OrderStatus) -> [Order] {
+        guard let orders = orders else { return [] }
         let filteredOrders = getFilteredByStatusOrders(orders, orderStatus: orderStatus)
         guard let searchText = query, !searchText.isEmpty else { return filteredOrders }
         return filteredOrders

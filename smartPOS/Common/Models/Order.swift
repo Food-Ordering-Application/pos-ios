@@ -10,68 +10,71 @@ import Foundation
 typealias Orders = [Order]
 struct Order: Decodable {
     var id: String?
-    var customerId: String?
-    var driverId: String?
+    var cashierId: String?
+    var restaurantId: String?
     var subTotal: Double?
     var itemDiscount: Float?
-    var shippingFee: Float?
     var serviceFee: Float?
-    var promotionId: String?
     var discount: Float?
     var grandTotal: Double
-    var customerAddressId: String? = ""
-    var paymentMode: PaymentMode?
+//    var paymentMode: PaymentMode?
     var paymentType: PaymentType?
     var status: OrderStatus?
-    var note: String? = ""
     var createdAt: SafeDateCodableType?
-    var deliveredAt: SafeDateCodableType?
     var updatedAt: SafeDateCodableType?
+    var delivery: Delivery?
+//    var promotionId: String?
+//    var deliveredAt: SafeDateCodableType?
+//    var customerAddressId: String? = ""
+//    var note: String? = ""
+//    var customerId: String?
+//    var driverId: String?
+//    var shippingFee: Float?
 
-    enum CodingKeys: String, CodingKey {
-        case id
-        case customerId = "customer_id"
-        case driverId = "driver_id"
-        case subTotal = "sub_total"
-        case itemDiscount = "item_discount"
-        case shippingFee = "shipping_fee"
-        case serviceFee = "service_fee"
-        case promotionId = "promotion_id"
-        case discount
-        case grandTotal = "grand_total"
-        case customerAddressId = "customer_address_id"
-        case paymentMode = "payment_mode"
-        case paymentType = "payment_type"
-        case status
-        case note
-        case createdAt = "created_at"
-        case deliveredAt = "delivered_at"
-        case updatedAt = "updated_at"
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case id
+//        case customerId = "customer_id"
+//        case driverId = "driver_id"
+//        case subTotal = "sub_total"
+//        case itemDiscount = "item_discount"
+//        case shippingFee = "shipping_fee"
+//        case serviceFee = "service_fee"
+//        case promotionId = "promotion_id"
+//        case discount
+//        case grandTotal = "grand_total"
+//        case customerAddressId = "customer_address_id"
+//        case paymentMode = "payment_mode"
+//        case paymentType = "payment_type"
+//        case status
+//        case note
+//        case createdAt = "created_at"
+//        case deliveredAt = "delivered_at"
+//        case updatedAt = "updated_at"
+//    }
 }
 
-enum OrderStatus: Int, Codable {
-    case draft = 0
-    case ordered = 1
-    case checking = 2
-    case delivering = 3
-    case cancelled = 4
-    case unknown = -1
+enum OrderStatus: String, Decodable {
+    case draft = "DRAFT"
+    case ordered = "ORDERED"
+    case checking = "CHECKING"
+    case delivering = "DELIVERING"
+    case cancelled = "CANCELLED"
+    case unknown = "UNKNOWN"
     public init(from decoder: Decoder) throws {
-        self = try OrderStatus(rawValue: decoder.singleValueContainer().decode(Int.self)) ?? .unknown
+        self = try OrderStatus(rawValue: decoder.singleValueContainer().decode(String.self)) ?? .unknown
     }
 
-    static func getType(_ type: Int) -> OrderStatus {
+    static func getType(_ type: String) -> OrderStatus {
         switch type {
-        case 0:
+        case "DRAFT":
             return .draft
-        case 1:
+        case "ORDERED":
             return .ordered
-        case 2:
+        case "CHECKING":
             return .checking
-        case 3:
+        case "DELIVERING":
             return .delivering
-        case 4:
+        case "CANCELLED":
             return .cancelled
         default:
             return .unknown
@@ -79,21 +82,21 @@ enum OrderStatus: Int, Codable {
     }
 }
 
-enum PaymentMode: Int, Codable {
-    case cod = 0
-    case preorder = 1
-    case unknown = -1
+enum PaymentMode: String, Decodable {
+    case cod = "COD"
+    case preorder = "PREORDER"
+    case unknown = "UNKNOWN"
     public init(from decoder: Decoder) throws {
-        self = try PaymentMode(rawValue: decoder.singleValueContainer().decode(Int.self)) ?? .unknown
+        self = try PaymentMode(rawValue: decoder.singleValueContainer().decode(String.self)) ?? .unknown
     }
 }
 
-enum PaymentType: Int, Codable {
-    case cod = 0
-    case momo = 1
-    case paypal = 2
-    case unknown = -1
+enum PaymentType: String, Decodable {
+    case cod = "COD"
+    case momo = "MOMO"
+    case paypal = "PAYPAL"
+    case unknown = "UNKNOWN"
     public init(from decoder: Decoder) throws {
-        self = try PaymentType(rawValue: decoder.singleValueContainer().decode(Int.self)) ?? .unknown
+        self = try PaymentType(rawValue: decoder.singleValueContainer().decode(String.self)) ?? .unknown
     }
 }

@@ -17,11 +17,13 @@ PODS:
   - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
   - QuickLayout (3.0.0)
+  - ReachabilitySwift (5.0.0)
   - SkeletonView (1.15.0)
   - SlideMenuControllerSwift (4.0.0)
   - SnapKit (5.0.1)
   - SwiftEntryKit (1.2.7):
     - QuickLayout (= 3.0.0)
+  - SwiftEventBus (5.0.0)
 
 DEPENDENCIES:
   - BouncyLayout
@@ -29,10 +31,12 @@ DEPENDENCIES:
   - Moya
   - NumPad
   - PromiseKit
+  - ReachabilitySwift
   - SkeletonView
   - SlideMenuControllerSwift
   - SnapKit
   - SwiftEntryKit (= 1.2.7)
+  - SwiftEventBus (from `https://github.com/cesarferreira/SwiftEventBus.git`, tag `5.1.0`)
 
 SPEC REPOS:
   trunk:
@@ -43,10 +47,21 @@ SPEC REPOS:
     - NumPad
     - PromiseKit
     - QuickLayout
+    - ReachabilitySwift
     - SkeletonView
     - SlideMenuControllerSwift
     - SnapKit
     - SwiftEntryKit
+
+EXTERNAL SOURCES:
+  SwiftEventBus:
+    :git: https://github.com/cesarferreira/SwiftEventBus.git
+    :tag: 5.1.0
+
+CHECKOUT OPTIONS:
+  SwiftEventBus:
+    :git: https://github.com/cesarferreira/SwiftEventBus.git
+    :tag: 5.1.0
 
 SPEC CHECKSUMS:
   Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
@@ -56,11 +71,13 @@ SPEC CHECKSUMS:
   NumPad: 4bed9fe05f294bd7ba5d109f3245d96b38c998f4
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   QuickLayout: 07b45a72b10083fee3f095990cfed1c1e7b27f0a
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SkeletonView: cac18a3ac4f893b09d99e65072d806ef08377aae
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftEntryKit: 537c92699d6034efb1ef9c32b11e0b37c97aa589
+  SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
 
-PODFILE CHECKSUM: e11ae161926168da6d375128b6c4ac84b439b417
+PODFILE CHECKSUM: 2d0881109ee393014abcd9695726b76363dc814a
 
 COCOAPODS: 1.10.1
