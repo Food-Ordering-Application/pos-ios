@@ -156,6 +156,10 @@
 		9BD269CD262AEB86000CDABE /* OrderAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD269C8262AEB86000CDABE /* OrderAPI.swift */; };
 		9BD269CE262AEB86000CDABE /* Orders.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BD269CA262AEB86000CDABE /* Orders.json */; };
 		9BD269CF262AEB86000CDABE /* Order.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BD269CB262AEB86000CDABE /* Order.json */; };
+		9BD48C28264BD52E0025655E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD48C27264BD52E0025655E /* LoginViewController.swift */; };
+		9BD48C2D264BD55C0025655E /* ActivateCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD48C2C264BD55C0025655E /* ActivateCodeViewController.swift */; };
+		9BD48C42264C2DAC0025655E /* NoInternetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD48C41264C2DAC0025655E /* NoInternetService.swift */; };
+		9BD48C47264C45930025655E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD48C46264C45930025655E /* NetworkManager.swift */; };
 		9BEDEBE9263472560011F71B /* NumpadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEDEBE8263472560011F71B /* NumpadView.swift */; };
 		9BEDEBEE26347CB00011F71B /* NumpadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BEDEBED26347CB00011F71B /* NumpadView.xib */; };
 		9BEDEBF426355B770011F71B /* RestaurantAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEDEBF326355B770011F71B /* RestaurantAPI.swift */; };
@@ -342,6 +346,10 @@
 		9BD269C8262AEB86000CDABE /* OrderAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderAPI.swift; sourceTree = "<group>"; };
 		9BD269CA262AEB86000CDABE /* Orders.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Orders.json; sourceTree = "<group>"; };
 		9BD269CB262AEB86000CDABE /* Order.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Order.json; sourceTree = "<group>"; };
+		9BD48C27264BD52E0025655E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9BD48C2C264BD55C0025655E /* ActivateCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateCodeViewController.swift; sourceTree = "<group>"; };
+		9BD48C41264C2DAC0025655E /* NoInternetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetService.swift; sourceTree = "<group>"; };
+		9BD48C46264C45930025655E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9BEDEBE8263472560011F71B /* NumpadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumpadView.swift; sourceTree = "<group>"; };
 		9BEDEBED26347CB00011F71B /* NumpadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NumpadView.xib; sourceTree = "<group>"; };
 		9BEDEBF326355B770011F71B /* RestaurantAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantAPI.swift; sourceTree = "<group>"; };
@@ -448,6 +456,8 @@
 				9BC2F784261C511D00D5CFBC /* SubContentsViewController.storyboard */,
 				9BC2F785261C511E00D5CFBC /* SubContentsViewController.swift */,
 				9BC2F78B261C511F00D5CFBC /* DeliveryViewController.swift */,
+				9BD48C27264BD52E0025655E /* LoginViewController.swift */,
+				9BD48C2C264BD55C0025655E /* ActivateCodeViewController.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -487,6 +497,7 @@
 				9B57A012263126AF00D521C1 /* MenuItemsMemStore.swift */,
 				71F123422214EAD40009FC03 /* OrdersCoreDataStore.swift */,
 				71F123292214E2720009FC03 /* OrdersAPI.swift */,
+				9BD48C41264C2DAC0025655E /* NoInternetService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -800,6 +811,7 @@
 				9BD269BD262AEB60000CDABE /* ApiConfig.swift */,
 				9BD269BF262AEB60000CDABE /* APIManager.swift */,
 				9BD269BE262AEB60000CDABE /* Moya+Extensions.swift */,
+				9BD48C46264C45930025655E /* NetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1167,6 +1179,7 @@
 				9B9926912625F01900B6FDF9 /* UIView+Nib.swift in Sources */,
 				9BD269CD262AEB86000CDABE /* OrderAPI.swift in Sources */,
 				9B4A32AC2627DE3100705D06 /* OrderCollectionViewCell.swift in Sources */,
+				9BD48C2D264BD55C0025655E /* ActivateCodeViewController.swift in Sources */,
 				9BC2F795261C511F00D5CFBC /* DeliveryViewController.swift in Sources */,
 				9BC31F6826281154003AAB3A /* OrdersCollectionViewController.swift in Sources */,
 				9B3CEC53262BFD1E00273A65 /* OrderDetailViewController.swift in Sources */,
@@ -1189,7 +1202,9 @@
 				9B1598FD2646FE0D0004B24D /* Delivery.swift in Sources */,
 				9BC2F84C261C51CC00D5CFBC /* BaseTableViewCell.swift in Sources */,
 				9BA4E169262C3B9400BA9F10 /* CheckoutInteractor.swift in Sources */,
+				9BD48C28264BD52E0025655E /* LoginViewController.swift in Sources */,
 				9B5C544C262ABF4900D7120A /* CustomerAddress.swift in Sources */,
+				9BD48C42264C2DAC0025655E /* NoInternetService.swift in Sources */,
 				9BF592CE2629683500454A8D /* MenuItemGroup.swift in Sources */,
 				9B5C543A262ABC8600D7120A /* OrdersPagePresenter.swift in Sources */,
 				9BC31F6326280A3B003AAB3A /* UIButton.swift in Sources */,
@@ -1225,6 +1240,7 @@
 				9B9926AA262680C400B6FDF9 /* MenuItem.swift in Sources */,
 				9B57A01E2631302200D521C1 /* MenuItemErrors.swift in Sources */,
 				9BC2F85A261C51DC00D5CFBC /* UIColor.swift in Sources */,
+				9BD48C47264C45930025655E /* NetworkManager.swift in Sources */,
 				9B99268F2625F01900B6FDF9 /* Object+ClassName.swift in Sources */,
 				9B9926DF262681B400B6FDF9 /* Category.swift in Sources */,
 				9B9926CB2626814A00B6FDF9 /* ToppingGroup.swift in Sources */,

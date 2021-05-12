@@ -66,4 +66,9 @@ extension UIImageView {
             self.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: displayHeight)
         }
     }
+    func setImageColor(color: UIColor) {
+        let templateImage = self.image?.withRenderingMode(.alwaysTemplate)
+        self.image = templateImage
+        self.tintColor = color
+      }
 }

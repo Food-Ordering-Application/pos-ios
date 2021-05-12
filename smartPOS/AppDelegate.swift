@@ -14,32 +14,58 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
   
-    fileprivate func createMenuView() {
-        // create viewController code...
+//    fileprivate func createMenuView() {
+//        // create viewController code...
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        
+//        let mainViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
+//        let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
+//        let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
+//        
+//        let nvc = UINavigationController(rootViewController: mainViewController)
+//        
+//        UINavigationBar.appearance().tintColor = UIColor(hex: "FF6B35")
+//        
+//        leftViewController.mainViewController = nvc
+//        
+//        let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+//        slideMenuController.automaticallyAdjustsScrollViewInsets = true
+//        slideMenuController.delegate = mainViewController
+//        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
+//        self.window?.rootViewController = slideMenuController
+//        self.window?.makeKeyAndVisible()
+//    }
+    fileprivate func createActivateCodeView(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let mainViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
-        let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
-        let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
-        
-        let nvc = UINavigationController(rootViewController: mainViewController)
-        
-        UINavigationBar.appearance().tintColor = UIColor(hex: "FF6B35")
-        
-        leftViewController.mainViewController = nvc
-        
-        let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-        slideMenuController.automaticallyAdjustsScrollViewInsets = true
-        slideMenuController.delegate = mainViewController
+        let vc = storyboard.instantiateViewController(withIdentifier: "ActivateCodeViewController") as! ActivateCodeViewController
         self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
-        self.window?.rootViewController = slideMenuController
+        self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
+    }
+    
+    fileprivate func createLoginView(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
+        self.window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
+    }
+    
+    
+    fileprivate func subscribeToNoInternetService() {
+        let _ = NoInternetService.init()
+        // todo - rest of the services
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         // Override point for customization after application launch.
-        self.createMenuView()
+        self.subscribeToNoInternetService()
+        
+//        self.createLoginView()
+        self.createActivateCodeView()
+       
+//        self.createMenuView()
         return true
     }
   
