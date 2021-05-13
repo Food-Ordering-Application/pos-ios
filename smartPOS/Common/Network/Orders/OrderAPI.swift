@@ -49,8 +49,10 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return .get
-        case .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
+        case .createOrderAndOrderItem:
             return .post
+        case .createOrderItem, .manipulateOrderItemQuantity:
+            return .patch
         }
     }
     
@@ -80,6 +82,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
             
             var paramsOrderItem: [String: Any] = [:]
             paramsOrderItem["menuItemId"] = data?.orderItem.menuItemId
+            paramsOrderItem["name"] = data?.orderItem.name
             paramsOrderItem["price"] = data?.orderItem.price
             paramsOrderItem["quantity"] = data?.orderItem.quantity
             
@@ -89,6 +92,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
                 paramsOrderItemTopping["menuItemToppingId"] = orderItemTopping.menuItemToppingId
                 paramsOrderItemTopping["quantity"] = orderItemTopping.quantity
                 paramsOrderItemTopping["price"] = orderItemTopping.price
+                paramsOrderItemTopping["name"] = orderItemTopping.name
                 paramsOrderItemToppings.append(paramsOrderItemTopping)
             }
             
@@ -100,6 +104,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
             var paramsOrderItem: [String: Any] = [:]
             paramsOrderItem["menuItemId"] = data?.menuItemId
             paramsOrderItem["price"] = data?.price
+            paramsOrderItem["name"] = data?.name
             paramsOrderItem["quantity"] = data?.quantity
             var paramsOrderItemToppings: [Any] = []
             for orderItemTopping in data?.orderItemToppings ?? [] {
@@ -107,6 +112,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
                 paramsOrderItemTopping["menuItemToppingId"] = orderItemTopping.menuItemToppingId
                 paramsOrderItemTopping["quantity"] = orderItemTopping.quantity
                 paramsOrderItemTopping["price"] = orderItemTopping.price
+                paramsOrderItemTopping["name"] = orderItemTopping.name
                 paramsOrderItemToppings.append(paramsOrderItemTopping)
             }
         

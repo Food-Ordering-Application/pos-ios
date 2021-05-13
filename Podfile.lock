@@ -1,7 +1,10 @@
 PODS:
-  - Alamofire (5.4.1)
+  - Alamofire (5.4.3)
+  - AnimatedField (2.4.4)
   - BouncyLayout (2.3.0)
+  - CoreStore (8.0.1)
   - EmptyDataSet-Swift (5.0.0)
+  - IQKeyboardManagerSwift (6.5.6)
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
@@ -26,8 +29,11 @@ PODS:
   - SwiftEventBus (5.0.0)
 
 DEPENDENCIES:
+  - AnimatedField
   - BouncyLayout
+  - CoreStore (~> 8.0)
   - EmptyDataSet-Swift (~> 5.0.0)
+  - IQKeyboardManagerSwift
   - Moya
   - NumPad
   - PromiseKit
@@ -41,8 +47,11 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AnimatedField
     - BouncyLayout
+    - CoreStore
     - EmptyDataSet-Swift
+    - IQKeyboardManagerSwift
     - Moya
     - NumPad
     - PromiseKit
@@ -64,9 +73,12 @@ CHECKOUT OPTIONS:
     :tag: 5.1.0
 
 SPEC CHECKSUMS:
-  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  AnimatedField: af48a2d59a50b33b30446267f7f2af274296203c
   BouncyLayout: 946047ef4987959bc107731c665ca4fdcdef5e17
+  CoreStore: b8ed5be7d39af83a235878e4c8555134591badf4
   EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   NumPad: 4bed9fe05f294bd7ba5d109f3245d96b38c998f4
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
@@ -78,6 +90,6 @@ SPEC CHECKSUMS:
   SwiftEntryKit: 537c92699d6034efb1ef9c32b11e0b37c97aa589
   SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
 
-PODFILE CHECKSUM: 2d0881109ee393014abcd9695726b76363dc814a
+PODFILE CHECKSUM: 0467cd97872ad258461c5a5ebdd6913fecbdc16f
 
 COCOAPODS: 1.10.1

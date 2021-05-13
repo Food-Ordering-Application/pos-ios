@@ -77,26 +77,42 @@ extension OrderCheckoutViewController {
         // MARK: Notifications
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationManipulatedOrderItem(_:)), name: Notification.Name("ManipulatedOrderItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationManipulateOrderItem(_:)), name: Notification.Name("ManipulateOrderItem"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreatedOrderItem(_:)), name: Notification.Name("CreatedOrderItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreateOrderItem(_:)), name: Notification.Name("CreateOrderItem"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreatedOrderAndOrderItems(_:)), name: Notification.Name("CreatedOrderAndOrderItems"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreateOrderAndOrderItems(_:)), name: Notification.Name("CreateOrderAndOrderItems"), object: nil)
     }
 
+    @objc func didGetNotificationCreateOrderItem(_ notification: Notification) {
+        self.view.showSkeleton()
+    }
+    @objc func didGetNotificationCreateOrderAndOrderItems(_ notification: Notification) {
+        self.view.showSkeleton()
+    }
+    @objc func didGetNotificationManipulateOrderItem(_ notification: Notification) {
+        self.view.showSkeleton()
+    }
+    
     @objc func didGetNotificationManipulatedOrderItem(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.ManipulateOrderItemQuantity.ViewModel
         self.updateDataOrder(order: viewModel.order)
         self.updateDataOrderItems(orderItems: viewModel.orderItems)
+        self.view.hideSkeleton()
     }
     
     @objc func didGetNotificationCreatedOrderItem(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.CreateOrderItem.ViewModel
         self.updateDataOrder(order: viewModel.order)
         self.updateDataOrderItems(orderItems: viewModel.orderItems)
+        self.view.hideSkeleton()
     }
     
     @objc func didGetNotificationCreatedOrderAndOrderItems(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.CreateOrderAndOrderItems.ViewModel
         self.updateDataOrder(order: viewModel.order)
         self.updateDataOrderItems(orderItems: viewModel.orderItems)
+        self.view.hideSkeleton()
     }
     
     //    MARK: Handle add orderItem to Order

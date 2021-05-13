@@ -257,12 +257,13 @@ private extension CheckoutViewController {
         print("didGetNotificationEmitFetchMenuItemToppings-\(menuItemId)")
         self.fetchMenuItemToppings(menuItemId: menuItemId)
     }
+
     @objc func didGetNotificationManipulateOrderItem(_ notification: Notification) {
         let manipulateOrderItem = notification.object as! ManipulateOrderItemModel
         print("didGetNotificationManipulateOrderItem-\(manipulateOrderItem)")
         self.manipulateOrderItem(manipulateOrderItemModel: manipulateOrderItem)
     }
-    
+
     @objc func didGetNotificationCreateOrderItem(_ notification: Notification) {
         let menuItemAndToppings = notification.object as! MenuItemAndToppings
         print("didGetNotificationCreateOrderItem-\(menuItemAndToppings)")
@@ -279,9 +280,9 @@ private extension CheckoutViewController {
             if let menuItemTopping = toppingItem.menuItemToppings.first {
                 toppingPrice = menuItemTopping.customPrice
             }
-            let orderItemTopping = Checkout.OrderItemToppingFormFields(menuItemToppingId: toppingItem.id, quantity: 1, price: toppingPrice)
+            let orderItemTopping = Checkout.OrderItemToppingFormFields(name: toppingItem.name, menuItemToppingId: toppingItem.id, quantity: 1, price: toppingPrice)
             orderItemToppings.append(orderItemTopping)
         }
-        return Checkout.OrderItemFormFields(menuItemId: menuItem?.id ?? "", price: menuItem?.price ?? 0, quantity: menuItemAndToppings.menuItemQuantity ?? 0, orderItemToppings: orderItemToppings)
+        return Checkout.OrderItemFormFields(name: menuItem?.name ?? "No name", menuItemId: menuItem?.id ?? "", price: menuItem?.price ?? 0, quantity: menuItemAndToppings.menuItemQuantity ?? 0, orderItemToppings: orderItemToppings)
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 struct OrderItem {
     let id: String?
     let menuItemId: String?
+    let name: String?
     let orderId: String?
     let price: Double?
     let discount: Float?

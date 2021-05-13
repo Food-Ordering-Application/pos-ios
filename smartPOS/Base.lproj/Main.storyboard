@@ -745,42 +745,91 @@
         <scene sceneID="LaU-hq-yOq">
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" id="VJB-uc-fmW" customClass="LoginViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="xyS-sZ-qQE">
+                    <view key="view" contentMode="scaleToFill" id="xyS-sZ-qQE" customClass="AnimatedField">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login view controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncV-mQ-pJE">
-                                <rect key="frame" x="433" y="373.5" width="158" height="21"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAh-oQ-DSW">
+                                <rect key="frame" x="346" y="170" width="332" height="300"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="lgs-ES-sIM">
+                                        <rect key="frame" x="16" y="16" width="300" height="268"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="jI0-QB-1Yg">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="176"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đăng nhập" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwA-zK-JWy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="24"/>
+                                                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgN-sV-abQ" customClass="AnimatedField" customModule="AnimatedField">
+                                                        <rect key="frame" x="0.0" y="40" width="300" height="60"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="300" id="LYf-N1-l8M"/>
+                                                            <constraint firstAttribute="height" constant="60" id="rhk-vm-8gM"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-a4-B8B" customClass="AnimatedField" customModule="AnimatedField">
+                                                        <rect key="frame" x="0.0" y="116" width="300" height="60"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="300" id="eaV-Zv-oIF"/>
+                                                            <constraint firstAttribute="height" constant="60" id="pIM-Td-NYG"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7CE-pa-NIc">
+                                                <rect key="frame" x="0.0" y="208" width="300" height="60"/>
+                                                <color key="backgroundColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="DVZ-HF-EGD"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                                <state key="normal" title="Đăng nhập">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onLogin:" destination="VJB-uc-fmW" eventType="touchUpInside" id="67F-LD-AIs"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="158" id="2J4-AL-itV"/>
-                                    <constraint firstAttribute="height" constant="21" id="mQc-KQ-TFM"/>
+                                    <constraint firstAttribute="height" constant="300" id="7hC-Rd-Vtd"/>
+                                    <constraint firstAttribute="width" constant="332" id="9KP-g6-hzS"/>
+                                    <constraint firstItem="lgs-ES-sIM" firstAttribute="centerX" secondItem="YAh-oQ-DSW" secondAttribute="centerX" id="PMi-JV-vZB"/>
+                                    <constraint firstItem="lgs-ES-sIM" firstAttribute="centerY" secondItem="YAh-oQ-DSW" secondAttribute="centerY" id="c9R-bN-NpX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7CE-pa-NIc">
-                                <rect key="frame" x="412" y="434.5" width="200" height="60"/>
-                                <color key="backgroundColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appstore" translatesAutoresizingMaskIntoConstraints="NO" id="q8H-Mf-4Kn">
+                                <rect key="frame" x="462" y="40" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="DVZ-HF-EGD"/>
-                                    <constraint firstAttribute="width" constant="200" id="dfC-Iv-hfN"/>
+                                    <constraint firstAttribute="width" constant="100" id="t9e-Tg-SL3"/>
+                                    <constraint firstAttribute="height" constant="100" id="w4g-Yh-gh9"/>
                                 </constraints>
-                                <state key="normal" title="Login"/>
-                                <connections>
-                                    <action selector="onLogin:" destination="VJB-uc-fmW" eventType="touchUpInside" id="67F-LD-AIs"/>
-                                </connections>
-                            </button>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NRx-a8-buY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="7CE-pa-NIc" firstAttribute="top" secondItem="ncV-mQ-pJE" secondAttribute="bottom" constant="40" id="3Dr-iy-1To"/>
-                            <constraint firstItem="ncV-mQ-pJE" firstAttribute="centerY" secondItem="xyS-sZ-qQE" secondAttribute="centerY" id="9yw-mR-3Lu"/>
-                            <constraint firstItem="ncV-mQ-pJE" firstAttribute="centerX" secondItem="xyS-sZ-qQE" secondAttribute="centerX" id="Czs-hP-C9g"/>
-                            <constraint firstItem="7CE-pa-NIc" firstAttribute="centerX" secondItem="xyS-sZ-qQE" secondAttribute="centerX" id="Hf0-SE-Si8"/>
+                            <constraint firstItem="YAh-oQ-DSW" firstAttribute="centerX" secondItem="xyS-sZ-qQE" secondAttribute="centerX" id="UEU-W2-gGv"/>
+                            <constraint firstItem="q8H-Mf-4Kn" firstAttribute="top" secondItem="NRx-a8-buY" secondAttribute="top" constant="40" id="Wea-u3-ExN"/>
+                            <constraint firstItem="q8H-Mf-4Kn" firstAttribute="centerX" secondItem="xyS-sZ-qQE" secondAttribute="centerX" id="Xba-bz-mjr"/>
+                            <constraint firstItem="YAh-oQ-DSW" firstAttribute="top" secondItem="q8H-Mf-4Kn" secondAttribute="bottom" constant="30" id="o9f-xI-AmV"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="btnLogin" destination="7CE-pa-NIc" id="Aqu-D1-tgG"/>
+                        <outlet property="fPassword" destination="TKB-a4-B8B" id="8uE-qT-Nki"/>
+                        <outlet property="fUsername" destination="lgN-sV-abQ" id="TSX-uv-riA"/>
+                        <outlet property="vLogin" destination="YAh-oQ-DSW" id="vLN-PD-qxl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLQ-G7-GdA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

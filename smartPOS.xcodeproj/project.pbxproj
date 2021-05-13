@@ -554,6 +554,7 @@
 		9B5C545D262AC63300D7120A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9B612A24264CF9F5001C1AF5 /* CoreStore */,
 				9B3CEC3D262B5E8900273A65 /* UIElements */,
 				9BD2698D262ADEFC000CDABE /* Network */,
 				9BD26981262AD841000CDABE /* DataManagers */,
@@ -585,6 +586,13 @@
 				9B5C547A262ACD5300D7120A /* RouterProtocol.swift */,
 			);
 			path = RouterProtocol;
+			sourceTree = "<group>";
+		};
+		9B612A24264CF9F5001C1AF5 /* CoreStore */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreStore;
 			sourceTree = "<group>";
 		};
 		9B96820D261B52B700D1980B /* Resources */ = {

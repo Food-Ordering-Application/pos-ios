@@ -18,9 +18,6 @@ class ActivateCodeViewController: UIViewController {
     }
     
     @IBAction func onActivateCode(_ sender: Any) {
-        let isReachable = false
-        SwiftEventBus.post("ReachableInternet", sender: isReachable)
-        
         self.showLoginView()
     }
     
@@ -30,6 +27,7 @@ class ActivateCodeViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        loginViewController.modalPresentationStyle = .fullScreen
         self.present(loginViewController, animated: true)
     }
     /*

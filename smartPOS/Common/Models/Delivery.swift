@@ -9,7 +9,7 @@
 import Foundation
 struct Delivery: Decodable {
     var id: String?
-    var orderId: String
+    var orderId: String?
     var address: String?
     var status: DeliveryStatus
     var customerAddressId: String? = ""

@@ -19,7 +19,10 @@ target 'smartPOS' do
   pod 'NumPad'
   pod 'ReachabilitySwift'
   pod 'SwiftEventBus', :tag => '5.1.0', :git => 'https://github.com/cesarferreira/SwiftEventBus.git'
-  
+  pod 'CoreStore', '~> 8.0'
+  pod 'IQKeyboardManagerSwift'
+  pod 'AnimatedField'
+
   target 'smartPOSTests' do
     inherit! :search_paths
     # Pods for testing

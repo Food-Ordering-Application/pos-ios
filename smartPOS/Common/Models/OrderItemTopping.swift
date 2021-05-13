@@ -10,6 +10,7 @@ import Foundation
 struct OrderItemTopping: Decodable {
     let id: String?
     let state: String?
+    let name: String?
     let menuItemToppingId: String?
     let quantity: Int?
     let price: Float?

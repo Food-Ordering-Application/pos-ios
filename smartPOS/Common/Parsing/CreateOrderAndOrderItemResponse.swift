@@ -39,6 +39,7 @@ struct OrderItemRes: Decodable {
     let menuItemId: String?
     let orderId: String?
     let price: Double?
+    let name: String?
     let discount: Float?
     let quantity: Int?
     let orderItemToppings: [OrderItemTopping]?

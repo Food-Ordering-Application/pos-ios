@@ -9,7 +9,6 @@
 import UIKit
 
 struct Alert {
-    
     private static func showBasicAlert(on vc: UIViewController, with title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -17,8 +16,8 @@ struct Alert {
             vc.present(alert, animated: true)
         }
     }
-    
-    static func showUnableToRetrieveDataAlert(on vc: UIViewController) {
-        showBasicAlert(on: vc, with: "Unable to SmartPOS Data", message: "Network Error. Please pull the screen to refresh")
+
+    static func showUnableToRetrieveDataAlert(on vc: UIViewController, with: String = "Unable to SmartPOS Data", message: String = "Network Error. Please pull the screen to refresh") {
+        showBasicAlert(on: vc, with: with, message: message)
     }
 }

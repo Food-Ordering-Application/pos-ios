@@ -65,6 +65,7 @@ enum Checkout {
     }
 
     struct OrderItemFormFields {
+        var name: String
         var menuItemId: String
         var price: Double
         var quantity: Int
@@ -72,6 +73,7 @@ enum Checkout {
     }
 
     struct OrderItemToppingFormFields {
+        var name: String
         var menuItemToppingId: String
         var quantity: Int
         var price: Double
