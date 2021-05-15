@@ -3,83 +3,113 @@
     "message": "Restaurant fetched successfully",
     "data": {
         "menu": {
-            "id": "688218a3-3d74-4102-9df0-128e13d732fe",
-            "name": "Garland Langworth",
-            "index": 1
+            "id": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+            "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
+            "name": "Miss Demetris Watsica",
+            "index": 1,
+            "isActive": true,
+            "deletedAt": null
         },
         "menuGroups": [
             {
-                "id": "ca1bfca4-21b0-479f-9fd0-1b492eb85839",
-                "name": "Walter Predovic",
+                "id": "2424fdb6-37ab-4bd5-900e-e84adab1e1d8",
+                "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                "name": "Maximillian Beer",
+                "isActive": true,
                 "index": 1,
+                "deletedAt": null,
                 "menuItems": [
                     {
-                        "id": "c0fff08c-6e51-4d97-9dcc-0ad1ac9f56f8",
-                        "name": "Orie Hodkiewicz",
-                        "description": "Quae qui omnis qui nam delectus et.",
-                        "price": 14805,
+                        "id": "a1eb65d2-379f-460c-a136-5a2c8283bbad",
+                        "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                        "menuGroupId": "2424fdb6-37ab-4bd5-900e-e84adab1e1d8",
+                        "name": "Collin Mayert",
+                        "description": "Voluptatem velit porro itaque rerum odit eos ducimus.",
+                        "price": 13869,
                         "imageUrl": "http://lorempixel.com/640/480",
                         "index": 1,
-                        "isActive": true
+                        "isActive": true,
+                        "deletedAt": null
                     },
                     {
-                        "id": "3d9a989d-b95a-4ac4-aa25-f9d3acbd8f31",
-                        "name": "Haven Dickens I",
-                        "description": "Expedita magnam nemo at distinctio rerum non non blanditiis expedita.",
-                        "price": 12730,
+                        "id": "17ed2c20-b518-4089-8084-34527697cf69",
+                        "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                        "menuGroupId": "2424fdb6-37ab-4bd5-900e-e84adab1e1d8",
+                        "name": "Samantha Senger Jr.",
+                        "description": "Ut qui corporis corporis dolorem ex.",
+                        "price": 14421,
                         "imageUrl": "http://lorempixel.com/640/480",
                         "index": 1,
-                        "isActive": true
+                        "isActive": true,
+                        "deletedAt": null
                     }
                 ]
             },
             {
-                "id": "018285cd-d938-4c5c-a94f-06a8da57cb85",
-                "name": "Mrs. Van Pfeffer",
+                "id": "b8f6fbb7-0e58-4c26-abfe-8b346e6128d6",
+                "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                "name": "Miss Jarred Cartwright",
+                "isActive": true,
                 "index": 1,
+                "deletedAt": null,
                 "menuItems": [
                     {
-                        "id": "56c7c9e0-af7b-4989-b488-4f46cdd30aa0",
-                        "name": "Norval Willms",
-                        "description": "Velit sunt dolor labore omnis.",
-                        "price": 14730,
+                        "id": "549506d1-0e80-4d4a-b1b0-287e31a393df",
+                        "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                        "menuGroupId": "b8f6fbb7-0e58-4c26-abfe-8b346e6128d6",
+                        "name": "Alford MacGyver",
+                        "description": "Pariatur explicabo quibusdam assumenda et qui possimus in.",
+                        "price": 9910,
                         "imageUrl": "http://lorempixel.com/640/480",
                         "index": 1,
-                        "isActive": true
+                        "isActive": true,
+                        "deletedAt": null
                     },
                     {
-                        "id": "12564be8-42e5-4e02-9626-6e746065dc43",
-                        "name": "Adah Berge I",
-                        "description": "Expedita fugiat omnis eligendi voluptatem.",
-                        "price": 17243,
+                        "id": "c742d33c-8883-4813-94d3-3a036b7d16b4",
+                        "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                        "menuGroupId": "b8f6fbb7-0e58-4c26-abfe-8b346e6128d6",
+                        "name": "Chaim Fadel MD",
+                        "description": "Delectus deleniti mollitia saepe adipisci cupiditate dolore sed molestiae tempore.",
+                        "price": 11265,
                         "imageUrl": "http://lorempixel.com/640/480",
                         "index": 1,
-                        "isActive": true
+                        "isActive": true,
+                        "deletedAt": null
                     }
                 ]
             },
             {
-                "id": "f88347c4-5b9a-4f0f-ac11-246242c3c68c",
-                "name": "Florine Feil",
+                "id": "6b7da14a-fefb-4b4b-be7b-72adf701d743",
+                "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                "name": "Octavia Welch",
+                "isActive": true,
                 "index": 1,
+                "deletedAt": null,
                 "menuItems": [
                     {
-                        "id": "dd6c30cd-e591-4c93-9417-bab771881230",
-                        "name": "Hilda Langworth",
-                        "description": "Alias accusantium aut ab velit.",
-                        "price": 11057,
+                        "id": "7b245455-2d38-4c6f-8d20-07f493f26188",
+                        "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                        "menuGroupId": "6b7da14a-fefb-4b4b-be7b-72adf701d743",
+                        "name": "Seth Heaney",
+                        "description": "Velit omnis odit officiis voluptas numquam.",
+                        "price": 5380,
                         "imageUrl": "http://lorempixel.com/640/480",
                         "index": 1,
-                        "isActive": true
+                        "isActive": true,
+                        "deletedAt": null
                     },
                     {
-                        "id": "2d1ddde7-06f7-4766-b9d0-1783c2876e0c",
-                        "name": "Mina Skiles",
-                        "description": "Accusamus commodi porro eligendi.",
-                        "price": 9256,
+                        "id": "695d1513-67fa-46cd-87b6-768867327dfd",
+                        "menuId": "40c6829e-048e-4849-96e2-7ad2c4fab87b",
+                        "menuGroupId": "6b7da14a-fefb-4b4b-be7b-72adf701d743",
+                        "name": "Maximillia Bradtke",
+                        "description": "Natus dolorem at deleniti.",
+                        "price": 13625,
                         "imageUrl": "http://lorempixel.com/640/480",
                         "index": 1,
-                        "isActive": true
+                        "isActive": true,
+                        "deletedAt": null
                     }
                 ]
             }

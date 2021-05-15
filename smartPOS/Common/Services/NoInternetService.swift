@@ -36,6 +36,10 @@ class NoInternetService {
         attributes.entryBackground = .visualEffect(style: .standard)
         return EntryAttributeWrapper(with: attributes)
     }()
+    
+    static func isReachable() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isReachable")
+    }
 
     init() {
         SwiftEventBus.onMainThread(self, name: "ReachableInternet") { result in

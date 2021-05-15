@@ -3,47 +3,68 @@
     "message": "Order created successfully",
     "data": {
         "order": {
-            "customerId": "942356b0-1738-47ad-b1b7-8b45f73912b6",
-            "restaurantId": "0628ec9e-13a9-47b4-83c2-a8832fa25395",
+            "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
             "paymentType": "COD",
             "status": "DRAFT",
             "orderItems": [
                 {
-                    "menuItemId": "8ae1f35a-dba3-4add-b49a-760359b42016",
+                    "menuItemId": "a1eb65d2-379f-460c-a136-5a2c8283bbad6",
                     "price": 14805,
                     "quantity": 1,
+                    "name": "Maximillian Beer",
                     "orderItemToppings": [
                         {
-                            "menuItemToppingId": "23837d0b-6b21-45d9-ad71-7fbbb586061c",
+                            "menuItemToppingId": "15cdf0d9-7266-41b6-9158-e9d113787ded",
                             "price": 12407,
                             "quantity": 1,
+                            "name": "Virginia Wintheiser DVM",
                             "state": "IN_STOCK",
-                            "id": "3f628200-7112-4513-9776-3e7df8bcfc40"
+                            "id": "e27ff207-6077-4573-b0f2-6b425c075623"
                         },
                         {
                             "menuItemToppingId": "913aaef7-d0c0-40c0-9a1d-e594508446c8",
                             "price": 18067,
                             "quantity": 1,
+                            "name": "Virginia Wintheiser DVM",
                             "state": "IN_STOCK",
-                            "id": "8722db94-7cc1-4042-8479-730b969e345e"
+                            "id": "29e6d2b4-a410-4923-8e6f-3f17e9305796"
                         }
                     ],
                     "discount": 0,
-                    "id": "95fc9595-7f4b-4337-a52a-618df4c0b6f9",
+                    "id": "9fd9fd08-a886-4688-a242-24008de3923f",
                     "state": "IN_STOCK"
                 }
             ],
-            "serviceFee": 2000,
-            "shippingFee": 15000,
             "subTotal": 45279,
-            "grandTotal": 62279,
-            "driverId": null,
+            "grandTotal": 45279,
+            "cashierId": null,
             "itemDiscount": null,
             "discount": null,
-            "deliveredAt": null,
-            "id": "2ba4ffd3-e30e-490c-8cfb-11ea5321db5e",
-            "createdAt": "2021-05-02T11:01:24.812Z",
-            "updatedAt": "2021-05-02T11:01:24.812Z"
+            "note": null,
+            "id": "5fe8d547-8573-4384-b460-04efdae690e6",
+            "createdAt": "2021-05-13T10:28:10.979Z",
+            "updatedAt": "2021-05-13T10:28:10.979Z",
+            "delivery": {
+                "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                "status": "DRAFT",
+                "restaurantGeom": {
+                    "type": "Point",
+                    "coordinates": [
+                        -79.5642,
+                        76.1866
+                    ]
+                },
+                "restaurantAddress": "938 Swaniawski Burgs",
+                "driverId": null,
+                "customerAddress": null,
+                "customerGeom": null,
+                "distance": null,
+                "shippingFee": 15000,
+                "deliveredAt": null,
+                "id": "eff979bf-8e8c-4aaa-86a0-6a168a7ec8cf",
+                "createdAt": "2021-05-13T10:28:11.276Z",
+                "updatedAt": "2021-05-13T10:28:11.276Z"
+            }
         }
     }
 }

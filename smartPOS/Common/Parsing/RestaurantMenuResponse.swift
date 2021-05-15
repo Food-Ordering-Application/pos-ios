@@ -17,12 +17,13 @@ struct RestaurantMenuResponse: Decodable {
 
 struct RestaurantMenu: Decodable {
     let menu: Menu
-    let menuGroups: [MenuGroup]
+    let menuGroups: MenuGroups
 }
-
+typealias MenuGroups = [MenuGroup]
 struct MenuGroup: Decodable {
     let id: String
     let name: String
+    let menuId: String
     let index: Int
     let menuItems: [MenuItem]
 }

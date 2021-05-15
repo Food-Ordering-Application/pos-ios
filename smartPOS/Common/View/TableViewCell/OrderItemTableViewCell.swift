@@ -30,7 +30,7 @@ class OrderItemTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
-        print("Selected Item:\(self.lbName.text!)")
+//        print("Selected Item:\(self.lbName.text!)")
     }
     
     var orderItem: OrderItem?

@@ -9,9 +9,19 @@ import BouncyLayout
 import SwiftEntryKit
 import UIKit
 import SkeletonView
+import CoreStore
+import SwiftEventBus
 
-
-class ItemsCollectionViewController: UIViewController {
+final class ItemsCollectionViewController: UIViewController {
+  
+    
+    // MARK: CoreStore Properties
+    private var csdataSource: DiffableDataSource.CollectionViewAdapter<CSMenuItem>?
+    
+    deinit {
+        CSMenusWorker.csMenuitems.removeObserver(self)
+    }
+    
     // MARK: Amazing Size for each Item
     let width = floor((UIScreen.main.bounds.width - (5 * 10)) / 4)
     let height = max(floor((UIScreen.main.bounds.height - ( 240 + 126 + 20)) / 4), 136)
@@ -67,6 +77,7 @@ class ItemsCollectionViewController: UIViewController {
 
 extension ItemsCollectionViewController {
     
+    
     func setup(){
         title = "Items Collection"
         view.backgroundColor = .white
@@ -92,10 +103,21 @@ extension ItemsCollectionViewController {
         
         // MARK: Setup notification to fetchOrders from OrdersPageViewController
 
-        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationFetchMenuItems(_:)), name: Notification.Name("FetchMenuItems"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationFetchedMenuItems(_:)), name: Notification.Name("FetchedMenuItems"), object: nil)
+        
+        
+        SwiftEventBus.onMainThread(self, name: "ReachableInternet") { result in
+            let isReachable = result?.object as! Bool
+            if isReachable {
+                CSMenusWorker.csMenuitems.removeObserver(self)
+                NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: nil)
+                return
+            }
+            self.setupCoreStore()
+        }
     }
     
-    @objc func didGetNotificationFetchMenuItems(_ notification: Notification) {
+    @objc func didGetNotificationFetchedMenuItems(_ notification: Notification) {
         let menuItems = notification.object as! MenuItems
         self.menuItems = menuItems
         collectionView.reloadData()
@@ -131,9 +153,16 @@ extension ItemsCollectionViewController: SkeletonCollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let attributes = dataSource[3, 0].attributes
         let attributes = createAttributePopup().attributes
-        let menuItem = menuItems[indexPath.row]
+        let menuItem = getMenuItemToShow(indexPath)
 //        showLightAwesomePopupMessage(attributes: attributes)
         showOrderItemPopupView(attributes: attributes, data: menuItem)
+    }
+    func getMenuItemToShow(_ indexPath: IndexPath) -> MenuItem {
+        if NoInternetService.isReachable() {
+            return menuItems[indexPath.row]
+        }
+        let csMenuItem = CSMenusWorker.csMenuitems.snapshot[indexPath] as? CSMenuItem
+        return csMenuItem!.toStruct()
     }
 }
 
@@ -182,3 +211,61 @@ extension ItemsCollectionViewController {
 
 }
 
+// MARK: Setup CoreStore
+extension ItemsCollectionViewController {
+    // MARK: - EditableDataSource
+    final class EditableDataSource: DiffableDataSource.CollectionViewAdapter<CSMenuItem> {
+
+//        override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//            switch editingStyle {
+//
+//            case .delete:
+//                let palette = ColorsDemo.palettes.snapshot[indexPath]
+//                ColorsDemo.stack.perform(
+//                    asynchronous: { (transaction) in
+//
+//                        transaction.delete(palette)
+//                    },
+//                    completion: { _ in }
+//                )
+//
+//            default:
+//                break
+//            }
+//        }
+    }
+
+    
+    func setupCoreStore() {
+        self.csdataSource = EditableDataSource(
+            collectionView: self.collectionView,
+            dataStack: CSMenusWorker.stack,
+            cellProvider: { (collectionView, indexPath, csMenuItem) -> UICollectionViewCell? in
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { fatalError("xib doesn't exist") }
+                
+                cell.setCell(csMenuItem.toStruct())
+            
+                // Highlighted color
+                let myCustomSelectionColorView = UIView()
+                myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
+                myCustomSelectionColorView.layer.cornerRadius = 8
+                cell.selectedBackgroundView = myCustomSelectionColorView
+                return cell
+            }
+        )
+        
+        CSMenusWorker.csMenuitems.addObserver(self) { [weak self] listPublisher in
+            print("🌝 IAM TRYING GET LIST MENUITEMS FROM LOCALSTORE")
+            guard let self = self else {
+                return
+            }
+            self.csdataSource?.apply(listPublisher.snapshot, animatingDifferences: true)
+        }
+        self.csdataSource?.apply(CSMenusWorker.csMenuitems.snapshot, animatingDifferences: false)
+    }
+    
+    
+    
+    
+}

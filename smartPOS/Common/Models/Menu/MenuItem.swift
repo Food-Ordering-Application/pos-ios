@@ -6,11 +6,14 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
+import CoreData
+import CoreStore
 import Foundation
+
 typealias MenuItems = [MenuItem]
 struct MenuItem: Decodable {
-    var id: String = "MenuItemID"
-    var name: String = "MenuItem"
+    var id: String = ""
+    var name: String = "Menu item name"
     var description: String = "Menu item description"
     var price: Double = 100000
     var imageUrl: String = "pizza"

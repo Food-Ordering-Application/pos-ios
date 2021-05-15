@@ -10,16 +10,17 @@ import BouncyLayout
 import SkeletonView
 import UIKit
 class OrdersCollectionViewController: UIViewController {
-    lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (2 * 10)) / 4), height: 140)
+    lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (2 * 10)) / 4), height: 136)
+    
     
     // MARK: Setup to show list item by colection view controller using Bouncylayout
 
     var insets: UIEdgeInsets {
-        return UIEdgeInsets(top: 200, left: 0, bottom: 200, right: 0)
+        return UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
     }
     
     var additionalInsets: UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        return UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
     }
     
     lazy var layout = BouncyLayout(style: .regular)

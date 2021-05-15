@@ -91,7 +91,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func onLogin(_ sender: Any) {
-//        self.showMenuView()
+        self.showMenuView()
     }
 
     fileprivate func showMenuView() {

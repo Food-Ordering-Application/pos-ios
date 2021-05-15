@@ -27,6 +27,7 @@ PODS:
   - SwiftEntryKit (1.2.7):
     - QuickLayout (= 3.0.0)
   - SwiftEventBus (5.0.0)
+  - TextFieldEffects (1.6.0)
 
 DEPENDENCIES:
   - AnimatedField
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - SnapKit
   - SwiftEntryKit (= 1.2.7)
   - SwiftEventBus (from `https://github.com/cesarferreira/SwiftEventBus.git`, tag `5.1.0`)
+  - TextFieldEffects
 
 SPEC REPOS:
   trunk:
@@ -61,6 +63,7 @@ SPEC REPOS:
     - SlideMenuControllerSwift
     - SnapKit
     - SwiftEntryKit
+    - TextFieldEffects
 
 EXTERNAL SOURCES:
   SwiftEventBus:
@@ -89,7 +92,8 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftEntryKit: 537c92699d6034efb1ef9c32b11e0b37c97aa589
   SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
+  TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: 0467cd97872ad258461c5a5ebdd6913fecbdc16f
+PODFILE CHECKSUM: 6e423a10ff3cc803dac1b32346ce417d772933dd
 
 COCOAPODS: 1.10.1

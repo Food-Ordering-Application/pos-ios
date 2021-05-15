@@ -102,6 +102,7 @@ extension CheckoutViewController {
     // MARK: Fetch Data to display in the orders collection view
 
     func fetchMenuItemGroups() {
+        self.view.showGradientSkeleton()
         let restaurantId = APIConfig.restaurantId
         let request = Checkout.FetchMenuItems.Request(restaurantId: restaurantId)
         self.interactor?.fetchMenuItemGroups(request: request)
@@ -131,7 +132,7 @@ extension CheckoutViewController {
 
     func onUpdateMenuItem(_ index: Int) {
         let curMenuItems: MenuItems? = self.displayedMenuItemGroups[index].menuItems
-        NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: curMenuItems)
+        NotificationCenter.default.post(name: Notification.Name("FetchedMenuItems"), object: curMenuItems)
     }
 
     @IBAction func onChangeSegmentGroups(_ sender: UISegmentedControl) {
@@ -144,7 +145,7 @@ extension CheckoutViewController {
             Alert.showUnableToRetrieveDataAlert(on: self)
             return
         }
-        NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: viewModel)
+        NotificationCenter.default.post(name: Notification.Name("FetchedMenuItems"), object: viewModel)
     }
 }
 
@@ -230,7 +231,7 @@ extension CheckoutViewController {
 private extension CheckoutViewController {
     private func setup() {
         let viewController = self
-        let interactor = CheckoutInteractor()
+        let interactor = CheckoutInteractor.init()
         let presenter = CheckoutPresenter()
         let router = CheckoutRouter()
         viewController.interactor = interactor
@@ -244,6 +245,7 @@ private extension CheckoutViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationManipulateOrderItem(_:)), name: Notification.Name("ManipulateOrderItem"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreateOrderItem(_:)), name: Notification.Name("CreateOrderItem"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchMenuItemToppings(_:)), name: Notification.Name("FetchMenuItemToppings"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchMenuItems(_:)), name: Notification.Name("FetchMenuItems"), object: nil)
     }
 
     func setupNavBar() {
@@ -252,6 +254,13 @@ private extension CheckoutViewController {
         self.view.showAnimatedGradientSkeleton()
     }
 
+    @objc func didGetNotificationFetchMenuItems(_ notification: Notification) {
+//        let menuItemId = notification.object as! String
+        print("didGetNotificationFetchMenuItems")
+        self.fetchMenuItemGroups()
+    }
+
+    
     @objc func didGetNotificationFetchMenuItemToppings(_ notification: Notification) {
         let menuItemId = notification.object as! String
         print("didGetNotificationEmitFetchMenuItemToppings-\(menuItemId)")
