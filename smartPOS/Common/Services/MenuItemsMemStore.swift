@@ -15,26 +15,7 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol
     static var restaurant = Restaurant(id: "RES-123", merchant: merchant, name: "Restaurant Smart", imageUrl: "", videoUrl: "", numRate: 4, rating: 4.5, area: "HCM", isActive: true)
 //    static var menu = Menu(id: "MENU-123", restaurent: restaurant, name: "Menu Smart", index: 1)
     
-    static var menuItems: [MenuItem] = [
-        MenuItem(id: "ABC-123", name: "Pizza", description: "Nothing to show more", price: 2000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "ABC-234", name: "Hamburger", description: "Nothing to show more", price: 10000, imageUrl: "hamburger",  index: 1, isActive: true),
-        MenuItem(id: "ABC-345",  name: "Hamburger", description: "Nothing to show more", price: 200000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "ABC-456",  name: "Pizza", description: "Nothing to show more", price: 49000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "ABC-567",  name: "Pizza", description: "Nothing to show more", price: 45000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "ABC-678",  name: "Pizza", description: "Nothing to show more", price: 30000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "DEF-123",  name: "Pizza", description: "Nothing to show more", price: 2000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "DEF-234",  name: "Hamburger", description: "Nothing to show more", price: 10000, imageUrl: "hamburger",  index: 1, isActive: true),
-        MenuItem(id: "DEF-345",  name: "Hamburger", description: "Nothing to show more", price: 200000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "DEF-456",  name: "Pizza", description: "Nothing to show more", price: 49000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "DEF-567",  name: "Pizza", description: "Nothing to show more", price: 45000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "DEF-678",  name: "Pizza", description: "Nothing to show more", price: 30000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "LVH-123",  name: "Pizza", description: "Nothing to show more", price: 2000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "LVH-234",  name: "Hamburger", description: "Nothing to show more", price: 10000, imageUrl: "hamburger",  index: 1, isActive: true),
-        MenuItem(id: "LVH-345",  name: "Hamburger", description: "Nothing to show more", price: 200000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "LVH-456",  name: "Pizza", description: "Nothing to show more", price: 49000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "LVH-567",  name: "Pizza", description: "Nothing to show more", price: 45000, imageUrl: "pizza",  index: 1, isActive: true),
-        MenuItem(id: "LVH-678",  name: "Pizza", description: "Nothing to show more", price: 30000, imageUrl: "pizza",  index: 1, isActive: true),
-    ]
+    static var menuItems: [MenuItem] = []
   
     // MARK: - CRUD operations - Optional error
   

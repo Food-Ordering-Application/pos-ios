@@ -17,7 +17,7 @@ struct MenuItem: Decodable {
     var description: String = "Menu item description"
     var price: Double = 100000
     var imageUrl: String = "pizza"
-    var index: Float = 1
-    var isActive: Bool = true
+//    var index: Float?
+    var isActive: Bool? = true
 }
 

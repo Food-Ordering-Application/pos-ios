@@ -26,12 +26,13 @@ struct CSMenusWorker {
                     Entity<CSToppingGroup>("CSToppingGroup"),
                 ],
                 versionLock: [
-                    "CSMenu": [0x6febde7d733c40a3, 0x83105620a4488eed, 0x6ba31f440104d6f7, 0x9955b41131e609dd],
-                    "CSMenuItem": [0xabb885400c0f9a7c, 0x8151c20bda873cfe, 0x69cb566cf129119c, 0xd2fb542fa103663f],
+                    "CSMenu": [0xb420c916cfd24d6f, 0x787ec1f0f1ae6b85, 0x5d8e9e374e5706ca, 0xdbdab10d2013ac2a],
+                    "CSMenuItem": [0x97eb7c2103ede67a, 0x8bab85604b2f5f4f, 0x6737e2ccc4ff169b, 0x80e24c8ce3e15b1e],
                     "CSMenuItemGroup": [0x81d9353d6519ec9a, 0x89fbb9b05c0af2c5, 0xbdaf637c78c93abb, 0x26b5e82f6b1bd85e],
                     "CSMenuItemTopping": [0x5a0d7bf65ec02add, 0xf5f5c0101501d655, 0xf31e474fb59c0498, 0x3664289798e7da0],
-                    "CSToppingGroup": [0x854fdb925664cf35, 0x3d00690549474710, 0xacd6ac6aea66c6b8, 0xac441da2dde65047],
-                    "CSToppingItem": [0xefd8b908859a5271, 0x106073619e378ded, 0xaf2da180944bc1fb, 0x9fe70d9aa127a47]                ]
+                    "CSToppingGroup": [0x9a9670132cc03b01, 0x2fc94dffbd3c41bf, 0x6f215dcdbc630697, 0x669747f9b56d3396],
+                    "CSToppingItem": [0xc1d348c703a97b4b, 0x4a658cd6108047a3, 0x9ef519df0f1e116b, 0x53907931ca89621b]
+                ]
             )
         )
         

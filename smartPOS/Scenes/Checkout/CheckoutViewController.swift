@@ -106,6 +106,7 @@ extension CheckoutViewController {
         let restaurantId = APIConfig.restaurantId
         let request = Checkout.FetchMenuItems.Request(restaurantId: restaurantId)
         self.interactor?.fetchMenuItemGroups(request: request)
+        self.view.hideSkeleton()
     }
 
     func displayFetchedMenuItemGroups(viewModel: Checkout.FetchMenuItems.ViewModel) {
@@ -257,6 +258,7 @@ private extension CheckoutViewController {
     @objc func didGetNotificationFetchMenuItems(_ notification: Notification) {
 //        let menuItemId = notification.object as! String
         print("didGetNotificationFetchMenuItems")
+        self.view.hideSkeleton()
         self.fetchMenuItemGroups()
     }
 
@@ -285,11 +287,11 @@ private extension CheckoutViewController {
         let toppingItems = menuItemAndToppings.toppingItems
         var orderItemToppings: [Checkout.OrderItemToppingFormFields] = []
         for toppingItem in toppingItems ?? [] {
-            var toppingPrice: Double = 0
-            if let menuItemTopping = toppingItem.menuItemToppings.first {
-                toppingPrice = menuItemTopping.customPrice
-            }
-            let orderItemTopping = Checkout.OrderItemToppingFormFields(name: toppingItem.name, menuItemToppingId: toppingItem.id, quantity: 1, price: toppingPrice)
+//            var toppingPrice: Double = 0
+//            if let menuItemTopping = toppingItem.menuItemToppings.first {
+//                toppingPrice = menuItemTopping.customPrice
+//            }
+            let orderItemTopping = Checkout.OrderItemToppingFormFields(name: toppingItem.name, menuItemToppingId: toppingItem.id, quantity: 1, price: toppingItem.price)
             orderItemToppings.append(orderItemTopping)
         }
         return Checkout.OrderItemFormFields(name: menuItem?.name ?? "No name", menuItemId: menuItem?.id ?? "", price: menuItem?.price ?? 0, quantity: menuItemAndToppings.menuItemQuantity ?? 0, orderItemToppings: orderItemToppings)

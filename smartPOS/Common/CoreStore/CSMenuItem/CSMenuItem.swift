@@ -25,8 +25,8 @@ final class CSMenuItem: CoreStoreObject {
     @Field.Stored("imageUrl")
     var imageUrl: String = ""
     
-    @Field.Stored("index")
-    var index: Float = 1
+//    @Field.Stored("index")
+//    var index: Float = 1
     
     @Field.Stored("isActive")
     var isActive: Bool = true
@@ -40,6 +40,6 @@ final class CSMenuItem: CoreStoreObject {
 
 extension CSMenuItem {
     func toStruct() -> MenuItem {
-        return MenuItem(id: id, name: name, description: description, price: price, imageUrl: imageUrl, index: index, isActive: isActive)
+        return MenuItem(id: id, name: name, description: description, price: price, imageUrl: imageUrl, isActive: isActive)
     }
 }

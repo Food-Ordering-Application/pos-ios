@@ -35,11 +35,13 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
     // MARK: Properties for saving data during run app
 
     var order: Order?
-    var menuItems: [MenuItem]?
     var orderItems: [OrderItem]?
+    var orderItemToppings: [OrderItemTopping]?
+    var menuItems: [MenuItem]?
 
+    
+    
     // MARK: Properties from API
-
     var menu: Menu?
     var menuItemGroups: MenuGroups? /// its mean MenuItemGroup
 

@@ -17,8 +17,8 @@ final class CSMenu: CoreStoreObject {
     @Field.Stored("name")
     var name: String = "Menu name"
     
-    @Field.Stored("index")
-    var index: Int = 0
+//    @Field.Stored("index")
+//    var index: Int = 0
 
     @Field.Relationship("menuItemGroups", inverse: \.$menu )
     var menuItemGroups: Set<CSMenuItemGroup>
@@ -28,6 +28,6 @@ final class CSMenu: CoreStoreObject {
 
 extension CSMenu {
     func toStruct() -> Menu {
-        return Menu(id: id, name: name, index: index)
+        return Menu(id: id, name: name)
     }
 }

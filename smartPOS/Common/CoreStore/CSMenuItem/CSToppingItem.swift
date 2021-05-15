@@ -25,8 +25,8 @@ final class CSToppingItem: CoreStoreObject {
     @Field.Stored("maxQuantity")
     var maxQuantity: Int?
     
-    @Field.Stored("index")
-    var index: Float?
+//    @Field.Stored("index")
+//    var index: Float?
     
     @Field.Stored("isActive")
     var isActive: Bool?

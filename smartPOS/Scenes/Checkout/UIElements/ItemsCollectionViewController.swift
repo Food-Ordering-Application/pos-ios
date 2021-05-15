@@ -113,6 +113,7 @@ extension ItemsCollectionViewController {
                 NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: nil)
                 return
             }
+            
             self.setupCoreStore()
         }
     }
@@ -152,17 +153,20 @@ extension ItemsCollectionViewController: SkeletonCollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let attributes = dataSource[3, 0].attributes
+    
         let attributes = createAttributePopup().attributes
         let menuItem = getMenuItemToShow(indexPath)
 //        showLightAwesomePopupMessage(attributes: attributes)
         showOrderItemPopupView(attributes: attributes, data: menuItem)
     }
     func getMenuItemToShow(_ indexPath: IndexPath) -> MenuItem {
+        print(indexPath.row, menuItems)
         if NoInternetService.isReachable() {
             return menuItems[indexPath.row]
         }
-        let csMenuItem = CSMenusWorker.csMenuitems.snapshot[indexPath] as? CSMenuItem
-        return csMenuItem!.toStruct()
+        return menuItems[indexPath.row]
+//        let csMenuItem = CSMenusWorker.csMenuitems.snapshot[indexPath] as? CSMenuItem
+//        return csMenuItem!.toStruct()
     }
 }
 
@@ -192,6 +196,7 @@ extension ItemsCollectionViewController {
         // Preset I
         attributes = PresetsDataSource().bottomAlertAttributes
         attributes.displayMode = .light
+        attributes.windowLevel = .normal
         attributes.entryBackground = .color(color: .musicBackground)
         descriptionString = "Bottom floating popup with dimmed background."
         descriptionThumb = "ic_bottom_popup"

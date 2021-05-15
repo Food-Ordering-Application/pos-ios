@@ -13,7 +13,7 @@ struct ToppingItem: Decodable {
     var description: String
     var price: Double
     var maxQuantity: Int
-    var index: Float
-    var isActive: Bool
-    var menuItemToppings: [MenuItemTopping]
+//    var index: Float
+//    var isActive: Bool
+//    var menuItemToppings: [MenuItemTopping]
 }

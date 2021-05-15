@@ -4,214 +4,430 @@
     "data": {
         "orders": [
             {
-                "id": "ce69a41f-9a51-4797-a43d-880e56a3f875",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
-                "itemDiscount": null,
-                "serviceFee": 2000,
-                "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T09:47:34.204Z",
-                "updatedAt": "2021-05-08T09:47:34.720Z",
-                "paymentType": "COD",
-                "status": "DRAFT",
-                "delivery": null
-            },
-            {
-                "id": "3dc46f69-f822-494d-8208-1484fe2011ce",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
-                "itemDiscount": null,
-                "serviceFee": 2000,
-                "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T09:48:08.099Z",
-                "updatedAt": "2021-05-08T09:48:08.558Z",
-                "paymentType": "COD",
-                "status": "DRAFT",
-                "delivery": null
-            },
-            {
-                "id": "5e809497-2599-4736-8e1e-f1a2887db3f2",
+                "id": "96bb4f39-3f51-48f9-9036-6da95bd03c03",
                 "cashierId": null,
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T09:48:16.195Z",
-                "updatedAt": "2021-05-08T09:48:16.195Z",
+                "subTotal": 28842,
+                "grandTotal": 134958842,
+                "note": null,
+                "createdAt": "2021-05-12T15:46:22.795Z",
+                "updatedAt": "2021-05-12T15:54:45.679Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "abd5b493-752b-41d0-8b50-e989fe275709",
+                    "customerId": "3a0f1fa0-3327-4ddd-af70-44d57aac45e0",
+                    "driverId": null,
+                    "customerAddress": "4567 Dixie Road, Mississauga, ON, Canada",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            43.6365725,
+                            -79.614766
+                        ]
+                    },
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": 26985968,
+                    "shippingFee": 134930000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-12T15:46:23.205Z",
+                    "updatedAt": "2021-05-12T15:46:23.205Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "61064d6b-21cb-4c9f-96a6-405f65fc34f7",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "7fd916c0-d459-4be4-8f11-f674657724fc",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T09:55:56.408Z",
-                "updatedAt": "2021-05-08T09:55:56.867Z",
+                "subTotal": 45279,
+                "grandTotal": 45279,
+                "note": null,
+                "createdAt": "2021-05-13T03:39:22.262Z",
+                "updatedAt": "2021-05-13T03:39:22.262Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "66452c2e-65b8-4a4f-99bc-01a41e899cc0",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T03:39:22.564Z",
+                    "updatedAt": "2021-05-13T03:39:22.564Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "4f442694-b0b8-44ed-b786-bcbb376a0a58",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "7097451b-97db-46bd-9f52-08795d8d548f",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T10:16:26.905Z",
-                "updatedAt": "2021-05-08T10:16:27.363Z",
+                "subTotal": 34415,
+                "grandTotal": 34415,
+                "note": null,
+                "createdAt": "2021-05-13T05:41:02.949Z",
+                "updatedAt": "2021-05-13T05:41:02.949Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "cbae4c83-18a0-4354-b7a5-5cd3a9e27a4f",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T05:41:03.253Z",
+                    "updatedAt": "2021-05-13T05:41:03.253Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "704dbf2b-8b0a-4ff0-aa98-ee1836c70a84",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "7fe5e15f-8035-40a3-9278-fd6dda5683f1",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T10:47:58.915Z",
-                "updatedAt": "2021-05-08T10:47:59.366Z",
+                "subTotal": 11015,
+                "grandTotal": 11015,
+                "note": null,
+                "createdAt": "2021-05-13T05:43:36.827Z",
+                "updatedAt": "2021-05-13T05:43:36.827Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "a16f265e-13e9-40f2-acd6-54f9e63fcd31",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T05:43:37.131Z",
+                    "updatedAt": "2021-05-13T05:43:37.131Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "7b0dbc66-009f-4795-aca0-a48178aaf9c4",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "1a819c6a-e27b-4b25-9306-9e55b6262ad5",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T10:48:21.098Z",
-                "updatedAt": "2021-05-08T10:48:21.555Z",
+                "subTotal": 11015,
+                "grandTotal": 11015,
+                "note": null,
+                "createdAt": "2021-05-13T05:45:16.067Z",
+                "updatedAt": "2021-05-13T05:45:16.067Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "f5f54afe-1145-4e37-85aa-0f90c4327885",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T05:45:16.364Z",
+                    "updatedAt": "2021-05-13T05:45:16.364Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "45e96fa1-9f4b-45b1-bfb1-1af453c64fe0",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "32099ac2-b452-4ea6-aae6-af40af3bfeef",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T13:28:04.592Z",
-                "updatedAt": "2021-05-08T13:28:05.105Z",
+                "subTotal": 29278,
+                "grandTotal": 29278,
+                "note": null,
+                "createdAt": "2021-05-13T05:49:34.399Z",
+                "updatedAt": "2021-05-13T05:49:34.399Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "450c694e-3a47-4904-8123-98ac181e2267",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T05:49:34.697Z",
+                    "updatedAt": "2021-05-13T05:49:34.697Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "fcb8968a-ff85-4638-952f-fbd74074066a",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "c09c1d1a-8365-425c-b32d-0165384af41b",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T14:16:17.220Z",
-                "updatedAt": "2021-05-08T14:16:17.668Z",
+                "subTotal": 105172,
+                "grandTotal": 105172,
+                "note": null,
+                "createdAt": "2021-05-13T05:57:11.110Z",
+                "updatedAt": "2021-05-13T05:57:30.545Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "46fa316d-7d74-46e1-ba94-5080dc034bf1",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T05:57:11.426Z",
+                    "updatedAt": "2021-05-13T05:57:11.426Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "6d919842-5b19-49cf-9489-a294a6c79a1f",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "677bd263-78a3-4400-9148-ed51e06aa836",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T15:17:45.370Z",
-                "updatedAt": "2021-05-08T15:17:45.865Z",
+                "subTotal": 322058,
+                "grandTotal": 322058,
+                "note": null,
+                "createdAt": "2021-05-13T05:58:44.898Z",
+                "updatedAt": "2021-05-13T05:59:36.341Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "2d23b060-dba8-419d-b9c6-15dc275aa3e3",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T05:58:45.202Z",
+                    "updatedAt": "2021-05-13T05:58:45.202Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "404f2e05-1320-436b-8555-b80d6452a416",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "0dbce181-bec3-4257-8356-b2ac220c9194",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T15:18:03.006Z",
-                "updatedAt": "2021-05-08T15:18:03.467Z",
+                "subTotal": 26293,
+                "grandTotal": 26293,
+                "note": null,
+                "createdAt": "2021-05-13T06:04:34.401Z",
+                "updatedAt": "2021-05-13T06:04:34.401Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "7785fa99-a73c-4fb0-9ed5-1c301b3b77ad",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T06:04:34.705Z",
+                    "updatedAt": "2021-05-13T06:04:34.705Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "30d156bd-dfe5-4c4e-9480-78520f623024",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "c89e0ae0-3a24-4eee-8c35-6fbe7cc0ed34",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T16:03:16.119Z",
-                "updatedAt": "2021-05-08T16:03:16.620Z",
+                "subTotal": 146632,
+                "grandTotal": 146632,
+                "note": null,
+                "createdAt": "2021-05-13T06:06:32.579Z",
+                "updatedAt": "2021-05-13T06:07:44.927Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "abc9d81a-f238-4728-86c7-c55f1dbb95ca",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T06:06:32.873Z",
+                    "updatedAt": "2021-05-13T06:06:32.873Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "3596b386-c70b-414c-bc3d-8c9464c9f328",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "5fe8d547-8573-4384-b460-04efdae690e6",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T16:34:47.150Z",
-                "updatedAt": "2021-05-08T16:34:47.635Z",
+                "subTotal": 45279,
+                "grandTotal": 45279,
+                "note": null,
+                "createdAt": "2021-05-13T10:28:10.979Z",
+                "updatedAt": "2021-05-13T10:28:10.979Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "eff979bf-8e8c-4aaa-86a0-6a168a7ec8cf",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-13T10:28:11.276Z",
+                    "updatedAt": "2021-05-13T10:28:11.276Z",
+                    "deliveredAt": null
+                }
             },
             {
-                "id": "68f04c52-11dd-461d-a25e-fea011927c63",
-                "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-                "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-                "subTotal": 60000,
+                "id": "46cdee9f-a29f-4e7c-8de1-584f0935f321",
+                "cashierId": null,
+                "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
                 "itemDiscount": null,
-                "serviceFee": 2000,
                 "discount": null,
-                "grandTotal": 62000,
-                "createdAt": "2021-05-08T16:38:18.559Z",
-                "updatedAt": "2021-05-08T16:38:19.022Z",
+                "subTotal": 181116,
+                "grandTotal": 181116,
+                "note": null,
+                "createdAt": "2021-05-15T10:33:57.172Z",
+                "updatedAt": "2021-05-15T10:35:31.285Z",
                 "paymentType": "COD",
                 "status": "DRAFT",
-                "delivery": null
+                "delivery": {
+                    "id": "e0c92158-14fb-4418-9f76-3eb55890b142",
+                    "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                    "driverId": null,
+                    "customerAddress": null,
+                    "customerGeom": null,
+                    "restaurantAddress": "938 Swaniawski Burgs",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            -79.5642,
+                            76.1866
+                        ]
+                    },
+                    "distance": null,
+                    "shippingFee": 15000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-15T10:33:57.469Z",
+                    "updatedAt": "2021-05-15T10:33:57.469Z",
+                    "deliveredAt": null
+                }
             }
         ]
     }

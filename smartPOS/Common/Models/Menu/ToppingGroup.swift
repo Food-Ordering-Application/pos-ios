@@ -11,7 +11,7 @@ typealias ToppingGroups = [ToppingGroup]
 struct ToppingGroup: Decodable {
     var id: String
     var name: String
-    var index: Float
-    var isActive: Bool
+//    var index: Float
+//    var isActive: Bool?
     var toppingItems: [ToppingItem]
 }

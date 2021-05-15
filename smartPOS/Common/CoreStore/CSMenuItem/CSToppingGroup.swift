@@ -16,8 +16,8 @@ final class CSToppingGroup: CoreStoreObject {
     @Field.Stored("name")
     var name: String?
     
-    @Field.Stored("index")
-    var index: Int?
+//    @Field.Stored("index")
+//    var index: Int?
     
     @Field.Stored("isActive")
     var isActive: Bool?

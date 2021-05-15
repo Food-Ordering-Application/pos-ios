@@ -10,11 +10,11 @@ import Foundation
 struct Menu: Codable {
     var id: String
     var name: String
-    var index: Int
+//    var index: Int
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case index
+//        case index
     }
 }
 

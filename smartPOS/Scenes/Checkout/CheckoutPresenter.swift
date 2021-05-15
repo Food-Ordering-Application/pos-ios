@@ -31,7 +31,7 @@ class CheckoutPresenter: CheckoutPresentationLogic {
         for menuItemGroup in response.menuGroups ?? [] {
             let menuItems = menuItemGroup.menuItems
             allMenuItem.menuItems.append(contentsOf: menuItems)
-            let displayedMenuItemGroup = Checkout.DisplayedMenuItemGroup(id: menuItemGroup.id, name: menuItemGroup.name, index: menuItemGroup.index, menuItems: menuItems)
+            let displayedMenuItemGroup = Checkout.DisplayedMenuItemGroup(id: menuItemGroup.id, name: menuItemGroup.name,   menuItems: menuItems)
             displayedMenuItemGroups.append(displayedMenuItemGroup)
         }
         displayedMenuItemGroups.insert(allMenuItem, at: 0)

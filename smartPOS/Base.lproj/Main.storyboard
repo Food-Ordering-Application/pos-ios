@@ -203,6 +203,7 @@
                                     <segment title=""/>
                                     <segment title=""/>
                                 </segments>
+                                <color key="tintColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
@@ -950,6 +951,7 @@
                                     <segment title="Đã hoàn thành"/>
                                     <segment title="Đã huỷ"/>
                                 </segments>
+                                <color key="tintColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">

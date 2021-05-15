@@ -21,9 +21,9 @@ final class CSWorker {
                         let existingMenuItemGroup = try transaction.fetchOne(From<CSMenuItemGroup>().where(\.$id == menuGroup.id))
                         let csMenuItemGroup = existingMenuItemGroup != nil ? existingMenuItemGroup : transaction.create(Into<CSMenuItemGroup>())
                         csMenuItemGroup?.id = menuGroup.id
-                        csMenuItemGroup?.index = menuGroup.index
+//                        csMenuItemGroup?.index = menuGroup.index ?? 0
                         csMenuItemGroup?.name = menuGroup.name
-                        csMenuItemGroup?.menu = try transaction.fetchOne(From<CSMenu>().where(\.$id == menuGroup.menuId))
+                        csMenuItemGroup?.menu = try transaction.fetchOne(From<CSMenu>().where(\.$id == menuGroup.menuId ?? menu.id))
                         
                         let menuItems = menuGroup.menuItems
                         for menuItem in menuItems {
@@ -33,10 +33,10 @@ final class CSWorker {
                                 csMenuItem?.id = menuItem.id
                                 csMenuItem?.name = menuItem.name
                                 csMenuItem?.description = menuItem.description
-                                csMenuItem?.index = menuItem.index
+//                                csMenuItem?.index = menuItem.index ?? 0
                                 csMenuItem?.imageUrl = menuItem.imageUrl
                                 csMenuItem?.price = menuItem.price
-                                csMenuItem?.isActive = menuItem.isActive
+                                csMenuItem?.isActive = menuItem.isActive ?? true
                                 csMenuItem?.menuItemGroup = try transaction.fetchOne(From<CSMenuItemGroup>().where(\.$id == menuGroup.id))
                             } catch let error {
                                 throw error
@@ -66,7 +66,7 @@ final class CSWorker {
                 let existingMenu = try transaction.fetchOne(From<CSMenu>().where(\.$id == menu.id))
                 let csMenu = existingMenu != nil ? existingMenu : transaction.create(Into<CSMenu>())
                 csMenu?.id = menu.id
-                csMenu?.index = menu.index
+//                csMenu?.index = menu.index
                 csMenu?.name = menu.name
                 
             },
