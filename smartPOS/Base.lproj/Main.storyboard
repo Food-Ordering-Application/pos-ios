@@ -170,8 +170,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSd-OV-iTF">
-                                <rect key="frame" x="20" y="614" width="117" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mã giảm giá" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSd-OV-iTF">
+                                <rect key="frame" x="20" y="614" width="125" height="28"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -304,13 +304,13 @@
         <!--Order Checkout View Controller-->
         <scene sceneID="YAj-2Z-wg6">
             <objects>
-                <viewController id="dOy-eZ-Rln" customClass="OrderCheckoutViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OrderCheckoutViewController" id="dOy-eZ-Rln" customClass="OrderCheckoutViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zMH-91-Owk">
                         <rect key="frame" x="0.0" y="0.0" width="338" height="710"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNi-Vq-SMA">
-                                <rect key="frame" x="141.5" y="14" width="55" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đơn hàng" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNi-Vq-SMA">
+                                <rect key="frame" x="120.5" y="14" width="97" height="27"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -342,7 +342,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H6Q-Lf-KBj">
-                                <rect key="frame" x="10" y="65" width="318" height="337"/>
+                                <rect key="frame" x="10" y="65" width="318" height="341"/>
                                 <color key="backgroundColor" red="0.93066646812410259" green="0.93988098761047978" blue="0.93988098761047978" alpha="0.27727099286009937" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
@@ -356,7 +356,7 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8CK-gR-QR7">
-                                <rect key="frame" x="16" y="410" width="306" height="284"/>
+                                <rect key="frame" x="16" y="414" width="306" height="280"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iqb-q8-fBS">
                                         <rect key="frame" x="0.0" y="0.0" width="306" height="90"/>
@@ -607,8 +607,8 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="uje-PC-EQ2">
-                                        <rect key="frame" x="0.0" y="164" width="306" height="120"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uje-PC-EQ2">
+                                        <rect key="frame" x="0.0" y="164" width="306" height="116"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleAspectFill" distribution="equalCentering" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="9yg-7S-XuR">
                                                 <rect key="frame" x="0.0" y="0.0" width="306" height="60"/>
@@ -635,8 +635,8 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DyB-4R-8hx">
-                                                <rect key="frame" x="0.0" y="72" width="306" height="48"/>
-                                                <color key="backgroundColor" red="1" green="0.4196293056" blue="0.2078702748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="0.0" y="68" width="306" height="48"/>
+                                                <color key="backgroundColor" red="1" green="0.41960784313725491" blue="0.20784313725490194" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="3Za-6B-PMO"/>
                                                 </constraints>
@@ -654,9 +654,6 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="8JX-to-H4v"/>
-                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <userDefinedRuntimeAttributes>

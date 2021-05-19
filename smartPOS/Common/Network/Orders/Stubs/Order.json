@@ -3,30 +3,68 @@
     "message": "Order fetched successfully",
     "data": {
         "order": {
-            "id": "61064d6b-21cb-4c9f-96a6-405f65fc34f7",
-            "cashierId": "5432a529-7754-4915-9346-dcba9cf20354",
-            "restaurantId": "32f49431-e572-4cbb-8f04-34bf858ef3de",
-            "subTotal": 60000,
+            "id": "46cdee9f-a29f-4e7c-8de1-584f0935f321",
+            "cashierId": null,
+            "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
             "itemDiscount": null,
-            "serviceFee": 2000,
             "discount": null,
-            "grandTotal": 62000,
-            "createdAt": "2021-05-08T09:55:56.408Z",
-            "updatedAt": "2021-05-08T09:55:56.867Z",
+            "subTotal": 181116,
+            "grandTotal": 181116,
+            "note": null,
+            "createdAt": "2021-05-15T10:33:57.172Z",
+            "updatedAt": "2021-05-15T10:35:31.285Z",
             "paymentType": "COD",
             "status": "DRAFT",
             "orderItems": [
                 {
-                    "id": "08734a2b-54bf-499a-940b-9a888c784f6c",
-                    "menuItemId": "9c7b4cd5-7dc7-48c7-8cc9-661b2e026cda",
-                    "price": 20000,
-                    "quantity": 3,
+                    "id": "5fb09b95-3e02-4d64-9b17-12f6ea084d47",
+                    "menuItemId": "a1eb65d2-379f-460c-a136-5a2c8283bbad6",
+                    "price": 14805,
+                    "name": "Maximillian Beer",
+                    "quantity": 4,
                     "discount": 0,
                     "state": "IN_STOCK",
-                    "orderItemToppings": []
+                    "orderItemToppings": [
+                        {
+                            "id": "760f9003-6f0d-4bf9-9d6c-0268bee78352",
+                            "menuItemToppingId": "15cdf0d9-7266-41b6-9158-e9d113787ded",
+                            "name": "Virginia Wintheiser DVM",
+                            "quantity": 1,
+                            "price": 12407,
+                            "state": "IN_STOCK"
+                        },
+                        {
+                            "id": "0845f4ee-3d75-4039-af2e-c1f33e494836",
+                            "menuItemToppingId": "913aaef7-d0c0-40c0-9a1d-e594508446c8",
+                            "name": "Virginia Wintheiser DVM",
+                            "quantity": 1,
+                            "price": 18067,
+                            "state": "IN_STOCK"
+                        }
+                    ]
                 }
             ],
-            "delivery": null
+            "delivery": {
+                "id": "e0c92158-14fb-4418-9f76-3eb55890b142",
+                "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                "driverId": null,
+                "customerAddress": null,
+                "customerGeom": null,
+                "restaurantAddress": "938 Swaniawski Burgs",
+                "restaurantGeom": {
+                    "type": "Point",
+                    "coordinates": [
+                        -79.5642,
+                        76.1866
+                    ]
+                },
+                "distance": null,
+                "shippingFee": 15000,
+                "status": "DRAFT",
+                "createdAt": "2021-05-15T10:33:57.469Z",
+                "updatedAt": "2021-05-15T10:33:57.469Z",
+                "deliveredAt": null
+            }
         }
     }
 }

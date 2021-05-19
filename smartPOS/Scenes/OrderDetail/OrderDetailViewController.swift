@@ -24,12 +24,13 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
     @IBOutlet var orderItemsTableView: UITableView!
     @IBOutlet var btnAccept: UIButton!
     @IBOutlet var btnReject: UIButton!
-    
+
     @IBOutlet var statusAreaView: UIView! {
         didSet {
             self.statusAreaView.isHidden = true
         }
     }
+
     @IBOutlet var addressAreaView: UIView! {
         didSet {
             self.addressAreaView.isHidden = true
@@ -55,30 +56,30 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
     }
 
     @IBOutlet var lbOrderId: UILabel!
-    
-    @IBOutlet weak var lbOrderStatus: UILabel!
-    @IBOutlet weak var lbTotal: UILabel!
-    @IBOutlet weak var lbNote: UILabel!
-    @IBOutlet weak var lbDeliveryAddress: UILabel!
-    @IBOutlet weak var lbDriverAvailabel: UILabel!
-    
+
+    @IBOutlet var lbOrderStatus: UILabel!
+    @IBOutlet var lbTotal: UILabel!
+    @IBOutlet var lbNote: UILabel!
+    @IBOutlet var lbDeliveryAddress: UILabel!
+    @IBOutlet var lbDriverAvailabel: UILabel!
+
     var order: Order?
     var orderItems: [OrderItem] = []
 
     // MARK: Object lifecycle
-  
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-  
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-  
+
     // MARK: Routing
-  
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
@@ -87,9 +88,9 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
             }
         }
     }
-  
+
     // MARK: View lifecycle
-  
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupLayout()
@@ -97,7 +98,7 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
         self.setupTableView()
 //        self.getOrder(for: "ORDER-009")
     }
-  
+
     override func viewDidAppear(_ animated: Bool) {
         self.setupLayout()
     }
@@ -107,12 +108,12 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
 
 extension OrderDetailViewController {
     // MARK: Do something
-   
+
     func getOrder(for id: String) {
         let request = OrderDetail.GetOrder.Request(id: id)
         self.interactor?.getOrder(request: request)
     }
-  
+
     func displayOrder(viewModel: OrderDetail.GetOrder.ViewModel) {
         // nameTextField.text = viewModel.name
         self.setupOrderDisplay(viewModel: viewModel)
@@ -128,12 +129,12 @@ extension OrderDetailViewController {
         }
         self.updateOrderAndOrderItems(order: viewModel.order, orderItems: viewModel.orderItems)
     }
-    
+
     fileprivate func updateOrderAndOrderItems(order: Order?, orderItems: [OrderItem]?) {
         self.updateOrder(order: order)
         self.updateOrderItems(orderItems: orderItems)
     }
-    
+
     fileprivate func updateOrder(order: Order?) {
         self.order = order
         guard let order = order else {
@@ -143,20 +144,16 @@ extension OrderDetailViewController {
         self.setupOrderView(isHidden: false)
         self.lbOrderId!.text = order.id
         self.lbOrderStatus!.text = order.status.map { $0.rawValue }
-        self.lbTotal!.text = String(order.grandTotal).currency()
+        self.lbTotal!.text = String(format: "%.0f",order.grandTotal).currency()
         self.lbDeliveryAddress!.text = "Chưa có địa chỉ giao hàng"
         self.lbDriverAvailabel!.text = "Chưa có tài xế hoạt động gần đây"
-        
-        
+
         /// Need to show or hide note area in here when having data
         self.noteAreaView.isHidden = true
         self.timeAreaView.isHidden = true
-        
-        
-        
-        
     }
-    func setupOrderView(isHidden: Bool = true){
+
+    func setupOrderView(isHidden: Bool = true) {
         self.statusAreaView.isHidden = isHidden
         self.addressAreaView.isHidden = isHidden
         self.noteAreaView.isHidden = isHidden
@@ -176,7 +173,7 @@ extension OrderDetailViewController {
     func setupNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationOrderDetail(_:)), name: Notification.Name("OrderDetail"), object: nil)
     }
-    
+
     @objc func didGetNotificationOrderDetail(_ notification: Notification) {
         let orderId = notification.object as! String?
         print("didGetNotificationOrderDetail-\(String(describing: orderId))")
@@ -221,7 +218,7 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension OrderDetailViewController {
     // MARK: Setup
-    
+
     private func setup() {
         let viewController = self
         let interactor = OrderDetailInteractor()
@@ -235,14 +232,14 @@ extension OrderDetailViewController {
         router.dataStore = interactor
         self.setupNotification()
     }
-    
+
     func setupButton() {
         self.btnReject.layer.borderWidth = 1
         self.btnReject.layer.borderColor = #colorLiteral(red: 0.8506677372, green: 0.2256608047, blue: 0.1839731823, alpha: 1)
         self.btnReject.layer.cornerRadius = 8
         self.btnReject.layer.shadowPath = UIBezierPath(rect: self.btnReject.bounds).cgPath
     }
-    
+
     func setupLayout() {
         self.view.layer.borderWidth = 1
         self.view.layer.borderColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 1)
@@ -251,7 +248,7 @@ extension OrderDetailViewController {
 //        self.view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
 //        self.view.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
     }
-    
+
     // MARK: Register tableView for xib cell
 
     func setupTableView() {
@@ -259,7 +256,10 @@ extension OrderDetailViewController {
         self.orderItemsTableView.register(OrderItemTableViewCell.nib, forCellReuseIdentifier: OrderItemTableViewCell.identifier)
         self.orderItemsTableView.emptyDataSetView { [weak self] view in
             if let `self` = self {
-                view.titleLabelString(NSAttributedString(string: "Empty"))
+                view.detailLabelString(NSAttributedString(string: "Đơn hàng chi tiết.", attributes: [NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .regular)]))
+                    .image(UIImage.resizeImage(image: UIImage(named: "undraw_empty_cart")!, targetSize: CGSize(width: 300, height: 200)))
+                    .shouldFadeIn(true)
+                    .isTouchAllowed(false)
             }
         }
     }

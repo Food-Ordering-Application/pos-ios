@@ -34,7 +34,7 @@ struct CSDatabase {
                     "CSMenuItem": [0x78d2d9ea4885969c, 0xd94b52e2b01d1e9d, 0x56056d1d63b6846c, 0xdbe0f82271393da5],
                     "CSMenuItemGroup": [0x429c8c1ea1d6aa27, 0xf9e17d18c6b944af, 0x835644cbb1947713, 0x1ee0e175239bf921],
                     "CSMenuItemTopping": [0x753962372555d26, 0x4d4385614063fdc7, 0x1375de5c0c0ef941, 0x6fb4ff297a92a23a],
-                    "CSOrder": [0xa2cbc5005a4b1118, 0xcae390b56813eda1, 0xbc8dda545e8bc1af, 0xa4999afc03eda37e],
+                    "CSOrder": [0xa01ac2519af75eec, 0x27c1123d82ce583, 0x6f30c6185e43464b, 0x4876b0f1f554c859],
                     "CSOrderItem": [0x492faa610ff10e0b, 0xdfcce61ebd4f85ed, 0xb3932ef880ca8a50, 0x22650ced56f3f512],
                     "CSOrderItemTopping": [0x642c23073d3d0827, 0x29143a4c90a9819f, 0x4f964b8ea8d74584, 0x356aff012325bb9],
                     "CSToppingGroup": [0x839896f33c6b2093, 0x545cca21f23c9db8, 0xabf8d982bd10cbd6, 0xfce639a416d17088],
@@ -62,7 +62,8 @@ struct CSDatabase {
     static let csOrders: ListPublisher<CSOrder> = {
         return CSDatabase.stack.publishList(
             From<CSOrder>()
-                .orderBy(.ascending(\.$id))
+                .sectionBy(\.$dateName)
+                .orderBy(.descending(\.$createdAt))
         )
     }()
     

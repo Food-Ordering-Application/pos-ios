@@ -18,12 +18,14 @@ class NumpadView: UIView {
             btnBackspace.imageEdgeInsets = UIEdgeInsets(top: 30, left: 50, bottom: 30, right: 50)
         }
     }
+
     @IBOutlet var btnSubmit: UIButton! {
         didSet {
             btnSubmit.layer.cornerRadius = 4
         }
     }
-    @IBOutlet var textField: UITextField!  {
+
+    @IBOutlet var textField: UITextField! {
         didSet {
             textField.translatesAutoresizingMaskIntoConstraints = false
             textField.textAlignment = .right
@@ -33,6 +35,7 @@ class NumpadView: UIView {
             textField.isEnabled = false
         }
     }
+
     @IBOutlet var containerView: UIView!
     var numPad = NumPad(frame: CGRect(x: 0, y: 0, width: 600, height: 460))
     
@@ -62,34 +65,32 @@ class NumpadView: UIView {
     @IBAction func onBackspace(_ sender: Any) {
         var cash = textField.text!.sanitized()
         print(cash)
-        if cash.length > 0{
+        if cash.length > 0 {
             cash.removeLast()
         }
         if cash.length != 0 {
-            textField.text = String(cash).currency()
+            textField.text = String(format: "%.0f", cash).currency()
             return
         }
         textField.text = nil
     }
     
     @IBAction func onSubmit(_ sender: Any) {
-        print("cash-\(textField.text!.sanitized())")
-//        NotificationCenter.default.post(name: Notification.Name("CreateOrderItem"), object: self.displayedMenuItem)
+        guard let cashText = textField.text else { return }
+        if cashText != "" {
+            let cash = cashText.sanitized()
+            NotificationCenter.default.post(name: Notification.Name("PaidByCash"), object: cash)
+        }
         SwiftEntryKit.dismiss()
     }
     
     private func setup() {
         fromNib()
 
-    
         numPad.backgroundColor = borderColor
         numPad.dataSource = self
         numPad.delegate = self
         containerView.addSubview(numPad)
-        
-      
-        
-     
         
         clipsToBounds = true
         layer.cornerRadius = 5

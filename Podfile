@@ -24,6 +24,8 @@ target 'smartPOS' do
   pod 'AnimatedField'
   pod 'TextFieldEffects'
   pod 'Schedule', '~> 2.0'
+  pod 'SwiftDate', '~> 5.0'
+
 
   target 'smartPOSTests' do
     inherit! :search_paths

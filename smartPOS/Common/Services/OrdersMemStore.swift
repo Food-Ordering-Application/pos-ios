@@ -194,7 +194,6 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
             },
             success: { _ in
                 if let nestedOrder: CSOrder = try! CSDatabase.stack.fetchOne(From<CSOrder>().where(\.$id == orderId)) {
-                   
                     completionHandler {
                         OrderAndOrderItemData(order: nestedOrder.toDeepStruct())
                     }
@@ -221,15 +220,34 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
         completionHandler { order }
     }
   
-    func updateOrder(orderToUpdate: Order, completionHandler: @escaping (() throws -> Order?) -> Void) {
-        if let index = indexOfOrderWithID(id: orderToUpdate.id) {
-            type(of: self).orders[index] = orderToUpdate
-            let order = type(of: self).orders[index]
-            completionHandler { order }
+    func updateOrder(orderToUpdate: Order, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void) {
+        guard let orderId = orderToUpdate.id else {
+            completionHandler {
+                throw OrdersStoreError.CannotFetch("Something went wrong.")
+            }
+            return
         }
-        else {
-            completionHandler { throw OrdersStoreError.CannotUpdate("Cannot fetch order with id \(String(describing: orderToUpdate.id)) to update") }
-        }
+        _ = try CSDatabase.stack.perform(
+            asynchronous: { transaction in
+                let csOrder = try! transaction.fetchOne(From<CSOrder>().where(\.$id == orderId))
+                csOrder?.status = orderToUpdate.status!.rawValue
+            },
+            success: { _ in
+                if let nestedOrder: CSOrder = try! CSDatabase.stack.fetchOne(From<CSOrder>().where(\.$id == orderId)) {
+                    completionHandler {
+                        OrderAndOrderItemData(order: nestedOrder.toDeepStruct())
+                    }
+                }
+                else {
+                    completionHandler {
+                        throw OrdersStoreError.CannotUpdate("Cannot place order from Local - Parsing")
+                    }
+                }
+            },
+            failure: { coreStoreError in
+                completionHandler { throw OrdersStoreError.CannotUpdate("Cannot fetch order with id \(coreStoreError.localizedDescription) to update") }
+            }
+        )
     }
   
     func deleteOrder(id: String, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void) {

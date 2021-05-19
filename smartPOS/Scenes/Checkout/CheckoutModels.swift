@@ -158,6 +158,21 @@ enum Checkout {
             var error: OrderItemErrors?
         }
     }
+    enum UpdateOrder {
+        struct Request {
+            var order: Order?
+        }
+        struct Response {
+            var order: NestedOrder?
+            var error: OrderItemErrors?
+        }
+
+        struct ViewModel {
+            var order: Order?
+            var orderItems: [OrderItem]?
+            var error: OrderItemErrors?
+        }
+    }
     
     enum RemoveOrder {
         struct Request {

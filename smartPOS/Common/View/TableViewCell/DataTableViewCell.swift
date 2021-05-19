@@ -9,20 +9,19 @@
 import UIKit
 
 struct DataTableViewCellData {
-    
-    init(imageUrl: String, text: String) {
-        self.imageUrl = imageUrl
-        self.text = text
-    }
-    var imageUrl: String
     var text: String
+    var date: Date
+    var orderId: String
 }
 
-class DataTableViewCell : BaseTableViewCell {
+class DataTableViewCell: BaseTableViewCell {
+    @IBOutlet var dataText: UILabel!
     
-    @IBOutlet weak var dataImage: UIImageView!
-    @IBOutlet weak var dataText: UILabel!
+    @IBOutlet var lbOrderId: UILabel!
     
+    @IBOutlet var lbDate: UILabel!
+    
+    @IBOutlet weak var icSync: UIImageView!
     override func awakeFromNib() {
         self.dataText?.font = UIFont.italicSystemFont(ofSize: 16)
         self.dataText?.textColor = UIColor(hex: "9E9E9E")
@@ -34,8 +33,11 @@ class DataTableViewCell : BaseTableViewCell {
     
     override func setData(_ data: Any?) {
         if let data = data as? DataTableViewCellData {
-            self.dataImage.setRandomDownloadImage(80, height: 80)
+//            self.dataImage.setRandomDownloadImage(80, height: 80)
+            self.lbOrderId.text = data.orderId.components(separatedBy: "-").first
+            
             self.dataText.text = data.text
+            self.lbDate.text = data.date.toFormat("HH:mm")
         }
     }
 }

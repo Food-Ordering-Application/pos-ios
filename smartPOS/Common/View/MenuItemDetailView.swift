@@ -63,7 +63,7 @@ class MenuItemDetailView: UIView {
             self.menuItem = menuItem
             NotificationCenter.default.post(name: Notification.Name("FetchMenuItemToppings"), object: menuItem.id)
             self.lbName!.text = menuItem.name
-            self.lbPrice!.text = String(menuItem.price).currency()
+            self.lbPrice!.text = String(format: "%.0f",menuItem.price).currency()
             self.lbQuantity!.text = String(menuItemQuantity)
         }
     }

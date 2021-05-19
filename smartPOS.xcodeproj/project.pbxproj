@@ -478,7 +478,6 @@
 		715283052213143A004602FF /* smartPOS */ = {
 			isa = PBXGroup;
 			children = (
-				9B331243265517AD00CDB8A2 /* ic_syncing.gif */,
 				9B5C545D262AC63300D7120A /* Common */,
 				71528334221315DB004602FF /* Scenes */,
 				715283062213143A004602FF /* AppDelegate.swift */,
@@ -847,6 +846,7 @@
 				9BEDEBED26347CB00011F71B /* NumpadView.xib */,
 				9B33123926550C1500CDB8A2 /* POSStatusView.xib */,
 				9B33123E26550C2D00CDB8A2 /* POSStatusView.swift */,
+				9B331243265517AD00CDB8A2 /* ic_syncing.gif */,
 			);
 			path = View;
 			sourceTree = "<group>";

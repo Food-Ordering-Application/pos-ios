@@ -48,7 +48,7 @@ class RadioTableViewCell: UITableViewCell {
     open func setData(_ data: ToppingItem?) {
         if let topping = data {
             self.lbName?.text = topping.description
-            self.lbPrice?.text = String(topping.price).currency()
+            self.lbPrice?.text = String(format: "%.0f",topping.price).currency()
         }
     }
 }

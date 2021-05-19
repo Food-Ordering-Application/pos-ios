@@ -21,6 +21,7 @@ protocol CheckoutDisplayLogic: class {
     func displayManupulatedOrderItem(viewModel: Checkout.ManipulateOrderItemQuantity.ViewModel)
     func displayCreatedOrderAndOrderItems(viewModel: Checkout.CreateOrderAndOrderItems.ViewModel)
     func displayRemovedOrder(viewModel: Checkout.RemoveOrder.ViewModel)
+    func displayUpdatedOrder(viewModel: Checkout.UpdateOrder.ViewModel)
 }
 
 class CheckoutViewController: UIViewController, CheckoutDisplayLogic, SlideMenuControllerDelegate {
@@ -196,7 +197,7 @@ extension CheckoutViewController {
         self.updateOrderAndOrderItems(order: viewModel.order, orderItems: viewModel.orderItems)
         NotificationCenter.default.post(name: Notification.Name("CreatedOrderAndOrderItems"), object: viewModel)
     }
-
+    
     fileprivate func updateOrderAndOrderItems(order: Order?, orderItems: [OrderItem]?) {
         self.order = order
         self.orderItems = orderItems
@@ -241,6 +242,24 @@ extension CheckoutViewController {
         self.updateOrderAndOrderItems(order: viewModel.order, orderItems: viewModel.orderItems)
         NotificationCenter.default.post(name: Notification.Name("ManipulatedOrderItem"), object: viewModel)
     }
+    
+    func updateOrder(order: Order?){
+        let request = Checkout.UpdateOrder.Request(order: order)
+        self.interactor?.updateOrder(request: request)
+    }
+    
+    func displayUpdatedOrder(viewModel: Checkout.UpdateOrder.ViewModel) {
+        print("displayUpdatedOrder")
+        guard viewModel.error == nil else {
+            Alert.showUnableToRetrieveDataAlert(on: self)
+            return
+        }
+        
+        // MARK: BAD CODE DO NOT HARD CODE -> HAVE TO SOLVE THIS PROBLEM
+        self.updateOrderAndOrderItems(order: nil, orderItems: [])
+        NotificationCenter.default.post(name: Notification.Name("UpdatedOrder"), object: viewModel)
+    }
+    
 }
 
 // MARK: Setup
@@ -264,6 +283,7 @@ private extension CheckoutViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchMenuItemToppings(_:)), name: Notification.Name("FetchMenuItemToppings"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchMenuItems(_:)), name: Notification.Name("FetchMenuItems"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationRemoveOrder(_:)), name: Notification.Name("RemoveOrder"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationUpdateOrder(_:)), name: Notification.Name("UpdateOrder"), object: nil)
     }
 
     func setupNavBar() {
@@ -289,6 +309,12 @@ private extension CheckoutViewController {
         let orderId = notification.object as! String
         print("didGetNotificationRemoveOrder-\(orderId)")
         self.removeOrder(orderId: orderId)
+    }
+    
+    @objc func didGetNotificationUpdateOrder(_ notification: Notification) {
+        let order = notification.object as? Order
+        print("didGetNotificationUpdateOrder")
+        self.updateOrder(order: order)
     }
 
     @objc func didGetNotificationManipulateOrderItem(_ notification: Notification) {

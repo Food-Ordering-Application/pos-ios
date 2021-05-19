@@ -21,6 +21,7 @@ protocol CheckoutBusinessLogic {
     func manipulateOrderItem(request: Checkout.ManipulateOrderItemQuantity.Request)
     func createOrderAndOrderItems(request: Checkout.CreateOrderAndOrderItems.Request)
     func removeOrder(request: Checkout.RemoveOrder.Request)
+    func updateOrder(request: Checkout.UpdateOrder.Request)
 }
 
 protocol CheckoutDataStore {
@@ -267,7 +268,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 
         if SyncService.canHandleLocal() {
             print("😉 - createOrderItem ")
-            ordersWorker?.deleteOrder(orderId: orderId ?? "") { orderData in
+            ordersWorker?.deleteOrder(orderId: orderId ?? "") { _ in
 //                guard let order = orderData?.order else {
 //                    response = Checkout.RemoveOrder.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not create order."))
 //                    self.presenter?.presentRemovedOrder(response: response)
@@ -275,6 +276,27 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 //                }
                 response = Checkout.RemoveOrder.Response(order: nil, error: nil)
                 self.presenter?.presentRemovedOrder(response: response)
+            }
+            return
+        }
+    }
+
+    func updateOrder(request: Checkout.UpdateOrder.Request) {
+        print("updateOrder")
+        guard let order = request.order else { return }
+        var response: Checkout.UpdateOrder.Response!
+
+        if SyncService.canHandleLocal() {
+            print("😉 - updateOrder ")
+
+            ordersWorker?.updateOrder(orderToUpdate: order) { orderData in
+                guard let order = orderData?.order else {
+                    response = Checkout.UpdateOrder.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not place order."))
+                    self.presenter?.presentUpdatedOrder(response: response)
+                    return
+                }
+                response = Checkout.UpdateOrder.Response(order: order, error: nil)
+                self.presenter?.presentUpdatedOrder(response: response)
             }
             return
         }

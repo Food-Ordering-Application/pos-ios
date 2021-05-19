@@ -55,7 +55,7 @@ class OrderItemTableViewCell: UITableViewCell {
         if let orderItem = data {
             self.orderItem = orderItem
             self.lbName?.text = orderItem.name
-            self.lbPrice?.text = String(orderItem.price ?? 0).currency()
+            self.lbPrice?.text = String(format: "%.0f", orderItem.price ?? 0).currency()
             self.lbAmount?.text = String(orderItem.quantity ?? 1)
             self.setupBtnMinus(isRemove: orderItem.quantity == 1)
         }

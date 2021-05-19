@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,43 +17,79 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="ppM-43-tik">
-                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="80" id="osB-9J-1ls"/>
-                            <constraint firstAttribute="width" constant="80" id="wNA-oV-Ceo"/>
-                        </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I30-9I-EnW">
-                        <rect key="frame" x="88" y="19" width="224" height="42"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="42" id="tMX-bK-3QC"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" systemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aFO-Uo-pWh">
+                        <rect key="frame" x="8" y="4" width="304" height="72"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OrderID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBA-fe-wJw">
+                                <rect key="frame" x="0.0" y="26" width="60" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Named Order" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I30-9I-EnW">
+                                <rect key="frame" x="72.5" y="17" width="76" height="38.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" systemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Pi-eg-awC">
+                                <rect key="frame" x="173.5" y="26" width="36" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nx-tp-pDa">
+                                <rect key="frame" x="240" y="20" width="64" height="32"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_sync" translatesAutoresizingMaskIntoConstraints="NO" id="ZGC-R4-4da">
+                                        <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
+                                        <color key="tintColor" systemColor="systemGray3Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="NaP-wN-ffB"/>
+                                            <constraint firstAttribute="width" secondItem="ZGC-R4-4da" secondAttribute="height" multiplier="1:1" id="x74-Mf-kNa"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_chevron_right" translatesAutoresizingMaskIntoConstraints="NO" id="S8f-Vz-2BY">
+                                        <rect key="frame" x="32" y="0.0" width="32" height="32"/>
+                                        <color key="tintColor" systemColor="systemGray2Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="gcG-9y-ZHX"/>
+                                            <constraint firstAttribute="width" secondItem="S8f-Vz-2BY" secondAttribute="height" multiplier="1:1" id="rV2-ay-yoH"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="I30-9I-EnW" firstAttribute="leading" secondItem="ppM-43-tik" secondAttribute="trailing" constant="8" id="0sI-CM-qrq"/>
-                    <constraint firstItem="I30-9I-EnW" firstAttribute="centerY" secondItem="eWK-b2-p7R" secondAttribute="centerY" id="CC8-Ve-GEE"/>
-                    <constraint firstItem="ppM-43-tik" firstAttribute="top" secondItem="eWK-b2-p7R" secondAttribute="top" id="Ejt-ht-YfW"/>
-                    <constraint firstItem="ppM-43-tik" firstAttribute="leading" secondItem="eWK-b2-p7R" secondAttribute="leading" id="c9f-ya-sBc"/>
-                    <constraint firstAttribute="trailing" secondItem="I30-9I-EnW" secondAttribute="trailing" constant="8" id="rG9-lK-Ze8"/>
+                    <constraint firstAttribute="trailing" secondItem="aFO-Uo-pWh" secondAttribute="trailing" constant="8" id="8ZM-wt-aZq"/>
+                    <constraint firstItem="aFO-Uo-pWh" firstAttribute="top" secondItem="eWK-b2-p7R" secondAttribute="top" constant="4" id="L1c-Bk-rQY"/>
+                    <constraint firstItem="aFO-Uo-pWh" firstAttribute="leading" secondItem="eWK-b2-p7R" secondAttribute="leading" constant="8" id="Wcw-ts-Z4m"/>
+                    <constraint firstAttribute="bottom" secondItem="aFO-Uo-pWh" secondAttribute="bottom" constant="4" id="v9u-MT-v0j"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
-                <outlet property="dataImage" destination="ppM-43-tik" id="xdO-QO-GUo"/>
                 <outlet property="dataText" destination="I30-9I-EnW" id="vsj-dK-z9n"/>
+                <outlet property="icSync" destination="ZGC-R4-4da" id="xp6-Cq-jQL"/>
+                <outlet property="lbDate" destination="4Pi-eg-awC" id="sNf-vy-amg"/>
+                <outlet property="lbOrderId" destination="gBA-fe-wJw" id="4jb-q7-cSa"/>
             </connections>
             <point key="canvasLocation" x="249" y="183"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="pizza" width="50" height="50"/>
+        <image name="ic_chevron_right" width="48" height="48"/>
+        <image name="ic_sync" width="100" height="100"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
