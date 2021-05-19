@@ -15,6 +15,14 @@ extension RestaurantAPI {
             return stubbedResponse("Menu")
         case .getMenuItemToppings:
             return stubbedResponse("MenuItemToppings")
+            
+        case .getCSMenuItemToppings:
+            return stubbedResponse("CSMenuItemToppings")
+        case .getCSToppingItems:
+            return stubbedResponse("CSToppingItems")
+        case .getCSToppingGroups:
+            return stubbedResponse("CSToppingGroups")
         }
+        
     }
 }

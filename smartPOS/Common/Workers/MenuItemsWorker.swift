@@ -9,130 +9,140 @@
 import Foundation
 
 class MenuItemsWorker {
-  var menuItemsStore: MenuItemsStoreProtocol
+    var menuItemsStore: MenuItemsStoreProtocol
 
-  init(menuItemsStore: MenuItemsStoreProtocol) {
-    self.menuItemsStore = menuItemsStore
-  }
+    init(menuItemsStore: MenuItemsStoreProtocol) {
+        self.menuItemsStore = menuItemsStore
+    }
 
-  func fetchMenuItems(completionHandler: @escaping ([MenuItem]) -> Void) {
     
-    menuItemsStore.fetchMenuItems { (menuItems: () throws -> [MenuItem]) -> Void in
-      do {
-        let menuItems = try menuItems()
-        DispatchQueue.main.async {
-          completionHandler(menuItems)
+    func fetchMenuAndMenuGroups(completionHandler: @escaping (MenuAndMenuGroups?) -> Void) {
+        menuItemsStore.fetchMenuAndMenuGroups { (menuAndMenuGroups: () throws -> MenuAndMenuGroups?) -> Void in
+            do {
+                let menuAndMenuGroups = try menuAndMenuGroups()
+                DispatchQueue.main.async {
+                    completionHandler(menuAndMenuGroups)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+            }
         }
-      } catch {
-        DispatchQueue.main.async {
-          completionHandler([])
-        }
-      }
     }
-  }
+    func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping ([ToppingGroup]?) -> Void ){
+        menuItemsStore.fetchMenuItemToppings(menuItemId: menuItemId) { (toppingGroups: () throws -> [ToppingGroup]?) in
+            do {
+                let toppingGroups = try toppingGroups()
+                DispatchQueue.main.async {
+                    completionHandler(toppingGroups)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+            }
+        }
+    }
+//    func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
+    func fetchMenuItems(completionHandler: @escaping ([MenuItem]) -> Void) {
+        menuItemsStore.fetchMenuItems { (menuItems: () throws -> [MenuItem]) -> Void in
+            do {
+                let menuItems = try menuItems()
+                DispatchQueue.main.async {
+                    completionHandler(menuItems)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler([])
+                }
+            }
+        }
+    }
 
-  func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (MenuItem?) -> Void) {
-    menuItemsStore.createMenuItem(menuItemToCreate: menuItemToCreate) { (menuItem: () throws -> MenuItem?) -> Void in
-      do {
-        let menuItem = try menuItem()
-        DispatchQueue.main.async {
-          completionHandler(menuItem)
+    func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (MenuItem?) -> Void) {
+        menuItemsStore.createMenuItem(menuItemToCreate: menuItemToCreate) { (menuItem: () throws -> MenuItem?) -> Void in
+            do {
+                let menuItem = try menuItem()
+                DispatchQueue.main.async {
+                    completionHandler(menuItem)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+            }
         }
-      } catch {
-        DispatchQueue.main.async {
-          completionHandler(nil)
-        }
-      }
     }
-  }
 
-  func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping (MenuItem?) -> Void) {
-    menuItemsStore.updateMenuItem(menuItemToUpdate: menuItemToUpdate) { (menuItem: () throws -> MenuItem?) in
-      do {
-        let menuItem = try menuItem()
-        DispatchQueue.main.async {
-          completionHandler(menuItem)
+    func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping (MenuItem?) -> Void) {
+        menuItemsStore.updateMenuItem(menuItemToUpdate: menuItemToUpdate) { (menuItem: () throws -> MenuItem?) in
+            do {
+                let menuItem = try menuItem()
+                DispatchQueue.main.async {
+                    completionHandler(menuItem)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+            }
         }
-      } catch {
-        DispatchQueue.main.async {
-          completionHandler(nil)
-        }
-      }
     }
-  }
 }
 
 // MARK: - MenuItems store API
 
 protocol MenuItemsStoreProtocol {
-  // MARK: CRUD operations - Optional error
+    // MARK: CRUD operations - Inner closure
 
-  func fetchMenuItems(completionHandler: @escaping ([MenuItem], MenuItemsStoreError?) -> Void)
-  func fetchMenuItem(id: String, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void)
-  func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void)
-  func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void)
-  func deleteMenuItem(id: String, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void)
-
-  // MARK: CRUD operations - Generic enum result type
-
-  func fetchMenuItems(completionHandler: @escaping MenuItemsStoreFetchMenuItemsCompletionHandler)
-  func fetchMenuItem(id: String, completionHandler: @escaping MenuItemsStoreFetchMenuItemCompletionHandler)
-  func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping MenuItemsStoreCreateMenuItemCompletionHandler)
-  func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping MenuItemsStoreUpdateMenuItemCompletionHandler)
-  func deleteMenuItem(id: String, completionHandler: @escaping MenuItemsStoreDeleteMenuItemCompletionHandler)
-
-  // MARK: CRUD operations - Inner closure
-
-  func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]) -> Void)
-  func fetchMenuItem(id: String, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
-  func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
-  func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
-  func deleteMenuItem(id: String, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
+    func fetchMenuAndMenuGroups(completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void)
+    func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]) -> Void)
+    func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> [ToppingGroup]?) -> Void)
+    func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
+    func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
+    func deleteMenuItem(id: String, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
 }
 
 protocol MenuItemsStoreUtilityProtocol {}
 
 extension MenuItemsStoreUtilityProtocol {
-  func generateMenuItemID(menuItem: inout MenuItem) {
-    guard menuItem.id == nil else { return }
-    menuItem.id = "\(arc4random())"
-  }
+    func generateMenuItemID(menuItem: inout MenuItem) {
+        guard menuItem.id == nil else { return }
+        menuItem.id = "\(arc4random())"
+    }
 
-  func calculateMenuItemTotal(menuItem: inout MenuItem) {
+    func calculateMenuItemTotal(menuItem: inout MenuItem) {
 //    guard menuItem.grandTotal == NSDecimalNumber.notANumber else { return }
 //    menuItem.grandTotal = Int32(truncating: NSDecimalNumber.one)
-  }
+    }
+}
+struct MenuAndMenuGroups {
+    var menu: Menu?
+    var menuGroups: MenuGroups?
 }
 
-// MARK: - MenuItems store CRUD operation results
-
-typealias MenuItemsStoreFetchMenuItemsCompletionHandler = (MenuItemsStoreResult<[MenuItem]>) -> Void
-typealias MenuItemsStoreFetchMenuItemCompletionHandler = (MenuItemsStoreResult<MenuItem>) -> Void
-typealias MenuItemsStoreCreateMenuItemCompletionHandler = (MenuItemsStoreResult<MenuItem>) -> Void
-typealias MenuItemsStoreUpdateMenuItemCompletionHandler = (MenuItemsStoreResult<MenuItem>) -> Void
-typealias MenuItemsStoreDeleteMenuItemCompletionHandler = (MenuItemsStoreResult<MenuItem>) -> Void
 
 enum MenuItemsStoreResult<U> {
-  case Success(result: U)
-  case Failure(error: MenuItemsStoreError)
+    case Success(result: U)
+    case Failure(error: MenuItemsStoreError)
 }
 
 // MARK: - MenuItems store CRUD operation errors
 
 enum MenuItemsStoreError: Equatable, Error {
-  case CannotFetch(String)
-  case CannotCreate(String)
-  case CannotUpdate(String)
-  case CannotDelete(String)
+    case CannotFetch(String)
+    case CannotCreate(String)
+    case CannotUpdate(String)
+    case CannotDelete(String)
 }
 
 func ==(lhs: MenuItemsStoreError, rhs: MenuItemsStoreError) -> Bool {
-  switch (lhs, rhs) {
-  case (.CannotFetch(let a), .CannotFetch(let b)) where a == b: return true
-  case (.CannotCreate(let a), .CannotCreate(let b)) where a == b: return true
-  case (.CannotUpdate(let a), .CannotUpdate(let b)) where a == b: return true
-  case (.CannotDelete(let a), .CannotDelete(let b)) where a == b: return true
-  default: return false
-  }
+    switch (lhs, rhs) {
+    case (.CannotFetch(let a), .CannotFetch(let b)) where a == b: return true
+    case (.CannotCreate(let a), .CannotCreate(let b)) where a == b: return true
+    case (.CannotUpdate(let a), .CannotUpdate(let b)) where a == b: return true
+    case (.CannotDelete(let a), .CannotDelete(let b)) where a == b: return true
+    default: return false
+    }
 }
-

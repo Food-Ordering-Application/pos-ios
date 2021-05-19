@@ -54,7 +54,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
             lbName?.text = menuItem.name
             lbPrice?.text = String(menuItem.price).currency()
 //            self.setImage(imageUrl: menuItem.imageUrl)
-            print("Setlected CollectionViewCell",menuItem.imageUrl, menuItem)
+//            print("Setlected CollectionViewCell",menuItem.imageUrl, menuItem)
         }
     }
     func setImage(imageUrl: String){

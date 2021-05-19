@@ -16,7 +16,18 @@ final class CSMenuItemTopping: CoreStoreObject {
     @Field.Stored("customPrice")
     var customPrice: Double?
     
+    @Field.Relationship("menuItem")
+    var menuItem: CSMenuItem?
+    
     @Field.Relationship("toppingItem")
     var toppingItem: CSToppingItem?
-        
+    
+    @Field.Relationship("orderItemTopping", inverse: \.$menuItemTopping)
+    var orderItemTopping: Optional<CSOrderItemTopping>
+}
+
+extension CSMenuItemTopping {
+    func toStruct() -> MenuItemTopping {
+        return MenuItemTopping(id: id ?? "", customPrice: customPrice ?? 0)
+    }
 }

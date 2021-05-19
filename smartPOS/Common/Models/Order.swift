@@ -20,8 +20,8 @@ struct Order: Decodable {
 //    var paymentMode: PaymentMode?
     var paymentType: PaymentType?
     var status: OrderStatus?
-    var createdAt: SafeDateCodableType?
-    var updatedAt: SafeDateCodableType?
+    var createdAt: Date?
+    var updatedAt: Date?
     var delivery: Delivery?
 //    var promotionId: String?
 //    var deliveredAt: SafeDateCodableType?

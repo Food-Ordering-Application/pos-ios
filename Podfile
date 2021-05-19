@@ -23,6 +23,7 @@ target 'smartPOS' do
   pod 'IQKeyboardManagerSwift'
   pod 'AnimatedField'
   pod 'TextFieldEffects'
+  pod 'Schedule', '~> 2.0'
 
   target 'smartPOSTests' do
     inherit! :search_paths

@@ -38,27 +38,32 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
     @IBOutlet var lbDiscounts: UILabel!
     @IBOutlet var lbSubTotal: UILabel!
     @IBOutlet var paymentMethod: UISegmentedControl!
-    
+
     @IBOutlet var cashPaymentArea: UIStackView! {
         didSet {
             self.cashPaymentArea.isHidden = true
         }
     }
-    
+
     @IBOutlet var lbReceivedCash: UILabel!
     @IBOutlet var lbExcessCash: UILabel!
-    
+
     @IBOutlet var btnPayment: UIButton!
-    
+
     var order: Order?
     var orderItems: [OrderItem] = []
     override func viewDidLoad() {
         self.setup()
     }
-    
+
+    @IBAction func doRemoveOrder(_ sender: Any) {
+        guard let orderId = self.order?.id else { return }
+        NotificationCenter.default.post(name: Notification.Name("RemoveOrder"), object: orderId)
+    }
+
     @IBAction func doPlaceOrder(_ sender: Any) {
         let attributes = createAttributePopup().attributes
-        
+
         self.showInputPadPopup(attributes: attributes)
         print("doPlaceOrder")
     }
@@ -73,7 +78,7 @@ extension OrderCheckoutViewController {
         self.view.layer.shadowPath = UIBezierPath(rect: self.view.bounds).cgPath
         self.setupTableView()
         self.setupOrderView()
-        
+
         // MARK: Notifications
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationManipulatedOrderItem(_:)), name: Notification.Name("ManipulatedOrderItem"), object: nil)
@@ -87,36 +92,38 @@ extension OrderCheckoutViewController {
     @objc func didGetNotificationCreateOrderItem(_ notification: Notification) {
         self.view.showSkeleton()
     }
+
     @objc func didGetNotificationCreateOrderAndOrderItems(_ notification: Notification) {
         self.view.showSkeleton()
     }
+
     @objc func didGetNotificationManipulateOrderItem(_ notification: Notification) {
         self.view.showSkeleton()
     }
-    
+
     @objc func didGetNotificationManipulatedOrderItem(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.ManipulateOrderItemQuantity.ViewModel
         self.updateDataOrder(order: viewModel.order)
         self.updateDataOrderItems(orderItems: viewModel.orderItems)
         self.view.hideSkeleton()
     }
-    
+
     @objc func didGetNotificationCreatedOrderItem(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.CreateOrderItem.ViewModel
         self.updateDataOrder(order: viewModel.order)
         self.updateDataOrderItems(orderItems: viewModel.orderItems)
         self.view.hideSkeleton()
     }
-    
+
     @objc func didGetNotificationCreatedOrderAndOrderItems(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.CreateOrderAndOrderItems.ViewModel
         self.updateDataOrder(order: viewModel.order)
         self.updateDataOrderItems(orderItems: viewModel.orderItems)
         self.view.hideSkeleton()
     }
-    
+
     //    MARK: Handle add orderItem to Order
- 
+
     func updateDataOrder(order: Order?) {
         self.order = order
         guard let orderId = order!.id else {
@@ -140,12 +147,12 @@ extension OrderCheckoutViewController {
         self.orderItems = orderItems!
         self.orderItemsTableView.reloadData()
     }
-    
+
     func setupOrderView(isHidden: Bool = true) {
         self.btnCancelOrder.isHidden = isHidden
         self.orderInfoArea.isHidden = isHidden
     }
-    
+
     // MARK: Register tableView for xib cell
 
     func setupTableView() {
@@ -182,7 +189,7 @@ extension OrderCheckoutViewController {
         )
         return description
     }
-    
+
     // Bumps a custom nib originated view
     private func showInputPadPopup(attributes: EKAttributes) {
         SwiftEntryKit.display(entry: NumpadView(frame: CGRect(x: 0, y: 0, width: 600, height: 800)), using: attributes)

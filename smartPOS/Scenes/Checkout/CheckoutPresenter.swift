@@ -18,9 +18,12 @@ protocol CheckoutPresentationLogic {
     func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response)
     func presentManipulateddOrderItem(response: Checkout.ManipulateOrderItemQuantity.Response)
     func presentCreateOrderAndOrderItem(response: Checkout.CreateOrderAndOrderItems.Response)
+    func presentRemovedOrder(response: Checkout.RemoveOrder.Response)
 }
 
 class CheckoutPresenter: CheckoutPresentationLogic {
+   
+    
     weak var viewController: CheckoutDisplayLogic?
   
     // MARK: Do something
@@ -45,7 +48,12 @@ class CheckoutPresenter: CheckoutPresentationLogic {
         let viewModel = Checkout.ManipulateOrderItemQuantity.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
         viewController?.displayManupulatedOrderItem(viewModel: viewModel)
     }
-
+    func presentRemovedOrder(response: Checkout.RemoveOrder.Response) {
+        let separatedNestedOrder = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: response.order)
+        let viewModel = Checkout.ManipulateOrderItemQuantity.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
+        viewController?.displayManupulatedOrderItem(viewModel: viewModel)
+    }
+    
     func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response) {
         let separatedNestedOrder = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: response.order)
         let viewModel = Checkout.CreateOrderItem.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
@@ -70,7 +78,7 @@ class CheckoutPresenter: CheckoutPresentationLogic {
 
 extension CheckoutPresenter {
     public static func separateOrderAndOrderItem(nestedOrder: NestedOrder?) -> SeparatedNestedOrder {
-        let order = Order(id: nestedOrder?.id, cashierId: nestedOrder?.cashierId, restaurantId: nestedOrder?.restaurantId!, subTotal: nestedOrder?.subTotal, itemDiscount: nestedOrder?.itemDiscount, serviceFee: nestedOrder?.serviceFee, discount: nestedOrder?.discount, grandTotal: nestedOrder?.grandTotal ?? 0, paymentType: PaymentType.cod, status: OrderStatus.checking, createdAt: nestedOrder?.createdAt, updatedAt: nestedOrder?.updatedAt)
+        let order = Order(id: nestedOrder?.id, cashierId: nestedOrder?.cashierId, restaurantId: nestedOrder?.restaurantId ?? "", subTotal: nestedOrder?.subTotal, itemDiscount: nestedOrder?.itemDiscount, serviceFee: nestedOrder?.serviceFee, discount: nestedOrder?.discount, grandTotal: nestedOrder?.grandTotal ?? 0, paymentType: PaymentType.cod, status: OrderStatus.checking, createdAt: nestedOrder?.createdAt, updatedAt: nestedOrder?.updatedAt)
 
         var orderItems: [OrderItem] = []
         for item in nestedOrder?.orderItems ?? [] {

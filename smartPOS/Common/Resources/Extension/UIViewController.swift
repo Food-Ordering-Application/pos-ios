@@ -47,28 +47,28 @@ extension UIViewController {
         textField.changePlaceholderColor(placeholder: "Search me...", color: UIColor.gray.withAlphaComponent(0.5))
         
         
-        let topLabel = UILabel()
-        topLabel.font = UIFont.init(name: "Poppins-Medium", size: 14)
-        topLabel.text = "Sao lưu"
-
-        let bottomLabel = UILabel()
-        bottomLabel.font = UIFont.init(name: "Poppins-Light", size: 12)
-        bottomLabel.text = "3 phút trước."
-
-        let titleStatusView = UIStackView( arrangedSubviews: [topLabel, bottomLabel])
-        titleStatusView.axis = .vertical
-        
-        let dot = UILabel()
-        dot.text = "."
-        dot.font = UIFont.systemFont(ofSize: 80)
-        dot.textAlignment = .center
-        dot.tintColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-        
-        let syncView = UIStackView(frame: CGRect(x: 0, y: 0, width: syncWidth, height: 40))
-        syncView.addArrangedSubview(titleStatusView)
-        syncView.axis = .horizontal
-        syncView.spacing = 10
-
+//        let topLabel = UILabel()
+//        topLabel.font = UIFont.init(name: "Poppins-Medium", size: 14)
+//        topLabel.text = "Sao lưu"
+//
+//        let bottomLabel = UILabel()
+//        bottomLabel.font = UIFont.init(name: "Poppins-Light", size: 12)
+//        bottomLabel.text = "3 phút trước."
+//
+//        let titleStatusView = UIStackView( arrangedSubviews: [topLabel, bottomLabel])
+//        titleStatusView.axis = .vertical
+//
+//        let dot = UILabel()
+//        dot.text = "."
+//        dot.font = UIFont.systemFont(ofSize: 80)
+//        dot.textAlignment = .center
+//        dot.tintColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+//
+//        let syncView = UIStackView(frame: CGRect(x: 0, y: 0, width: syncWidth, height: 40))
+//        syncView.addArrangedSubview(titleStatusView)
+//        syncView.axis = .horizontal
+//        syncView.spacing = 10
+        let POSStatus = POSStatusView(POSStatusModel(status: EStatus.online, time: Date()))
 
         
         let view = UIStackView(frame: CGRect(x: 0, y: 0, width: width, height: 46))
@@ -76,7 +76,8 @@ extension UIViewController {
         view.distribution = .fillEqually
         view.spacing = 20
         view.addArrangedSubview(textField)
-        view.addArrangedSubview(syncView)
+        view.addArrangedSubview(POSStatus)
+
         
 
         let mainTitleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))

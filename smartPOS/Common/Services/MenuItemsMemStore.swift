@@ -6,119 +6,137 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
+import CoreStore
 import Foundation
+import SwiftEventBus
 
-class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol
-{
+class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     // MARK: - Data
-    static var merchant = Merchant(id: "MERCHANT-123", name: "Merchant Smart")
-    static var restaurant = Restaurant(id: "RES-123", merchant: merchant, name: "Restaurant Smart", imageUrl: "", videoUrl: "", numRate: 4, rating: 4.5, area: "HCM", isActive: true)
-//    static var menu = Menu(id: "MENU-123", restaurent: restaurant, name: "Menu Smart", index: 1)
-    
+
+    static var menu: Menu?
     static var menuItems: [MenuItem] = []
-  
-    // MARK: - CRUD operations - Optional error
-  
-    func fetchMenuItems(completionHandler: @escaping ([MenuItem], MenuItemsStoreError?) -> Void) {
-        completionHandler(type(of: self).menuItems, nil)
-    }
-  
-    func fetchMenuItem(id: String, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void) {
-        if let index = indexOfMenuItemWithID(id: id) {
-            let menuItem = type(of: self).menuItems[index]
-            completionHandler(menuItem, nil)
-        }
-        else {
-            completionHandler(nil, MenuItemsStoreError.CannotFetch("Cannot fetch menuItem with id \(id)"))
-        }
-    }
-  
-    func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void) {
-        var menuItem = menuItemToCreate
-        generateMenuItemID(menuItem: &menuItem)
-        calculateMenuItemTotal(menuItem: &menuItem)
-        type(of: self).menuItems.append(menuItem)
-        completionHandler(menuItem, nil)
-    }
-  
-    func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void) {
-        if let index = indexOfMenuItemWithID(id: menuItemToUpdate.id) {
-            type(of: self).menuItems[index] = menuItemToUpdate
-            let menuItem = type(of: self).menuItems[index]
-            completionHandler(menuItem, nil)
-        }
-        else {
-            completionHandler(nil, MenuItemsStoreError.CannotUpdate("Cannot fetch menuItem with id \(String(describing: menuItemToUpdate.id)) to update"))
+    static var menuItemGroups: MenuGroups? /// its mean MenuItemGroup
+    
+    static var menuItemToppings: [MenuItemToppingData]?
+    static var toppingItems: [ToppingItemData]?
+    static var toppingGroups: [ToppingGroupData]?
+    
+    init() {
+      
+        SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenu") { _ in
+//            if NoInternetService.isReachable() {
+//                print("🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑")
+//                CSWorker.clearStoreLocalMenu()
+//            }
+            let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
+            // Do somthing after 10.5 seconds
+            queue.asyncAfter(deadline: .now() + 6) {
+                // your task code here
+                DispatchQueue.main.async {
+                    print("Hello Iam Sync Sync Sync")
+                    MenuItemsMemStore.storeMenuItems()
+                    //                SwiftEventBus.post("POSSyncMenu", sender:  MenuItemsMemStore.menu?.id)
+                }
+            }
+         
+            SwiftEventBus.post("POSSynced")
         }
     }
-  
-    func deleteMenuItem(id: String, completionHandler: @escaping (MenuItem?, MenuItemsStoreError?) -> Void) {
-        if let index = indexOfMenuItemWithID(id: id) {
-            let menuItem = type(of: self).menuItems.remove(at: index)
-            completionHandler(menuItem, nil)
-            return
-        }
-        completionHandler(nil, MenuItemsStoreError.CannotDelete("Cannot fetch menuItem with id \(id) to delete"))
-    }
-  
-    // MARK: - CRUD operations - Generic enum result type
-  
-    func fetchMenuItems(completionHandler: @escaping MenuItemsStoreFetchMenuItemsCompletionHandler) {
-        completionHandler(MenuItemsStoreResult.Success(result: type(of: self).menuItems))
-    }
-  
-    func fetchMenuItem(id: String, completionHandler: @escaping MenuItemsStoreFetchMenuItemCompletionHandler) {
-        let menuItem = type(of: self).menuItems.filter { (menuItem: MenuItem) -> Bool in
-            menuItem.id == id
-        }.first
-        if let menuItem = menuItem {
-            completionHandler(MenuItemsStoreResult.Success(result: menuItem))
-        }
-        else {
-            completionHandler(MenuItemsStoreResult.Failure(error: MenuItemsStoreError.CannotFetch("Cannot fetch menuItem with id \(id)")))
+    
+    static func storeMenuItems() {
+        if let menu = MenuItemsMemStore.menu, let menuItemGroups = MenuItemsMemStore.menuItemGroups {
+            // MARK: Save data to local
+
+            CSWorker.storeLocal(menu: menu, menuGroups: menuItemGroups)
         }
     }
-  
-    func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping MenuItemsStoreCreateMenuItemCompletionHandler) {
-        var menuItem = menuItemToCreate
-        generateMenuItemID(menuItem: &menuItem)
-        calculateMenuItemTotal(menuItem: &menuItem)
-        type(of: self).menuItems.append(menuItem)
-        completionHandler(MenuItemsStoreResult.Success(result: menuItem))
-    }
-  
-    func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping MenuItemsStoreUpdateMenuItemCompletionHandler) {
-        if let index = indexOfMenuItemWithID(id: menuItemToUpdate.id) {
-            type(of: self).menuItems[index] = menuItemToUpdate
-            let menuItem = type(of: self).menuItems[index]
-            completionHandler(MenuItemsStoreResult.Success(result: menuItem))
-        }
-        else {
-            completionHandler(MenuItemsStoreResult.Failure(error: MenuItemsStoreError.CannotUpdate("Cannot update menuItem with id \(String(describing: menuItemToUpdate.id)) to update")))
+
+    static func storeMenuItemToppings() {
+        if let menuItemToppings = MenuItemsMemStore.menuItemToppings {
+            // MARK: Save MenuItemToppings to local
+
+            CSWorker.storeLocalMenuItemToppings(menuItemToppings: menuItemToppings)
         }
     }
-  
-    func deleteMenuItem(id: String, completionHandler: @escaping MenuItemsStoreDeleteMenuItemCompletionHandler) {
-        if let index = indexOfMenuItemWithID(id: id) {
-            let menuItem = type(of: self).menuItems.remove(at: index)
-            completionHandler(MenuItemsStoreResult.Success(result: menuItem))
-            return
+
+    static func storeToppingItems() {
+        if let toppingItems = MenuItemsMemStore.toppingItems {
+            // MARK: Save ToppingItems to local
+
+            CSWorker.storeLocalToppingItems(toppingItems: toppingItems)
         }
-        completionHandler(MenuItemsStoreResult.Failure(error: MenuItemsStoreError.CannotDelete("Cannot delete menuItem with id \(id) to delete")))
     }
-  
+
+    static func storeToppingGroups() {
+        if let toppingGroups = MenuItemsMemStore.toppingGroups {
+            // MARK: Save data to local
+
+            CSWorker.storeLocalToppingGroups(toppingGroups: toppingGroups)
+        }
+    }
+    
     // MARK: - CRUD operations - Inner closure
+    
+    func fetchMenuAndMenuGroups(completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void) {
+        do {
+            let menu = try CSDatabase.stack.fetchOne(From<CSMenu>())?.toStruct()
+            let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { (csMenuItemGroup) -> MenuGroup in
+                let csMenuGroup = csMenuItemGroup.toStruct()
+                let menuItems = csMenuItemGroup.menuItems.map { (csMenuItem) -> MenuItem in
+                    csMenuItem.toStruct()
+                }
+                return MenuGroup(id: csMenuGroup.id, name: csMenuGroup.name, menuId: menu?.id, menuItems: menuItems)
+            }
+                
+            print("🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
+ 
+            completionHandler {
+                MenuAndMenuGroups(menu: menu, menuGroups: csMenuItemGroups)
+            }
+        }
+        catch {
+            completionHandler {
+                throw MenuItemsStoreError.CannotFetch("Cannot fetch menu and menuItemGroup from Local")
+            }
+        }
+    }
   
     func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]) -> Void) {
         completionHandler { type(of: self).menuItems }
     }
-  
-    func fetchMenuItem(id: String, completionHandler: @escaping (() throws -> MenuItem?) -> Void) {
-        if let index = indexOfMenuItemWithID(id: id) {
-            completionHandler { type(of: self).menuItems[index] }
+    
+    func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> [ToppingGroup]?) -> Void) {
+        do {
+            let menuItemToppings = try CSDatabase.stack.fetchAll(From<CSMenuItemTopping>().where(\.$menuItem ~ \.$id == menuItemId))
+            
+            let menuItem = try CSDatabase.stack.fetchOne(From<CSMenuItem>().where(\.$id == menuItemId))
+            
+            let toppingGroups: [ToppingGroup]? = menuItem?.menuItemToppings.map { (csMenuItemToppings) -> ToppingGroup in
+                (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
+            }
+            print("🍀 🍀 🍀 🍀 🍀 🍀 fetchMenuItemToppings 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
+            print(menuItem?.toStruct())
+//            print(menuItem?.toppingGroups.map { (csToppingGroup) -> ToppingGroup in
+//                csToppingGroup.toStruct()
+//            })
+            print(menuItem?.menuItemToppings.map({ (csMenuItemToppings) -> ToppingItem in
+                (csMenuItemToppings.toppingItem?.toStruct())!
+            }))
+            print(menuItem?.menuItemToppings.map({ (csMenuItemToppings) -> ToppingGroup in
+                (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
+            }))
+            print("---------------------------------------------------------------")
+            print(menuItemId)
+            print(toppingGroups)
+            print("🍀 🍀 🍀 🍀 🍀 🍀 fetchMenuItemToppings 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
+            completionHandler {
+                Array(Set(toppingGroups ?? []))
+            }
         }
-        else {
-            completionHandler { throw MenuItemsStoreError.CannotFetch("Cannot fetch menuItem with id \(id)") }
+        catch {
+            completionHandler {
+                throw MenuItemsStoreError.CannotFetch("Cannot fetch menuItem with id \(menuItemId)")
+            }
         }
     }
   

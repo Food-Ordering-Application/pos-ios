@@ -20,6 +20,7 @@ protocol CheckoutBusinessLogic {
     func createOrderItem(request: Checkout.CreateOrderItem.Request)
     func manipulateOrderItem(request: Checkout.ManipulateOrderItemQuantity.Request)
     func createOrderAndOrderItems(request: Checkout.CreateOrderAndOrderItems.Request)
+    func removeOrder(request: Checkout.RemoveOrder.Request)
 }
 
 protocol CheckoutDataStore {
@@ -39,12 +40,6 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
     var orderItemToppings: [OrderItemTopping]?
     var menuItems: [MenuItem]?
 
-    
-    
-    // MARK: Properties from API
-    var menu: Menu?
-    var menuItemGroups: MenuGroups? /// its mean MenuItemGroup
-
     // MARK: Fro Network
 
     var worker: CheckoutWorker? = CheckoutWorker()
@@ -54,31 +49,40 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 
     var menuItemsWorker: MenuItemsWorker? = MenuItemsWorker(menuItemsStore: MenuItemsMemStore())
     var ordersWorker: OrdersWorker? = OrdersWorker(ordersStore: OrdersMemStore())
-    var orderItemsWorker: OrderItemsWorker? = OrderItemsWorker(orderItemsStore: OrderItemsMemStore())
-
-    // MARK: Fetch MenuItems
 
     init() {
-        SwiftEventBus.onBackgroundThread(self, name: "ReachableInternet") { result in
-            let isReachable = result?.object as! Bool
-            if isReachable {
-                return
-            }
-            if let menu = self.menu, let menuItemGroups = self.menuItemGroups {
-                // MARK: Save data to local
-                CSWorker.storeLocal(menu: menu, menuGroups: menuItemGroups)
+        SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenu") { result in
+            if NoInternetService.isReachable() {
+                guard let menuId = result?.object as? String else { return }
+
+                self.POSSyncMenuItemsDetail(menuId: menuId)
+                SwiftEventBus.post("POSSynced")
             }
         }
     }
 
+    // MARK: Fetch MenuItems
+
     func fetchMenuItemGroups(request: Checkout.FetchMenuItems.Request) {
         // MARK: Donothing if no the internet
-        if !NoInternetService.isReachable() {
-            return
-        }
 
         let restaurantId = request.restaurantId
         var response: Checkout.FetchMenuItems.Response!
+
+        if SyncService.canHandleLocal() {
+            menuItemsWorker?.fetchMenuAndMenuGroups(completionHandler: { menuAndMenuItemGroups in
+                print("🍀 🍀 🍀 🍀 🍀 🍀 🍀 menuAndMenuItemGroups 🍀 🍀 🍀 🍀 🍀 🍀")
+                print(menuAndMenuItemGroups)
+                if let data = menuAndMenuItemGroups {
+                    response = Checkout.FetchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
+                }
+                else {
+                    response = Checkout.FetchMenuItems.Response(menu: nil, menuGroups: nil, error: MenuItemErrors.couldNotLoadMenuItems(error: "POS: Not found menuItem."))
+                }
+                self.presenter?.presentFetchedMenuItemGroups(response: response)
+            })
+            return
+        }
 
         worker?.restaurantDataManager.getMenu(restaurantId: restaurantId, false).done { menuRes in
             print("menuRes")
@@ -89,9 +93,11 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             if menuRes.statusCode == 200 {
                 let data = menuRes.data
 
-                self.menu = data.menu
-                self.menuItemGroups = data.menuGroups
+                MenuItemsMemStore.menu = data.menu
+                MenuItemsMemStore.menuItemGroups = data.menuGroups
 
+                let menuId = data.menu.id
+                SwiftEventBus.post("POSSyncMenu", sender: menuId)
                 response = Checkout.FetchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
             }
 
@@ -99,7 +105,6 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             print("ERROR-\(error)")
             response = Checkout.FetchMenuItems.Response(menu: nil, menuGroups: nil, error: MenuItemErrors.couldNotLoadMenuItems(error: error.localizedDescription))
         }.finally {
-//            print(response)
             self.presenter?.presentFetchedMenuItemGroups(response: response)
         }
     }
@@ -108,7 +113,25 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 
     func fetchMenuItemToppings(request: Checkout.FetchMenuItemToppings.Request) {
         let menuItemId = request.menuItemId
+        if menuItemId == "" {
+            return
+        }
         var response: Checkout.FetchMenuItemToppings.Response!
+
+        if SyncService.canHandleLocal() {
+            menuItemsWorker?.fetchMenuItemToppings(menuItemId: menuItemId, completionHandler: { toppingGroupsRes in
+
+                if let toppingGroups = toppingGroupsRes {
+                    response = Checkout.FetchMenuItemToppings.Response(toppingGroups: toppingGroups)
+                }
+                else {
+                    response = Checkout.FetchMenuItemToppings.Response(toppingGroups: nil, error: MenuItemErrors.couldNotLoadMenuItems(error: "POS: Not found menuItemDetail."))
+                }
+                self.presenter?.presentFetchedMenuItemToppings(response: response)
+            })
+            return
+        }
+
         worker?.restaurantDataManager.getMenuItemToppings(menuItemId: menuItemId, debugMode).done { menuItemToppingRes in
             print("menuItemToppingRes")
 
@@ -121,9 +144,8 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             }
         }.catch { error in
             print("ERROR-\(error)")
-//            response = Checkout.FetchMenuItems.Response(menuItems: <#T##[MenuItem]#>, error: MenuItemErrors.couldNotLoadMenuItems(error: error.localizedDescription)
+            response = Checkout.FetchMenuItemToppings.Response(toppingGroups: nil, error: MenuItemErrors.couldNotLoadMenuItems(error: error.localizedDescription))
         }.finally {
-//            print(response)
             self.presenter?.presentFetchedMenuItemToppings(response: response)
         }
     }
@@ -133,7 +155,23 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
         let orderId = request.orderId
         let orderItemId = request.orderItemId
         let action = request.action
+        let handle = ManipulateOrderItemModel(action: action, orderId: orderId ?? "", orderItemId: orderItemId ?? "")
         var response: Checkout.ManipulateOrderItemQuantity.Response!
+
+        if SyncService.canHandleLocal() {
+            print("😉 - manipulateOrderItem ")
+            ordersWorker?.manipulateOrderItem(handle: handle, orderItemToUpdate: nil) { orderData in
+                guard let order = orderData?.order else {
+                    response = Checkout.ManipulateOrderItemQuantity.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not manipulate order."))
+                    self.presenter?.presentManipulateddOrderItem(response: response)
+                    return
+                }
+                response = Checkout.ManipulateOrderItemQuantity.Response(order: order, error: nil)
+                self.presenter?.presentManipulateddOrderItem(response: response)
+            }
+            return
+        }
+
         ordersPageWorker?.ordersDataManager.manipulateOrderItemQuantity(action: action, orderId: orderId ?? "", orderItemId: orderItemId ?? "", debugMode).done { orderRes in
             print("manipulateOrderItem")
             print(orderRes.data)
@@ -152,9 +190,28 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
     func createOrderItem(request: Checkout.CreateOrderItem.Request) {
         print("createOrderItem")
         let orderId = request.orderId
-        let orderItemFormFields = request.orderItemFormFields
         var response: Checkout.CreateOrderItem.Response!
-        ordersPageWorker?.ordersDataManager.createOrderItem(orderId: orderId ?? "", orderItemFormFields: orderItemFormFields!, debugMode).done { orderRes in
+        guard let orderItemFormFields = request.orderItemFormFields else {
+            response = Checkout.CreateOrderItem.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "OrderItem is invalid."))
+            presenter?.presentCreatedOrderItem(response: response)
+            return
+        }
+
+        if SyncService.canHandleLocal() {
+            print("😉 - createOrderItem ")
+            ordersWorker?.createOrderItem(orderId: orderId, orderItemFormFields: orderItemFormFields) { orderData in
+                guard let order = orderData?.order else {
+                    response = Checkout.CreateOrderItem.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not create order."))
+                    self.presenter?.presentCreatedOrderItem(response: response)
+                    return
+                }
+                response = Checkout.CreateOrderItem.Response(order: order, error: nil)
+                self.presenter?.presentCreatedOrderItem(response: response)
+            }
+            return
+        }
+
+        ordersPageWorker?.ordersDataManager.createOrderItem(orderId: orderId ?? "", orderItemFormFields: orderItemFormFields, debugMode).done { orderRes in
             print("orderAndOrderItemFormFields")
             print(orderRes.data)
             if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
@@ -167,19 +224,26 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
         }.finally {
             self.presenter?.presentCreatedOrderItem(response: response)
         }
-//        let orderItem = buildOrderItemFromOrderItemFormFields(request.orderItemFormFields)
-//        orderItemsWorker?.createOrderItem(orderItemToCreate: orderItem) { (orderItem) -> Void in
-//
-//            // MARK: ALERT ALERT Please Recheck this line when CRUD OrderItem
-//
-//            self.orderItems?.append(orderItem!)
-//            let response = Checkout.CreateOrderItem.Response(orderItem: orderItem)
-//            self.presenter?.presentCreatedOrderItem(response: response)
-//        }
     }
 
     func createOrderAndOrderItems(request: Checkout.CreateOrderAndOrderItems.Request) {
         var response: Checkout.CreateOrderAndOrderItems.Response!
+
+        if SyncService.canHandleLocal() {
+            print("😉 - createOrderAndOrderItems")
+            let inputData = request.orderAndOrderItemFormFields
+            guard let orderItemFormFields = inputData?.orderItem else { return }
+            ordersWorker?.createOrderAndOrderItem(orderItemFormFields: orderItemFormFields) { orderData in
+                guard let order = orderData?.order else {
+                    response = Checkout.CreateOrderAndOrderItems.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not create order."))
+                    self.presenter?.presentCreateOrderAndOrderItem(response: response)
+                    return
+                }
+                response = Checkout.CreateOrderAndOrderItems.Response(order: order, error: nil)
+                self.presenter?.presentCreateOrderAndOrderItem(response: response)
+            }
+            return
+        }
 
         ordersPageWorker?.ordersDataManager.createOrderAndOrderItem(orderAndOrderItemFormFields: request.orderAndOrderItemFormFields!, debugMode).done { orderRes in
             print("orderAndOrderItemFormFields")
@@ -194,30 +258,105 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
         }.finally {
             self.presenter?.presentCreateOrderAndOrderItem(response: response)
         }
+    }
 
-//        let order = Order(id: "ORDER-HAHA-123", customerId: "CUS-123", driverId: "DRI-123", subTotal: 100, itemDiscount: 0.0, shippingFee: 12.0, serviceFee: 2.0, promotionId: "PRO-ID", discount: 1.0, grandTotal: 20000, customerAddressId: "CUS-ADD-123", paymentMode: .cod, paymentType: .cod, status: .checking, note: "ORDER NOTED", createdAt: Date(), deliveredAt: Date(), updatedAt: Date())
-//        var orderItems: [OrderItem] = []
-//        ordersWorker?.createOrder(orderToCreate: order) { order in
-//            let orderId = order!.id
-//            for orderItemFormFields in request.orderItemsFormFields {
-//                var orderItem = self.buildOrderItemFromOrderItemFormFields(orderItemFormFields)
-//                orderItem.orderId = orderId!
-//                orderItems.append(orderItem)
-//            }
-//            self.orderItemsWorker?.createOrderItems(orderItemsToCreate: orderItems, completionHandler: { orderItems in
-//                self.orderItems = orderItems
-//                let response = Checkout.CreateOrderAndOrderItems.Response(order: order, orderItems: orderItems, error: nil)
-//                self.presenter?.presentCreateOrderAndOrderItem(response: response)
-//            })
-//        }
+    func removeOrder(request: Checkout.RemoveOrder.Request) {
+        print("removeOrder")
+        let orderId = request.orderId
+        var response: Checkout.RemoveOrder.Response!
+
+        if SyncService.canHandleLocal() {
+            print("😉 - createOrderItem ")
+            ordersWorker?.deleteOrder(orderId: orderId ?? "") { orderData in
+//                guard let order = orderData?.order else {
+//                    response = Checkout.RemoveOrder.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not create order."))
+//                    self.presenter?.presentRemovedOrder(response: response)
+//                    return
+//                }
+                response = Checkout.RemoveOrder.Response(order: nil, error: nil)
+                self.presenter?.presentRemovedOrder(response: response)
+            }
+            return
+        }
     }
 }
 
 // MARK: - Helper function
 
 extension CheckoutInteractor {
-//    private func buildOrderItemFromOrderItemFormFields(_ orderItemFormFields: Checkout.OrderItemFormFields) -> OrderItem {
-//        return OrderItem(id: orderItemFormFields.id, menuItemId: orderItemFormFields.menuItemId, orderId: orderItemFormFields.orderId, price: orderItemFormFields.price, discount: 0.0, quantity: orderItemFormFields.quantity, note: "buildOrderItemFromOrderItemFormFields")
+    func POSSyncMenuItemsDetail(menuId: String) {
+        print("🍀 🍀 POSSyncMenuItemsDetail 🍀 🍀")
+
+        fetchCSMenuItemToppings(menuId: menuId)
+
+        fetchCSToppingItems(menuId: menuId)
+
+        fetchCSToppingGroups(menuId: menuId)
+    }
+
+    func fetchCSMenuItemToppings(menuId: String) {
+        worker?.restaurantDataManager.getCSMenuItemToppings(menuId: menuId, debugMode).done { csMenuItemToppingRes in
+            print("🍀 🍀 csMenuItemToppingRes 🍀 🍀")
+            print(csMenuItemToppingRes)
+            if csMenuItemToppingRes.statusCode >= 200 || csMenuItemToppingRes.statusCode <= 300 {
+                let data = csMenuItemToppingRes.data
+                MenuItemsMemStore.menuItemToppings = data?.results ?? []
+            }
+        }.catch { error in
+            print("⁉️ ⁉️ csMenuItemToppingRes ⁉️ ⁉️")
+            print(error)
+        }.finally {
+            // MARK: Handle to save to local
+
+            MenuItemsMemStore.storeMenuItemToppings()
+        }
+    }
+
+    func fetchCSToppingItems(menuId: String) {
+        worker?.restaurantDataManager.getCSToppingItems(menuId: menuId, debugMode).done { csCSToppingItemRes in
+            print("🍀 🍀 csCSToppingItemRes 🍀 🍀")
+            print(csCSToppingItemRes)
+            if csCSToppingItemRes.statusCode >= 200 || csCSToppingItemRes.statusCode <= 300 {
+                let data = csCSToppingItemRes.data
+                MenuItemsMemStore.toppingItems = data?.results ?? []
+            }
+        }.catch { error in
+            print("⁉️ ⁉️ csCSToppingItemRes ⁉️ ⁉️")
+            print(error)
+        }.finally {
+            // MARK: Handle to save to local
+
+            MenuItemsMemStore.storeToppingItems()
+        }
+    }
+
+    func fetchCSToppingGroups(menuId: String) {
+        worker?.restaurantDataManager.getCSToppingGroups(menuId: menuId, debugMode).done { csCSToppingGroupRes in
+            print("🍀 🍀 csCSToppingGroupRes 🍀 🍀")
+            print(csCSToppingGroupRes)
+            if csCSToppingGroupRes.statusCode >= 200 || csCSToppingGroupRes.statusCode <= 300 {
+                let data = csCSToppingGroupRes.data
+                MenuItemsMemStore.toppingGroups = data?.results ?? []
+            }
+        }.catch { error in
+            print("⁉️ ⁉️ csCSToppingGroupRes ⁉️ ⁉️")
+            print(error)
+        }.finally {
+            // MARK: Handle to save to local
+
+            MenuItemsMemStore.storeToppingGroups()
+        }
+    }
+
+    private func buildOrderItemFromOrderItemFormFields(orderId: String?, _ orderItemFormFields: Checkout.OrderItemFormFields) -> OrderItem {
+        return OrderItem(id: "", menuItemId: orderItemFormFields.menuItemId, name: orderItemFormFields.name, orderId: orderId, price: orderItemFormFields.price, discount: 0.0, quantity: orderItemFormFields.quantity, note: "buildOrderItemFromOrderItemFormFields")
+    }
+//    private func nestOrder(order: Order?, orderItems: [OrderItem]?) -> NestedOrder {
+//
+//
+//
+//        return NestedOrder(id: order?.id, status: order?.status, cashierId: order?.cashierId, restaurantId: order?.restaurantId, paymentType: order?.paymentType, serviceFee: order?.serviceFee, subTotal: order?.subTotal, grandTotal: order?.grandTotal, itemDiscount: order?.itemDiscount, discount: order?.discount, orderItems: orderItems)
+//
 //    }
 //    private func separateOrderAndOrderItem(nestedOrder: NestedOrder) -> separatedNestedOrder {
 //        let order = Order(id: nestedOrder.id, customerId: nestedOrder.customerId!, driverId: nestedOrder.driverId!, subTotal: nestedOrder.subTotal, itemDiscount: nestedOrder.itemDiscount, shippingFee: nestedOrder.shippingFee, serviceFee: nestedOrder.serviceFee, promotionId: "", discount: nestedOrder.discount, grandTotal: nestedOrder.grandTotal ?? 0, paymentMode: PaymentMode.cod, paymentType: PaymentType.cod, status: OrderStatus.checking, note: "", createdAt: nestedOrder.createdAt, deliveredAt: nestedOrder.deliveredAt, updatedAt: nestedOrder.updatedAt)

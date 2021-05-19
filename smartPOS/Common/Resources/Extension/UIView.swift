@@ -35,4 +35,33 @@ extension UIView {
         NSLayoutConstraint.activate(constraints)
         return constraints
     }
+
+    func rotate() {
+        let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotation.toValue = Double.pi * 2
+        rotation.duration = 0.25 // or however long you want ...
+        rotation.isCumulative = true
+        rotation.repeatCount = Float.greatestFiniteMagnitude
+        layer.add(rotation, forKey: "rotationAnimation")
+    }
+
+    private static let kRotationAnimationKey = "rotationanimationkey"
+
+    func rotate(duration: Double = 1) {
+        if layer.animation(forKey: UIView.kRotationAnimationKey) == nil {
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+
+            rotationAnimation.fromValue = 0.0
+            rotationAnimation.toValue = Float.pi * 2.0
+            rotationAnimation.duration = duration
+            rotationAnimation.repeatCount = Float.infinity
+
+            layer.add(rotationAnimation, forKey: UIView.kRotationAnimationKey)
+        }
+    }
+    func stopRotating() {
+        if layer.animation(forKey: UIView.kRotationAnimationKey) != nil {
+            layer.removeAnimation(forKey: UIView.kRotationAnimationKey)
+        }
+    }
 }

@@ -19,9 +19,9 @@ struct Delivery: Decodable {
     var shippingFee: Float?
     var geom: String?
     var total: Double?
-    var createdAt: SafeDateCodableType?
-    var updatedAt: SafeDateCodableType?
-    var deliveredAt: SafeDateCodableType?
+    var createdAt: Date?
+    var updatedAt: Date?
+    var deliveredAt: Date?
 }
 
 enum DeliveryStatus: String, Decodable {

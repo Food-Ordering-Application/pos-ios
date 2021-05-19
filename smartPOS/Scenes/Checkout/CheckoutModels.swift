@@ -48,11 +48,13 @@ enum Checkout {
         }
 
         struct Response {
-            var toppingGroups: [ToppingGroup]
+            var toppingGroups: [ToppingGroup]?
+            var error: MenuItemErrors?
         }
 
         struct ViewModel {
-            var toppingGroups: [ToppingGroup]
+            var toppingGroups: [ToppingGroup]?
+            var error: MenuItemErrors?
         }
     }
 
@@ -157,7 +159,21 @@ enum Checkout {
         }
     }
     
-    
+    enum RemoveOrder {
+        struct Request {
+            var orderId: String?
+        }
+        struct Response {
+            var order: NestedOrder?
+            var error: OrderItemErrors?
+        }
+
+        struct ViewModel {
+            var order: Order?
+            var orderItems: [OrderItem]?
+            var error: OrderItemErrors?
+        }
+    }
     
     enum CreateOrderItems {
         struct Request {

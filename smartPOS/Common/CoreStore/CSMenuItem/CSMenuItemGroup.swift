@@ -24,7 +24,7 @@ final class CSMenuItemGroup: CoreStoreObject {
     var menu: CSMenu?
     
     @Field.Relationship("menuItems", inverse: \.$menuItemGroup)
-    var menuItems: Set<CSMenuItem>
+    var menuItems: Array<CSMenuItem>
 }
 
 extension CSMenuItemGroup {

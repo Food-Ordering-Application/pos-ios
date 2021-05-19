@@ -7,6 +7,9 @@
 //
 
 import Foundation
+
+
+typealias ToppingItems = [ToppingItem]
 struct ToppingItem: Decodable {
     var id: String
     var name: String

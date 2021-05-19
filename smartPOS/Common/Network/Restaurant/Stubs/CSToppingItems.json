@@ -1,0 +1,109 @@
+{
+    "statusCode": 200,
+    "message": "Fetched topping item successfully",
+    "data": {
+        "results": [
+            {
+                "id": "623ee4cb-d451-4f7f-961f-ffc4a5e586be",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "f70d5233-df03-44d6-8511-76e6d9d423db",
+                "name": "Destiney Spencer",
+                "description": "Totam voluptatibus dolor modi.",
+                "price": 53382,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "17b027bc-2e3a-466f-bdcc-970f449e08d4",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "b5b457b2-f6d9-47ab-bc8c-0fc3471012ff",
+                "name": "Gavin Douglas",
+                "description": "Cumque autem eum sequi repellendus quia.",
+                "price": 49153,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "f7d470b6-e62f-4034-9ff0-af8c7083412a",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "63620658-dbe1-4753-98d2-496d2078a2a5",
+                "name": "Neoma McLaughlin",
+                "description": "Ipsam praesentium voluptatem rem.",
+                "price": 50795,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "e4a212a4-61a6-4ae2-b299-658adf6c2501",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "b5b457b2-f6d9-47ab-bc8c-0fc3471012ff",
+                "name": "Eloisa Von PhD",
+                "description": "Ut iure reiciendis possimus aliquid velit consequatur sapiente corporis ratione.",
+                "price": 49195,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "5a650e29-fefe-4c8b-a130-65a27ca21403",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "b5b457b2-f6d9-47ab-bc8c-0fc3471012ff",
+                "name": "Hilda Feeney",
+                "description": "Eos rerum quod repellendus soluta est exercitationem.",
+                "price": 91458,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "37b53e32-93f3-4305-bc96-e73ba33b2dd4",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "f70d5233-df03-44d6-8511-76e6d9d423db",
+                "name": "Hailie Pagac",
+                "description": "Eum iure laudantium ad.",
+                "price": 67840,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "8f504575-3d57-4649-8e29-57aa0b3a33a4",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "63620658-dbe1-4753-98d2-496d2078a2a5",
+                "name": "Colt Langworth",
+                "description": "Doloremque et quo aspernatur assumenda qui nemo debitis id quos.",
+                "price": 85532,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "96e1a44a-fd8c-4cb2-b5fe-4f450ef5ffd4",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "f70d5233-df03-44d6-8511-76e6d9d423db",
+                "name": "Dr. Darlene Grant",
+                "description": "Aperiam id voluptatem ut sed.",
+                "price": 78016,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "b9bb7578-6d3d-4fbb-812a-e91c4d466320",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "toppingGroupId": "63620658-dbe1-4753-98d2-496d2078a2a5",
+                "name": "Chauncey Bruen",
+                "description": "Consequatur quia ea placeat distinctio velit.",
+                "price": 58988,
+                "maxQuantity": 3,
+                "isActive": true,
+                "index": 1
+            }
+        ],
+        "size": 50,
+        "total": 9
+    }
+}

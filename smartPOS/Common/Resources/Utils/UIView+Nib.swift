@@ -15,6 +15,8 @@ extension UIView {
         guard let contentView = Bundle(for: type(of: self)).loadNibNamed(type(of: self).className, owner: self, options: nil)?.first as? T else {
             return nil
         }
+        contentView.frame = bounds
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(contentView)
         contentView.fillSuperview()
         return contentView

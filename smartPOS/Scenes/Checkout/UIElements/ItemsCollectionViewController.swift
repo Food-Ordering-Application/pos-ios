@@ -14,13 +14,13 @@ import SwiftEventBus
 
 final class ItemsCollectionViewController: UIViewController {
   
-    
-    // MARK: CoreStore Properties
-    private var csdataSource: DiffableDataSource.CollectionViewAdapter<CSMenuItem>?
-    
-    deinit {
-        CSMenusWorker.csMenuitems.removeObserver(self)
-    }
+//
+//    // MARK: CoreStore Properties
+//    private var csdataSource: DiffableDataSource.CollectionViewAdapter<CSMenuItem>?
+//
+//    deinit {
+//        CSDatabase.csMenuitems.removeObserver(self)
+//    }
     
     // MARK: Amazing Size for each Item
     let width = floor((UIScreen.main.bounds.width - (5 * 10)) / 4)
@@ -105,17 +105,22 @@ extension ItemsCollectionViewController {
 
         NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationFetchedMenuItems(_:)), name: Notification.Name("FetchedMenuItems"), object: nil)
         
-        
-        SwiftEventBus.onMainThread(self, name: "ReachableInternet") { result in
-            let isReachable = result?.object as! Bool
-            if isReachable {
-                CSMenusWorker.csMenuitems.removeObserver(self)
-                NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: nil)
-                return
-            }
-            
-            self.setupCoreStore()
-        }
+
+//        SwiftEventBus.onMainThread(self, name: "ReachableInternet") { result in
+//            let isReachable = result?.object as! Bool
+//            if isReachable {
+//                CSDatabase.csMenuitems.removeObserver(self)
+//                NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: nil)
+//                return
+//            }
+//
+//            self.setupCoreStore()
+//        }
+//
+//        
+//        SwiftEventBus.onMainThread(self, name: "ReachableInternet") { _ in
+//            NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: nil)
+//        }
     }
     
     @objc func didGetNotificationFetchedMenuItems(_ notification: Notification) {
@@ -152,21 +157,12 @@ extension ItemsCollectionViewController: SkeletonCollectionViewDataSource {
 
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let attributes = dataSource[3, 0].attributes
-    
         let attributes = createAttributePopup().attributes
-        let menuItem = getMenuItemToShow(indexPath)
-//        showLightAwesomePopupMessage(attributes: attributes)
-        showOrderItemPopupView(attributes: attributes, data: menuItem)
-    }
-    func getMenuItemToShow(_ indexPath: IndexPath) -> MenuItem {
-        print(indexPath.row, menuItems)
-        if NoInternetService.isReachable() {
-            return menuItems[indexPath.row]
+        if indexPath.row > menuItems.count {
+            return
         }
-        return menuItems[indexPath.row]
-//        let csMenuItem = CSMenusWorker.csMenuitems.snapshot[indexPath] as? CSMenuItem
-//        return csMenuItem!.toStruct()
+        let menuItem = menuItems[indexPath.row]
+        showOrderItemPopupView(attributes: attributes, data: menuItem)
     }
 }
 
@@ -242,33 +238,33 @@ extension ItemsCollectionViewController {
     }
 
     
-    func setupCoreStore() {
-        self.csdataSource = EditableDataSource(
-            collectionView: self.collectionView,
-            dataStack: CSMenusWorker.stack,
-            cellProvider: { (collectionView, indexPath, csMenuItem) -> UICollectionViewCell? in
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { fatalError("xib doesn't exist") }
-                
-                cell.setCell(csMenuItem.toStruct())
-            
-                // Highlighted color
-                let myCustomSelectionColorView = UIView()
-                myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
-                myCustomSelectionColorView.layer.cornerRadius = 8
-                cell.selectedBackgroundView = myCustomSelectionColorView
-                return cell
-            }
-        )
-        
-        CSMenusWorker.csMenuitems.addObserver(self) { [weak self] listPublisher in
-            print("🌝 IAM TRYING GET LIST MENUITEMS FROM LOCALSTORE")
-            guard let self = self else {
-                return
-            }
-            self.csdataSource?.apply(listPublisher.snapshot, animatingDifferences: true)
-        }
-        self.csdataSource?.apply(CSMenusWorker.csMenuitems.snapshot, animatingDifferences: false)
-    }
+//    func setupCoreStore() {
+//        self.csdataSource = EditableDataSource(
+//            collectionView: self.collectionView,
+//            dataStack: CSDatabase.stack,
+//            cellProvider: { (collectionView, indexPath, csMenuItem) -> UICollectionViewCell? in
+//                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.identifier, for: indexPath) as? ItemCollectionViewCell else { fatalError("xib doesn't exist") }
+//
+//                cell.setCell(csMenuItem.toStruct())
+//
+//                // Highlighted color
+//                let myCustomSelectionColorView = UIView()
+//                myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
+//                myCustomSelectionColorView.layer.cornerRadius = 8
+//                cell.selectedBackgroundView = myCustomSelectionColorView
+//                return cell
+//            }
+//        )
+//
+//        CSDatabase.csMenuitems.addObserver(self) { [weak self] listPublisher in
+//            print("🌝 IAM TRYING GET LIST MENUITEMS FROM LOCALSTORE")
+//            guard let self = self else {
+//                return
+//            }
+//            self.csdataSource?.apply(listPublisher.snapshot, animatingDifferences: true)
+//        }
+//        self.csdataSource?.apply(CSDatabase.csMenuitems.snapshot, animatingDifferences: false)
+//    }
     
     
     

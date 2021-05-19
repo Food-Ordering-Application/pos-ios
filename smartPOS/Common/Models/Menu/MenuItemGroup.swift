@@ -12,4 +12,5 @@ struct MenuItemGroup: Decodable {
     var id: String
     var name: String
     var index: Int = 0
+    var menuItems: MenuItems? = []
 }

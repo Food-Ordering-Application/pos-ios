@@ -67,9 +67,8 @@ class OrdersCollectionViewController: UIViewController {
     
     func updateData(viewModel: OrdersPage.FetchOrders.ViewModel) {
         displayedOrders = viewModel.displayedOrders
-        print("updateData-\(displayedOrders)")
         collectionView.reloadData()
-        print("updateData-\(displayedOrders)")
+//        print("updateData-\(displayedOrders)")
     }
 }
 
@@ -146,6 +145,6 @@ private extension OrdersCollectionViewController {
         let viewModel = notification.object as! OrdersPage.FetchOrders.ViewModel?
         displayedOrders = viewModel!.displayedOrders
         collectionView.reloadData()
-        print("updateData-\(displayedOrders)")
+//        print("updateData-\(displayedOrders)")
     }
 }

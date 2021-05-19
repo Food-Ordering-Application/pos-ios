@@ -63,7 +63,7 @@ class OrderCollectionViewCell: UICollectionViewCell {
             self.lbTotalQuantity?.text = "1"
             self.lbDistance?.text = "4kms"
             self.lbTotal?.text = String(order.grandTotal).currency()
-            print("Setlected CollectionViewCell", order)
+//            print("Setlected CollectionViewCell", order)
         }
     }
 }

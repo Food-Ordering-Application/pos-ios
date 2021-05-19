@@ -28,8 +28,8 @@ struct NestedOrder: Decodable {
     let grandTotal: Double?
     let itemDiscount: Float?
     let discount: Float?
-    let createdAt: SafeDateCodableType?
-    let updatedAt: SafeDateCodableType?
+    let createdAt: Date?
+    let updatedAt: Date?
     let orderItems: [OrderItemRes]?
     let delivery: Delivery?
 }

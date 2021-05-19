@@ -1,0 +1,31 @@
+{
+    "statusCode": 200,
+    "message": "Fetched topping group successfully",
+    "data": {
+        "results": [
+            {
+                "id": "b5b457b2-f6d9-47ab-bc8c-0fc3471012ff",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "name": "Frederique O'Kon V",
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "f70d5233-df03-44d6-8511-76e6d9d423db",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "name": "Cary Reinger",
+                "isActive": true,
+                "index": 1
+            },
+            {
+                "id": "63620658-dbe1-4753-98d2-496d2078a2a5",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "name": "Anahi Ebert PhD",
+                "isActive": true,
+                "index": 1
+            }
+        ],
+        "size": 50,
+        "total": 3
+    }
+}

@@ -21,7 +21,7 @@ final class CSMenu: CoreStoreObject {
 //    var index: Int = 0
 
     @Field.Relationship("menuItemGroups", inverse: \.$menu )
-    var menuItemGroups: Set<CSMenuItemGroup>
+    var menuItemGroups: Array<CSMenuItemGroup>
     
 }
 

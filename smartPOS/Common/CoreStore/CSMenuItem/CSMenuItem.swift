@@ -35,7 +35,15 @@ final class CSMenuItem: CoreStoreObject {
     var menuItemGroup: CSMenuItemGroup?
     
     @Field.Relationship("toppingGroups", inverse: \.$menuItem)
-    var toppingGroups: Set<CSToppingGroup>
+    var toppingGroups: Array<CSToppingGroup>
+    
+    
+    @Field.Relationship("menuItemToppings", inverse: \.$menuItem)
+    var menuItemToppings: Array<CSMenuItemTopping>
+    
+    
+    @Field.Relationship("orderItem", inverse: \.$menuItem)
+    var orderItem: Optional<CSOrderItem>
 }
 
 extension CSMenuItem {

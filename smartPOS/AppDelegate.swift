@@ -62,6 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         IQKeyboardManager.shared.enable = true
         
+        // Handle Sync Data from Server SetInverval = 10000ms
+        SyncService.init()
+        
+        
         // Override point for customization after application launch.
         self.subscribeToNoInternetService()
         

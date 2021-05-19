@@ -8,10 +8,15 @@
 
 import Foundation
 typealias ToppingGroups = [ToppingGroup]
-struct ToppingGroup: Decodable {
+struct ToppingGroup: Decodable, Hashable, Equatable {
     var id: String
     var name: String
 //    var index: Float
 //    var isActive: Bool?
     var toppingItems: [ToppingItem]
+    var hashValue: Int { get { return id.hashValue } }
+}
+
+func ==(left:ToppingGroup, right:ToppingGroup) -> Bool {
+    return left.id == right.id
 }

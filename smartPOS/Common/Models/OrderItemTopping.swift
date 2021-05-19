@@ -13,5 +13,5 @@ struct OrderItemTopping: Decodable {
     let name: String?
     let menuItemToppingId: String?
     let quantity: Int?
-    let price: Float?
+    let price: Double?
 }

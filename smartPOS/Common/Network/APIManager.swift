@@ -42,7 +42,8 @@ struct APIManager: GeneralAPI {
                 switch result {
                 case let .success(response):
                     let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601
+//                    decoder.dateDecodingStrategy = .iso8601
+                    decoder.dateDecodingStrategy = .customISO8601
                     do {
                         print("decoder")
 //                        print(response.data)

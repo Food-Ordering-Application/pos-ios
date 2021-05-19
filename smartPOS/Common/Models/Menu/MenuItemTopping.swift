@@ -7,6 +7,7 @@
 //
 
 import Foundation
+typealias MenuItemToppings = [MenuItemTopping]
 struct MenuItemTopping: Decodable {
     var id: String
     var customPrice: Double

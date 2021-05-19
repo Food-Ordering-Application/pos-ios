@@ -35,5 +35,12 @@ final class CSToppingItem: CoreStoreObject {
     var toppingGroup: CSToppingGroup?
     
     @Field.Relationship("menuItemToppings", inverse: \.$toppingItem)
-    var menuItemToppings: Set<CSMenuItemTopping>
+    var menuItemToppings: Array<CSMenuItemTopping>
+}
+
+
+extension CSToppingItem {
+    func toStruct() -> ToppingItem {
+        return ToppingItem(id: id ?? "", name: name ?? "No name", description: description ?? "", price: price ?? 0, maxQuantity: maxQuantity ?? 1)
+    }
 }
