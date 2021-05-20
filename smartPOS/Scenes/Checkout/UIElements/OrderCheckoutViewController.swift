@@ -30,8 +30,6 @@ struct ManipulateOrderItemModel {
 
 class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
     
-    
-    
     @IBOutlet var orderItemsTableView: UITableView!
 //    @IBOutlet weak var paymentInfoArea: UIView!
     @IBOutlet var orderInfoArea: UIStackView! {

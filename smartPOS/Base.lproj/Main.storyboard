@@ -137,7 +137,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lry-X8-pwi">
-                                <rect key="frame" x="16" y="16" width="992" height="736"/>
+                                <rect key="frame" x="8" y="8" width="1008" height="752"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="B6g-HR-nFJ" id="IQb-lq-gJf"/>
@@ -148,10 +148,10 @@
                         <viewLayoutGuide key="safeArea" id="GtW-Im-M9w"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="GtW-Im-M9w" firstAttribute="trailing" secondItem="lry-X8-pwi" secondAttribute="trailing" constant="16" id="3Pz-Mh-fZc"/>
-                            <constraint firstItem="lry-X8-pwi" firstAttribute="leading" secondItem="GtW-Im-M9w" secondAttribute="leading" constant="16" id="HMn-eA-K76"/>
-                            <constraint firstItem="lry-X8-pwi" firstAttribute="top" secondItem="GtW-Im-M9w" secondAttribute="top" constant="16" id="Iep-KU-Xda"/>
-                            <constraint firstItem="GtW-Im-M9w" firstAttribute="bottom" secondItem="lry-X8-pwi" secondAttribute="bottom" constant="16" id="NEM-W6-I2K"/>
+                            <constraint firstItem="GtW-Im-M9w" firstAttribute="trailing" secondItem="lry-X8-pwi" secondAttribute="trailing" constant="8" id="3Pz-Mh-fZc"/>
+                            <constraint firstItem="lry-X8-pwi" firstAttribute="leading" secondItem="GtW-Im-M9w" secondAttribute="leading" constant="8" id="HMn-eA-K76"/>
+                            <constraint firstItem="lry-X8-pwi" firstAttribute="top" secondItem="GtW-Im-M9w" secondAttribute="top" constant="8" id="Iep-KU-Xda"/>
+                            <constraint firstItem="GtW-Im-M9w" firstAttribute="bottom" secondItem="lry-X8-pwi" secondAttribute="bottom" constant="8" id="NEM-W6-I2K"/>
                         </constraints>
                     </view>
                     <connections>

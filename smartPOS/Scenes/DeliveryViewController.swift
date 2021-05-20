@@ -69,8 +69,9 @@ class DeliveryViewController: UIViewController {
             dataStack: CSDatabase.stack,
             cellProvider: { tableView, _, order in
                 let cell = tableView.dequeueReusableCell(withIdentifier: DataTableViewCell.identifier) as! DataTableViewCell
-                let orderId = order.id
-                let data = DataTableViewCellData(text: "dummy", date: order.createdAt, orderId: orderId ?? "No ID")
+                let orderData: Order = order.toStruct()
+                let isSynced: Bool = order.isSynced
+                let data = DataTableViewCellData(isSynced: isSynced, order: orderData)
                 cell.setData(data)
                 return cell
             }
@@ -104,15 +105,16 @@ extension DeliveryViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let storyboard = UIStoryboard(name: "OrderCheckoutViewController", bundle: nil)
-//        let subContentsVC = storyboard.instantiateViewController(withIdentifier: "SubContentsViewController") as! SubContentsViewController
-//        self.navigationController?.pushViewController(subContentsVC, animated: true)
-
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginViewController = storyboard.instantiateViewController(withIdentifier: "OrderCheckoutViewController") as! OrderCheckoutViewController
-        loginViewController.modalPresentationStyle = .fullScreen
-//        self.present(loginViewController, animated: true)
-        self.navigationController?.pushViewController(loginViewController, animated: true)
+        let orderDetailViewController = storyboard.instantiateViewController(withIdentifier: "OrderCheckoutViewController") as! OrderCheckoutViewController
+        orderDetailViewController.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(orderDetailViewController, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.white
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.black.withAlphaComponent(0.8)
     }
 }
 
