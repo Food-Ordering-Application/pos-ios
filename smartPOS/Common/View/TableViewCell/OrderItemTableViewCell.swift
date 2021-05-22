@@ -11,7 +11,7 @@ import UIKit
 class OrderItemTableViewCell: UITableViewCell {
     class var identifier: String { return String.className(self) }
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
-    
+
     @IBOutlet var imageItem: UIImageView!
     @IBOutlet var lbName: UILabel!
     @IBOutlet var lbDescription: UILabel!
@@ -51,13 +51,18 @@ class OrderItemTableViewCell: UITableViewCell {
         return 70
     }
     
-    open func setData(_ data: OrderItem?) {
+    open func setData(_ data: OrderItem?, orderStatus: OrderStatus?) {
         if let orderItem = data {
             self.orderItem = orderItem
             self.lbName?.text = orderItem.name
             self.lbPrice?.text = String(format: "%.0f", orderItem.price ?? 0).currency()
             self.lbAmount?.text = String(orderItem.quantity ?? 1)
             self.setupBtnMinus(isRemove: orderItem.quantity == 1)
+        }
+        
+        if let status = orderStatus {
+            let editable = canEdit(orderStatus: status)
+            self.setupViewOnly(isHidden: !editable)
         }
     }
     
@@ -68,7 +73,17 @@ class OrderItemTableViewCell: UITableViewCell {
             self.alpha = 1.0
         }
     }
+    
+    func setupViewOnly(isHidden: Bool = false) {
+        self.btnPlusItem.isHidden = isHidden
+        self.btnMinusItem.isHidden = isHidden
+    }
 
+    func canEdit(orderStatus: OrderStatus) -> Bool {
+        if orderStatus == OrderStatus.draft { return true }
+        return false
+    }
+    
     func setupBtnMinus(isRemove: Bool = false) {
         if isRemove {
             self.btnMinusItem.setImage(UIImage(named: "trash-empty"), for: UIControl.State.normal)

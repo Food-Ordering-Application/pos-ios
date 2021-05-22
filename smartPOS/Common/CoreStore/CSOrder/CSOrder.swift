@@ -35,6 +35,9 @@ final class CSOrder: CoreStoreObject {
     @Field.Stored("grandTotal")
     var grandTotal: Double = 0
     
+    @Field.Stored("note")
+    var note: String = ""
+    
     @Field.Stored("paymentType")
     var paymentType: String = PaymentType.cod.rawValue
     
@@ -59,12 +62,11 @@ final class CSOrder: CoreStoreObject {
             let dateName: String
             let date = object.$createdAt.value as Date
          
-
             if date.compare(.isToday) {
                 dateName = "Hôm nay"
-            } else if  date.compare(.isYesterday) {
+            } else if date.compare(.isYesterday) {
                 dateName = "Hôm qua"
-            } else if  date.compare(.isLastWeek) {
+            } else if date.compare(.isLastWeek) {
                 dateName = "Tuần trước"
             } else {
                 dateName = date.toFormat("dd MMM yyyy")
@@ -77,16 +79,15 @@ final class CSOrder: CoreStoreObject {
     
     @Field.Stored("isSynced")
     var isSynced: Bool = false
-    
 }
 
 extension CSOrder {
     func toStruct() -> Order {
-        return Order(id: id, cashierId: cashierId, restaurantId: restaurantId, subTotal: subTotal, itemDiscount: itemDiscount, serviceFee: serviceFee, discount: discount, grandTotal: grandTotal, paymentType: PaymentType(rawValue: paymentType), status: OrderStatus(rawValue: status), createdAt: createdAt, updatedAt: updatedAt)
+        return Order(id: id, cashierId: cashierId, restaurantId: restaurantId, subTotal: subTotal, itemDiscount: itemDiscount, serviceFee: serviceFee, discount: discount, grandTotal: grandTotal, paymentType: PaymentType(rawValue: paymentType), status: OrderStatus(rawValue: status), createdAt: createdAt, updatedAt: updatedAt, note: note)
     }
 
     func toDeepStruct() -> NestedOrder {
-        return NestedOrder(id: id, status: OrderStatus(rawValue: status), cashierId: cashierId, restaurantId: restaurantId, paymentType: PaymentType(rawValue: paymentType), serviceFee: serviceFee, subTotal: subTotal, grandTotal: grandTotal, itemDiscount: itemDiscount, discount: discount, createdAt: createdAt, updatedAt: updatedAt, orderItems: orderItems.map { (csOrderItem) -> OrderItemRes in csOrderItem.toDeepStruct() }, delivery: nil)
+        return NestedOrder(id: id, status: OrderStatus(rawValue: status), cashierId: cashierId, restaurantId: restaurantId, paymentType: PaymentType(rawValue: paymentType), serviceFee: serviceFee, subTotal: subTotal, grandTotal: grandTotal, itemDiscount: itemDiscount, discount: discount, createdAt: createdAt, updatedAt: updatedAt, note: note, orderItems: orderItems.map { (csOrderItem) -> OrderItemRes in csOrderItem.toDeepStruct() }, delivery: nil)
     }
 
     func calculateTotal() -> Double {

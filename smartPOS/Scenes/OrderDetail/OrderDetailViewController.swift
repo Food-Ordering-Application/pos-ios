@@ -204,7 +204,7 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OrderItemTableViewCell.identifier, for: indexPath) as? OrderItemTableViewCell else { fatalError("xib doesn't exist") }
-        cell.setData(self.orderItems[indexPath.row])
+        cell.setData(self.orderItems[indexPath.row], orderStatus: order?.status)
         // Highlighted color
         let myCustomSelectionColorView = UIView()
         myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)

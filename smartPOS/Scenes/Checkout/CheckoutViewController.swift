@@ -295,7 +295,7 @@ private extension CheckoutViewController {
     @objc func didGetNotificationFetchMenuItems(_ notification: Notification) {
 //        let menuItemId = notification.object as! String
         print("didGetNotificationFetchMenuItems")
-//        self.view.hideSkeleton()
+        self.view.hideSkeleton()
         self.fetchMenuItemGroups()
     }
 

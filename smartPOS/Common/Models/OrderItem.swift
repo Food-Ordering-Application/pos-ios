@@ -14,6 +14,15 @@ struct OrderItem {
     let orderId: String?
     let price: Double?
     let discount: Float?
+    let subTotal: Double?
+    let state: OrderItemStatus?
     let quantity: Int?
     let note: String?
+}
+enum OrderItemStatus: String, Decodable {
+    case instock = "IN_STOCK"
+    case unknown = "UNKNOWN"
+    public init(from decoder: Decoder) throws {
+        self = try OrderItemStatus(rawValue: decoder.singleValueContainer().decode(String.self)) ?? .unknown
+    }
 }

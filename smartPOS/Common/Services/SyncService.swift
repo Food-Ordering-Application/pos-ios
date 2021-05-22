@@ -11,9 +11,7 @@ import SwiftEventBus
 
 class SyncService {
     init(){
-        setupSyncMachine()
-        
-        
+//        setupSyncMachine()
         SwiftEventBus.onBackgroundThread(self, name: "POSSynced") { result in
             UserDefaults.standard.setValue(Date(), forKey: "LastedSync")
         }
@@ -34,7 +32,7 @@ class SyncService {
     }
     
     static func canHandleLocal() -> Bool {
-//        return !NoInternetService.isReachable() || true
-        return !NoInternetService.isReachable()
+        return !NoInternetService.isReachable() || true
+//        return !NoInternetService.isReachable()
     }
 }

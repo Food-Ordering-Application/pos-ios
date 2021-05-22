@@ -22,6 +22,20 @@ struct Delivery: Decodable {
     var createdAt: Date?
     var updatedAt: Date?
     var deliveredAt: Date?
+    var asDictionary: [String: Any] {
+        let mirror = Mirror(reflecting: self)
+        let dict = Dictionary(uniqueKeysWithValues: mirror.children.lazy.map { (label: String?, value: Any) -> (String, Any)? in
+            guard let label = label else { return nil }
+            if let disValue = value as? DeliveryStatus {
+                return (label, disValue.rawValue)
+            }
+            if let disValue = value as? Date {
+                return (label, disValue.toString())
+            }
+            return (label, value)
+        }.compactMap { $0 })
+        return dict
+    }
 }
 
 enum DeliveryStatus: String, Decodable {

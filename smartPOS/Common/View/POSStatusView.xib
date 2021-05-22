@@ -23,7 +23,7 @@
                 <outlet property="colorStatus" destination="mmK-NS-crm" id="VLT-L8-JnA"/>
                 <outlet property="containerView" destination="iN0-l3-epB" id="KcG-dN-AAi"/>
                 <outlet property="iconStatus" destination="xqV-15-5uu" id="enW-Dx-wbd"/>
-                <outlet property="lbStatus" destination="kYR-E0-jaP" id="5yb-Vp-Wta"/>
+                <outlet property="lbStatus" destination="UMP-BY-S7f" id="hZ7-M3-bfY"/>
                 <outlet property="lbTime" destination="3fq-Ps-Trk" id="sJW-vT-r8K"/>
             </connections>
         </placeholder>
@@ -43,6 +43,9 @@
                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                             <state key="normal" image="ic_refresh"/>
+                            <connections>
+                                <action selector="onSync:" destination="-1" eventType="touchUpInside" id="dp9-5O-ShK"/>
+                            </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pVr-Jd-TQd">
                             <rect key="frame" x="52" y="0.0" width="245" height="44"/>

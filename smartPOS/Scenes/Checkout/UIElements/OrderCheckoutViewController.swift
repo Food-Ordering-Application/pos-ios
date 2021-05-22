@@ -29,7 +29,6 @@ struct ManipulateOrderItemModel {
 }
 
 class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDataSetDelegate {
-    
     @IBOutlet var orderItemsTableView: UITableView!
 //    @IBOutlet weak var paymentInfoArea: UIView!
     @IBOutlet var orderInfoArea: UIStackView! {
@@ -69,6 +68,8 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
 
     var order: Order?
     var orderItems: [OrderItem] = []
+    var paymentMethods: [String]? = ["Tiền mặt", "Paypal"]
+
     override func viewDidLoad() {
         self.setup()
     }
@@ -92,7 +93,7 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
             guard var order = self.order else { return }
             order.status = OrderStatus.ordered
             NotificationCenter.default.post(name: Notification.Name("UpdateOrder"), object: order)
-
+            self.setupPaidMethod(paymentType: order.paymentType)
         case SelectedPaymentButton.Payment.rawValue:
             let attributes = createAttributePopup().attributes
             self.showInputPadPopup(attributes: attributes)
@@ -123,7 +124,6 @@ extension OrderCheckoutViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreateOrderAndOrderItems(_:)), name: Notification.Name("CreateOrderAndOrderItems"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationPaidByCash(_:)), name: Notification.Name("PaidByCash"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationUpdatedOrder(_:)), name: Notification.Name("UpdatedOrder"), object: nil)
-        
     }
 
     func setupCashInfo(isHidden: Bool = true, cash: String?) {
@@ -135,12 +135,34 @@ extension OrderCheckoutViewController {
         self.lbExcessCash?.text = String(format: "%.0f", exCash).currency()
         if exCash < 0 {
             self.btnPayment.isEnabled = false
-            self.btnPayment.setTitle("Không đủ tiền :(", for: .highlighted)
+            self.btnPayment.setTitle("Không đủ tiền :(", for: .normal)
             let amount = exCash * -1
             self.lbExcessCash?.text = String(format: "%.0f", amount).currency()
         }
-        
-        
+    }
+
+    func setupPaymentMethods() {
+        self.paymentMethod.removeAllSegments()
+        guard let methods = paymentMethods else { return }
+        for (index, method) in methods.enumerated() {
+            self.paymentMethod.insertSegment(withTitle: method, at: index, animated: true)
+        }
+        self.paymentMethod.selectedSegmentIndex = 0
+    }
+
+    func setupPaidMethod(paymentType: PaymentType?) {
+        guard let paidBy = paymentType else { return }
+        self.paymentMethod.removeAllSegments()
+        let index = 0
+        switch paidBy {
+        case .cod:
+            self.paymentMethod.insertSegment(withTitle: "Tiền mặt", at: index, animated: true)
+        case .paypal:
+            self.paymentMethod.insertSegment(withTitle: "Paypal", at: index, animated: true)
+        default:
+            print("Unknown paymentMethod")
+        }
+        self.paymentMethod.selectedSegmentIndex = index
     }
 
     func setupBtnComplete() {
@@ -166,10 +188,12 @@ extension OrderCheckoutViewController {
         self.btnCancelOrder.setTitleColor(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), for: .normal)
         self.btnCancelOrder.tag = SelectedManipulaButton.Create.rawValue
     }
+
     @objc func onUpdateCash(_ sender: UITapGestureRecognizer? = nil) {
         let attributes = createAttributePopup().attributes
         self.showInputPadPopup(attributes: attributes)
     }
+
     @objc func didGetNotificationPaidByCash(_ notification: Notification) {
         let cash = notification.object as? String
         self.setupCashInfo(isHidden: false, cash: cash)
@@ -194,13 +218,14 @@ extension OrderCheckoutViewController {
         self.updateDataOrderItems(orderItems: viewModel.orderItems)
         self.view.hideSkeleton()
     }
+
     @objc func didGetNotificationUpdatedOrder(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.UpdateOrder.ViewModel
         self.updateDataOrder(order: viewModel.order)
         self.updateDataOrderItems(orderItems: viewModel.orderItems)
         self.view.hideSkeleton()
     }
-    
+
     @objc func didGetNotificationCreatedOrderItem(_ notification: Notification) {
         let viewModel = notification.object as! Checkout.CreateOrderItem.ViewModel
         self.updateDataOrder(order: viewModel.order)
@@ -232,11 +257,12 @@ extension OrderCheckoutViewController {
             self.setupBtnCreateOrder()
             self.btnPayment.isHidden = true
         }
-        self.lbTotal?.text = String(format: "%.0f",order!.grandTotal).currency()
-        self.lbSubTotal?.text = String(format: "%.0f",order?.grandTotal ?? 0).currency()
-        self.lbDiscounts?.text = String(format: "%.0f",order?.discount ?? 0).currency()
+        self.lbTotal?.text = String(format: "%.0f", order!.grandTotal).currency()
+        self.lbSubTotal?.text = String(format: "%.0f", order?.grandTotal ?? 0).currency()
+        self.lbDiscounts?.text = String(format: "%.0f", order?.discount ?? 0).currency()
         self.lbTax?.text = String(0).currency()
         self.setupOrderView(isHidden: false)
+        self.setupPaymentMethods()
     }
 
     func updateDataOrderItem(orderItem: OrderItem?) {
@@ -323,7 +349,7 @@ extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSourc
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OrderItemTableViewCell.identifier, for: indexPath) as? OrderItemTableViewCell else { fatalError("xib doesn't exist") }
-        cell.setData(self.orderItems[indexPath.row])
+        cell.setData(self.orderItems[indexPath.row], orderStatus: self.order?.status)
         // Highlighted color
         let myCustomSelectionColorView = UIView()
         myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)

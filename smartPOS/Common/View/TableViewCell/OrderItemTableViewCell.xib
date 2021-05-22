@@ -223,7 +223,7 @@
                 <outlet property="lbName" destination="zk5-EX-48D" id="Vjb-y6-aSl"/>
                 <outlet property="lbPrice" destination="tT0-Cv-N2v" id="XdA-aN-e0g"/>
             </connections>
-            <point key="canvasLocation" x="314" y="-214"/>
+            <point key="canvasLocation" x="-2" y="-111"/>
         </tableViewCell>
     </objects>
     <resources>

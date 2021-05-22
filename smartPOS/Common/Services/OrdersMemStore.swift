@@ -220,7 +220,7 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
         completionHandler { order }
     }
   
-    func updateOrder(orderToUpdate: Order, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void) {
+    func updateOrder(orderToUpdate: Order, isSynced: Bool = false, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void) {
         guard let orderId = orderToUpdate.id else {
             completionHandler {
                 throw OrdersStoreError.CannotFetch("Something went wrong.")
@@ -231,6 +231,9 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
             asynchronous: { transaction in
                 let csOrder = try! transaction.fetchOne(From<CSOrder>().where(\.$id == orderId))
                 csOrder?.status = orderToUpdate.status!.rawValue
+                
+                guard let orderSynced = csOrder?.isSynced else { return }
+                csOrder?.isSynced =  orderSynced ? orderSynced : isSynced
             },
             success: { _ in
                 if let nestedOrder: CSOrder = try! CSDatabase.stack.fetchOne(From<CSOrder>().where(\.$id == orderId)) {

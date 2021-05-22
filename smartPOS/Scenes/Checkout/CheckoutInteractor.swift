@@ -60,6 +60,12 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
                 SwiftEventBus.post("POSSynced")
             }
         }
+
+        SwiftEventBus.onBackgroundThread(self, name: "POSSyncOrder") { result in
+            if let orderAndOrderItemData = result?.object as? OrderAndOrderItemData {
+                self.POSSyncOrderDetail(orderAndOrderItemData: orderAndOrderItemData)
+            }
+        }
     }
 
     // MARK: Fetch MenuItems
@@ -288,13 +294,17 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 
         if SyncService.canHandleLocal() {
             print("😉 - updateOrder ")
-
             ordersWorker?.updateOrder(orderToUpdate: order) { orderData in
+
                 guard let order = orderData?.order else {
                     response = Checkout.UpdateOrder.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not place order."))
                     self.presenter?.presentUpdatedOrder(response: response)
                     return
                 }
+
+                let orderAndOrderItemData = OrderAndOrderItemData(order: order)
+                SwiftEventBus.post("POSSyncOrder", sender: orderAndOrderItemData)
+                
                 response = Checkout.UpdateOrder.Response(order: order, error: nil)
                 self.presenter?.presentUpdatedOrder(response: response)
             }
@@ -306,6 +316,29 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 // MARK: - Helper function
 
 extension CheckoutInteractor {
+    // MARK: Handle syncOrder when update order in local then check isSynced = true if save to server successfull
+
+    // MARK: Need to check internet in here
+
+    /// Because: I want this api do not notification error when can not get api
+    func POSSyncOrderDetail(orderAndOrderItemData: OrderAndOrderItemData) {
+        var nestedOrder: NestedOrder?
+        if NoInternetService.isReachable() {
+            ordersPageWorker?.ordersDataManager.syncOrder(orderAndOrderItemData: orderAndOrderItemData, debugMode).done { orderRes in
+                print("syncOrder")
+                if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
+                    let data = orderRes.data
+                    nestedOrder = data.order
+                }
+            }.catch { error in
+                print("ERROR-\(error)")
+            }.finally {
+                let seperateOrderAndOderItem = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: nestedOrder)
+                self.ordersWorker?.updateOrder(orderToUpdate: seperateOrderAndOderItem.order!, isSynced: true) { _ in }
+            }
+        }
+    }
+
     func POSSyncMenuItemsDetail(menuId: String) {
         print("🍀 🍀 POSSyncMenuItemsDetail 🍀 🍀")
 
@@ -371,7 +404,7 @@ extension CheckoutInteractor {
     }
 
     private func buildOrderItemFromOrderItemFormFields(orderId: String?, _ orderItemFormFields: Checkout.OrderItemFormFields) -> OrderItem {
-        return OrderItem(id: "", menuItemId: orderItemFormFields.menuItemId, name: orderItemFormFields.name, orderId: orderId, price: orderItemFormFields.price, discount: 0.0, quantity: orderItemFormFields.quantity, note: "buildOrderItemFromOrderItemFormFields")
+        return OrderItem(id: "", menuItemId: orderItemFormFields.menuItemId, name: orderItemFormFields.name, orderId: orderId, price: orderItemFormFields.price, discount: 0.0, subTotal: orderItemFormFields.price, state: OrderItemStatus.instock, quantity: orderItemFormFields.quantity, note: "buildOrderItemFromOrderItemFormFields")
     }
 //    private func nestOrder(order: Order?, orderItems: [OrderItem]?) -> NestedOrder {
 //

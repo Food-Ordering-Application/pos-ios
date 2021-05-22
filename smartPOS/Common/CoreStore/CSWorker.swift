@@ -209,6 +209,9 @@ final class CSWorker {
                 try transaction.deleteAll(From<CSMenuItemTopping>())
                 try transaction.deleteAll(From<CSToppingItem>())
                 try transaction.deleteAll(From<CSToppingGroup>())
+//                try transaction.deleteAll(From<CSOrder>())
+//                try transaction.deleteAll(From<CSOrderItem>())
+//                try transaction.deleteAll(From<CSOrderItemTopping>())
             },
             completion: { _ in }
         )

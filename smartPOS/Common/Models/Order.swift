@@ -22,7 +22,9 @@ struct Order: Decodable {
     var status: OrderStatus?
     var createdAt: Date?
     var updatedAt: Date?
+    var note: String? = ""
     var delivery: Delivery?
+    
 //    var promotionId: String?
 //    var deliveredAt: SafeDateCodableType?
 //    var customerAddressId: String? = ""
@@ -59,6 +61,7 @@ enum OrderStatus: String, Decodable {
     case checking = "CHECKING"
     case delivering = "DELIVERING"
     case cancelled = "CANCELLED"
+    case complete = "COMPLETE"
     case unknown = "UNKNOWN"
     public init(from decoder: Decoder) throws {
         self = try OrderStatus(rawValue: decoder.singleValueContainer().decode(String.self)) ?? .unknown
@@ -74,6 +77,8 @@ enum OrderStatus: String, Decodable {
             return .checking
         case "DELIVERING":
             return .delivering
+        case "COMPLETE" :
+            return .complete 
         case "CANCELLED":
             return .cancelled
         default:

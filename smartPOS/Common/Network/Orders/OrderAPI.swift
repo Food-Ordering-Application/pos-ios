@@ -7,13 +7,30 @@
 //
 
 import Moya
+struct JSON {
+    static let encoder = JSONEncoder()
+}
+
+extension Encodable {
+    subscript(key: String) -> Any? {
+        return dictionary[key]
+    }
+
+    var dictionary: [String: Any] {
+        return (try? JSONSerialization.jsonObject(with: JSON.encoder.encode(self))) as? [String: Any] ?? [:]
+    }
+}
 
 enum OrderAPI {
-    case getAllOrders(_ restaurantId: String?,_ query: String?,_ pageNumber: Int? = 1)
+    case getAllOrders(_ restaurantId: String?, _ query: String?, _ pageNumber: Int? = 1)
     case getOrder(id: String)
     case createOrderAndOrderItem(data: Checkout.OrderAndOrderItemFormFields?)
     case createOrderItem(orderId: String, data: Checkout.OrderItemFormFields?)
     case manipulateOrderItemQuantity(action: ManipulateOrderItemRequest, orderId: String, orderItemId: String)
+    
+    // MARK: Communicated with CoreStore and Server to Sync
+
+    case syncOrder(data: OrderAndOrderItemData?)
 }
 
 extension OrderAPI: TargetType, AccessTokenAuthorizable {
@@ -32,6 +49,8 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
     
     var path: String {
         switch self {
+        case .syncOrder:
+            return "/user/pos/order/save-order"
         case .getAllOrders:
             return "/order/get-all-restaurant-orders"
         case .getOrder(let id):
@@ -49,7 +68,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return .get
-        case .createOrderAndOrderItem:
+        case .syncOrder, .createOrderAndOrderItem:
             return .post
         case .createOrderItem, .manipulateOrderItemQuantity:
             return .patch
@@ -60,7 +79,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return URLEncoding.default
-        case .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
+        case .syncOrder, .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
             return JSONEncoding.default
         }
     }
@@ -73,8 +92,18 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
             params["query"] = query
             params["pageNumber"] = pageNumber
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
+            
         case .getOrder:
             return .requestPlain
+            
+        case .syncOrder(let data):
+            
+            let params = try data!.asDictionary
+            print("----------------------syncOrder-----------------------")
+            print(params)
+            print("------------------------------------------------------")
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+           
         case .createOrderAndOrderItem(let data):
             var params: [String: Any] = [:]
             params["restaurantId"] = data?.restaurantId
@@ -99,6 +128,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
             paramsOrderItem["orderItemToppings"] = paramsOrderItemToppings
             params["orderItem"] = paramsOrderItem
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            
         case .createOrderItem(_, let data):
             var params: [String: Any] = [:]
             var paramsOrderItem: [String: Any] = [:]

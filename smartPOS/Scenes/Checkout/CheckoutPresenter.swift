@@ -88,7 +88,7 @@ extension CheckoutPresenter {
 
         var orderItems: [OrderItem] = []
         for item in nestedOrder?.orderItems ?? [] {
-            let orderItem = OrderItem(id: item.id, menuItemId: item.menuItemId, name: item.name, orderId: nestedOrder?.id, price: item.price, discount: item.discount, quantity: item.quantity, note: "")
+            let orderItem = OrderItem(id: item.id, menuItemId: item.menuItemId, name: item.name, orderId: nestedOrder?.id, price: item.price, discount: item.discount, subTotal: item.price, state: item.state, quantity: item.quantity, note: "")
             orderItems.append(orderItem)
         }
         return SeparatedNestedOrder(order: order, orderItems: orderItems)

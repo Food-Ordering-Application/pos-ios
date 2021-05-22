@@ -18,11 +18,17 @@ final class CSOrderItem: CoreStoreObject {
     @Field.Stored("name")
     var name: String?
     
+    @Field.Stored("state")
+    var state: String = OrderItemStatus.instock.rawValue
+    
     @Field.Relationship("order")
     var order: CSOrder?
     
     @Field.Stored("price")
     var price: Double? = 0
+    
+    @Field.Stored("subTotal")
+    var subTotal: Double? = 0
     
     @Field.Stored("discount")
     var discount: Float? = 0
@@ -39,13 +45,13 @@ final class CSOrderItem: CoreStoreObject {
 
 extension CSOrderItem {
     func toDeepStruct() -> OrderItemRes {
-        return OrderItemRes(id: id, menuItemId: menuItem?.id, orderId: order?.id, price: price, name: name, discount: discount, quantity: quantity, orderItemToppings: orderItemToppings.map { (csOrderItemTopping) -> OrderItemTopping in
+        return OrderItemRes(id: id, menuItemId: menuItem?.id, orderId: order?.id, price: price, name: name, discount: discount, subTotal: subTotal, quantity: quantity, state: OrderItemStatus(rawValue: state), orderItemToppings: orderItemToppings.map { (csOrderItemTopping) -> OrderItemTopping in
             csOrderItemTopping.toStruct()
         })
     }
 
     func toStruct() -> OrderItem {
-        return OrderItem(id: id, menuItemId: menuItem?.id, name: name, orderId: order?.id, price: price, discount: discount, quantity: quantity, note: note)
+        return OrderItem(id: id, menuItemId: menuItem?.id, name: name, orderId: order?.id, price: price, discount: discount, subTotal: subTotal, state: OrderItemStatus(rawValue: state), quantity: quantity, note: note)
     }
     
     func calculateTotal() -> Double {

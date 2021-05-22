@@ -30,6 +30,7 @@
 		9B33123A26550C1500CDB8A2 /* POSStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B33123926550C1500CDB8A2 /* POSStatusView.xib */; };
 		9B33123F26550C2D00CDB8A2 /* POSStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B33123E26550C2D00CDB8A2 /* POSStatusView.swift */; };
 		9B331244265517AD00CDB8A2 /* ic_syncing.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9B331243265517AD00CDB8A2 /* ic_syncing.gif */; };
+		9B331298265655C700CDB8A2 /* CSSyncOrder.json in Resources */ = {isa = PBXBuildFile; fileRef = 9B331297265655C700CDB8A2 /* CSSyncOrder.json */; };
 		9B3383FE2627F09F00026A36 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3383FD2627F09F00026A36 /* PaddingLabel.swift */; };
 		9B3A7648264EE80D005A285E /* CSWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3A7647264EE80D005A285E /* CSWorker.swift */; };
 		9B3A7672264FA63A005A285E /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3A7671264FA63A005A285E /* UITextField.swift */; };
@@ -247,6 +248,7 @@
 		9B33123926550C1500CDB8A2 /* POSStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = POSStatusView.xib; sourceTree = "<group>"; };
 		9B33123E26550C2D00CDB8A2 /* POSStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSStatusView.swift; sourceTree = "<group>"; };
 		9B331243265517AD00CDB8A2 /* ic_syncing.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ic_syncing.gif; sourceTree = "<group>"; };
+		9B331297265655C700CDB8A2 /* CSSyncOrder.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CSSyncOrder.json; sourceTree = "<group>"; };
 		9B3383FD2627F09F00026A36 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		9B3A7647264EE80D005A285E /* CSWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSWorker.swift; sourceTree = "<group>"; };
 		9B3A7671264FA63A005A285E /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
@@ -939,6 +941,7 @@
 				9B6792C8263D5CE500B37B79 /* OrderAndOrderItems.json */,
 				9B713FA5263EA1D6005BD78D /* NewOrderItem.json */,
 				9B713FB7263ECE1E005BD78D /* ManipulateOrderItem.json */,
+				9B331297265655C700CDB8A2 /* CSSyncOrder.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1114,6 +1117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B96823E261B559200D1980B /* Poppins-Thin.ttf in Resources */,
+				9B331298265655C700CDB8A2 /* CSSyncOrder.json in Resources */,
 				9BEDEBEE26347CB00011F71B /* NumpadView.xib in Resources */,
 				9B7E0A5426202E2C00DAEABB /* OrderItemTableViewCell.xib in Resources */,
 				9B33123A26550C1500CDB8A2 /* POSStatusView.xib in Resources */,

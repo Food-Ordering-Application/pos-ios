@@ -69,10 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.subscribeToNoInternetService()
         
-//        self.createLoginView()
+        self.createLoginView()
 //        self.createActivateCodeView()
        
-        self.createMenuView()
+//        self.createMenuView()
         return true
     }
   

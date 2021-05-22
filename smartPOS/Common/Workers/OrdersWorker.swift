@@ -90,8 +90,8 @@ class OrdersWorker {
         }
     }
 
-    func updateOrder(orderToUpdate: Order, completionHandler: @escaping (OrderAndOrderItemData?) -> Void) {
-        ordersStore.updateOrder(orderToUpdate: orderToUpdate) { (orderAndOrderItemData: () throws -> OrderAndOrderItemData?) in
+    func updateOrder(orderToUpdate: Order, isSynced: Bool = false, completionHandler: @escaping (OrderAndOrderItemData?) -> Void) {
+        ordersStore.updateOrder(orderToUpdate: orderToUpdate, isSynced: isSynced) { (orderAndOrderItemData: () throws -> OrderAndOrderItemData?) in
             do {
                 let nestedOrder = try orderAndOrderItemData()
                 DispatchQueue.main.async {
@@ -127,12 +127,12 @@ protocol OrdersStoreProtocol {
     // MARK: CRUD operations - Inner closure
 
     func fetchOrders(completionHandler: @escaping (() throws -> [Order]) -> Void)
-    
+
     func fetchOrder(id: String, completionHandler: @escaping (() throws -> Order?) -> Void)
-    
+
     func createOrder(orderToCreate: Order, completionHandler: @escaping (() throws -> Order?) -> Void)
-    
-    func updateOrder(orderToUpdate: Order, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void)
+
+    func updateOrder(orderToUpdate: Order, isSynced: Bool, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void)
 
     func deleteOrder(id: String, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void)
 
