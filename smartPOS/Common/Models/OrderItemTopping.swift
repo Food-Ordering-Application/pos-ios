@@ -11,7 +11,7 @@ struct OrderItemTopping: Decodable {
     let id: String?
     let state: String?
     let name: String?
-    let menuItemToppingId: String?
+    let toppingItemId: String?
     let quantity: Int?
     let price: Double?
     var asDictionary: [String: Any] {

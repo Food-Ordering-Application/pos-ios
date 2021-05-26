@@ -12,6 +12,7 @@
 
 import UIKit
 import SkeletonView
+import SlideMenuControllerSwift
 protocol OrdersPageDisplayLogic: class {
     func displayOrders(viewModel: OrdersPage.FetchOrders.ViewModel)
     func displaySearchOrders(viewModel: OrdersPage.SearchOrders.ViewModel)

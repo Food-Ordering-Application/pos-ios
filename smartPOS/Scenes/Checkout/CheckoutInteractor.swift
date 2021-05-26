@@ -41,7 +41,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
     var orderItemToppings: [OrderItemTopping]?
     var menuItems: [MenuItem]?
 
-    // MARK: Fro Network
+    // MARK: For Network
 
     var worker: CheckoutWorker? = CheckoutWorker()
     var ordersPageWorker: OrdersPageWorker? = OrdersPageWorker()

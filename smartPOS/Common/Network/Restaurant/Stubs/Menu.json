@@ -25,20 +25,6 @@
                         "description": "Alias qui et aut.",
                         "price": 14646,
                         "imageUrl": "http://lorempixel.com/640/480"
-                    },
-                    {
-                        "id": "3cf0e55c-1677-4726-97b6-76df6cbe5d8a",
-                        "name": "Josue Rippin",
-                        "description": "Pariatur est facere.",
-                        "price": 13433,
-                        "imageUrl": "http://lorempixel.com/640/480"
-                    },
-                    {
-                        "id": "a7baf823-31a8-4952-be2a-788676579d17",
-                        "name": "Ryann Sauer",
-                        "description": "Alias qui et aut.",
-                        "price": 14646,
-                        "imageUrl": "http://lorempixel.com/640/480"
                     }
                 ]
             },
@@ -59,20 +45,6 @@
                         "description": "Deserunt neque eos pariatur.",
                         "price": 15497,
                         "imageUrl": "http://lorempixel.com/640/480"
-                    },
-                    {
-                        "id": "fe06241d-5733-49be-92ec-11b87c531433",
-                        "name": "Athena Fahey",
-                        "description": "Repudiandae autem ea.",
-                        "price": 16124,
-                        "imageUrl": "http://lorempixel.com/640/480"
-                    },
-                    {
-                        "id": "d67e151b-e95b-4588-b2ef-26210acfa2ba",
-                        "name": "Rey Brakus",
-                        "description": "Deserunt neque eos pariatur.",
-                        "price": 15497,
-                        "imageUrl": "http://lorempixel.com/640/480"
                     }
                 ]
             },
@@ -89,20 +61,6 @@
                     },
                     {
                         "id": "e33d8472-ab40-4655-8e3a-831e2ba9bdc3",
-                        "name": "King Hilll",
-                        "description": "Odit deserunt asperiores optio enim animi iure harum sit.",
-                        "price": 12393,
-                        "imageUrl": "http://lorempixel.com/640/480"
-                    },
-                    {
-                        "id": "fd0a615e-f58b-425d-87c1-1129edb40fce",
-                        "name": "Darron Hudson",
-                        "description": "Tenetur repellendus perferendis recusandae qui voluptatem consequuntur voluptatem rerum.",
-                        "price": 18471,
-                        "imageUrl": "http://lorempixel.com/640/480"
-                    },
-                    {
-                        "id": "e33d8472-ab40-4655-8e3a-89bdc331e2ba",
                         "name": "King Hilll",
                         "description": "Odit deserunt asperiores optio enim animi iure harum sit.",
                         "price": 12393,

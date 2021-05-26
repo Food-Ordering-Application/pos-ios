@@ -5,6 +5,7 @@ PODS:
   - CoreStore (8.0.1)
   - EmptyDataSet-Swift (5.0.0)
   - IQKeyboardManagerSwift (6.5.6)
+  - loady (1.0.7)
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
@@ -19,12 +20,17 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
+  - PusherSwift (8.0.0):
+    - ReachabilitySwift (~> 5.0)
+    - Starscream (~> 3.1)
+  - PushNotifications (3.0.4)
   - QuickLayout (3.0.0)
   - ReachabilitySwift (5.0.0)
   - Schedule (2.1.0)
   - SkeletonView (1.15.0)
   - SlideMenuControllerSwift (4.0.0)
   - SnapKit (5.0.1)
+  - Starscream (3.1.1)
   - SwiftDate (5.1.0)
   - SwiftEntryKit (1.2.7):
     - QuickLayout (= 3.0.0)
@@ -37,9 +43,12 @@ DEPENDENCIES:
   - CoreStore (~> 8.0)
   - EmptyDataSet-Swift (~> 5.0.0)
   - IQKeyboardManagerSwift
+  - loady
   - Moya
   - NumPad
   - PromiseKit
+  - PusherSwift
+  - PushNotifications
   - ReachabilitySwift
   - Schedule (~> 2.0)
   - SkeletonView
@@ -58,15 +67,19 @@ SPEC REPOS:
     - CoreStore
     - EmptyDataSet-Swift
     - IQKeyboardManagerSwift
+    - loady
     - Moya
     - NumPad
     - PromiseKit
+    - PusherSwift
+    - PushNotifications
     - QuickLayout
     - ReachabilitySwift
     - Schedule
     - SkeletonView
     - SlideMenuControllerSwift
     - SnapKit
+    - Starscream
     - SwiftDate
     - SwiftEntryKit
     - TextFieldEffects
@@ -88,20 +101,24 @@ SPEC CHECKSUMS:
   CoreStore: b8ed5be7d39af83a235878e4c8555134591badf4
   EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  loady: f2acbcbd53bdeb55425e478304da2f7ff3ec706e
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   NumPad: 4bed9fe05f294bd7ba5d109f3245d96b38c998f4
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
+  PusherSwift: 8f18b7beaf383e0475607ab6a3f89f477637fb21
+  PushNotifications: 6e3d148e5e129af9d4a9279b288c934f9a7f9066
   QuickLayout: 07b45a72b10083fee3f095990cfed1c1e7b27f0a
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Schedule: 00e6d7bbdbdb000fd1f51a7d10e9f88a8c451fda
   SkeletonView: cac18a3ac4f893b09d99e65072d806ef08377aae
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftEntryKit: 537c92699d6034efb1ef9c32b11e0b37c97aa589
   SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: 68ccfed307ded7cbb93d49cd2897cf83ac1676a7
+PODFILE CHECKSUM: bb4ab7e1a343e16f0bd795a6b1db8dffa9a6b4cb
 
 COCOAPODS: 1.10.1

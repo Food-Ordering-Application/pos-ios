@@ -7,15 +7,77 @@
 //
 
 import CoreData
+import IQKeyboardManagerSwift
+import PushNotifications
 import SlideMenuControllerSwift
 import UIKit
-import IQKeyboardManagerSwift
+import PusherSwift
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     var window: UIWindow?
   
-    fileprivate func createMenuView() {
+   
+    let pushNotifications = PushNotifications.shared
+    // You must retain a strong reference to the Pusher instance
+    var pusher: Pusher!
+    
+    func setupPushNotifications() {
+        self.pushNotifications.start(instanceId: "26393c64-663b-493c-a04d-8c366c175ca2")
+        self.pushNotifications.registerForRemoteNotifications()
+        let ordersRestarant = "orders_\(APIConfig.restaurantId)"
+        try? self.pushNotifications.addDeviceInterest(interest: ordersRestarant)
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
+    {
+       
+        IQKeyboardManager.shared.enable = true
+        // Handle Sync Data from Server SetInverval = 10000ms
+        SyncService()
+        // Override point for customization after application launch.
+        self.subscribeToNoInternetService()
+        
+        
+        setupPushNotifications()
+        
+        let options = PusherClientOptions(
+          host: .cluster("ap1")
+        )
+
+        pusher = Pusher(
+          key: "29ff5ecb5e2501177186",
+          options: options
+        )
+
+        pusher.delegate = self
+
+        // subscribe to channel
+        let channel = pusher.subscribe("pos-channel")
+
+        // bind a callback to handle an event
+        let _ = channel.bind(eventName: "pos-event", eventCallback: { (event: PusherEvent) in
+            if let data = event.data {
+              // you can parse the data as necessary
+              print(data)
+            }
+        })
+
+        pusher.connect()
+
+        
+        
+//        self.createLoginView()
+//        self.createActivateCodeView()
+       
+//        self.createMenuView()
+        self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
+        return true
+    }
+  
+    // MARK: Open OrderDetail View
+    func openOrderDetailView(orderId: String?){
+        guard let orderId = orderId else { return }
         // create viewController code...
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -35,47 +97,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
-    }
-    fileprivate func createActivateCodeView(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ActivateCodeViewController") as! ActivateCodeViewController
-        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
-        self.window?.rootViewController = vc
-        self.window?.makeKeyAndVisible()
-    }
-    
-    fileprivate func createLoginView(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
-        self.window?.rootViewController = vc
-        self.window?.makeKeyAndVisible()
+        DispatchQueue.main.async {
+            print("Hello Iam Sync Sync Sync")
+            NotificationCenter.default.post(name: Notification.Name("OrderDetailPage"), object: orderId)
+        }
+     
     }
     
     
-    fileprivate func subscribeToNoInternetService() {
-        let _ = NoInternetService()
-        // todo - rest of the services
+    
+    
+    // print Pusher debug messages
+    func debugLog(message: String) {
+      print(message)
+    }
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        self.pushNotifications.registerDeviceToken(deviceToken)
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        self.pushNotifications.handleNotification(userInfo: userInfo)
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
-    {
-        IQKeyboardManager.shared.enable = true
-        
-        // Handle Sync Data from Server SetInverval = 10000ms
-        SyncService()
-        
-        
-        // Override point for customization after application launch.
-        self.subscribeToNoInternetService()
-        
-        self.createLoginView()
-//        self.createActivateCodeView()
-       
-//        self.createMenuView()
-        return true
-    }
-  
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -97,6 +140,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    // MARK: Setup show view controller
+    
+    fileprivate func createMenuView() {
+        // create viewController code...
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
+        let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
+        let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
+        
+        let nvc = UINavigationController(rootViewController: mainViewController)
+        
+        UINavigationBar.appearance().tintColor = UIColor(hex: "FF6B35")
+        
+        leftViewController.mainViewController = nvc
+        
+        let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+        slideMenuController.automaticallyAdjustsScrollViewInsets = true
+        slideMenuController.delegate = mainViewController
+        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
+        self.window?.rootViewController = slideMenuController
+        self.window?.makeKeyAndVisible()
+    }
+
+    fileprivate func createActivateCodeView() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ActivateCodeViewController") as! ActivateCodeViewController
+        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
+        self.window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
+    }
+    
+    fileprivate func createLoginView() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
+        self.window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
+    }
+    
+    fileprivate func subscribeToNoInternetService() {
+        _ = NoInternetService()
+        // todo - rest of the services
+    }
+
     
     // MARK: - Core Data stack
     

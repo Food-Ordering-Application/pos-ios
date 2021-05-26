@@ -13,7 +13,7 @@ final class CSOrderItemTopping: CoreStoreObject {
     var id: String?
     
     @Field.Stored("state")
-    var state: String?
+    var state: String? = OrderItemStatus.instock.rawValue
     
     @Field.Stored("name")
     var name: String?
@@ -40,7 +40,7 @@ final class CSOrderItemTopping: CoreStoreObject {
 }
 extension CSOrderItemTopping {
     func toStruct() -> OrderItemTopping {
-        return OrderItemTopping(id: id, state: state, name: name, menuItemToppingId: menuItemTopping?.id, quantity: quantity, price: price)
+        return OrderItemTopping(id: id, state: state, name: name, toppingItemId: menuItemTopping?.toppingItem?.id, quantity: quantity, price: price)
     }
     func calculateTotal() -> Double {
         return menuItemTopping?.customPrice ?? 0 * Double(quantity ?? 1)

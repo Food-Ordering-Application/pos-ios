@@ -244,6 +244,7 @@ extension OrderCheckoutViewController {
 
     func updateDataOrder(order: Order?) {
         self.order = order
+        self.setupPaymentMethods()
         self.setupBtnPayment()
         self.setupBtnRemoveOrder()
         if order == nil || order!.id == nil || order!.id == "" {
@@ -256,13 +257,13 @@ extension OrderCheckoutViewController {
         if order?.status != OrderStatus.draft {
             self.setupBtnCreateOrder()
             self.btnPayment.isHidden = true
+            self.setupPaidMethod(paymentType: order?.paymentType)
         }
         self.lbTotal?.text = String(format: "%.0f", order!.grandTotal).currency()
         self.lbSubTotal?.text = String(format: "%.0f", order?.grandTotal ?? 0).currency()
         self.lbDiscounts?.text = String(format: "%.0f", order?.discount ?? 0).currency()
         self.lbTax?.text = String(0).currency()
         self.setupOrderView(isHidden: false)
-        self.setupPaymentMethods()
     }
 
     func updateDataOrderItem(orderItem: OrderItem?) {
@@ -356,5 +357,21 @@ extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSourc
         myCustomSelectionColorView.layer.cornerRadius = 8
         cell.selectedBackgroundView = myCustomSelectionColorView
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let orderId = self.order?.id else { return }
+        if self.order?.status != OrderStatus.draft { return }
+        switch editingStyle {
+        case .delete:
+
+            let orderItem = self.orderItems[indexPath.row]
+            let action = ManipulateOrderItemRequest.remove
+            let manipulateOrderItem = ManipulateOrderItemModel(action: action, orderId: orderId, orderItemId: orderItem.id ?? "")
+            NotificationCenter.default.post(name: Notification.Name("ManipulateOrderItem"), object: manipulateOrderItem)
+
+        default:
+            break
+        }
     }
 }

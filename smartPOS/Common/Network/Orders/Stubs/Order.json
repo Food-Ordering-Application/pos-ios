@@ -3,66 +3,64 @@
     "message": "Order fetched successfully",
     "data": {
         "order": {
-            "id": "46cdee9f-a29f-4e7c-8de1-584f0935f321",
+            "id": "62983c29-b5d0-4f28-9d66-fefc664c6aec",
             "cashierId": null,
-            "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
+            "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
             "itemDiscount": null,
             "discount": null,
-            "subTotal": 181116,
-            "grandTotal": 181116,
-            "note": null,
-            "createdAt": "2021-05-15T10:33:57.172Z",
-            "updatedAt": "2021-05-15T10:35:31.285Z",
-            "paymentType": "COD",
-            "status": "DRAFT",
+            "subTotal": 21920,
+            "grandTotal": 56920,
+            "note": "hello",
+            "createdAt": "2021-05-24T16:04:39.811Z",
+            "updatedAt": "2021-05-25T13:12:30.572Z",
+            "status": "ORDERED",
             "orderItems": [
                 {
-                    "id": "5fb09b95-3e02-4d64-9b17-12f6ea084d47",
-                    "menuItemId": "a1eb65d2-379f-460c-a136-5a2c8283bbad6",
-                    "price": 14805,
-                    "name": "Maximillian Beer",
-                    "quantity": 4,
+                    "id": "9c7242a6-1a16-42b7-bebb-98a8cf1b9775",
+                    "menuItemId": "a7baf823-31a8-4952-be2a-579d78867617",
+                    "price": 14646,
+                    "subTotal": 21920,
+                    "name": "Ryann Sauer",
+                    "quantity": 1,
                     "discount": 0,
                     "state": "IN_STOCK",
                     "orderItemToppings": [
                         {
-                            "id": "760f9003-6f0d-4bf9-9d6c-0268bee78352",
-                            "menuItemToppingId": "15cdf0d9-7266-41b6-9158-e9d113787ded",
-                            "name": "Virginia Wintheiser DVM",
+                            "id": "59f37599-59b1-49ba-9733-1c46ab3c0ba1",
+                            "toppingItemId": "e4a212a4-61a6-4ae2-b299-658adf6c2501",
+                            "name": "Eloisa Von PhD",
                             "quantity": 1,
-                            "price": 12407,
-                            "state": "IN_STOCK"
-                        },
-                        {
-                            "id": "0845f4ee-3d75-4039-af2e-c1f33e494836",
-                            "menuItemToppingId": "913aaef7-d0c0-40c0-9a1d-e594508446c8",
-                            "name": "Virginia Wintheiser DVM",
-                            "quantity": 1,
-                            "price": 18067,
+                            "price": 7274,
                             "state": "IN_STOCK"
                         }
                     ]
                 }
             ],
             "delivery": {
-                "id": "e0c92158-14fb-4418-9f76-3eb55890b142",
-                "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                "id": "e2ba94d9-c2c0-40df-85b2-885389367484",
+                "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
                 "driverId": null,
-                "customerAddress": null,
-                "customerGeom": null,
-                "restaurantAddress": "938 Swaniawski Burgs",
+                "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                "customerGeom": {
+                    "type": "Point",
+                    "coordinates": [
+                        10.7589187,
+                        106.6829928
+                    ]
+                },
+                "restaurantAddress": "3000 Dare Cape",
                 "restaurantGeom": {
                     "type": "Point",
                     "coordinates": [
-                        -79.5642,
-                        76.1866
+                        10.7058661,
+                        106.7049702
                     ]
                 },
-                "distance": null,
-                "shippingFee": 15000,
+                "distance": 6489,
+                "shippingFee": 35000,
                 "status": "DRAFT",
-                "createdAt": "2021-05-15T10:33:57.469Z",
-                "updatedAt": "2021-05-15T10:33:57.469Z",
+                "createdAt": "2021-05-24T16:04:40.191Z",
+                "updatedAt": "2021-05-24T16:04:40.191Z",
                 "deliveredAt": null
             }
         }

@@ -1,0 +1,8 @@
+{
+  "statusCode": 200,
+  "message": "Your key is verified",
+  "data": {
+    "restaurantId": "967da9e1-230b-47f6-b482-2154023a7d96",
+    "merchantId": "967da9e1-230b-47f6-b482-2154023a7d96"
+  }
+}

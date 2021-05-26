@@ -7,10 +7,14 @@
 //
 
 import AnimatedField
+import Loady
 import SwiftEventBus
 import UIKit
+class LoginWorker: UserNetworkInjected {}
 
 class LoginViewController: UIViewController {
+    var worker: LoginWorker? = LoginWorker()
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -23,37 +27,28 @@ class LoginViewController: UIViewController {
             vLogin.layer.borderColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 1)
         }
     }
-
-    @IBOutlet var btnLogin: UIButton! {
+    @IBOutlet weak var lbError: UILabel! {
+        didSet {
+            lbError.isHidden = true
+        }
+    }
+    
+    @IBOutlet var btnLogin: LoadyButton! {
         didSet {
             btnLogin.layer.cornerRadius = 8
+            btnLogin.setAnimation(LoadyAnimationType.android())
+            btnLogin.loadingColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 1)
         }
     }
 
-//    @IBOutlet var tfUsername: AnimatedField! {
-//        didSet {
-//            self.tfUsername.becomeFirstResponder()
-//        }
-//    }
-//
-//    @IBOutlet var tfPassword: AnimatedField! {
-//        didSet {
-    ////            self.tfPassword.becomeFirstResponder()
-//        }
-//    }
-
     @IBOutlet var fUsername: AnimatedField! {
         didSet {
-//
-//            fUsername.layer.cornerRadius = 8
-//            fUsername.clipsToBounds = true
-//            fUsername.layer.borderWidth = 1
-//            fUsername.layer.borderColor = UIColor.gray.cgColor
-//
-            fUsername.text = ""
+            fUsername.becomeFirstResponder()
+            fUsername.text = "0768777352"
             fUsername.placeholder = "Tài khoản"
             fUsername.lowercased = true
             fUsername.type = .username(4, 20)
+            fUsername.tintColor = #colorLiteral(red: 1, green: 0.4196293056, blue: 0.2078702748, alpha: 1)
             fUsername.tag = 1
         }
     }
@@ -61,6 +56,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var fPassword: AnimatedField! {
         didSet {
             fPassword.placeholder = "Mật khẩu"
+            fPassword.text = "Timtimconcacne2"
             fPassword.type = .password(6, 20)
             fPassword.isSecure = true
             fPassword.showVisibleButton = true
@@ -91,9 +87,51 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func onLogin(_ sender: Any) {
+        print("Login me")
         self.showMenuView()
+        return
+        print(fUsername.text)
+        print(fPassword.text)
+        self.lbError.isHidden = true
+        var errorString = ""
+        btnLogin.startLoading()
+        guard let username = fUsername.text, let password = fPassword.text else { return }
+        let restaurantId = APIConfig.getRestaurantId()
+        worker?.userDataManager.login(username: username, password: password, restaurantId: restaurantId, APIConfig.debugMode).done { loginRes in
+            print("login Response")
+            print(loginRes)
+            if loginRes.statusCode >= 200 && loginRes.statusCode <= 300 {
+                let data = loginRes.data
+                if let token = data.access_token {
+                    APIConfig.setToken(token: token)
+                }
+                guard let user = data.user else { return }
+                APIConfig.setUserId(userId: user.id)
+                APIConfig.setRestaurantId(restaurantId: user.restaurantId)
+            } else {
+                errorString = "Usernam/Password is invalid."
+            }
+        }.catch { error in
+            print(error.localizedDescription.description)
+            errorString = error.asAFError?.errorDescription ?? "Đã có lỗi xảy ra."
+        }.finally {
+            if self.btnLogin.loadingIsShowing() {
+                self.btnLogin.stopLoading()
+            }
+            if(errorString  != ""){
+                self.showError(error: errorString)
+                return
+            }
+            
+            self.showMenuView()
+            
+        }
     }
-
+    func showError(error: String) {
+        if error == "" { return }
+        self.lbError.text = error
+        self.lbError.isHidden = false
+    }
     fileprivate func showMenuView() {
         // create viewController code...
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -135,6 +173,7 @@ extension LoginViewController: AnimatedFieldDelegate {
 
     func animatedFieldDidChange(_ animatedField: AnimatedField) {
         print("text: \(animatedField.text ?? "")")
+        self.lbError.isHidden = true
     }
 }
 

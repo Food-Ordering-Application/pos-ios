@@ -43,8 +43,25 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     var imageHeaderView: ImageHeaderView!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationOrderDetailPage(_:)), name: Notification.Name("OrderDetailPage"), object: nil)
     }
-   
+    @objc func didGetNotificationOrderDetailPage(_ notification: Notification) {
+        self.changeViewController(LeftMenu.deliveryOrder)
+        guard let orderId = notification.object as? String else { return }
+        let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
+        // Do somthing after 10.5 seconds
+        queue.asyncAfter(deadline: .now() + 0.3) {
+            // your task code here
+            DispatchQueue.main.async {
+                print("Hello Iam Sync Sync Sync")
+                NotificationCenter.default.post(name: Notification.Name("OrderDetail"), object: orderId)
+            }
+        }
+        DispatchQueue.main.async {
+            let defaultRow = IndexPath(row: 2, section: 0)
+            self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // TableView
