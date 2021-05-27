@@ -3,67 +3,59 @@
     "message": "Order created successfully",
     "data": {
         "order": {
-            "restaurantId": "ad7fecdf-c88c-4d78-b54e-98cc63304ab3",
-            "paymentType": "COD",
+            "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
             "status": "DRAFT",
             "orderItems": [
                 {
-                    "menuItemId": "a1eb65d2-379f-460c-a136-5a2c8283bbad6",
-                    "price": 14805,
+                    "menuItemId": "3cf0e55c-1677-4726-97b6-be5d8a76df6c",
+                    "price": 13433,
                     "quantity": 1,
-                    "name": "Maximillian Beer",
+                    "name": "Josue Rippin",
                     "orderItemToppings": [
                         {
-                            "menuItemToppingId": "15cdf0d9-7266-41b6-9158-e9d113787ded",
-                            "price": 12407,
+                            "toppingItemId": "5a650e29-fefe-4c8b-a130-65a27ca21403",
+                            "price": 8935,
                             "quantity": 1,
-                            "name": "Virginia Wintheiser DVM",
+                            "name": "Hilda Feeney",
                             "state": "IN_STOCK",
-                            "id": "1caa4168-d211-44d6-a970-d6da841574dd"
-                        },
-                        {
-                            "menuItemToppingId": "913aaef7-d0c0-40c0-9a1d-e594508446c8",
-                            "price": 18067,
-                            "quantity": 1,
-                            "name": "Virginia Wintheiser DVM",
-                            "state": "IN_STOCK",
-                            "id": "5ad71bc5-133e-462f-b2ad-fc26d851941d"
+                            "id": "2ba7c07a-c3f5-4c79-a8ee-6460caf792f7"
                         }
                     ],
+                    "subTotal": 22368,
                     "discount": 0,
-                    "id": "016d9cb9-dafe-41ef-bbdd-8dfb547ed347",
+                    "id": "1bcab9ea-0e67-45e0-b1cc-bfe68f1a9c60",
                     "state": "IN_STOCK"
                 }
             ],
-            "subTotal": 45279,
-            "grandTotal": 45279,
+            "subTotal": 22368,
+            "grandTotal": 22368,
             "cashierId": null,
             "itemDiscount": null,
             "discount": null,
             "note": null,
-            "id": "679746c3-7bc8-44af-b93f-0129f7ed7a99",
-            "createdAt": "2021-05-15T10:28:24.389Z",
-            "updatedAt": "2021-05-15T10:28:24.389Z",
+            "id": "a0444034-d95b-4f34-a39f-b2df7ff4c919",
+            "createdAt": "2021-05-26T14:44:07.936Z",
+            "updatedAt": "2021-05-26T14:44:07.936Z",
             "delivery": {
-                "customerId": "7520ffa9-503e-4d3d-876f-f1102d38083f",
+                "customerId": "e4ed3a77-18b9-4f3c-a0e1-69dda7cf1a0b",
                 "status": "DRAFT",
                 "restaurantGeom": {
                     "type": "Point",
                     "coordinates": [
-                        -79.5642,
-                        76.1866
+                        10.7058661,
+                        106.7049702
                     ]
                 },
-                "restaurantAddress": "938 Swaniawski Burgs",
+                "restaurantAddress": "3000 Dare Cape",
                 "driverId": null,
                 "customerAddress": null,
                 "customerGeom": null,
                 "distance": null,
-                "shippingFee": 15000,
+                "shippingFee": null,
                 "deliveredAt": null,
-                "id": "85cbf7bf-5a7a-4eba-a433-d55ec417ab59",
-                "createdAt": "2021-05-15T10:28:24.700Z",
-                "updatedAt": "2021-05-15T10:28:24.700Z"
+                "id": "60447b71-40ef-4a2f-bed1-05034b88ce4f",
+                "createdAt": "2021-05-26T14:44:08.233Z",
+                "updatedAt": "2021-05-26T14:44:08.233Z"
             }
         }
     }

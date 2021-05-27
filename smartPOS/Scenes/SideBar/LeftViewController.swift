@@ -53,14 +53,14 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         queue.asyncAfter(deadline: .now() + 0.3) {
             // your task code here
             DispatchQueue.main.async {
-                print("Hello Iam Sync Sync Sync")
                 NotificationCenter.default.post(name: Notification.Name("OrderDetail"), object: orderId)
             }
+            DispatchQueue.main.async {
+                let defaultRow = IndexPath(row: 2, section: 0)
+                self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
+            }
         }
-        DispatchQueue.main.async {
-            let defaultRow = IndexPath(row: 2, section: 0)
-            self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
-        }
+      
     }
     override func viewDidLoad() {
         super.viewDidLoad()

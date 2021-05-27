@@ -31,10 +31,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
+        
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        application.registerForRemoteNotifications()
        
         IQKeyboardManager.shared.enable = true
-        // Handle Sync Data from Server SetInverval = 10000ms
-        SyncService()
+        
         // Override point for customization after application launch.
         self.subscribeToNoInternetService()
         
@@ -70,40 +78,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 //        self.createLoginView()
 //        self.createActivateCodeView()
        
-//        self.createMenuView()
-        self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
+        self.createMenuView()
+//        self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
+        
+        
+        
+        
+        
+        
         return true
     }
   
-    // MARK: Open OrderDetail View
-    func openOrderDetailView(orderId: String?){
-        guard let orderId = orderId else { return }
-        // create viewController code...
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let mainViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
-        let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
-        let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
-        
-        let nvc = UINavigationController(rootViewController: mainViewController)
-        
-        UINavigationBar.appearance().tintColor = UIColor(hex: "FF6B35")
-        
-        leftViewController.mainViewController = nvc
-        
-        let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
-        slideMenuController.automaticallyAdjustsScrollViewInsets = true
-        slideMenuController.delegate = mainViewController
-        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
-        self.window?.rootViewController = slideMenuController
-        self.window?.makeKeyAndVisible()
-        DispatchQueue.main.async {
-            print("Hello Iam Sync Sync Sync")
-            NotificationCenter.default.post(name: Notification.Name("OrderDetailPage"), object: orderId)
-        }
-     
-    }
-    
     
     
     
@@ -116,7 +101,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        self.pushNotifications.handleNotification(userInfo: userInfo)
+//        self.pushNotifications.handleNotification(userInfo: userInfo)
+        Deeplinker.handleRemoteNotification(userInfo)
+
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -127,15 +114,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
     }
   
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
   
+   
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        // handle any deeplink
+        Deeplinker.checkDeepLink()
     }
+
   
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -183,6 +176,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     
     fileprivate func subscribeToNoInternetService() {
         _ = NoInternetService()
+        // Handle Sync Data from Server SetInverval = 10000ms
+        _ = SyncService()
         // todo - rest of the services
     }
 
