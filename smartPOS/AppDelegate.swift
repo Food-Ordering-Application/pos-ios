@@ -79,12 +79,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 //        self.createActivateCodeView()
        
         self.createMenuView()
-//        self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
         
-        
-        
-        
-        
+//      self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
         
         return true
     }
@@ -102,8 +98,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 //        self.pushNotifications.handleNotification(userInfo: userInfo)
+        
         Deeplinker.handleRemoteNotification(userInfo)
-
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

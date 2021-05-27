@@ -5,6 +5,7 @@
 //  Created by Yuji Hato on 12/3/14.
 //
 
+import SwiftEntryKit
 import UIKit
 
 enum LeftMenu: Int {
@@ -20,6 +21,14 @@ protocol LeftMenuProtocol: AnyObject {
 }
 
 class LeftViewController: UIViewController, LeftMenuProtocol {
+    // MARK: Show popup new order
+
+    private var displayMode: EKAttributes.DisplayMode {
+        return PresetsDataSource.displayMode
+    }
+    
+    private var attributes: EKAttributes?
+  
 //    @IBOutlet var tableView: UITableView!
     
     @IBOutlet var tableView: UITableView!
@@ -43,9 +52,20 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     var imageHeaderView: ImageHeaderView!
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationOrderDetailPage(_:)), name: Notification.Name("OrderDetailPage"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationOrdersPage(_:)), name: Notification.Name("OrdersPage"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationOrderDetailNotification(_:)), name: Notification.Name("OrderDetailNotification"), object: nil)
     }
-    @objc func didGetNotificationOrderDetailPage(_ notification: Notification) {
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc func didGetNotificationOrderDetailNotification(_ notification: Notification) {
+        guard let orderId = notification.object as? String else { return }
+        showOrderNotification(attributes: self.attributes!, orderId: orderId)
+    }
+
+    @objc func didGetNotificationOrdersPage(_ notification: Notification) {
         self.changeViewController(LeftMenu.deliveryOrder)
         guard let orderId = notification.object as? String else { return }
         let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
@@ -60,8 +80,8 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
                 self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
             }
         }
-      
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // TableView
@@ -96,8 +116,8 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         self.tableView.reloadData()
 //        self.imageHeaderView = ImageHeaderView.loadNib()
 //        self.view.addSubview(self.imageHeaderView)
-        
-        setupHeader()
+        setup()
+        self.setupHeader()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -133,6 +153,54 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         case .nonMenu:
             self.slideMenuController()?.changeMainViewController(self.nonMenuViewController, close: true)
         }
+    }
+}
+
+extension LeftViewController {
+    private func setup() {
+        self.attributes = .topToast
+        self.attributes!.displayMode = self.displayMode
+        self.attributes!.hapticFeedbackType = .error
+        self.attributes!.displayDuration = .pi
+        self.attributes!.popBehavior = .animated(animation: .translation)
+        self.attributes!.entryBackground = .color(color: EKColor.white)
+        self.attributes!.statusBar = .light
+    }
+
+    private func showOrderNotification(attributes: EKAttributes, orderId: String?) {
+        let title = EKProperty.LabelContent(
+            text: "Đơn hàng mới",
+            style: .init(
+                font: MainFont.medium.with(size: 16),
+                color: .black,
+                displayMode: displayMode
+            ),
+            accessibilityIdentifier: "title"
+        )
+        let description = EKProperty.LabelContent(
+            text: "102 Nguyễn Văn Cừ, phường 4, quận 10",
+            style: .init(
+                font: MainFont.light.with(size: 14),
+                color: EKColor.black,
+                displayMode: displayMode
+            ),
+            accessibilityIdentifier: "description"
+        )
+        let image = EKProperty.ImageContent(
+            image: UIImage(named: "appstore")!,
+            displayMode: displayMode,
+            size: CGSize(width: 50, height: 50),
+            tint: .none,
+            accessibilityIdentifier: "thumbnail"
+        )
+        let simpleMessage = EKSimpleMessage(
+            image: image,
+            title: title,
+            description: description
+        )
+        let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
+        let contentView = EKNotificationMessageView(with: notificationMessage)
+        SwiftEntryKit.display(entry: contentView, using: attributes)
     }
 }
 

@@ -78,11 +78,11 @@ class DeeplinkNavigator {
         if let vc = UIApplication.shared.keyWindow?.rootViewController {
             if vc.presentedViewController != nil {
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: Notification.Name("OrderDetailPage"), object: orderId)
+                    NotificationCenter.default.post(name: Notification.Name("OrdersPage"), object: orderId)
                 }
             } else {
                 vc.present(slideMenuController, animated: false) {
-                    NotificationCenter.default.post(name: Notification.Name("OrderDetailPage"), object: orderId)
+                    NotificationCenter.default.post(name: Notification.Name("OrdersPage"), object: orderId)
                 }
             
             }
