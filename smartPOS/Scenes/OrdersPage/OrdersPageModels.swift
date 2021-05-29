@@ -13,13 +13,12 @@
 import UIKit
 
 enum OrdersPage {
-    struct DisplayedOrder {
-        var id: String
-        var name: String?
-        var date: String?
-        var imgUrl: String?
+    struct DisplayedOrdersGroup {
+        var status: String?
+        var length: Int?
+        var orders: [Order]?
     }
-   
+
     // MARK: Fetch orders to display during first page load
 
     enum FetchOrders {
@@ -28,18 +27,17 @@ enum OrdersPage {
             var query: String?
             var pageNumber: Int?
         }
-        
+
         struct Response {
             var orders: [Order]?
             var error: OrderErrors?
         }
-        
+
         struct ViewModel {
-            var displayedOrders: Orders
+            var displayedOrdersGroups: [DisplayedOrdersGroup]
             var error: OrderErrors?
         }
     }
-
 
     // MARK: Set orders to dispay during a search
 
@@ -54,10 +52,10 @@ enum OrdersPage {
         }
 
         struct ViewModel {
-            var displayedOrders: [DisplayedOrder]
+            var displayedOrdersGroups: [DisplayedOrdersGroup]
+            var error: OrderErrors?
         }
     }
-
 
     // MARK: Set orders to display when type is changed
 
@@ -71,7 +69,8 @@ enum OrdersPage {
         }
 
         struct ViewModel {
-            var displayedOrders: [DisplayedOrder]
+            var displayedOrdersGroups: [DisplayedOrdersGroup]
+            var error: OrderErrors?
         }
     }
 
@@ -88,9 +87,9 @@ enum OrdersPage {
             var orders: [Order]?
             var error: OrderErrors?
         }
-        
+
         struct ViewModel {
-            var displayedOrders: Orders
+            var displayedOrdersGroups: [DisplayedOrdersGroup]
             var error: OrderErrors?
         }
     }

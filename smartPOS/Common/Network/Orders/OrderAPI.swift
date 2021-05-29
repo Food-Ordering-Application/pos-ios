@@ -27,6 +27,8 @@ enum OrderAPI {
     case createOrderAndOrderItem(data: Checkout.OrderAndOrderItemFormFields?)
     case createOrderItem(orderId: String, data: Checkout.OrderItemFormFields?)
     case manipulateOrderItemQuantity(action: ManipulateOrderItemRequest, orderId: String, orderItemId: String)
+    case confirmOrder(orderId: String)
+    
     
     // MARK: Communicated with CoreStore and Server to Sync
 
@@ -49,6 +51,8 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
     
     var path: String {
         switch self {
+        case .confirmOrder(let orderId):
+            return "/user/pos/order/\(orderId)/confirm"
         case .syncOrder:
             return "/user/pos/order/save-order"
         case .getAllOrders:
@@ -68,7 +72,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return .get
-        case .syncOrder, .createOrderAndOrderItem:
+        case .confirmOrder, .syncOrder, .createOrderAndOrderItem:
             return .post
         case .createOrderItem, .manipulateOrderItemQuantity:
             return .patch
@@ -79,13 +83,14 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return URLEncoding.default
-        case .syncOrder, .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
+        case .confirmOrder, .syncOrder, .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
             return JSONEncoding.default
         }
     }
     
     var task: Task {
         switch self {
+        
         case .getAllOrders(let restaurantId, let query, let pageNumber):
             var params: [String: Any] = [:]
             params["restaurantId"] = restaurantId
@@ -94,6 +99,9 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         case .getOrder:
+            return .requestPlain
+        
+        case .confirmOrder:
             return .requestPlain
             
         case .syncOrder(let data):

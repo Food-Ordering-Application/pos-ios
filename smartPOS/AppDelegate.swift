@@ -23,10 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     var pusher: Pusher!
     
     func setupPushNotifications() {
-        self.pushNotifications.start(instanceId: "26393c64-663b-493c-a04d-8c366c175ca2")
+        self.pushNotifications.start(instanceId: "77650b88-b6b2-4178-9fc2-95c36493470d")
         self.pushNotifications.registerForRemoteNotifications()
-        let ordersRestarant = "orders_\(APIConfig.restaurantId)"
-        try? self.pushNotifications.addDeviceInterest(interest: ordersRestarant)
+        try? self.pushNotifications.addDeviceInterest(interest: APIConfig.channelName)
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
@@ -61,13 +60,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
         pusher.delegate = self
 
         // subscribe to channel
-        let channel = pusher.subscribe("pos-channel")
+        let channel = pusher.subscribe(APIConfig.channelName)
 
         // bind a callback to handle an event
-        let _ = channel.bind(eventName: "pos-event", eventCallback: { (event: PusherEvent) in
+        let _ = channel.bind(eventName: "order-status", eventCallback: { (event: PusherEvent) in
             if let data = event.data {
               // you can parse the data as necessary
-              print(data)
+                print("🔔 order-status",data)
             }
         })
 

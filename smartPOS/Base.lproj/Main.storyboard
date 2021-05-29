@@ -968,6 +968,9 @@
                                         <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onChangeSegmentGroup:" destination="5uT-bh-oBi" eventType="valueChanged" id="O7b-Xm-kOO"/>
+                                </connections>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="34W-SO-R20">
                                 <rect key="frame" x="678" y="50" width="338" height="710"/>

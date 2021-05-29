@@ -30,6 +30,8 @@ protocol OrdersDataManager: class {
     func createOrderAndOrderItem(orderAndOrderItemFormFields: Checkout.OrderAndOrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse>
     func createOrderItem(orderId: String, orderItemFormFields: Checkout.OrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderItemResponse>
     func manipulateOrderItemQuantity(action: ManipulateOrderItemRequest, orderId: String, orderItemId: String, _ debugMode: Bool) -> Promise<ManipulateOrderItemResponce>
+    
+    func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse>
 
     func syncOrder(orderAndOrderItemData: OrderAndOrderItemData, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse>
 }
@@ -57,6 +59,9 @@ extension OrdersDataManager {
     
     func syncOrder(orderAndOrderItemData: OrderAndOrderItemData, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse> {
         return syncOrder(orderAndOrderItemData: orderAndOrderItemData, debugMode)
+    }
+    func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse> {
+        return confirmOrder(orderId: orderId, debugMode)
     }
 }
 
@@ -89,6 +94,9 @@ final class OrdersNetworkManager: OrdersDataManager {
     
     func syncOrder(orderAndOrderItemData: OrderAndOrderItemData, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse> {
         return APIManager.callApi(OrderAPI.syncOrder(data: orderAndOrderItemData), dataReturnType: CreateOrderAndOrderItemResponse.self, debugMode: debugMode)
+    }
+    func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse> {
+        return APIManager.callApi(OrderAPI.confirmOrder(orderId: orderId), dataReturnType: ConfirmOrderResponse.self, debugMode: debugMode)
     }
 
     func createOrderItem(orderId: String, orderItemFormFields: Checkout.OrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderItemResponse> {

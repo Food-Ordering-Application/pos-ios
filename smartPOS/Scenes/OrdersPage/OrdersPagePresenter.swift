@@ -26,31 +26,33 @@ final class OrdersPagePresenter: OrdersPagePresentationLogic {
     
     func presentOrders(response: OrdersPage.FetchOrders.Response) {
 //        let displayedOrders = getDisplayedOrders(response.orders)
-        let viewModel = OrdersPage.FetchOrders.ViewModel(displayedOrders: response.orders ?? [], error: response.error)
+        
+        let displayedOrdersGroups = groupOrderByStatus(response.orders)
+        let viewModel = OrdersPage.FetchOrders.ViewModel(displayedOrdersGroups: displayedOrdersGroups, error: response.error)
         viewController?.displayOrders(viewModel: viewModel)
     }
     
     // MARK: Set orders to be display after a search is made
 
     func presentSearchedOrders(response: OrdersPage.SearchOrders.Response) {
-        let displayedOrders = getDisplayedOrders(response.orders)
-        let viewModel = OrdersPage.SearchOrders.ViewModel(displayedOrders: displayedOrders)
+        let displayedOrdersGroups = groupOrderByStatus(response.orders)
+        let viewModel = OrdersPage.SearchOrders.ViewModel(displayedOrdersGroups: displayedOrdersGroups)
         viewController?.displaySearchOrders(viewModel: viewModel)
     }
     
     // MARK: Set orders to be display selection of orders type
 
     func presentSearchedOrdersByStatus(response: OrdersPage.FetchOrdersByStatus.Response) {
-        let displayedOrders = getDisplayedOrders(response.orders)
-        let viewModel = OrdersPage.FetchOrdersByStatus.ViewModel(displayedOrders: displayedOrders)
+        let displayedOrdersGroups = groupOrderByStatus(response.orders)
+        let viewModel = OrdersPage.FetchOrdersByStatus.ViewModel(displayedOrdersGroups: displayedOrdersGroups)
         viewController?.displayOrdersByStatus(viewModel: viewModel)
     }
     
     // MARK: Set orders to be display after a refresh is called on data
 
     func presentRefreshedOrders(response: OrdersPage.RefreshOrders.Response) {
-//        let displayedOrders = getDisplayedOrders(response.orders)
-        let viewModel = OrdersPage.RefreshOrders.ViewModel(displayedOrders: response.orders ?? [], error: response.error)
+        let displayedOrdersGroups = groupOrderByStatus(response.orders)
+        let viewModel = OrdersPage.RefreshOrders.ViewModel(displayedOrdersGroups: displayedOrdersGroups, error: response.error)
         viewController?.displayRefreshedOrders(viewModel: viewModel)
     }
 }
@@ -60,17 +62,33 @@ extension OrdersPagePresenter {
     ///
     /// - Parameter ordersToDisplay: An array of Launch
     /// - Returns: An array of OrdersPage.DisplayedLaunch to display in view
-    private func getDisplayedOrders(_ ordersToDisplay: [Order]?) -> [OrdersPage.DisplayedOrder] {
-        var displayedOrders: [OrdersPage.DisplayedOrder] = []
+//    private func getDisplayedOrders(_ ordersToDisplay: [Order]?) -> [OrdersPage.DisplayedOrder] {
+//        var displayedOrders: [OrdersPage.DisplayedOrder] = []
+//
+//        if let orders = ordersToDisplay {
+//            for order in orders {
+//                let id = order.id!
+//                let displayedlaunch = OrdersPage.DisplayedOrder(id: id, name: "namedOrder", date: "datedOdrer", imgUrl: "pizza")
+//                displayedOrders.append(displayedlaunch)
+//            }
+//        }
+//
+//        return displayedOrders
+//    }
+    private func groupOrderByStatus(_ orderToDisplay: [Order]?) ->  [OrdersPage.DisplayedOrdersGroup] {
+        var displayedOrderGroups: [OrdersPage.DisplayedOrdersGroup] = []
         
-        if let orders = ordersToDisplay {
-            for order in orders {
-                let id = order.id!
-                let displayedlaunch = OrdersPage.DisplayedOrder(id: id, name: "namedOrder", date: "datedOdrer", imgUrl: "pizza")
-                displayedOrders.append(displayedlaunch)
+        if let orders = orderToDisplay {
+            let groupedDictionary = Dictionary(grouping: orders) { order -> String in
+                return order.status?.rawValue ?? "unknown"
+            }
+            let keys = groupedDictionary.keys
+            keys.forEach { (key) in
+                let orders = groupedDictionary[key]! as Orders
+                let groupedOrders = OrdersPage.DisplayedOrdersGroup(status: key, length: orders.count, orders: orders)
+                displayedOrderGroups.append(groupedOrders)
             }
         }
-        
-        return displayedOrders
+        return displayedOrderGroups
     }
 }

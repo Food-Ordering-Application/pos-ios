@@ -15,6 +15,8 @@ extension OrderAPI {
             return stubbedResponse("Orders")
         case .getOrder:
             return stubbedResponse("Order")
+        case .confirmOrder:
+            return stubbedResponse("ConfirmOrder")
         case .syncOrder:
             return stubbedResponse("CSSyncOrder")
         case .createOrderAndOrderItem:

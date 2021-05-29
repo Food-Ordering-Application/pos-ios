@@ -53,11 +53,11 @@ class OrdersCollectionViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if displayedOrders.isEmpty {
-            collectionView.prepareSkeleton(completion: { _ in
-                self.view.showAnimatedGradientSkeleton()
-            })
-        }
+//        if displayedOrders.isEmpty {
+//            collectionView.prepareSkeleton(completion: { _ in
+//                self.view.showAnimatedGradientSkeleton()
+//            })
+//        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -65,10 +65,15 @@ class OrdersCollectionViewController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    func updateData(viewModel: OrdersPage.FetchOrders.ViewModel) {
-        displayedOrders = viewModel.displayedOrders
+    func updateData(orders: Orders?) {
+        guard  let orders = orders else {
+            displayedOrders = []
+            return
+        }
+        displayedOrders = orders
         collectionView.reloadData()
-//        print("updateData-\(displayedOrders)")
+        view.hideSkeleton()
+        
     }
 }
 
@@ -123,6 +128,17 @@ private extension OrdersCollectionViewController {
         
         collectionView.contentInset = UIEdgeInsets(top: insets.top + additionalInsets.top, left: insets.left + additionalInsets.left, bottom: insets.bottom + additionalInsets.bottom, right: insets.right + additionalInsets.right)
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: insets.top, left: insets.left, bottom: insets.bottom, right: insets.right)
+        
+        collectionView.emptyDataSetView { [weak self] view in
+            if let `self` = self {
+                view.detailLabelString(NSAttributedString(string: "Hiện tại chưa có đơn hàng nào.", attributes: [NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .regular)]))
+                    .image(UIImage.resizeImage(image: UIImage(named: "undraw_add_to_cart")!, targetSize: CGSize(width: 300, height: 200)))
+                    .shouldFadeIn(true)
+                    .isTouchAllowed(true)
+            }
+        }
+        
+        
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -142,9 +158,7 @@ private extension OrdersCollectionViewController {
     }
     
     @objc func didGetNotificationFetchOrders(_ notification: Notification) {
-        let viewModel = notification.object as! OrdersPage.FetchOrders.ViewModel?
-        displayedOrders = viewModel!.displayedOrders
-        collectionView.reloadData()
-//        print("updateData-\(displayedOrders)")
+        let orders = notification.object as! Orders?
+        updateData(orders: orders)
     }
 }

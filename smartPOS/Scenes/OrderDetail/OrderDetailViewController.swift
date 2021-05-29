@@ -102,6 +102,14 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
     override func viewDidAppear(_ animated: Bool) {
         self.setupLayout()
     }
+    @IBAction func confirmOrder(_ sender: Any) {
+        
+        print("confirm my order pls")
+    }
+    
+    @IBAction func rejectOrder(_ sender: Any) {
+        print("reject my order pls")
+    }
 }
 
 // MARK: Display order
