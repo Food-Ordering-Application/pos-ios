@@ -11,19 +11,36 @@
 //
 
 import EmptyDataSet_Swift
+import Loady
 import UIKit
 
 protocol OrderDetailDisplayLogic: class {
     func displayOrder(viewModel: OrderDetail.GetOrder.ViewModel)
+    func displayConfirmedOrder(viewModel: OrderDetail.ConfirmOrder.ViewModel)
 }
 
 class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, EmptyDataSetSource, EmptyDataSetDelegate {
     var interactor: OrderDetailBusinessLogic?
     var router: (NSObjectProtocol & OrderDetailRoutingLogic & OrderDetailDataPassing)?
 
+    @IBOutlet var btnAreaView: UIView!
     @IBOutlet var orderItemsTableView: UITableView!
-    @IBOutlet var btnAccept: UIButton!
-    @IBOutlet var btnReject: UIButton!
+    @IBOutlet var btnAccept: LoadyButton! {
+        didSet {
+            self.btnAccept.layer.cornerRadius = 8
+            self.btnAccept.setAnimation(LoadyAnimationType.indicator(with: .init(indicatorViewStyle: .light)))
+        }
+    }
+
+    @IBOutlet var btnReject: LoadyButton! {
+        didSet {
+            self.btnReject.layer.borderWidth = 1
+            self.btnReject.layer.borderColor = #colorLiteral(red: 0.8506677372, green: 0.2256608047, blue: 0.1839731823, alpha: 1)
+
+            self.btnReject.layer.shadowPath = UIBezierPath(rect: self.btnReject.bounds).cgPath
+            self.btnReject.setAnimation(LoadyAnimationType.topLine())
+        }
+    }
 
     @IBOutlet var statusAreaView: UIView! {
         didSet {
@@ -49,7 +66,7 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
         }
     }
 
-    @IBOutlet var paymentAreaView: UIView! {
+    @IBOutlet var paymentAreaView: UIStackView! {
         didSet {
             self.paymentAreaView.isHidden = true
         }
@@ -94,7 +111,6 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupLayout()
-        self.setupButton()
         self.setupTableView()
 //        self.getOrder(for: "ORDER-009")
     }
@@ -102,13 +118,22 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
     override func viewDidAppear(_ animated: Bool) {
         self.setupLayout()
     }
+
     @IBAction func confirmOrder(_ sender: Any) {
-        
         print("confirm my order pls")
+        if let orderId = order?.id {
+            self.btnAccept.startLoading()
+            self.confirmOrder(for: orderId)
+        }
     }
-    
+
     @IBAction func rejectOrder(_ sender: Any) {
         print("reject my order pls")
+        if self.btnReject.loadingIsShowing() {
+            self.btnReject.stopLoading()
+            return
+        }
+        self.btnReject.startLoading()
     }
 }
 
@@ -152,10 +177,11 @@ extension OrderDetailViewController {
         self.setupOrderView(isHidden: false)
         self.lbOrderId!.text = order.id
         self.lbOrderStatus!.text = order.status.map { $0.rawValue }
-        self.lbTotal!.text = String(format: "%.0f",order.grandTotal).currency()
+        self.lbTotal!.text = String(format: "%.0f", order.grandTotal).currency()
         self.lbDeliveryAddress!.text = "Chưa có địa chỉ giao hàng"
         self.lbDriverAvailabel!.text = "Chưa có tài xế hoạt động gần đây"
 
+        self.btnAreaView.isHidden = false
         /// Need to show or hide note area in here when having data
         self.noteAreaView.isHidden = true
         self.timeAreaView.isHidden = true
@@ -175,6 +201,42 @@ extension OrderDetailViewController {
     }
 }
 
+// MARK: Display confirmed order
+
+extension OrderDetailViewController {
+    func confirmOrder(for id: String) {
+        let request = OrderDetail.ConfirmOrder.Request(id: id)
+        self.interactor?.confirmOrder(request: request)
+    }
+
+    func displayConfirmedOrder(viewModel: OrderDetail.ConfirmOrder.ViewModel) {
+        guard viewModel.error == nil else {
+            Alert.showUnableToRetrieveDataAlert(on: self)
+            return
+        }
+        // MARK: Update Status and Hide Button Action
+        updateConfirmedOrder()
+    }
+    func updateConfirmedOrder(){
+        if self.btnAccept.loadingIsShowing() {
+            self.btnAccept.stopLoading()
+        }
+        btnAreaView.isHidden = true
+        lbOrderStatus!.text = "CONFIRMED"
+    }
+}
+
+//// MARK: Display rejected order
+//
+// extension OrderDetailViewController {
+//    func rejectOrder(orderId: String){
+//
+//    }
+//    func displayRejectedOrder(viewModel: OrderDetail.ConfirmOrder.ViewModel) {
+//        // MARK: Update Status and Hide Button Action
+//    }
+// }
+
 // MARK: Setup Notification to receive data from Another View Controller
 
 extension OrderDetailViewController {
@@ -184,7 +246,6 @@ extension OrderDetailViewController {
 
     @objc func didGetNotificationOrderDetail(_ notification: Notification) {
         let orderId = notification.object as! String?
-        print("didGetNotificationOrderDetail-\(String(describing: orderId))")
         self.getOrder(for: orderId!)
     }
 }
@@ -212,7 +273,7 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OrderItemTableViewCell.identifier, for: indexPath) as? OrderItemTableViewCell else { fatalError("xib doesn't exist") }
-        cell.setData(self.orderItems[indexPath.row], orderStatus: order?.status)
+        cell.setData(self.orderItems[indexPath.row], orderStatus: self.order?.status)
         // Highlighted color
         let myCustomSelectionColorView = UIView()
         myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
@@ -239,13 +300,6 @@ extension OrderDetailViewController {
         router.viewController = viewController
         router.dataStore = interactor
         self.setupNotification()
-    }
-
-    func setupButton() {
-        self.btnReject.layer.borderWidth = 1
-        self.btnReject.layer.borderColor = #colorLiteral(red: 0.8506677372, green: 0.2256608047, blue: 0.1839731823, alpha: 1)
-        self.btnReject.layer.cornerRadius = 8
-        self.btnReject.layer.shadowPath = UIBezierPath(rect: self.btnReject.bounds).cgPath
     }
 
     func setupLayout() {

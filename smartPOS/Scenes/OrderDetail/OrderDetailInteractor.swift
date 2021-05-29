@@ -14,6 +14,7 @@ import UIKit
 
 protocol OrderDetailBusinessLogic {
     func getOrder(request: OrderDetail.GetOrder.Request)
+    func confirmOrder(request: OrderDetail.ConfirmOrder.Request)
 }
 
 protocol OrderDetailDataStore {
@@ -31,16 +32,6 @@ class OrderDetailInteractor: OrderDetailBusinessLogic, OrderDetailDataStore {
     // MARK: Do something
 
     func getOrder(request: OrderDetail.GetOrder.Request) {
-//
-//        let response = OrderDetail.GetOrder.Response()
-//        presenter?.presentSomething(response: response)
-
-//        guard let order = order else { return }
-//        let response = OrderDetail.GetOrder.Response(order: order)
-//        presenter?.presentOrder(response: response)
-//
-
-//        guard let order = order else { return }
         guard let orderId = request.id else { return }
         var response: OrderDetail.GetOrder.Response!
 
@@ -54,6 +45,24 @@ class OrderDetailInteractor: OrderDetailBusinessLogic, OrderDetailDataStore {
             response = OrderDetail.GetOrder.Response(order: nil, error: OrderErrors.couldNotLoadOrderDetail(error: error.localizedDescription))
         }.finally {
             self.presenter?.presentOrder(response: response)
+        }
+    }
+
+    func confirmOrder(request: OrderDetail.ConfirmOrder.Request) {
+        var response: OrderDetail.ConfirmOrder.Response!
+        guard let orderId = request.id else {
+            response = OrderDetail.ConfirmOrder.Response(error: OrderErrors.couldNotConfirmOrder(error: "OrderId is invalid."))
+            presenter?.presentConfirmedOrder(response: response)
+            return
+        }
+        worker.ordersDataManager.confirmOrder(orderId: orderId, debugMode).done { orderRes in
+            if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
+                response = OrderDetail.ConfirmOrder.Response(error: nil)
+            }
+        }.catch { error in
+            response = OrderDetail.ConfirmOrder.Response(error: OrderErrors.couldNotConfirmOrder(error: error.localizedDescription))
+        }.finally {
+            self.presenter?.presentConfirmedOrder(response: response)
         }
     }
 }

@@ -32,4 +32,17 @@ enum OrderDetail {
         }
     
     }
+    enum ConfirmOrder {
+        struct Request {
+           var id: String?
+        }
+
+        struct Response {
+            var error: OrderErrors?
+        }
+
+        struct ViewModel {
+            var error: OrderErrors?
+        }
+    }
 }

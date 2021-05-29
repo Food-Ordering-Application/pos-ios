@@ -11,4 +11,5 @@ import Foundation
 enum OrderErrors: Error {
     case couldNotLoadOrders(error: String)
     case couldNotLoadOrderDetail(error: String)
+    case couldNotConfirmOrder(error: String)
 }

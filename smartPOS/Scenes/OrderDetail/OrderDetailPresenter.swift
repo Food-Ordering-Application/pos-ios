@@ -14,6 +14,7 @@ import UIKit
 
 protocol OrderDetailPresentationLogic {
     func presentOrder(response: OrderDetail.GetOrder.Response)
+    func presentConfirmedOrder(response: OrderDetail.ConfirmOrder.Response)
 }
 
 class OrderDetailPresenter: OrderDetailPresentationLogic {
@@ -43,4 +44,8 @@ class OrderDetailPresenter: OrderDetailPresentationLogic {
     viewController?.displayOrder(viewModel: viewModel)
   
   }
+    func presentConfirmedOrder(response: OrderDetail.ConfirmOrder.Response) {
+        let viewModel = OrderDetail.ConfirmOrder.ViewModel(error: response.error)
+        viewController?.displayConfirmedOrder(viewModel: viewModel)
+    }
 }

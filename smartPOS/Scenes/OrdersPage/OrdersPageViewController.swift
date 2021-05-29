@@ -10,18 +10,15 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
 import SkeletonView
 import SlideMenuControllerSwift
+import UIKit
 struct ControlStatus {
     let name: String
     let stasus: OrderStatus
     let index: Int
     var lenght: Int = 0
 }
-
-
-
 
 protocol OrdersPageDisplayLogic: class {
     func displayOrders(viewModel: OrdersPage.FetchOrders.ViewModel)
@@ -45,16 +42,16 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
         }
     }
     
-    @IBOutlet weak var ordersConllectionView: UIView!
-    @IBOutlet weak var orderDetailView: UIView!
+    @IBOutlet var ordersConllectionView: UIView!
+    @IBOutlet var orderDetailView: UIView!
     
     // MARK: - Variables
     
     var controlStatuses: [ControlStatus] = [
-        ControlStatus(name: "Chờ xác nhận" ,stasus: .draft, index: 0),
-        ControlStatus(name: "Đang thực hiện" ,stasus: .ordered, index: 1),
-        ControlStatus(name: "Đã hoàn thành" ,stasus: .complete, index: 2),
-        ControlStatus(name: "Đã huỷ" ,stasus: .cancelled, index: 3)
+        ControlStatus(name: "Chờ xác nhận", stasus: .draft, index: 0),
+        ControlStatus(name: "Đang thực hiện", stasus: .ordered, index: 1),
+        ControlStatus(name: "Đã hoàn thành", stasus: .complete, index: 2),
+        ControlStatus(name: "Đã huỷ", stasus: .cancelled, index: 3)
     ]
     var currentStatusIndex = 0
     
@@ -93,8 +90,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setNavigationBarItem()
-        
+        setNavigationBarItem()
     }
   
     func displaySearchOrders(viewModel: OrdersPage.SearchOrders.ViewModel) {
@@ -108,9 +104,10 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
     func displayRefreshedOrders(viewModel: OrdersPage.RefreshOrders.ViewModel) {
         print("displayRefreshedOrders")
     }
+
     @IBAction func onChangeSegmentGroup(_ sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex
-        self.onDisplayOrders(index)
+        onDisplayOrders(index)
     }
 }
 
@@ -133,46 +130,39 @@ extension OrdersPageViewController {
         setupOrdersDisplay(viewModel: viewModel)
         print("displayOrders")
     }
-        private func setupOrdersDisplay(viewModel: OrdersPage.FetchOrders.ViewModel) {
-            guard viewModel.error == nil else {
-                Alert.showUnableToRetrieveDataAlert(on: self)
-                return
-            }
-            
-            displayedOrdersGroups = viewModel.displayedOrdersGroups
-            if displayedOrdersGroups.count == 0 { return }
-            
-            displayedOrdersGroups.sort { (firstGroup, secondGroup) -> Bool in
-                let firstIndex = controlStatuses.filter { $0.stasus.rawValue == firstGroup.status }.first?.index ?? displayedOrdersGroups.count - 1
-                let secondIndex = controlStatuses.filter { $0.stasus.rawValue == secondGroup.status }.first?.index ?? displayedOrdersGroups.count - 1
-                return firstIndex < secondIndex
-            }
-            for (index, orderGroup) in displayedOrdersGroups.enumerated() {
-                if index < controlStatuses.count {
-                    let controlStatus = controlStatuses[index]
-                    let title = "\(controlStatus.name) (\(orderGroup.orders!.count))"
-                    segmentedControlStatus.setTitle(title, forSegmentAt: controlStatus.index)
-                }
-                
-            }
-            onDisplayOrders(currentStatusIndex)
-            segmentedControlStatus.selectedSegmentIndex = currentStatusIndex
+
+    private func setupOrdersDisplay(viewModel: OrdersPage.FetchOrders.ViewModel) {
+        guard viewModel.error == nil else {
+            Alert.showUnableToRetrieveDataAlert(on: self)
+            return
         }
-//    private func setupOrdersDisplay(viewModel: OrdersPage.FetchOrders.ViewModel) {
-//        guard viewModel.error == nil else {
-//            Alert.showUnableToRetrieveDataAlert(on: self)
-//            return
-//        }
-//        NotificationCenter.default.post(name: Notification.Name("FetchOrders"), object: viewModel)
-//    }
-    func onDisplayOrders(_ index: Int){
+            
+        displayedOrdersGroups = viewModel.displayedOrdersGroups
+        if displayedOrdersGroups.count == 0 { return }
+            
+        displayedOrdersGroups.sort { (firstGroup, secondGroup) -> Bool in
+            let firstIndex = controlStatuses.filter { $0.stasus.rawValue == firstGroup.status }.first?.index ?? displayedOrdersGroups.count - 1
+            let secondIndex = controlStatuses.filter { $0.stasus.rawValue == secondGroup.status }.first?.index ?? displayedOrdersGroups.count - 1
+            return firstIndex < secondIndex
+        }
+        for (index, orderGroup) in displayedOrdersGroups.enumerated() {
+            if index < controlStatuses.count {
+                let controlStatus = controlStatuses[index]
+                let title = "\(controlStatus.name) (\(orderGroup.orders!.count))"
+                segmentedControlStatus.setTitle(title, forSegmentAt: controlStatus.index)
+            }
+        }
+        onDisplayOrders(currentStatusIndex)
+        segmentedControlStatus.selectedSegmentIndex = currentStatusIndex
+    }
+
+    func onDisplayOrders(_ index: Int) {
         var curOrders: Orders? = []
         if index < displayedOrdersGroups.count {
             curOrders = displayedOrdersGroups[index].orders
         }
         NotificationCenter.default.post(name: Notification.Name("FetchOrders"), object: curOrders)
     }
-    
 }
 
 // MARK: Setup
@@ -189,7 +179,5 @@ private extension OrdersPageViewController {
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-
     }
-    
 }

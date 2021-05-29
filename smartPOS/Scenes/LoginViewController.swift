@@ -88,10 +88,8 @@ class LoginViewController: UIViewController {
 
     @IBAction func onLogin(_ sender: Any) {
         print("Login me")
-        self.showMenuView()
-        return
-        print(fUsername.text)
-        print(fPassword.text)
+//        self.showMenuView()
+//        return
         self.lbError.isHidden = true
         var errorString = ""
         btnLogin.startLoading()
