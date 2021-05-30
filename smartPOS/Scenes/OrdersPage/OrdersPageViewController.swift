@@ -108,6 +108,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
     @IBAction func onChangeSegmentGroup(_ sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex
         onDisplayOrders(index)
+        currentStatusIndex = index
     }
 }
 
@@ -118,7 +119,7 @@ extension OrdersPageViewController {
 
     func fetchOrders() {
         let restaurantId = APIConfig.restaurantId
-        let query = "POS"
+        let query = "SALE"
         let pageNumber = 1
         let request = OrdersPage.FetchOrders.Request(restaurantId: restaurantId, query: query, pageNumber: pageNumber)
         interactor?.fetchOrders(request: request)

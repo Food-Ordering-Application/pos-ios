@@ -210,6 +210,9 @@ extension OrderDetailViewController {
     }
 
     func displayConfirmedOrder(viewModel: OrderDetail.ConfirmOrder.ViewModel) {
+        if self.btnAccept.loadingIsShowing() {
+            self.btnAccept.stopLoading()
+        }
         guard viewModel.error == nil else {
             Alert.showUnableToRetrieveDataAlert(on: self)
             return
@@ -218,9 +221,6 @@ extension OrderDetailViewController {
         updateConfirmedOrder()
     }
     func updateConfirmedOrder(){
-        if self.btnAccept.loadingIsShowing() {
-            self.btnAccept.stopLoading()
-        }
         btnAreaView.isHidden = true
         lbOrderStatus!.text = "CONFIRMED"
     }
@@ -245,6 +245,7 @@ extension OrderDetailViewController {
     }
 
     @objc func didGetNotificationOrderDetail(_ notification: Notification) {
+        view.showSkeleton()
         let orderId = notification.object as! String?
         self.getOrder(for: orderId!)
     }

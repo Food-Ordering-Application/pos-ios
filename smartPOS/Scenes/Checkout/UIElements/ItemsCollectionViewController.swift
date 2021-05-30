@@ -13,15 +13,6 @@ import CoreStore
 import SwiftEventBus
 
 final class ItemsCollectionViewController: UIViewController {
-  
-//
-//    // MARK: CoreStore Properties
-//    private var csdataSource: DiffableDataSource.CollectionViewAdapter<CSMenuItem>?
-//
-//    deinit {
-//        CSDatabase.csMenuitems.removeObserver(self)
-//    }
-    
     // MARK: Amazing Size for each Item
     let width = floor((UIScreen.main.bounds.width - (5 * 10)) / 4)
     let height = max(floor((UIScreen.main.bounds.height - ( 240 + 126 + 20)) / 4), 136)
@@ -31,7 +22,7 @@ final class ItemsCollectionViewController: UIViewController {
     }
     
     var additionalInsets: UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        return UIEdgeInsets(top: 4, left: 10, bottom: 4, right: 10)
     }
     
     private var dataSource = PresetsDataSource()
@@ -66,7 +57,12 @@ final class ItemsCollectionViewController: UIViewController {
     convenience init() {
         self.init()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let width = floor((view.bounds.width - (4 * 10)) / 3)
+        let height = max(floor((view.bounds.height) / 4), 146)
+        size = CGSize(width: width, height: height)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()

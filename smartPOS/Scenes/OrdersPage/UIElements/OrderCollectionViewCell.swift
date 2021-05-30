@@ -45,9 +45,9 @@ class OrderCollectionViewCell: UICollectionViewCell {
         viewBackground.layer.cornerRadius = 8
         viewBackground.backgroundColor = .white
         top.constant = 5
-        left.constant = 10
+        left.constant = 5
         bottom.constant = -5
-        right.constant = -10
+        right.constant = -5
 
         contentView.backgroundColor = .white
         NSLayoutConstraint.activate([top, left, bottom, right])
@@ -66,4 +66,5 @@ class OrderCollectionViewCell: UICollectionViewCell {
 //            print("Setlected CollectionViewCell", order)
         }
     }
+    
 }

@@ -20,7 +20,7 @@ class OrdersCollectionViewController: UIViewController {
     }
     
     var additionalInsets: UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
     
     lazy var layout = BouncyLayout(style: .regular)
@@ -45,6 +45,15 @@ class OrdersCollectionViewController: UIViewController {
     
     var displayedOrders: [Order] = []
  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let width = floor((view.bounds.width - (4 * 10)) / 3)
+        let height = max(floor((view.bounds.height - (6 * 10)) / 4), 136)
+        print("🤔")
+        print(width, height)
+        size = CGSize(width: width, height: height)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
