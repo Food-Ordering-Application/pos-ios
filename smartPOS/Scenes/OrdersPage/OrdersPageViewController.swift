@@ -84,7 +84,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.showAnimatedGradientSkeleton()
+      
         fetchOrders()
     }
     
@@ -118,7 +118,8 @@ extension OrdersPageViewController {
     // MARK: Fetch Data to display in the orders collection view
 
     func fetchOrders() {
-        let restaurantId = APIConfig.restaurantId
+        view.showAnimatedGradientSkeleton()
+        let restaurantId = APIConfig.getRestaurantId()
         let query = "SALE"
         let pageNumber = 1
         let request = OrdersPage.FetchOrders.Request(restaurantId: restaurantId, query: query, pageNumber: pageNumber)
@@ -127,7 +128,9 @@ extension OrdersPageViewController {
     
     func displayOrders(viewModel: OrdersPage.FetchOrders.ViewModel) {
         view.hideSkeleton()
+
         // MARK: Need to do this func after display orders on collection view
+
         setupOrdersDisplay(viewModel: viewModel)
         print("displayOrders")
     }
@@ -162,7 +165,7 @@ extension OrdersPageViewController {
         if index < displayedOrdersGroups.count {
             curOrders = displayedOrdersGroups[index].orders
         }
-        NotificationCenter.default.post(name: Notification.Name("FetchOrders"), object: curOrders)
+        NotificationCenter.default.post(name: Notification.Name("FetchedOrders"), object: curOrders)
     }
 }
 
@@ -180,5 +183,11 @@ private extension OrdersPageViewController {
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationFetchOrders(_:)), name: Notification.Name("FetchOrders"), object: nil)
+    }
+    
+    @objc func didGetNotificationFetchOrders(_ notification: Notification) {
+        fetchOrders()
     }
 }

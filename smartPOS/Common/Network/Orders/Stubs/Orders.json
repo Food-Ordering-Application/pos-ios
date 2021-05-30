@@ -478,6 +478,1198 @@
                 "delivery": null
             },
             {
+                "id": "15a1e573-f0b6-45f3-87de-652fc43d8afa",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T12:10:08.623Z",
+                "updatedAt": "2021-05-24T12:11:17.732Z",
+                "status": "ORDERED",
+                "delivery": null
+            },
+            {
+                "id": "6f970c5c-012f-4dde-a5ff-281ea51c7fd8",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:02:26.870Z",
+                "updatedAt": "2021-05-24T14:02:27.882Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "f019378d-232a-4da5-94bf-fd69843d9bd1",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:17:45.505Z",
+                "updatedAt": "2021-05-24T14:18:36.635Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "f7f3554c-6a5e-4692-b3fa-17b1b3d8975b",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:17:45.913Z",
+                    "updatedAt": "2021-05-24T14:17:45.913Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "15a1e573-f0b6-45f3-87de-652fc43d8afa",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T12:10:08.623Z",
+                "updatedAt": "2021-05-24T12:11:17.732Z",
+                "status": "ORDERED",
+                "delivery": null
+            },
+            {
+                "id": "6f970c5c-012f-4dde-a5ff-281ea51c7fd8",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:02:26.870Z",
+                "updatedAt": "2021-05-24T14:02:27.882Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "f019378d-232a-4da5-94bf-fd69843d9bd1",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:17:45.505Z",
+                "updatedAt": "2021-05-24T14:18:36.635Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "f7f3554c-6a5e-4692-b3fa-17b1b3d8975b",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:17:45.913Z",
+                    "updatedAt": "2021-05-24T14:17:45.913Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "4ec2b867-a05a-4f58-a0a3-bce0471da40b",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T17:04:18.916Z",
+                "updatedAt": "2021-05-24T17:04:19.924Z",
+                "status": "DRAFT",
+                "delivery": {
+                    "id": "20f5fb9b-35d2-4578-b39a-e93fe3745826",
+                    "customerId": "d5623165-6a2e-480b-b7ce-192a44215c8c",
+                    "driverId": null,
+                    "customerAddress": "25 Đường số 3, ấp Đá Hàng, Hiệp Thạnh, Gò Dầu, Tây Ninh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            11.1518116,
+                            106.236503
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 72634,
+                    "shippingFee": 365000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T17:04:19.317Z",
+                    "updatedAt": "2021-05-24T17:04:19.317Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "6dfc1237-2d90-4ca6-ba7d-e353a877b4ca",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:20:55.650Z",
+                "updatedAt": "2021-05-24T14:38:25.297Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "59a7fe85-2e9a-4aea-868b-caba385c2552",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:20:56.058Z",
+                    "updatedAt": "2021-05-24T14:20:56.058Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "b413e1f4-88c1-4763-bb0a-1db286965af3",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:11:57.830Z",
+                "updatedAt": "2021-05-24T15:11:58.810Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "0974da16-a0f8-4596-b8f0-96f9d2b6a0e0",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:18:29.214Z",
+                "updatedAt": "2021-05-24T15:18:30.247Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "e3b0ffff-7986-4db5-ba77-9241f14bbfb2",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:19:31.269Z",
+                "updatedAt": "2021-05-24T15:28:00.785Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "7e3588d7-163d-4565-98ec-35fd1f56ff15",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T15:19:31.675Z",
+                    "updatedAt": "2021-05-24T15:19:31.675Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "1d015bfc-9fa1-4df5-b32c-18754f79e77e",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T16:01:30.244Z",
+                "updatedAt": "2021-05-24T16:01:31.341Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "15a1e573-f0b6-45f3-87de-652fc43d8afa",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T12:10:08.623Z",
+                "updatedAt": "2021-05-24T12:11:17.732Z",
+                "status": "ORDERED",
+                "delivery": null
+            },
+            {
+                "id": "6f970c5c-012f-4dde-a5ff-281ea51c7fd8",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:02:26.870Z",
+                "updatedAt": "2021-05-24T14:02:27.882Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "f019378d-232a-4da5-94bf-fd69843d9bd1",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:17:45.505Z",
+                "updatedAt": "2021-05-24T14:18:36.635Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "f7f3554c-6a5e-4692-b3fa-17b1b3d8975b",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:17:45.913Z",
+                    "updatedAt": "2021-05-24T14:17:45.913Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "15a1e573-f0b6-45f3-87de-652fc43d8afa",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T12:10:08.623Z",
+                "updatedAt": "2021-05-24T12:11:17.732Z",
+                "status": "ORDERED",
+                "delivery": null
+            },
+            {
+                "id": "6f970c5c-012f-4dde-a5ff-281ea51c7fd8",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:02:26.870Z",
+                "updatedAt": "2021-05-24T14:02:27.882Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "f019378d-232a-4da5-94bf-fd69843d9bd1",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:17:45.505Z",
+                "updatedAt": "2021-05-24T14:18:36.635Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "f7f3554c-6a5e-4692-b3fa-17b1b3d8975b",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:17:45.913Z",
+                    "updatedAt": "2021-05-24T14:17:45.913Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "4ec2b867-a05a-4f58-a0a3-bce0471da40b",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T17:04:18.916Z",
+                "updatedAt": "2021-05-24T17:04:19.924Z",
+                "status": "DRAFT",
+                "delivery": {
+                    "id": "20f5fb9b-35d2-4578-b39a-e93fe3745826",
+                    "customerId": "d5623165-6a2e-480b-b7ce-192a44215c8c",
+                    "driverId": null,
+                    "customerAddress": "25 Đường số 3, ấp Đá Hàng, Hiệp Thạnh, Gò Dầu, Tây Ninh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            11.1518116,
+                            106.236503
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 72634,
+                    "shippingFee": 365000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T17:04:19.317Z",
+                    "updatedAt": "2021-05-24T17:04:19.317Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "6dfc1237-2d90-4ca6-ba7d-e353a877b4ca",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:20:55.650Z",
+                "updatedAt": "2021-05-24T14:38:25.297Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "59a7fe85-2e9a-4aea-868b-caba385c2552",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:20:56.058Z",
+                    "updatedAt": "2021-05-24T14:20:56.058Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "b413e1f4-88c1-4763-bb0a-1db286965af3",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:11:57.830Z",
+                "updatedAt": "2021-05-24T15:11:58.810Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "0974da16-a0f8-4596-b8f0-96f9d2b6a0e0",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:18:29.214Z",
+                "updatedAt": "2021-05-24T15:18:30.247Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "e3b0ffff-7986-4db5-ba77-9241f14bbfb2",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:19:31.269Z",
+                "updatedAt": "2021-05-24T15:28:00.785Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "7e3588d7-163d-4565-98ec-35fd1f56ff15",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T15:19:31.675Z",
+                    "updatedAt": "2021-05-24T15:19:31.675Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "1d015bfc-9fa1-4df5-b32c-18754f79e77e",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T16:01:30.244Z",
+                "updatedAt": "2021-05-24T16:01:31.341Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "15a1e573-f0b6-45f3-87de-652fc43d8afa",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T12:10:08.623Z",
+                "updatedAt": "2021-05-24T12:11:17.732Z",
+                "status": "ORDERED",
+                "delivery": null
+            },
+            {
+                "id": "6f970c5c-012f-4dde-a5ff-281ea51c7fd8",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:02:26.870Z",
+                "updatedAt": "2021-05-24T14:02:27.882Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "f019378d-232a-4da5-94bf-fd69843d9bd1",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:17:45.505Z",
+                "updatedAt": "2021-05-24T14:18:36.635Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "f7f3554c-6a5e-4692-b3fa-17b1b3d8975b",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:17:45.913Z",
+                    "updatedAt": "2021-05-24T14:17:45.913Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "15a1e573-f0b6-45f3-87de-652fc43d8afa",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T12:10:08.623Z",
+                "updatedAt": "2021-05-24T12:11:17.732Z",
+                "status": "ORDERED",
+                "delivery": null
+            },
+            {
+                "id": "6f970c5c-012f-4dde-a5ff-281ea51c7fd8",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:02:26.870Z",
+                "updatedAt": "2021-05-24T14:02:27.882Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "f019378d-232a-4da5-94bf-fd69843d9bd1",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:17:45.505Z",
+                "updatedAt": "2021-05-24T14:18:36.635Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "f7f3554c-6a5e-4692-b3fa-17b1b3d8975b",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:17:45.913Z",
+                    "updatedAt": "2021-05-24T14:17:45.913Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "4ec2b867-a05a-4f58-a0a3-bce0471da40b",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T17:04:18.916Z",
+                "updatedAt": "2021-05-24T17:04:19.924Z",
+                "status": "DRAFT",
+                "delivery": {
+                    "id": "20f5fb9b-35d2-4578-b39a-e93fe3745826",
+                    "customerId": "d5623165-6a2e-480b-b7ce-192a44215c8c",
+                    "driverId": null,
+                    "customerAddress": "25 Đường số 3, ấp Đá Hàng, Hiệp Thạnh, Gò Dầu, Tây Ninh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            11.1518116,
+                            106.236503
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 72634,
+                    "shippingFee": 365000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T17:04:19.317Z",
+                    "updatedAt": "2021-05-24T17:04:19.317Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "6dfc1237-2d90-4ca6-ba7d-e353a877b4ca",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:20:55.650Z",
+                "updatedAt": "2021-05-24T14:38:25.297Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "59a7fe85-2e9a-4aea-868b-caba385c2552",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:20:56.058Z",
+                    "updatedAt": "2021-05-24T14:20:56.058Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "b413e1f4-88c1-4763-bb0a-1db286965af3",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:11:57.830Z",
+                "updatedAt": "2021-05-24T15:11:58.810Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "0974da16-a0f8-4596-b8f0-96f9d2b6a0e0",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:18:29.214Z",
+                "updatedAt": "2021-05-24T15:18:30.247Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "e3b0ffff-7986-4db5-ba77-9241f14bbfb2",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:19:31.269Z",
+                "updatedAt": "2021-05-24T15:28:00.785Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "7e3588d7-163d-4565-98ec-35fd1f56ff15",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T15:19:31.675Z",
+                    "updatedAt": "2021-05-24T15:19:31.675Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "1d015bfc-9fa1-4df5-b32c-18754f79e77e",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T16:01:30.244Z",
+                "updatedAt": "2021-05-24T16:01:31.341Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "15a1e573-f0b6-45f3-87de-652fc43d8afa",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T12:10:08.623Z",
+                "updatedAt": "2021-05-24T12:11:17.732Z",
+                "status": "ORDERED",
+                "delivery": null
+            },
+            {
+                "id": "6f970c5c-012f-4dde-a5ff-281ea51c7fd8",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:02:26.870Z",
+                "updatedAt": "2021-05-24T14:02:27.882Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "f019378d-232a-4da5-94bf-fd69843d9bd1",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:17:45.505Z",
+                "updatedAt": "2021-05-24T14:18:36.635Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "f7f3554c-6a5e-4692-b3fa-17b1b3d8975b",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:17:45.913Z",
+                    "updatedAt": "2021-05-24T14:17:45.913Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "15a1e573-f0b6-45f3-87de-652fc43d8afa",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T12:10:08.623Z",
+                "updatedAt": "2021-05-24T12:11:17.732Z",
+                "status": "ORDERED",
+                "delivery": null
+            },
+            {
+                "id": "6f970c5c-012f-4dde-a5ff-281ea51c7fd8",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:02:26.870Z",
+                "updatedAt": "2021-05-24T14:02:27.882Z",
+                "status": "DRAFT",
+                "delivery": null
+            },
+            {
+                "id": "f019378d-232a-4da5-94bf-fd69843d9bd1",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:17:45.505Z",
+                "updatedAt": "2021-05-24T14:18:36.635Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "f7f3554c-6a5e-4692-b3fa-17b1b3d8975b",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "DRAFT",
+                    "createdAt": "2021-05-24T14:17:45.913Z",
+                    "updatedAt": "2021-05-24T14:17:45.913Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "4ec2b867-a05a-4f58-a0a3-bce0471da40b",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 387368,
+                "note": null,
+                "createdAt": "2021-05-24T17:04:18.916Z",
+                "updatedAt": "2021-05-24T17:04:19.924Z",
+                "status": "COMPLETE",
+                "delivery": {
+                    "id": "20f5fb9b-35d2-4578-b39a-e93fe3745826",
+                    "customerId": "d5623165-6a2e-480b-b7ce-192a44215c8c",
+                    "driverId": null,
+                    "customerAddress": "25 Đường số 3, ấp Đá Hàng, Hiệp Thạnh, Gò Dầu, Tây Ninh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            11.1518116,
+                            106.236503
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 72634,
+                    "shippingFee": 365000,
+                    "status": "COMPLETE",
+                    "createdAt": "2021-05-24T17:04:19.317Z",
+                    "updatedAt": "2021-05-24T17:04:19.317Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "6dfc1237-2d90-4ca6-ba7d-e353a877b4ca",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T14:20:55.650Z",
+                "updatedAt": "2021-05-24T14:38:25.297Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "59a7fe85-2e9a-4aea-868b-caba385c2552",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "COMPLETE",
+                    "createdAt": "2021-05-24T14:20:56.058Z",
+                    "updatedAt": "2021-05-24T14:20:56.058Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "b413e1f4-88c1-4763-bb0a-1db286965af3",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:11:57.830Z",
+                "updatedAt": "2021-05-24T15:11:58.810Z",
+                "status": "COMPLETE",
+                "delivery": null
+            },
+            {
+                "id": "0974da16-a0f8-4596-b8f0-96f9d2b6a0e0",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:18:29.214Z",
+                "updatedAt": "2021-05-24T15:18:30.247Z",
+                "status": "COMPLETE",
+                "delivery": null
+            },
+            {
+                "id": "e3b0ffff-7986-4db5-ba77-9241f14bbfb2",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T15:19:31.269Z",
+                "updatedAt": "2021-05-24T15:28:00.785Z",
+                "status": "ORDERED",
+                "delivery": {
+                    "id": "7e3588d7-163d-4565-98ec-35fd1f56ff15",
+                    "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
+                    "driverId": null,
+                    "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
+                    "customerGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7589187,
+                            106.6829928
+                        ]
+                    },
+                    "restaurantAddress": "3000 Dare Cape",
+                    "restaurantGeom": {
+                        "type": "Point",
+                        "coordinates": [
+                            10.7058661,
+                            106.7049702
+                        ]
+                    },
+                    "distance": 6489,
+                    "shippingFee": 35000,
+                    "status": "COMPLETE",
+                    "createdAt": "2021-05-24T15:19:31.675Z",
+                    "updatedAt": "2021-05-24T15:19:31.675Z",
+                    "deliveredAt": null
+                }
+            },
+            {
+                "id": "1d015bfc-9fa1-4df5-b32c-18754f79e77e",
+                "cashierId": null,
+                "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
+                "itemDiscount": null,
+                "discount": null,
+                "subTotal": 22368,
+                "grandTotal": 57368,
+                "note": null,
+                "createdAt": "2021-05-24T16:01:30.244Z",
+                "updatedAt": "2021-05-24T16:01:31.341Z",
+                "status": "COMPLETE",
+                "delivery": null
+            },
+            {
                 "id": "62983c29-b5d0-4f28-9d66-fefc664c6aec",
                 "cashierId": null,
                 "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
@@ -488,7 +1680,7 @@
                 "note": "hello",
                 "createdAt": "2021-05-24T16:04:39.811Z",
                 "updatedAt": "2021-05-25T13:12:30.572Z",
-                "status": "DRAFT",
+                "status": "COMPLETE",
                 "delivery": {
                     "id": "e2ba94d9-c2c0-40df-85b2-885389367484",
                     "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
@@ -511,7 +1703,7 @@
                     },
                     "distance": 6489,
                     "shippingFee": 35000,
-                    "status": "DRAFT",
+                    "status": "COMPLETE",
                     "createdAt": "2021-05-24T16:04:40.191Z",
                     "updatedAt": "2021-05-24T16:04:40.191Z",
                     "deliveredAt": null

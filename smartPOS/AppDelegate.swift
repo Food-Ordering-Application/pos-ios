@@ -72,20 +72,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 
         pusher.connect()
 
-        
-        
-//        self.createLoginView()
+        // MARK: Need have api to check available id
 //        self.createActivateCodeView()
-       
-        self.createMenuView()
         
+        if APIConfig.getToken() == "" {
+            self.createLoginView()
+        } else {
+            self.createMenuView()
+        }
 //      self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
         
         return true
     }
-  
-    
-    
     
     // print Pusher debug messages
     func debugLog(message: String) {

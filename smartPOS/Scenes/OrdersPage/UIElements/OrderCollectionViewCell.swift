@@ -9,20 +9,19 @@
 import UIKit
 
 class OrderCollectionViewCell: UICollectionViewCell {
-
     class var identifier: String { return String.className(self) }
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
-   
-    @IBOutlet weak var viewBackground: UIView!
-    @IBOutlet weak var lbOrderID: UILabel!
-    @IBOutlet weak var lbStatus: PaddingLabel!
-    @IBOutlet weak var lbName: UILabel!
-    @IBOutlet weak var lbTimeRemaining: UILabel!
-    @IBOutlet weak var lbTotalQuantity: UILabel!
-    @IBOutlet weak var lbDistance: UILabel!
-    @IBOutlet weak var lbNote: UILabel!
-    @IBOutlet weak var lbTotal: UILabel!
-    
+
+    @IBOutlet var viewBackground: UIView!
+    @IBOutlet var lbOrderID: UILabel!
+    @IBOutlet var lbStatus: PaddingLabel!
+    @IBOutlet var lbName: UILabel!
+    @IBOutlet var lbTimeRemaining: UILabel!
+    @IBOutlet var lbTotalQuantity: UILabel!
+    @IBOutlet var lbDistance: UILabel!
+    @IBOutlet var lbNote: UILabel!
+    @IBOutlet var lbTotal: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -41,7 +40,7 @@ class OrderCollectionViewCell: UICollectionViewCell {
         viewBackground.layer.shadowOffset = .zero
         viewBackground.layer.shadowOpacity = 0.4
         viewBackground.layer.shouldRasterize = true
-        
+
         viewBackground.layer.cornerRadius = 8
         viewBackground.backgroundColor = .white
         top.constant = 5
@@ -54,17 +53,19 @@ class OrderCollectionViewCell: UICollectionViewCell {
 
         clipsToBounds = true
     }
+
     func setCell(_ data: Order?) {
         if let order = data {
-            self.lbOrderID?.text = order.id
-            self.lbStatus?.text = order.status.map { $0.rawValue }
-            self.lbNote?.text = "_"
-            self.lbTimeRemaining?.text = "14p:20s"
-            self.lbTotalQuantity?.text = "1"
-            self.lbDistance?.text = "4kms"
-            self.lbTotal?.text = String(format: "%.0f",order.grandTotal).currency()
-//            print("Setlected CollectionViewCell", order)
+            lbOrderID?.text = order.id
+            lbStatus?.text = order.status.map { $0.rawValue }
+            lbNote?.text = order.note
+            lbTimeRemaining?.text = "14p:20s"
+            lbTotalQuantity?.text = "1"
+            lbTotal?.text = String(format: "%.0f", order.grandTotal).currency()
+            if let driver = order.delivery {
+                let distance: Float = floor((driver.distance ?? 0) / 1000)
+                lbDistance?.text = "\(distance)kms"
+            }
         }
     }
-    
 }

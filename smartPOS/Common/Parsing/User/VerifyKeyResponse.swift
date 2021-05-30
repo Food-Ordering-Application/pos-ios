@@ -16,6 +16,6 @@ struct VerifyKeyResponse: Decodable {
 
 
 struct VerifyData: Decodable {
-    let restaurantId: String
-    let merchantId: String
+    let restaurantId: String?
+    let merchantId: String?
 }

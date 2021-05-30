@@ -175,16 +175,24 @@ extension OrderDetailViewController {
             return
         }
         self.setupOrderView(isHidden: false)
-        self.lbOrderId!.text = order.id
+        self.lbOrderId!.text = order.id?.components(separatedBy: "-").first ?? "_"
         self.lbOrderStatus!.text = order.status.map { $0.rawValue }
         self.lbTotal!.text = String(format: "%.0f", order.grandTotal).currency()
         self.lbDeliveryAddress!.text = "Chưa có địa chỉ giao hàng"
         self.lbDriverAvailabel!.text = "Chưa có tài xế hoạt động gần đây"
-
-        self.btnAreaView.isHidden = false
+        
         /// Need to show or hide note area in here when having data
         self.noteAreaView.isHidden = true
+        self.btnAreaView.isHidden = false
+        
         self.timeAreaView.isHidden = true
+        if let note = order.note, note != "" {
+            self.noteAreaView.isHidden = false
+            lbNote.text = note
+        }
+        if let deliver = order.delivery {
+            self.lbDeliveryAddress!.text = deliver.customerAddress
+        }
     }
 
     func setupOrderView(isHidden: Bool = true) {
@@ -217,12 +225,15 @@ extension OrderDetailViewController {
             Alert.showUnableToRetrieveDataAlert(on: self)
             return
         }
+
         // MARK: Update Status and Hide Button Action
-        updateConfirmedOrder()
+
+        self.updateConfirmedOrder()
     }
-    func updateConfirmedOrder(){
-        btnAreaView.isHidden = true
-        lbOrderStatus!.text = "CONFIRMED"
+
+    func updateConfirmedOrder() {
+        self.btnAreaView.isHidden = true
+        self.lbOrderStatus!.text = "CONFIRMED"
     }
 }
 

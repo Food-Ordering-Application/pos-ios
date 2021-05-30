@@ -84,7 +84,7 @@ class CheckoutPresenter: CheckoutPresentationLogic {
 
 extension CheckoutPresenter {
     public static func separateOrderAndOrderItem(nestedOrder: NestedOrder?) -> SeparatedNestedOrder {
-        let order = Order(id: nestedOrder?.id, cashierId: nestedOrder?.cashierId, restaurantId: nestedOrder?.restaurantId ?? "", subTotal: nestedOrder?.subTotal, itemDiscount: nestedOrder?.itemDiscount, serviceFee: nestedOrder?.serviceFee, discount: nestedOrder?.discount, grandTotal: nestedOrder?.grandTotal ?? 0, paymentType: nestedOrder?.paymentType, status: nestedOrder?.status, createdAt: nestedOrder?.createdAt, updatedAt: nestedOrder?.updatedAt)
+        let order = Order(id: nestedOrder?.id, cashierId: nestedOrder?.cashierId, restaurantId: nestedOrder?.restaurantId ?? "", subTotal: nestedOrder?.subTotal, itemDiscount: nestedOrder?.itemDiscount, serviceFee: nestedOrder?.serviceFee, discount: nestedOrder?.discount, grandTotal: nestedOrder?.grandTotal ?? 0, paymentType: nestedOrder?.paymentType, status: nestedOrder?.status, createdAt: nestedOrder?.createdAt, updatedAt: nestedOrder?.updatedAt, delivery: nestedOrder?.delivery)
 
         var orderItems: [OrderItem] = []
         for item in nestedOrder?.orderItems ?? [] {

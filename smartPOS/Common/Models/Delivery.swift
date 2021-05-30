@@ -10,15 +10,13 @@ import Foundation
 struct Delivery: Decodable {
     var id: String?
     var orderId: String?
-    var address: String?
     var status: DeliveryStatus
-    var customerAddressId: String? = ""
-    var note: String? = ""
     var customerId: String?
+    var customerAddress: String?
+    var note: String? = ""
     var driverId: String?
+    var distance: Float?
     var shippingFee: Float?
-    var geom: String?
-    var total: Double?
     var createdAt: Date?
     var updatedAt: Date?
     var deliveredAt: Date?

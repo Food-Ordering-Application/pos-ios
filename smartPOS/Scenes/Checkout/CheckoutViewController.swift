@@ -105,7 +105,7 @@ extension CheckoutViewController {
 
     func fetchMenuItemGroups() {
         self.view.showGradientSkeleton()
-        let restaurantId = APIConfig.restaurantId
+        let restaurantId = APIConfig.getRestaurantId()
         let request = Checkout.FetchMenuItems.Request(restaurantId: restaurantId)
         self.interactor?.fetchMenuItemGroups(request: request)
         self.view.hideSkeleton()
@@ -157,8 +157,8 @@ extension CheckoutViewController {
 extension CheckoutViewController {
     func createOrderAndOrderItem(orderItem: Checkout.OrderItemFormFields) {
         print("Create OrderItems\(orderItem)")
-        let customerId = APIConfig.customerId
-        let restaurantId = APIConfig.restaurantId
+        let customerId = APIConfig.getMerchantId()
+        let restaurantId = APIConfig.getRestaurantId()
         let orderAndOrderItemFormFields = Checkout.OrderAndOrderItemFormFields(orderItem: orderItem, restaurantId: restaurantId, customerId: customerId)
         let request = Checkout.CreateOrderAndOrderItems.Request(orderAndOrderItemFormFields: orderAndOrderItemFormFields)
         self.interactor?.createOrderAndOrderItems(request: request)

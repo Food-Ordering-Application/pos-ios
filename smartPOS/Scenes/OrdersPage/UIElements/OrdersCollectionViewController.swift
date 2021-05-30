@@ -10,11 +10,11 @@ import BouncyLayout
 import SkeletonView
 import UIKit
 class OrdersCollectionViewController: UIViewController {
-    lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (2 * 10)) / 4), height: 136)
-    
+    private let refreshControl = UIRefreshControl()
     
     // MARK: Setup to show list item by colection view controller using Bouncylayout
 
+    lazy var size = CGSize(width: floor((UIScreen.main.bounds.width - (2 * 10)) / 4), height: 136)
     var insets: UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
     }
@@ -36,6 +36,12 @@ class OrdersCollectionViewController: UIViewController {
         view.dataSource = self
         view.isSkeletonable = true
         view.register(OrderCollectionViewCell.nib, forCellWithReuseIdentifier: OrderCollectionViewCell.identifier)
+        // Add Refresh Control to Table View
+//        if #available(iOS 10.0, *) {
+//            view.refreshControl = refreshControl
+//        } else {
+//            view.addSubview(refreshControl)
+//        }
         return view
     }()
     
@@ -49,16 +55,15 @@ class OrdersCollectionViewController: UIViewController {
         super.viewWillAppear(animated)
         let width = floor((view.bounds.width - (4 * 10)) / 3)
         let height = max(floor((view.bounds.height - (6 * 10)) / 4), 136)
-        print("🤔")
-        print(width, height)
         size = CGSize(width: width, height: height)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setup()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -75,14 +80,13 @@ class OrdersCollectionViewController: UIViewController {
     }
     
     func updateData(orders: Orders?) {
-        guard  let orders = orders else {
+        guard let orders = orders else {
             displayedOrders = []
             return
         }
         displayedOrders = orders
         collectionView.reloadData()
         view.hideSkeleton()
-        
     }
 }
 
@@ -147,7 +151,6 @@ private extension OrdersCollectionViewController {
             }
         }
         
-        
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -163,11 +166,19 @@ private extension OrdersCollectionViewController {
         
         // MARK: Setup notification to fetchOrders from OrdersPageViewController
 
-        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationFetchOrders(_:)), name: Notification.Name("FetchOrders"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationFetchedOrders(_:)), name: Notification.Name("FetchedOrders"), object: nil)
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
     }
-    
-    @objc func didGetNotificationFetchOrders(_ notification: Notification) {
+
+    @objc private func refreshWeatherData(_ sender: Any) {
+        // Fetch Weather Data
+        NotificationCenter.default.post(name: Notification.Name("FetchOrders"), object: nil)
+    }
+
+    @objc func didGetNotificationFetchedOrders(_ notification: Notification) {
         let orders = notification.object as! Orders?
         updateData(orders: orders)
+        refreshControl.endRefreshing()
     }
 }

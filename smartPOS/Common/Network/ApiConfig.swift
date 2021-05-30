@@ -16,7 +16,7 @@ struct APIConfig {
     static let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjA3Njg3NzczNTIiLCJzdWIiOiI3NTIwZmZhOS01MDNlLTRkM2QtODc2Zi1mMTEwMmQzODA4M2YiLCJpc0N1c3RvbWVyIjp0cnVlLCJpYXQiOjE2MjIwNDAwMTgsImV4cCI6MTYyMzI0OTYxOH0.O1qB4uuqzHNkWSMCcEN9puH6U7dGK422mSpPZ2gGXco"
 //    static let restaurantId = "22691c23-22ba-4496-828d-ed07f4d896c2"
     static let restaurantId = "59648039-fb38-4a5a-8ce7-6938b27b76ab" // MARK: Production
-    static let customerId = "3b42a330-4d01-46b8-a288-d52c10d3416d"
+    static let merchantId = "3b42a330-4d01-46b8-a288-d52c10d3416d"
     static let channelName = "orders_\(APIConfig.restaurantId)"
     static let limitDisplay = 20
     static let debugMode = true
@@ -36,6 +36,12 @@ struct APIConfig {
     }
     static func getUserId() ->  String {
         return UserDefaults.standard.string(forKey: "userId") ?? ""
+    }
+    static func setMerchantId(merchantId: String?) {
+        UserDefaults.standard.set(merchantId, forKey: "merchantId")
+    }
+    static func getMerchantId() ->  String {
+        return UserDefaults.standard.string(forKey: "merchantId") ?? ""
     }
     static func setToken(token: String?) {
         UserDefaults.standard.set(token, forKey: "token")
