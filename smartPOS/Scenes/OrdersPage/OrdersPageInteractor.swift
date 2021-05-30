@@ -12,6 +12,14 @@
 
 import PromiseKit
 import UIKit
+import SwiftEventBus
+struct RTDataOrder: Decodable {
+    let order: RTOrderStatus?
+}
+struct RTOrderStatus: Decodable {
+    let id: String?
+    let status: OrderStatus?
+}
 
 protocol OrdersPageBusinessLogic {
     func fetchOrders(request: OrdersPage.FetchOrders.Request)
@@ -28,8 +36,25 @@ final class OrdersPageInteractor: OrdersPageBusinessLogic, OrdersPageDataStore {
     var presenter: OrdersPagePresentationLogic?
     var worker = OrdersPageWorker()
     var orders: [Order]?
-    let debugMode = false
 
+    init() {
+        SwiftEventBus.onBackgroundThread(self, name: "RTOrderStatus") { result in
+            let newOrder = result?.object as? RTOrderStatus
+            guard var orders = self.orders else { return }
+            if let row = orders.index(where: {$0.id == newOrder?.id}) {
+                orders[row].status = newOrder?.status
+                print("🆑 🆑 🆑 🆑 🆑 RTOrderStatus 🆑 🆑 🆑 🆑 🆑")
+                self.orders = orders
+                self.onUpdateOrders(orders: orders)
+            }
+        }
+    }
+    
+    // MARK: Handle for realtime
+    func onUpdateOrders(orders: Orders?) {
+        let response = OrdersPage.FetchOrders.Response(orders: orders, error: nil)
+        presenter?.presentOrders(response: response)
+    }
     // MARK: Fetchs launch to display during page loading
 
     func fetchOrders(request: OrdersPage.FetchOrders.Request) {
@@ -40,9 +65,9 @@ final class OrdersPageInteractor: OrdersPageBusinessLogic, OrdersPageDataStore {
         var response: OrdersPage.FetchOrders.Response!
 
         worker.ordersDataManager.getOrders(restaurantId: restaurantId, query: query, pageNumber: pageNumber).done { ordersRes in
-            print(ordersRes.data)
             if ordersRes.statusCode >= 200 || ordersRes.statusCode <= 300 {
                 let data = ordersRes.data
+                self.orders = data.orders
                 response = OrdersPage.FetchOrders.Response(orders: data.orders, error: nil)
             }
             

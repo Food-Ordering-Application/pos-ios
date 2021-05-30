@@ -296,13 +296,17 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             print("😉 - updateOrder ")
             ordersWorker?.updateOrder(orderToUpdate: order) { orderData in
 
-                guard let order = orderData?.order else {
+                guard var order = orderData?.order else {
                     response = Checkout.UpdateOrder.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not place order."))
                     self.presenter?.presentUpdatedOrder(response: response)
                     return
                 }
-
+                order.cashierId = APIConfig.getUserId()
+                order.restaurantId = APIConfig.getRestaurantId()
                 let orderAndOrderItemData = OrderAndOrderItemData(order: order)
+                print("⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰")
+                print(orderAndOrderItemData)
+                print("⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰")
                 SwiftEventBus.post("POSSyncOrder", sender: orderAndOrderItemData)
                 
                 response = Checkout.UpdateOrder.Response(order: order, error: nil)

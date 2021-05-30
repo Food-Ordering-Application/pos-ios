@@ -29,18 +29,11 @@ final class CSOrderItemTopping: CoreStoreObject {
     
     @Field.Relationship("orderItem")
     var orderItem: CSOrderItem?
-    
-//    @Field.Virtual(
-//        "calculatedTotal",
-//        customGetter: { object, _ in
-//            object.$price.value ?? 0  * Double(object.$quantity.value ?? 0)
-//        }
-//    )
-//    var calculatedTotal: Double
+
 }
 extension CSOrderItemTopping {
     func toStruct() -> OrderItemTopping {
-        return OrderItemTopping(id: id, state: state, name: name, toppingItemId: menuItemTopping?.toppingItem?.id, quantity: quantity, price: price)
+        return OrderItemTopping(id: id, state: state, name: name, toppingItemId: menuItemTopping?.orderItemTopping?.id, quantity: quantity, price: price)
     }
     func calculateTotal() -> Double {
         return menuItemTopping?.customPrice ?? 0 * Double(quantity ?? 1)

@@ -84,6 +84,11 @@ class LoginViewController: UIViewController {
         fPassword.format = format
         fPassword.dataSource = self
         fPassword.delegate = self
+        
+        
+        // MARK: Do not hard code
+        fUsername.text = "staff123"
+        fPassword.text = "123123"
     }
 
     @IBAction func onLogin(_ sender: Any) {
@@ -94,6 +99,7 @@ class LoginViewController: UIViewController {
         var errorString = ""
         btnLogin.startLoading()
         guard let username = fUsername.text, let password = fPassword.text else { return }
+        // MARK: Do not hard code
         let restaurantId = APIConfig.getRestaurantId()
         worker?.userDataManager.login(username: username, password: password, restaurantId: restaurantId, APIConfig.debugMode).done { loginRes in
             print("login Response")
@@ -105,6 +111,8 @@ class LoginViewController: UIViewController {
                 }
                 guard let user = data.user else { return }
                 APIConfig.setUserId(userId: user.id)
+                
+                // MARK: Do not hard code
                 APIConfig.setRestaurantId(restaurantId: user.restaurantId)
             } else {
                 errorString = "Usernam/Password is invalid."

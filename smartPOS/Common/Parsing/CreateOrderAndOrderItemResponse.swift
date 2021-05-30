@@ -32,8 +32,8 @@ struct OrderAndOrderItemData: Decodable {
 struct NestedOrder: Decodable {
     let id: String?
     let status: OrderStatus?
-    let cashierId: String?
-    let restaurantId: String?
+    var cashierId: String? = APIConfig.getUserId()
+    var restaurantId: String?  = APIConfig.getRestaurantId()
     let paymentType: PaymentType?
     let serviceFee: Float?
     let subTotal: Double?

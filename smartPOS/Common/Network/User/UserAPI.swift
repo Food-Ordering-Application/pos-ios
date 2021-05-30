@@ -31,7 +31,7 @@ extension UserAPI: TargetType, AccessTokenAuthorizable {
         case .login:
             return "user/pos/login"
         case .verifyKey:
-            return "​​user​/pos​/verify-app-key"
+            return "user/pos/verify-app-key"
         }
     }
 

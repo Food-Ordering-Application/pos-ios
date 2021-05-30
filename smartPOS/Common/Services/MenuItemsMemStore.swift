@@ -22,11 +22,10 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     static var toppingGroups: [ToppingGroupData]?
     
     init() {
-      
         SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenu") { _ in
 //            if NoInternetService.isReachable() {
 //                print("🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑")
-//                CSWorker.clearStoreLocalMenu()
+//            CSWorker.clearStoreLocalMenu()
 //            }
             let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
             // Do somthing after 10.5 seconds
@@ -119,12 +118,12 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
 //            print(menuItem?.toppingGroups.map { (csToppingGroup) -> ToppingGroup in
 //                csToppingGroup.toStruct()
 //            })
-            print(menuItem?.menuItemToppings.map({ (csMenuItemToppings) -> ToppingItem in
+            print(menuItem?.menuItemToppings.map { (csMenuItemToppings) -> ToppingItem in
                 (csMenuItemToppings.toppingItem?.toStruct())!
-            }))
-            print(menuItem?.menuItemToppings.map({ (csMenuItemToppings) -> ToppingGroup in
+            })
+            print(menuItem?.menuItemToppings.map { (csMenuItemToppings) -> ToppingGroup in
                 (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
-            }))
+            })
             print("---------------------------------------------------------------")
             print(menuItemId)
             print(toppingGroups)

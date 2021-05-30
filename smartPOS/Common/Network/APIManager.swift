@@ -30,12 +30,12 @@ struct APIManager: GeneralAPI {
 
         let loggerConfig = NetworkLoggerPlugin.Configuration(logOptions: .verbose)
         let networkLogger = NetworkLoggerPlugin(configuration: loggerConfig)
-//        let provider = test ? (MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(0.0), plugins: [networkLogger])) :
-//            (debugMode ? MoyaProvider<Target>(plugins: [networkLogger, authPlugin]) : MoyaProvider<Target>(plugins: [authPlugin]))
-
+        let provider = test ? (MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(0.0), plugins: [networkLogger])) :
+            (debugMode ? MoyaProvider<Target>(plugins: [networkLogger, authPlugin]) : MoyaProvider<Target>(plugins: [authPlugin]))
+//        SwiftEventBus.post("Unauthorized")
         
         // MARK: Api for testing
-        let provider = MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(0.0), plugins: [networkLogger])
+//        let provider = MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(0.0), plugins: [networkLogger])
         /// ------------------------------
         return Promise { seal in
             provider.request(target) { result in
@@ -46,7 +46,6 @@ struct APIManager: GeneralAPI {
                     decoder.dateDecodingStrategy = .customISO8601
                     do {
                         print("decoder")
-//                        print(response.data)
                         let results = try decoder.decode(ReturnedObject.self, from: response.data)
                         seal.fulfill(results)
                     } catch {

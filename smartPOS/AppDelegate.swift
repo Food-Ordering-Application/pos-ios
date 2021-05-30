@@ -8,16 +8,16 @@
 
 import CoreData
 import IQKeyboardManagerSwift
+import PusherSwift
 import PushNotifications
 import SlideMenuControllerSwift
+import SwiftEventBus
 import UIKit
-import PusherSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     var window: UIWindow?
   
-   
     let pushNotifications = PushNotifications.shared
     // You must retain a strong reference to the Pusher instance
     var pusher: Pusher!
@@ -30,10 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
-        
-        
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+        center.requestAuthorization(options: [.alert, .sound]) { _, error in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -45,34 +43,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
         // Override point for customization after application launch.
         self.subscribeToNoInternetService()
         
-        
-        setupPushNotifications()
+        self.setupPushNotifications()
         
         let options = PusherClientOptions(
-          host: .cluster("ap1")
+            host: .cluster("ap1")
         )
 
         pusher = Pusher(
-          key: "29ff5ecb5e2501177186",
-          options: options
+            key: "29ff5ecb5e2501177186",
+            options: options
         )
 
         pusher.delegate = self
 
         // subscribe to channel
-        let channel = pusher.subscribe(APIConfig.channelName)
+        let channel = self.pusher.subscribe(APIConfig.channelName)
 
         // bind a callback to handle an event
-        let _ = channel.bind(eventName: "order-status", eventCallback: { (event: PusherEvent) in
-            if let data = event.data {
-              // you can parse the data as necessary
-                print("🔔 order-status",data)
+        _ = channel.bind(eventName: "order-status", eventCallback: { (event: PusherEvent) -> Void in
+            guard let json: String = event.data,
+                  let jsonData: Data = json.data(using: .utf8)
+            else {
+                print("Could not convert JSON string to data")
+                return
             }
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .customISO8601
+            let decoded = try? decoder.decode(RTDataOrder.self, from: jsonData)
+            guard let orderUpdate = decoded else {
+                print("Could not decode price update")
+                return
+            }
+            print("🔔 order-status", orderUpdate)
+            SwiftEventBus.post("RTOrderStatus", sender: orderUpdate.order)
+            
         })
 
-        pusher.connect()
+        self.pusher.connect()
 
         // MARK: Need have api to check available id
+
 //        self.createActivateCodeView()
         
         if APIConfig.getToken() == "" {
@@ -81,14 +91,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
             self.createMenuView()
         }
 //      self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
-        
+       
+        // Triger event when callApi got code 401
+        SwiftEventBus.onMainThread(self, name: "Unauthorized") { _ in
+            self.createLoginView()
+        }
         return true
     }
     
     // print Pusher debug messages
     func debugLog(message: String) {
-      print(message)
+        print(message)
     }
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         self.pushNotifications.registerDeviceToken(deviceToken)
     }
@@ -107,14 +122,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-
     }
   
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
   
-   
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
@@ -122,7 +135,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
         Deeplinker.checkDeepLink()
     }
 
-  
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
@@ -174,7 +186,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
         // todo - rest of the services
     }
 
-    
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: URL = {
