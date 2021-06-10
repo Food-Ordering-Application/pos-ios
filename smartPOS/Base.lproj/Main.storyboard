@@ -1335,7 +1335,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tIc-5U-Uin">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="q7O-uC-7Bw">
                                         <rect key="frame" x="0.0" y="88" width="306" height="48"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOk-S3-UHB" customClass="LoadyButton" customModule="Loady">
@@ -1362,7 +1362,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRy-iC-jqe" customClass="LoadyButton" customModule="Loady">
-                                                <rect key="frame" x="108" y="0.0" width="198" height="48"/>
+                                                <rect key="frame" x="104" y="0.0" width="202" height="48"/>
                                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="7cK-1O-Vu6"/>
@@ -1385,20 +1385,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="iRy-iC-jqe" secondAttribute="trailing" id="4ou-4e-bJc"/>
-                                            <constraint firstItem="kOk-S3-UHB" firstAttribute="top" secondItem="tIc-5U-Uin" secondAttribute="top" id="8Jy-BC-0nD"/>
-                                            <constraint firstItem="iRy-iC-jqe" firstAttribute="leading" secondItem="kOk-S3-UHB" secondAttribute="trailing" constant="8" id="Qcy-NT-xAQ"/>
-                                            <constraint firstItem="kOk-S3-UHB" firstAttribute="leading" secondItem="tIc-5U-Uin" secondAttribute="leading" id="aS9-KB-IEO"/>
-                                            <constraint firstItem="iRy-iC-jqe" firstAttribute="top" secondItem="tIc-5U-Uin" secondAttribute="top" id="dNt-Yl-eeq"/>
-                                            <constraint firstAttribute="bottom" secondItem="iRy-iC-jqe" secondAttribute="bottom" id="knf-Jn-Cet"/>
-                                            <constraint firstAttribute="bottom" secondItem="kOk-S3-UHB" secondAttribute="bottom" id="nTf-WG-Cem"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
+                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ubb-F3-rhd" customClass="LoadyButton" customModule="Loady">
                                         <rect key="frame" x="0.0" y="169" width="306" height="48"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -1798,7 +1785,7 @@
                     <connections>
                         <outlet property="addressAreaView" destination="PWZ-TV-a5T" id="DtK-SU-ftQ"/>
                         <outlet property="btnAccept" destination="iRy-iC-jqe" id="8s2-fS-wPZ"/>
-                        <outlet property="btnAreaView" destination="tIc-5U-Uin" id="glG-hb-I6x"/>
+                        <outlet property="btnAreaView" destination="q7O-uC-7Bw" id="ojK-Co-sJn"/>
                         <outlet property="btnComplete" destination="Ubb-F3-rhd" id="eIL-e5-Kab"/>
                         <outlet property="btnReject" destination="kOk-S3-UHB" id="cBg-g2-dq8"/>
                         <outlet property="lbDeliveryAddress" destination="j7n-fW-SKQ" id="jQj-NJ-IqG"/>
@@ -1812,11 +1799,117 @@
                         <outlet property="paymentAreaView" destination="B4i-fZ-A5d" id="R3g-5T-AEf"/>
                         <outlet property="statusAreaView" destination="2DR-7j-kOt" id="PN9-Dg-2qL"/>
                         <outlet property="timeAreaView" destination="b9w-jI-jKV" id="zt3-FH-Vzc"/>
+                        <segue destination="pZa-XR-cBH" kind="popoverPresentation" identifier="RejectionViewController" popoverAnchorView="kOk-S3-UHB" id="aii-VI-SpZ">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jz3-KL-gfa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2265" y="3040"/>
+        </scene>
+        <!--Rejection View Controller-->
+        <scene sceneID="gmr-OO-Qhk">
+            <objects>
+                <viewController id="pZa-XR-cBH" customClass="RejectionViewController" customModule="smartPOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Umd-bo-NP2">
+                        <rect key="frame" x="0.0" y="0.0" width="338" height="690"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lý do huỷ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GU-xd-2hp">
+                                <rect key="frame" x="129" y="16" width="80.5" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="5dE-hw-9h7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LCl-ch-0xd">
+                                <rect key="frame" x="16" y="77" width="306" height="100"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="i8z-0U-63X">
+                                        <rect key="frame" x="0.0" y="0.0" width="306" height="100"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="S9O-vo-xo2"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ghi chú" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vX-9h-Zu6">
+                                <rect key="frame" x="24" y="56" width="298" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="cMM-vz-73d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="05n-vc-CzU">
+                                <rect key="frame" x="16" y="218" width="306" height="392"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tD6-2X-CMG">
+                                <rect key="frame" x="16" y="626" width="306" height="48"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="xQ1-8V-Rca"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
+                                <state key="normal" title="Xác nhận">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="readyRejectHandler:" destination="pZa-XR-cBH" eventType="touchUpInside" id="qAj-6N-k7T"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chọn món ăn đã hết" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7y-lH-Gbg">
+                                <rect key="frame" x="24" y="193" width="290" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="b6m-Ks-Aks"/>
+                                    <constraint firstAttribute="height" constant="21" id="qI0-bb-Ybv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Jze-qS-ont"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2vX-9h-Zu6" firstAttribute="top" secondItem="7GU-xd-2hp" secondAttribute="bottom" constant="16" id="2Xa-7X-IKr"/>
+                            <constraint firstItem="Jze-qS-ont" firstAttribute="bottom" secondItem="tD6-2X-CMG" secondAttribute="bottom" constant="16" id="4tl-ow-68N"/>
+                            <constraint firstItem="Jze-qS-ont" firstAttribute="trailing" secondItem="2vX-9h-Zu6" secondAttribute="trailing" constant="16" id="8dU-yw-9gg"/>
+                            <constraint firstItem="05n-vc-CzU" firstAttribute="centerX" secondItem="Umd-bo-NP2" secondAttribute="centerX" id="BXA-QU-3aV"/>
+                            <constraint firstItem="7GU-xd-2hp" firstAttribute="centerX" secondItem="Umd-bo-NP2" secondAttribute="centerX" id="G1x-fP-gVS"/>
+                            <constraint firstItem="t7y-lH-Gbg" firstAttribute="centerX" secondItem="Umd-bo-NP2" secondAttribute="centerX" id="LGj-zR-GR7"/>
+                            <constraint firstItem="LCl-ch-0xd" firstAttribute="centerX" secondItem="Umd-bo-NP2" secondAttribute="centerX" id="TfN-0K-5YG"/>
+                            <constraint firstItem="t7y-lH-Gbg" firstAttribute="leading" secondItem="Jze-qS-ont" secondAttribute="leading" constant="24" id="Wud-Zk-7yb"/>
+                            <constraint firstItem="Jze-qS-ont" firstAttribute="trailing" secondItem="tD6-2X-CMG" secondAttribute="trailing" constant="16" id="a23-Wv-iWx"/>
+                            <constraint firstItem="7GU-xd-2hp" firstAttribute="top" secondItem="Jze-qS-ont" secondAttribute="top" constant="16" id="hyL-vk-ATI"/>
+                            <constraint firstItem="t7y-lH-Gbg" firstAttribute="top" secondItem="LCl-ch-0xd" secondAttribute="bottom" constant="16" id="jSK-qo-V9P"/>
+                            <constraint firstItem="05n-vc-CzU" firstAttribute="leading" secondItem="Jze-qS-ont" secondAttribute="leading" constant="16" id="mS5-yH-b9m"/>
+                            <constraint firstItem="tD6-2X-CMG" firstAttribute="top" secondItem="05n-vc-CzU" secondAttribute="bottom" constant="16" id="o6X-od-y8f"/>
+                            <constraint firstItem="tD6-2X-CMG" firstAttribute="leading" secondItem="Jze-qS-ont" secondAttribute="leading" constant="16" id="qlq-hW-ltI"/>
+                            <constraint firstItem="05n-vc-CzU" firstAttribute="top" secondItem="t7y-lH-Gbg" secondAttribute="bottom" constant="4" id="swf-HV-XhV"/>
+                            <constraint firstItem="LCl-ch-0xd" firstAttribute="leading" secondItem="Jze-qS-ont" secondAttribute="leading" constant="16" id="vDH-wh-DW6"/>
+                            <constraint firstItem="LCl-ch-0xd" firstAttribute="top" secondItem="2vX-9h-Zu6" secondAttribute="bottom" id="xiI-aC-18G"/>
+                            <constraint firstItem="2vX-9h-Zu6" firstAttribute="leading" secondItem="Jze-qS-ont" secondAttribute="leading" constant="24" id="zBC-8Y-Kmq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnReadyReject" destination="tD6-2X-CMG" id="3xQ-Sk-MV1"/>
+                        <outlet property="tableView" destination="05n-vc-CzU" id="OKv-SK-piD"/>
+                        <outlet property="tvNote" destination="i8z-0U-63X" id="gyA-zR-Dne"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jUP-f9-chS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2720" y="3040"/>
         </scene>
         <!--Orders Collection View Controller-->
         <scene sceneID="xNZ-ek-14H">
@@ -1849,6 +1942,9 @@
         <image name="ic_print" width="100" height="100"/>
         <image name="ic_scan_stock" width="50" height="50"/>
         <image name="ic_tracking" width="100" height="100"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -15,6 +15,8 @@ import UIKit
 protocol OrderDetailBusinessLogic {
     func getOrder(request: OrderDetail.GetOrder.Request)
     func confirmOrder(request: OrderDetail.ConfirmOrder.Request)
+    func rejectOrder(request: OrderDetail.RejectOrder.Request)
+    func completeOrder(request: OrderDetail.CompleteOrder.Request)
 }
 
 protocol OrderDetailDataStore {
@@ -64,5 +66,42 @@ class OrderDetailInteractor: OrderDetailBusinessLogic, OrderDetailDataStore {
         }.finally {
             self.presenter?.presentConfirmedOrder(response: response)
         }
+    }
+
+    func rejectOrder(request: OrderDetail.RejectOrder.Request) {
+        var response: OrderDetail.RejectOrder.Response!
+        guard let orderId = request.id else {
+            response = OrderDetail.RejectOrder.Response(error: OrderErrors.couldNotConfirmOrder(error: "OrderId is invalid."))
+            presenter?.presentRejectedOrder(response: response)
+            return
+        }
+
+        worker.ordersDataManager.voidOrder(orderId: orderId, orderItemIds: request.orderItemIds, cashierNote: request.cashierNote, debugMode).done { orderRes in
+            if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
+                response = OrderDetail.RejectOrder.Response(error: nil)
+            }
+        }.catch { error in
+            response = OrderDetail.RejectOrder.Response(error: OrderErrors.couldNotConfirmOrder(error: error.localizedDescription))
+        }.finally {
+            self.presenter?.presentRejectedOrder(response: response)
+        }
+    }
+    func completeOrder(request: OrderDetail.CompleteOrder.Request) {
+        var response: OrderDetail.CompleteOrder.Response!
+//        guard let orderId = request.id else {
+//            response = OrderDetail.CompleteOrder.Response(error: OrderErrors.couldNotConfirmOrder(error: "OrderId is invalid."))
+//            presenter?.presentConfirmedOrder(response: response)
+//            return
+//        }
+//
+//        worker.ordersDataManager.voidOrder(orderId: orderId, orderItemIds: request.orderItemIds, cashierNote: request.cashierNote, debugMode).done { orderRes in
+//            if orderRes.statusCode >= 200 || orderRes.statusCode <= 300 {
+//                response = OrderDetail.CompleteOrder.Response(error: nil)
+//            }
+//        }.catch { error in
+//            response = OrderDetail.CompleteOrder.Response(error: OrderErrors.couldNotConfirmOrder(error: error.localizedDescription))
+//        }.finally {
+//            self.presenter?.presentConfirmedOrder(response: response)
+//        }
     }
 }

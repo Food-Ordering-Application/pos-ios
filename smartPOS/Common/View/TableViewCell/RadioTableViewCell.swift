@@ -51,4 +51,10 @@ class RadioTableViewCell: UITableViewCell {
             self.lbPrice?.text = String(format: "%.0f",topping.price).currency()
         }
     }
+    open func setData(_ data: OrderItem?) {
+        if let orderItem = data {
+            self.lbName?.text = orderItem.name
+            self.lbPrice?.text = String(format: "%.0f",orderItem.price ?? 0.0).currency()
+        }
+    }
 }

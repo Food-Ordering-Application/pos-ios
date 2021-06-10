@@ -209,7 +209,10 @@
 		9BFE7420265425ED0024CC65 /* OrdersLocalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE741A265425EC0024CC65 /* OrdersLocalRouter.swift */; };
 		9BFE7428265431390024CC65 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE7427265431390024CC65 /* Formatter.swift */; };
 		9F8FB053ABB2B4B50BFA882F /* Pods_smartPOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4979C1A7B297667E44D77BB1 /* Pods_smartPOS.framework */; };
+		AF608B4E26728469002D6C45 /* RejectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF608B4D26728469002D6C45 /* RejectionViewController.swift */; };
 		AF8AF80D267236DD00A4BC04 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AF80C267236DD00A4BC04 /* UIStoryboard.swift */; };
+		AFC95C2326726F0200019BD0 /* VoidOrder.json in Resources */ = {isa = PBXBuildFile; fileRef = AFC95C2226726F0200019BD0 /* VoidOrder.json */; };
+		AFC95C2826726F7900019BD0 /* VoidOrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC95C2726726F7900019BD0 /* VoidOrderResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -441,7 +444,10 @@
 		9BFE7419265425EC0024CC65 /* OrdersLocalModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersLocalModels.swift; sourceTree = "<group>"; };
 		9BFE741A265425EC0024CC65 /* OrdersLocalRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersLocalRouter.swift; sourceTree = "<group>"; };
 		9BFE7427265431390024CC65 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
+		AF608B4D26728469002D6C45 /* RejectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectionViewController.swift; sourceTree = "<group>"; };
 		AF8AF80C267236DD00A4BC04 /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
+		AFC95C2226726F0200019BD0 /* VoidOrder.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = VoidOrder.json; sourceTree = "<group>"; };
+		AFC95C2726726F7900019BD0 /* VoidOrderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidOrderResponse.swift; sourceTree = "<group>"; };
 		C2D2C7F49934219DF4A8F720 /* Pods-smartPOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS.release.xcconfig"; path = "Target Support Files/Pods-smartPOS/Pods-smartPOS.release.xcconfig"; sourceTree = "<group>"; };
 		E26DE8D32A94BA2C1C722DE7 /* Pods-smartPOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOSTests.release.xcconfig"; path = "Target Support Files/Pods-smartPOSTests/Pods-smartPOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F83F18F6B29A4C7F9E835502 /* Pods-smartPOS-smartPOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS-smartPOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-smartPOS-smartPOSUITests/Pods-smartPOS-smartPOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -727,6 +733,7 @@
 			isa = PBXGroup;
 			children = (
 				9B8A38FE26621F8600AB0800 /* ConfirmOrderResponse.swift */,
+				AFC95C2726726F7900019BD0 /* VoidOrderResponse.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -917,6 +924,7 @@
 				9B33123926550C1500CDB8A2 /* POSStatusView.xib */,
 				9B33123E26550C2D00CDB8A2 /* POSStatusView.swift */,
 				9B331243265517AD00CDB8A2 /* ic_syncing.gif */,
+				AF608B4D26728469002D6C45 /* RejectionViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1015,6 +1023,7 @@
 				9B713FB7263ECE1E005BD78D /* ManipulateOrderItem.json */,
 				9B331297265655C700CDB8A2 /* CSSyncOrder.json */,
 				9B8A39132662254500AB0800 /* ConfirmOrder.json */,
+				AFC95C2226726F0200019BD0 /* VoidOrder.json */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1236,6 +1245,7 @@
 				9B96823A261B559200D1980B /* Poppins-Regular.ttf in Resources */,
 				9B968236261B559200D1980B /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				9B96823C261B559200D1980B /* Poppins-Bold.ttf in Resources */,
+				AFC95C2326726F0200019BD0 /* VoidOrder.json in Resources */,
 				9B968230261B559200D1980B /* Poppins-ThinItalic.ttf in Resources */,
 				9B08712C262868A100DD465C /* RadioTableViewCell.xib in Resources */,
 				9B331244265517AD00CDB8A2 /* ic_syncing.gif in Resources */,
@@ -1444,11 +1454,13 @@
 				715283072213143A004602FF /* AppDelegate.swift in Sources */,
 				9BC2F84E261C51CC00D5CFBC /* DataTableViewCell.swift in Sources */,
 				9B9926EE262681EF00B6FDF9 /* PromotionCampaign.swift in Sources */,
+				AFC95C2826726F7900019BD0 /* VoidOrderResponse.swift in Sources */,
 				9BC2F861261C51DC00D5CFBC /* UIView.swift in Sources */,
 				9B5C543C262ABC8600D7120A /* OrdersPageRouter.swift in Sources */,
 				9BCF66012626AA64008841BA /* MenuItemDetailView.swift in Sources */,
 				9BC2F85E261C51DC00D5CFBC /* UITableViewExtension.swift in Sources */,
 				9B6792CE263D714500B37B79 /* CreateOrderAndOrderItemResponse.swift in Sources */,
+				AF608B4E26728469002D6C45 /* RejectionViewController.swift in Sources */,
 				9B3A76AF2650BB9D005A285E /* CSMenuItemToppingsResponce.swift in Sources */,
 				9BC2F85B261C51DC00D5CFBC /* UIApplication.swift in Sources */,
 				9B94D108264EAAF600502825 /* CSOrderItem.swift in Sources */,

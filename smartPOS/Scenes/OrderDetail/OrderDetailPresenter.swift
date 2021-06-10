@@ -15,14 +15,16 @@ import UIKit
 protocol OrderDetailPresentationLogic {
     func presentOrder(response: OrderDetail.GetOrder.Response)
     func presentConfirmedOrder(response: OrderDetail.ConfirmOrder.Response)
+    func presentRejectedOrder(response: OrderDetail.RejectOrder.Response)
+    func presentCompletedOrder(response: OrderDetail.CompleteOrder.Response)
 }
 
 class OrderDetailPresenter: OrderDetailPresentationLogic {
-  weak var viewController: OrderDetailDisplayLogic?
-  
-  // MARK: Do present Order maybe some needed attr
-  
-  func presentOrder(response: OrderDetail.GetOrder.Response) {
+    weak var viewController: OrderDetailDisplayLogic?
+
+    // MARK: Do present Order maybe some needed attr
+
+    func presentOrder(response: OrderDetail.GetOrder.Response) {
 //    let date = (launch.launchDateUTC).fromUTCToLocalDateTime()
 //    let title = launch.missionName
 //    var status = FlightStatus.upcoming
@@ -38,14 +40,22 @@ class OrderDetailPresenter: OrderDetailPresentationLogic {
 //    let viewModel = SingleLaunchPage.GetLaunch.ViewModel(displayedLaunch: displayedLaunch)
 //    viewController?.displayLaunch(viewModel: viewModel)
 //
-    
-    let separatedNestedOrder = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: response.order)
-    let viewModel = OrderDetail.GetOrder.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
-    viewController?.displayOrder(viewModel: viewModel)
-  
-  }
+
+        let separatedNestedOrder = CheckoutPresenter.separateOrderAndOrderItem(nestedOrder: response.order)
+        let viewModel = OrderDetail.GetOrder.ViewModel(order: separatedNestedOrder.order, orderItems: separatedNestedOrder.orderItems, error: response.error)
+        viewController?.displayOrder(viewModel: viewModel)
+    }
+
     func presentConfirmedOrder(response: OrderDetail.ConfirmOrder.Response) {
         let viewModel = OrderDetail.ConfirmOrder.ViewModel(error: response.error)
         viewController?.displayConfirmedOrder(viewModel: viewModel)
+    }
+    func presentRejectedOrder(response: OrderDetail.RejectOrder.Response) {
+        let viewModel = OrderDetail.RejectOrder.ViewModel(error: response.error)
+        viewController?.displayRejectedOrder(viewModel: viewModel)
+    }
+    func presentCompletedOrder(response: OrderDetail.CompleteOrder.Response) {
+        let viewModel = OrderDetail.CompleteOrder.ViewModel(error: response.error)
+        viewController?.displayCompletedOrder(viewModel: viewModel)
     }
 }

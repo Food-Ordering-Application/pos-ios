@@ -13,46 +13,45 @@
 import UIKit
 
 @objc protocol OrderDetailRoutingLogic {
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+    // func routeToSomewhere(segue: UIStoryboardSegue?)
 }
 
 protocol OrderDetailDataPassing {
-  var dataStore: OrderDetailDataStore? { get }
+    var dataStore: OrderDetailDataStore? { get }
 }
 
-class OrderDetailRouter: NSObject, OrderDetailRoutingLogic, OrderDetailDataPassing
-{
-  weak var viewController: OrderDetailViewController?
-  var dataStore: OrderDetailDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+class OrderDetailRouter: NSObject, OrderDetailRoutingLogic, OrderDetailDataPassing {
+    weak var viewController: OrderDetailViewController?
+    var dataStore: OrderDetailDataStore?
 
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: OrderDetailViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: OrderDetailDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    // MARK: Routing
+
+    // func routeToSomewhere(segue: UIStoryboardSegue?)
+    // {
+    //  if let segue = segue {
+    //    let destinationVC = segue.destination as! SomewhereViewController
+    //    var destinationDS = destinationVC.router!.dataStore!
+    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+    //  } else {
+    //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
+    //    var destinationDS = destinationVC.router!.dataStore!
+    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
+    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
+    //  }
+    // }
+
+    // MARK: Navigation
+
+    // func navigateToSomewhere(source: OrderDetailViewController, destination: SomewhereViewController)
+    // {
+    //  source.show(destination, sender: nil)
+    // }
+
+    // MARK: Passing data
+
+    // func passDataToSomewhere(source: OrderDetailDataStore, destination: inout SomewhereDataStore)
+    // {
+    //  destination.name = source.name
+    // }
 }

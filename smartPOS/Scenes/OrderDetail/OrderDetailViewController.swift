@@ -17,13 +17,15 @@ import UIKit
 protocol OrderDetailDisplayLogic: class {
     func displayOrder(viewModel: OrderDetail.GetOrder.ViewModel)
     func displayConfirmedOrder(viewModel: OrderDetail.ConfirmOrder.ViewModel)
+    func displayRejectedOrder(viewModel: OrderDetail.RejectOrder.ViewModel)
+    func displayCompletedOrder(viewModel: OrderDetail.CompleteOrder.ViewModel)
 }
 
-class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, EmptyDataSetSource, EmptyDataSetDelegate  {
+class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, EmptyDataSetSource, EmptyDataSetDelegate, UIPopoverPresentationControllerDelegate, RejectionViewControllerDelegate {
     var interactor: OrderDetailBusinessLogic?
     var router: (NSObjectProtocol & OrderDetailRoutingLogic & OrderDetailDataPassing)?
-    
-    @IBOutlet var btnAreaView: UIView!
+
+    @IBOutlet var btnAreaView: UIStackView!
     @IBOutlet var orderItemsTableView: UITableView!
     @IBOutlet var btnAccept: LoadyButton! {
         didSet {
@@ -41,14 +43,15 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
             self.btnReject.setAnimation(LoadyAnimationType.topLine())
         }
     }
-    @IBOutlet weak var btnComplete: LoadyButton! {
+
+    @IBOutlet var btnComplete: LoadyButton! {
         didSet {
             self.btnComplete.layer.cornerRadius = 8
             self.btnComplete.setAnimation(LoadyAnimationType.indicator(with: .init(indicatorViewStyle: .light)))
             self.btnComplete.isHidden = true
         }
     }
-    
+
     @IBOutlet var statusAreaView: UIView! {
         didSet {
             self.statusAreaView.isHidden = true
@@ -89,6 +92,7 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
 
     var order: Order?
     var orderItems: [OrderItem] = []
+    var rejectionData: RejectionDataModel?
 
     // MARK: Object lifecycle
 
@@ -102,28 +106,40 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
         setup()
     }
 
-    // MARK: Routing
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
-
     // MARK: View lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupLayout()
         self.setupTableView()
-//        self.getOrder(for: "ORDER-009")
     }
 
     override func viewDidAppear(_ animated: Bool) {
         self.setupLayout()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RejectionViewController" {
+            if let controller = segue.destination as? RejectionViewController {
+                controller.orderItems = self.orderItems
+                controller.delegate = self
+                controller.popoverPresentationController?.delegate = self
+            }
+        }
+    }
+
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+
+    func rejectionData(data: RejectionDataModel) {
+        self.rejectionData = data
+        self.setupReadyRejectOrder()
+    }
+
+    func setupReadyRejectOrder() {
+        self.btnReject.tag = 1
+        self.btnAccept.isHidden = true
     }
 
     @IBAction func confirmOrder(_ sender: Any) {
@@ -134,15 +150,19 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
         }
     }
 
-    @IBAction func rejectOrder(_ sender: Any) {
+    @IBAction func rejectOrder(_ sender: UIButton) {
         print("reject my order pls")
-        if self.btnReject.loadingIsShowing() {
-            self.btnReject.stopLoading()
+        if sender.tag == 1 {
+            if let orderId = order?.id {
+                self.btnReject.startLoading()
+                self.rejectOrder(for: orderId, data: self.rejectionData)
+            }
             return
         }
-        self.btnReject.startLoading()
+
+        self.performSegue(withIdentifier: "RejectionViewController", sender: self.orderItems)
     }
-   
+
     @IBAction func completeOrder(_ sender: Any) {
         print("complete my order pls")
         if let orderId = order?.id {
@@ -152,10 +172,7 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
         }
         self.btnReject.startLoading()
     }
-    
-    
 }
-
 
 // MARK: Display order
 
@@ -200,7 +217,7 @@ extension OrderDetailViewController {
         self.lbTotal!.text = String(format: "%.0f", order.grandTotal ?? 0.0).currency()
         self.lbDeliveryAddress!.text = "Chưa có địa chỉ giao hàng"
         self.lbDriverAvailabel!.text = "Chưa có tài xế hoạt động gần đây"
-        
+
         /// Need to show or hide note area in here when having data
         self.noteAreaView.isHidden = true
         self.btnAreaView.isHidden = false
@@ -208,12 +225,12 @@ extension OrderDetailViewController {
         self.timeAreaView.isHidden = true
         if let note = order.note, note != "" {
             self.noteAreaView.isHidden = false
-            lbNote.text = note
+            self.lbNote.text = note
         }
         if let deliver = order.delivery {
             self.lbDeliveryAddress!.text = deliver.customerAddress
         }
-        
+
         if let status = order.status {
             switch status {
             case .ordered:
@@ -227,7 +244,6 @@ extension OrderDetailViewController {
                 self.btnComplete.isHidden = true
             }
         }
-        
     }
 
     func setupOrderView(isHidden: Bool = true) {
@@ -242,8 +258,6 @@ extension OrderDetailViewController {
         self.orderItems = orderItems ?? []
         self.orderItemsTableView.reloadData()
     }
-    
-    
 }
 
 // MARK: Display confirmed order
@@ -277,12 +291,15 @@ extension OrderDetailViewController {
 
 // MARK: Display rejected order
 
- extension OrderDetailViewController {
-    func rejectOrder(for id: String){
-      
+extension OrderDetailViewController {
+    func rejectOrder(for id: String, data: RejectionDataModel?) {
+        let request = OrderDetail.RejectOrder.Request(id: id, orderItemIds: data?.orderItemIds, cashierNote: data?.note)
+        self.interactor?.rejectOrder(request: request)
     }
-    func displayRejectedOrder(viewModel: OrderDetail.CompleteOrder.ViewModel) {
+
+    func displayRejectedOrder(viewModel: OrderDetail.RejectOrder.ViewModel) {
         // MARK: Update Status and Hide Button Action
+
         if self.btnReject.loadingIsShowing() {
             self.btnReject.stopLoading()
         }
@@ -295,22 +312,23 @@ extension OrderDetailViewController {
 
         self.updateRejectedOrder()
     }
-    func updateRejectedOrder() {
-        
-    }
- }
 
+    func updateRejectedOrder() {
+        self.btnAreaView.isHidden = true
+        self.btnAccept.isHidden = false
+    }
+}
 
 // MARK: Display rejected order
 
- extension OrderDetailViewController {
-    func completeOrder(for id: String){
+extension OrderDetailViewController {
+    func completeOrder(for id: String) {}
 
-    }
     func displayCompletedOrder(viewModel: OrderDetail.CompleteOrder.ViewModel) {
         // MARK: Update Status and Hide Button Action
-        
+
         // MARK: Update Status and Hide Button Action
+
         if self.btnComplete.loadingIsShowing() {
             self.btnComplete.stopLoading()
         }
@@ -323,10 +341,9 @@ extension OrderDetailViewController {
 
         self.updateCompletedOrder()
     }
-    func updateCompletedOrder() {
-        
-    }
- }
+
+    func updateCompletedOrder() {}
+}
 
 // MARK: Setup Notification to receive data from Another View Controller
 

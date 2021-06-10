@@ -9,6 +9,8 @@ import UIKit
 
 class RightViewController : UIViewController {
     
+    @IBAction func btnReadyReject(_ sender: Any) {
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
     }

@@ -17,7 +17,7 @@ enum OrderDetail {
 
     enum GetOrder {
         struct Request {
-           var id: String?
+            var id: String?
         }
 
         struct Response {
@@ -30,11 +30,11 @@ enum OrderDetail {
             var orderItems: [OrderItem]?
             var error: OrderErrors?
         }
-    
     }
+
     enum ConfirmOrder {
         struct Request {
-           var id: String?
+            var id: String?
         }
 
         struct Response {
@@ -45,9 +45,10 @@ enum OrderDetail {
             var error: OrderErrors?
         }
     }
+
     enum CompleteOrder {
         struct Request {
-           var id: String?
+            var id: String?
         }
 
         struct Response {
@@ -58,9 +59,12 @@ enum OrderDetail {
             var error: OrderErrors?
         }
     }
+
     enum RejectOrder {
         struct Request {
-           var id: String?
+            var id: String?
+            var orderItemIds: [String?]?
+            var cashierNote: String?
         }
 
         struct Response {

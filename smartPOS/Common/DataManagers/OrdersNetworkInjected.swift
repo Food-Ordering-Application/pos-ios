@@ -30,9 +30,9 @@ protocol OrdersDataManager: class {
     func createOrderAndOrderItem(orderAndOrderItemFormFields: Checkout.OrderAndOrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse>
     func createOrderItem(orderId: String, orderItemFormFields: Checkout.OrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderItemResponse>
     func manipulateOrderItemQuantity(action: ManipulateOrderItemRequest, orderId: String, orderItemId: String, _ debugMode: Bool) -> Promise<ManipulateOrderItemResponce>
-    
-    func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse>
 
+    func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse>
+    func voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String?, _ debugMode: Bool) -> Promise<VoidOrderResponse>
     func syncOrder(orderAndOrderItemData: OrderAndOrderItemData, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse>
 }
 
@@ -56,12 +56,17 @@ extension OrdersDataManager {
     func manipulateOrderItemQuantity(action: ManipulateOrderItemRequest, orderId: String, orderItemId: String, _ debugMode: Bool) -> Promise<ManipulateOrderItemResponce> {
         return manipulateOrderItemQuantity(action: action, orderId: orderId, orderItemId: orderItemId, debugMode)
     }
-    
+
     func syncOrder(orderAndOrderItemData: OrderAndOrderItemData, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse> {
         return syncOrder(orderAndOrderItemData: orderAndOrderItemData, debugMode)
     }
+
     func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse> {
         return confirmOrder(orderId: orderId, debugMode)
+    }
+
+    func voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String, _ debugMode: Bool) -> Promise<VoidOrderResponse> {
+        return voidOrder(orderId: orderId, orderItemIds: orderItemIds, cashierNote: cashierNote, debugMode)
     }
 }
 
@@ -91,12 +96,17 @@ final class OrdersNetworkManager: OrdersDataManager {
     func createOrderAndOrderItem(orderAndOrderItemFormFields: Checkout.OrderAndOrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse> {
         return APIManager.callApi(OrderAPI.createOrderAndOrderItem(data: orderAndOrderItemFormFields), dataReturnType: CreateOrderAndOrderItemResponse.self, debugMode: debugMode)
     }
-    
+
     func syncOrder(orderAndOrderItemData: OrderAndOrderItemData, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse> {
         return APIManager.callApi(OrderAPI.syncOrder(data: orderAndOrderItemData), dataReturnType: CreateOrderAndOrderItemResponse.self, debugMode: debugMode)
     }
+
     func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse> {
         return APIManager.callApi(OrderAPI.confirmOrder(orderId: orderId), dataReturnType: ConfirmOrderResponse.self, debugMode: debugMode)
+    }
+
+    func voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String?, _ debugMode: Bool) -> Promise<VoidOrderResponse> {
+        return APIManager.callApi(OrderAPI.voidOrder(orderId: orderId, orderItemIds: orderItemIds, cashierNote: cashierNote), dataReturnType: VoidOrderResponse.self, debugMode: debugMode)
     }
 
     func createOrderItem(orderId: String, orderItemFormFields: Checkout.OrderItemFormFields, _ debugMode: Bool) -> Promise<CreateOrderItemResponse> {

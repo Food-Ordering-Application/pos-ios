@@ -28,7 +28,7 @@ enum OrderAPI {
     case createOrderItem(orderId: String, data: Checkout.OrderItemFormFields?)
     case manipulateOrderItemQuantity(action: ManipulateOrderItemRequest, orderId: String, orderItemId: String)
     case confirmOrder(orderId: String)
-    
+    case voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String?)
     
     // MARK: Communicated with CoreStore and Server to Sync
 
@@ -53,6 +53,8 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .confirmOrder(let orderId):
             return "/user/pos/order/\(orderId)/confirm"
+        case .voidOrder(let orderId, _, _):
+            return "/user/pos/order/\(orderId)/void"
         case .syncOrder:
             return "/user/pos/order/save-order"
         case .getAllOrders:
@@ -72,7 +74,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return .get
-        case .confirmOrder, .syncOrder, .createOrderAndOrderItem:
+        case .confirmOrder, .voidOrder, .syncOrder, .createOrderAndOrderItem:
             return .post
         case .createOrderItem, .manipulateOrderItemQuantity:
             return .patch
@@ -83,7 +85,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return URLEncoding.default
-        case .confirmOrder, .syncOrder, .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
+        case .confirmOrder, .voidOrder, .syncOrder, .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
             return JSONEncoding.default
         }
     }
@@ -104,8 +106,13 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         case .confirmOrder:
             return .requestPlain
             
-        case .syncOrder(let data):
+        case .voidOrder(_, let orderItemIds, let cashierNote):
+            var params: [String: Any] = [:]
+            params["orderItemIds"] = orderItemIds
+            params["cashierNote"] = cashierNote
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
+        case .syncOrder(let data):
             let params = try data!.asDictionary
             print("----------------------syncOrder-----------------------")
             print(params)
@@ -161,11 +168,5 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         case .manipulateOrderItemQuantity(_, _, let orderItemId):
             return .requestParameters(parameters: ["orderItemId": orderItemId], encoding: JSONEncoding.default)
         }
-        
-//        case .getOrder(let id):
-//            var params: [String: Any] = [:]
-//            params["id"] = id
-//            return .requestParameters(parameters: params, encoding: URLEncoding.default)
-//        }
     }
 }

@@ -442,16 +442,6 @@ extension OrderCheckoutViewController: ObjectObserver {
 
     func objectMonitor(_ monitor: ObjectMonitor<CSOrder>, didDeleteObject object: CSOrder) {
         self.navigationItem.rightBarButtonItem?.isEnabled = false
-
-//        self.colorNameLabel?.alpha = 0.3
-//        self.colorView?.alpha = 0.3
-//
-//        self.hsbLabel?.text = "Deleted"
-//        self.hsbLabel?.textColor = UIColor.red
-//
-//        self.hueSlider?.isEnabled = false
-//        self.saturationSlider?.isEnabled = false
-//        self.brightnessSlider?.isEnabled = false
     }
 
     func reloadOrderInfo(_ order: CSOrder, changedKeys: Set<String>?) {
@@ -461,25 +451,5 @@ extension OrderCheckoutViewController: ObjectObserver {
             csOrderItem.toStruct()
         }
         self.updateDataOrderItems(orderItems: orderItems)
-//        self.colorNameLabel?.text = palette.colorName
-//
-//        let color = palette.color
-//        self.colorNameLabel?.textColor = color
-//        self.colorView?.backgroundColor = color
-//
-//        self.hsbLabel?.text = palette.colorText
-//
-//        if changedKeys == nil || changedKeys?.contains(String(keyPath: \CSOrder.$hue)) == true {
-//
-//            self.hueSlider?.value = Float(palette.hue)
-//        }
-//        if changedKeys == nil || changedKeys?.contains(String(keyPath: \CSOrder.$saturation)) == true {
-//
-//            self.saturationSlider?.value = palette.saturation
-//        }
-//        if changedKeys == nil || changedKeys?.contains(String(keyPath: \CSOrder.$brightness)) == true {
-//
-//            self.brightnessSlider?.value = palette.brightness
-//        }
     }
 }
