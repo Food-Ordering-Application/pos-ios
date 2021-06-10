@@ -24,6 +24,7 @@ PODS:
     - ReachabilitySwift (~> 5.0)
     - Starscream (~> 3.1)
   - PushNotifications (3.0.4)
+  - QRCodeReader.swift (10.1.0)
   - QuickLayout (3.0.0)
   - ReachabilitySwift (5.0.0)
   - Schedule (2.1.0)
@@ -35,6 +36,7 @@ PODS:
   - SwiftEntryKit (1.2.7):
     - QuickLayout (= 3.0.0)
   - SwiftEventBus (5.0.0)
+  - SwiftKeychainWrapper (4.0.1)
   - TextFieldEffects (1.6.0)
 
 DEPENDENCIES:
@@ -49,6 +51,7 @@ DEPENDENCIES:
   - PromiseKit
   - PusherSwift
   - PushNotifications
+  - QRCodeReader.swift (~> 10.1.0)
   - ReachabilitySwift
   - Schedule (~> 2.0)
   - SkeletonView
@@ -57,6 +60,7 @@ DEPENDENCIES:
   - SwiftDate (~> 5.0)
   - SwiftEntryKit (= 1.2.7)
   - SwiftEventBus (from `https://github.com/cesarferreira/SwiftEventBus.git`, tag `5.1.0`)
+  - SwiftKeychainWrapper
   - TextFieldEffects
 
 SPEC REPOS:
@@ -73,6 +77,7 @@ SPEC REPOS:
     - PromiseKit
     - PusherSwift
     - PushNotifications
+    - QRCodeReader.swift
     - QuickLayout
     - ReachabilitySwift
     - Schedule
@@ -82,6 +87,7 @@ SPEC REPOS:
     - Starscream
     - SwiftDate
     - SwiftEntryKit
+    - SwiftKeychainWrapper
     - TextFieldEffects
 
 EXTERNAL SOURCES:
@@ -107,6 +113,7 @@ SPEC CHECKSUMS:
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PusherSwift: 8f18b7beaf383e0475607ab6a3f89f477637fb21
   PushNotifications: 6e3d148e5e129af9d4a9279b288c934f9a7f9066
+  QRCodeReader.swift: 373a389fe9a22d513c879a32a6f647c58f4ef572
   QuickLayout: 07b45a72b10083fee3f095990cfed1c1e7b27f0a
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Schedule: 00e6d7bbdbdb000fd1f51a7d10e9f88a8c451fda
@@ -117,8 +124,9 @@ SPEC CHECKSUMS:
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftEntryKit: 537c92699d6034efb1ef9c32b11e0b37c97aa589
   SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: bb4ab7e1a343e16f0bd795a6b1db8dffa9a6b4cb
+PODFILE CHECKSUM: 8ab6b18375aa4bbceecd0043a1778d8fd97a9829
 
 COCOAPODS: 1.10.1

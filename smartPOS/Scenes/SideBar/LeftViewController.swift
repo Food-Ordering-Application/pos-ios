@@ -26,16 +26,25 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     private var displayMode: EKAttributes.DisplayMode {
         return PresetsDataSource.displayMode
     }
-    
+
     private var attributes: EKAttributes?
-  
+
 //    @IBOutlet var tableView: UITableView!
-    
+
     @IBOutlet var tableView: UITableView!
     @IBOutlet var imgUserAvatar: UIView!
     @IBOutlet var vBackgroundHeader: UIView!
     @IBOutlet var lbUsername: UILabel!
-    
+    @IBOutlet var logoutBtn: UIButton! {
+        didSet {
+            self.logoutBtn.layer.borderWidth = 1
+            self.logoutBtn.layer.borderColor = #colorLiteral(red: 1, green: 0.4176585674, blue: 0.2058730721, alpha: 1)
+
+            self.logoutBtn.layer.shadowPath = UIBezierPath(rect: self.logoutBtn.bounds).cgPath
+            self.logoutBtn.layer.cornerRadius = 8
+        }
+    }
+
 //    var menus = ["Checkout", "Đơn hàng", "Quản lý kho", "Cài đặt", "NonMenu"]
     var menus: [SideMenuModel] = [
         SideMenuModel(icon: UIImage(named: "shop")!, title: "Đặt hàng"),
@@ -93,21 +102,21 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
             let defaultRow = IndexPath(row: 0, section: 0)
             self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
         }
-        
+
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let deliveryViewController = storyboard.instantiateViewController(withIdentifier: "DeliveryViewController") as! DeliveryViewController
         self.deliveryViewController = UINavigationController(rootViewController: deliveryViewController)
-        
+
         let ordersPageViewController = storyboard.instantiateViewController(withIdentifier: "OrdersPageViewController") as! OrdersPageViewController
         self.ordersPageViewController = UINavigationController(rootViewController: ordersPageViewController)
-        
+
         let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
         self.settingViewController = UINavigationController(rootViewController: settingViewController)
-        
+
         let nonMenuController = storyboard.instantiateViewController(withIdentifier: "NonMenuController") as! NonMenuController
         nonMenuController.delegate = self
         self.nonMenuViewController = UINavigationController(rootViewController: nonMenuController)
-        
+
 //        self.tableView.registerCellClass(MenuItemTableViewCell.self)
         // Register TableView Cell
         self.tableView.register(MenuItemTableViewCell.nib, forCellReuseIdentifier: MenuItemTableViewCell.identifier)
@@ -119,11 +128,11 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         setup()
         self.setupHeader()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 //        self.imageHeaderView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 160)
@@ -133,10 +142,10 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     fileprivate func setupHeader() {
         self.vBackgroundHeader.layer.cornerRadius = 40
         self.vBackgroundHeader.clipsToBounds = true
-        
+
         self.imgUserAvatar.layer.cornerRadius = 40
         self.imgUserAvatar.clipsToBounds = true
-    
+
         self.lbUsername?.text = "Nguyễn Văn A"
     }
 
@@ -154,6 +163,11 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
             self.slideMenuController()?.changeMainViewController(self.nonMenuViewController, close: true)
         }
     }
+    
+    @IBAction func handleLogour(_ sender: Any) {
+        print("Iam logout")
+    }
+    
 }
 
 extension LeftViewController {
@@ -173,7 +187,7 @@ extension LeftViewController {
             style: .init(
                 font: MainFont.medium.with(size: 16),
                 color: .black,
-                displayMode: displayMode
+                displayMode: self.displayMode
             ),
             accessibilityIdentifier: "title"
         )
@@ -182,13 +196,13 @@ extension LeftViewController {
             style: .init(
                 font: MainFont.light.with(size: 14),
                 color: EKColor.black,
-                displayMode: displayMode
+                displayMode: self.displayMode
             ),
             accessibilityIdentifier: "description"
         )
         let image = EKProperty.ImageContent(
             image: UIImage(named: "appstore")!,
-            displayMode: displayMode,
+            displayMode: self.displayMode,
             size: CGSize(width: 50, height: 50),
             tint: .none,
             accessibilityIdentifier: "thumbnail"
@@ -214,13 +228,13 @@ extension LeftViewController: UITableViewDelegate {
         }
         return 0
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let menu = LeftMenu(rawValue: indexPath.row) {
             self.changeViewController(menu)
         }
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.tableView == scrollView {}
     }

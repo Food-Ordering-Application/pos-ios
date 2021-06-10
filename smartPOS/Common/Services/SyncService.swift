@@ -32,7 +32,7 @@ class SyncService {
     }
     
     static func canHandleLocal() -> Bool {
-        return !NoInternetService.isReachable()  || true
+        return !NoInternetService.isReachable() || true
 //        return !NoInternetService.isReachable()
     }
 }

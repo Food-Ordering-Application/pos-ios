@@ -83,19 +83,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 
         // MARK: Need have api to check available id
 
-//        self.createActivateCodeView()
-        
+////        self.createActivateCodeView()
+//
         if APIConfig.getToken() == "" {
             self.createLoginView()
         } else {
             self.createMenuView()
         }
 //      self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
-       
+
         // Triger event when callApi got code 401
         SwiftEventBus.onMainThread(self, name: "Unauthorized") { _ in
             self.createLoginView()
         }
+//        let mainVC = ScannerViewController()
+//        window?.rootViewController = mainVC
+//        window?.makeKeyAndVisible()
         return true
     }
     

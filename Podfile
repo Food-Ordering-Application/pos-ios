@@ -1,5 +1,4 @@
 # Uncomment the next line to define a global platform for your project
-
 platform :ios, '12.0'
 
 target 'smartPOS' do
@@ -7,7 +6,9 @@ target 'smartPOS' do
   use_frameworks!
 
   # Pods for smartPOS
-	
+  
+  pod 'SwiftKeychainWrapper'
+  pod 'QRCodeReader.swift', '~> 10.1.0'
   pod 'SlideMenuControllerSwift'
   pod "BouncyLayout"
   pod 'SwiftEntryKit', '1.2.7'

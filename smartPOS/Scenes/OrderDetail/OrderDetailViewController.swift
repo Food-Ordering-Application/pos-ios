@@ -19,10 +19,10 @@ protocol OrderDetailDisplayLogic: class {
     func displayConfirmedOrder(viewModel: OrderDetail.ConfirmOrder.ViewModel)
 }
 
-class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, EmptyDataSetSource, EmptyDataSetDelegate {
+class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, EmptyDataSetSource, EmptyDataSetDelegate  {
     var interactor: OrderDetailBusinessLogic?
     var router: (NSObjectProtocol & OrderDetailRoutingLogic & OrderDetailDataPassing)?
-
+    
     @IBOutlet var btnAreaView: UIView!
     @IBOutlet var orderItemsTableView: UITableView!
     @IBOutlet var btnAccept: LoadyButton! {
@@ -135,7 +135,11 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
         }
         self.btnReject.startLoading()
     }
+   
+   
+    
 }
+
 
 // MARK: Display order
 
@@ -207,6 +211,8 @@ extension OrderDetailViewController {
         self.orderItems = orderItems ?? []
         self.orderItemsTableView.reloadData()
     }
+    
+    
 }
 
 // MARK: Display confirmed order
