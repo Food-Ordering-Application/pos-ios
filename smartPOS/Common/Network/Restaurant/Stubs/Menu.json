@@ -17,14 +17,16 @@
                         "name": "Josue Rippin",
                         "description": "Pariatur est facere.",
                         "price": 13433,
-                        "imageUrl": "http://lorempixel.com/640/480"
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "a7baf823-31a8-4952-be2a-579d78867617",
                         "name": "Ryann Sauer",
                         "description": "Alias qui et aut.",
                         "price": 14646,
-                        "imageUrl": "http://lorempixel.com/640/480"
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "state": "IN_STOCK"
                     }
                 ]
             },
@@ -37,14 +39,16 @@
                         "name": "Athena Fahey",
                         "description": "Repudiandae autem ea.",
                         "price": 16124,
-                        "imageUrl": "http://lorempixel.com/640/480"
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "d67e151b-e95b-4588-b2ef-acfa2ba26210",
                         "name": "Rey Brakus",
                         "description": "Deserunt neque eos pariatur.",
                         "price": 15497,
-                        "imageUrl": "http://lorempixel.com/640/480"
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "state": "IN_STOCK"
                     }
                 ]
             },
@@ -57,14 +61,16 @@
                         "name": "Darron Hudson",
                         "description": "Tenetur repellendus perferendis recusandae qui voluptatem consequuntur voluptatem rerum.",
                         "price": 18471,
-                        "imageUrl": "http://lorempixel.com/640/480"
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "e33d8472-ab40-4655-8e3a-831e2ba9bdc3",
                         "name": "King Hilll",
                         "description": "Odit deserunt asperiores optio enim animi iure harum sit.",
                         "price": 12393,
-                        "imageUrl": "http://lorempixel.com/640/480"
+                        "imageUrl": "http://lorempixel.com/640/480",
+                        "state": "IN_STOCK"
                     }
                 ]
             }

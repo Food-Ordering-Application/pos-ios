@@ -16,7 +16,7 @@ struct Order: Decodable {
     var itemDiscount: Float?
     var serviceFee: Float?
     var discount: Float?
-    var grandTotal: Double
+    var grandTotal: Double?
 //    var paymentMode: PaymentMode?
     var paymentType: PaymentType?
     var status: OrderStatus?
@@ -58,10 +58,9 @@ struct Order: Decodable {
 enum OrderStatus: String, Decodable {
     case draft = "DRAFT"
     case ordered = "ORDERED"
-    case checking = "CHECKING"
-    case delivering = "DELIVERING"
+    case confirmed = "CONFIRMED"
     case cancelled = "CANCELLED"
-    case complete = "COMPLETE"
+    case completed = "COMPLETED"
     case unknown = "UNKNOWN"
     public init(from decoder: Decoder) throws {
         self = try OrderStatus(rawValue: decoder.singleValueContainer().decode(String.self)) ?? .unknown
@@ -73,12 +72,10 @@ enum OrderStatus: String, Decodable {
             return .draft
         case "ORDERED":
             return .ordered
-        case "CHECKING":
-            return .checking
-        case "DELIVERING":
-            return .delivering
-        case "COMPLETE" :
-            return .complete 
+        case "CONFIRMED":
+            return .confirmed
+        case "COMPLETED" :
+            return .completed
         case "CANCELLED":
             return .cancelled
         default:

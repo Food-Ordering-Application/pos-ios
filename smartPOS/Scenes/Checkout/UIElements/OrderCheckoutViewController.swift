@@ -259,7 +259,7 @@ extension OrderCheckoutViewController {
             self.btnPayment.isHidden = true
             self.setupPaidMethod(paymentType: order?.paymentType)
         }
-        self.lbTotal?.text = String(format: "%.0f", order!.grandTotal).currency()
+        self.lbTotal?.text = String(format: "%.0f", order!.grandTotal ?? 0.0).currency()
         self.lbSubTotal?.text = String(format: "%.0f", order?.grandTotal ?? 0).currency()
         self.lbDiscounts?.text = String(format: "%.0f", order?.discount ?? 0).currency()
         self.lbTax?.text = String(0).currency()

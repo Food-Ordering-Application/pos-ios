@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Yuji Hato. All rights reserved.
 //
 
-import UIKit
 import TextFieldEffects
-
-extension UIViewController {
+import UIKit
+import SwiftEventBus
+extension UIViewController: UITextFieldDelegate {
     func setNavigationBarItem() {
         self.addLeftBarButtonWithImage(UIImage(named: "ic_menu_black_24dp")!)
         self.addRightBarButtonWithImage(UIImage(named: "ic_notifications_black_24dp")!)
@@ -30,14 +30,10 @@ extension UIViewController {
 //        btnSort.backgroundColor = UIColor.red // --> set the background color and check
 //        btnSort.layer.borderColor = UIColor.white.cgColor
         
-        
         let width = UIScreen.main.bounds.width - 100
         let searchWidth = width * 0.7
         let syncWidth = width - searchWidth
         let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 46))
-        
-        
-        
         
         let iconSearchV = UIImageView(image: UIImage(named: "ic_search"))
         iconSearchV.setImageColor(color: UIColor.gray)
@@ -45,40 +41,15 @@ extension UIViewController {
         textField.layer.cornerRadius = 8
         textField.backgroundColor = #colorLiteral(red: 0.9371728301, green: 0.9373074174, blue: 0.9371433854, alpha: 1)
         textField.changePlaceholderColor(placeholder: "Search me...", color: UIColor.gray.withAlphaComponent(0.5))
-        
-        
-//        let topLabel = UILabel()
-//        topLabel.font = UIFont.init(name: "Poppins-Medium", size: 14)
-//        topLabel.text = "Sao lưu"
-//
-//        let bottomLabel = UILabel()
-//        bottomLabel.font = UIFont.init(name: "Poppins-Light", size: 12)
-//        bottomLabel.text = "3 phút trước."
-//
-//        let titleStatusView = UIStackView( arrangedSubviews: [topLabel, bottomLabel])
-//        titleStatusView.axis = .vertical
-//
-//        let dot = UILabel()
-//        dot.text = "."
-//        dot.font = UIFont.systemFont(ofSize: 80)
-//        dot.textAlignment = .center
-//        dot.tintColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-//
-//        let syncView = UIStackView(frame: CGRect(x: 0, y: 0, width: syncWidth, height: 40))
-//        syncView.addArrangedSubview(titleStatusView)
-//        syncView.axis = .horizontal
-//        syncView.spacing = 10
+        textField.delegate = self
         let POSStatus = POSStatusView(POSStatusModel(status: EStatus.online, time: Date()))
 
-        
         let view = UIStackView(frame: CGRect(x: 0, y: 0, width: width, height: 46))
         view.axis = .horizontal
         view.distribution = .fillEqually
         view.spacing = 20
         view.addArrangedSubview(textField)
         view.addArrangedSubview(POSStatus)
-
-        
 
         let mainTitleView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 40))
         mainTitleView.addSubview(view)
@@ -106,4 +77,28 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+
+    // MARK: Handle search for each view controller
+
+    public func textFieldDidChangeSelection(_ textField: UITextField) {
+        DispatchQueue.main.asyncDeduped(target: self, after: 0.25) { [weak self] in
+            let keyword = textField.text
+            if let vc = UIApplication.topViewController() {
+                if vc is CheckoutViewController {
+                    SwiftEventBus.post("SearchMenuItems", sender: keyword)
+                }
+                if vc is DeliveryViewController {
+                    SwiftEventBus.post("SearchOrdersDelivery", sender: keyword)
+                }
+                if vc is OrdersPageViewController {
+                    SwiftEventBus.post("SearchOrdersLocal", sender: keyword)
+                }
+                if vc is SettingViewController {
+                    SwiftEventBus.post("SearchCSMenuItems", sender: keyword)
+                }
+
+            }
+        }
+    }
+    
 }

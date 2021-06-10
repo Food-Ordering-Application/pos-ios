@@ -10,7 +10,7 @@ import Loady
 import SwiftEventBus
 import UIKit
 
-class ActivateCodeViewController: UIViewController, UITextFieldDelegate {
+class ActivateCodeViewController: UIViewController {
     var worker: LoginWorker? = LoginWorker()
     @IBOutlet var tfCodeOne: UITextField! {
         didSet {
@@ -182,7 +182,7 @@ extension ActivateCodeViewController {
         return true
     }
 
-    func textFieldDidChangeSelection(_ textField: UITextField) {
+   override func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField.text == "" {
             shouldPrevTextField(textField)
             return

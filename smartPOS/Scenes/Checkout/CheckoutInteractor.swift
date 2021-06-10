@@ -16,6 +16,7 @@ import UIKit
 
 protocol CheckoutBusinessLogic {
     func fetchMenuItemGroups(request: Checkout.FetchMenuItems.Request)
+    func searchMenuItemGroups(request: Checkout.SearchMenuItems.Request)
     func fetchMenuItemToppings(request: Checkout.FetchMenuItemToppings.Request)
     func createOrderItem(request: Checkout.CreateOrderItem.Request)
     func manipulateOrderItem(request: Checkout.ManipulateOrderItemQuantity.Request)
@@ -67,7 +68,24 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             }
         }
     }
+    
+    func searchMenuItemGroups(request: Checkout.SearchMenuItems.Request) {
+        let keyword = request.keyword
+        var response: Checkout.SearchMenuItems.Response!
 
+        menuItemsWorker?.fetchMenuAndMenuGroups(completionHandler: { menuAndMenuItemGroups in
+            if let data = menuAndMenuItemGroups {
+                response = Checkout.SearchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
+            }
+            else {
+                response = Checkout.SearchMenuItems.Response(menu: nil, menuGroups: nil, error: MenuItemErrors.couldNotLoadMenuItems(error: "POS: Not found menuItem."))
+            }
+            self.presenter?.presentSearchedMenuItemGroups(response: response)
+        })
+        return
+
+    }
+    
     // MARK: Fetch MenuItems
 
     func fetchMenuItemGroups(request: Checkout.FetchMenuItems.Request) {

@@ -13,9 +13,10 @@
 import SkeletonView
 import SlideMenuControllerSwift
 import UIKit
-
+import SwiftEventBus
 protocol CheckoutDisplayLogic: class {
     func displayFetchedMenuItemGroups(viewModel: Checkout.FetchMenuItems.ViewModel)
+    func displaySearchedMenuItemGroups(viewModel: Checkout.SearchMenuItems.ViewModel)
     func displayFetchedMenuItemToppings(viewModel: Checkout.FetchMenuItemToppings.ViewModel)
     func displayCreatedOrderItem(viewModel: Checkout.CreateOrderItem.ViewModel)
     func displayManupulatedOrderItem(viewModel: Checkout.ManipulateOrderItemQuantity.ViewModel)
@@ -25,6 +26,8 @@ protocol CheckoutDisplayLogic: class {
 }
 
 class CheckoutViewController: UIViewController, CheckoutDisplayLogic, SlideMenuControllerDelegate {
+    
+    var searchField: UITextField?
     var interactor: CheckoutBusinessLogic?
     var router: (NSObjectProtocol & CheckoutRoutingLogic & CheckoutDataPassing)?
 
@@ -101,14 +104,45 @@ extension CheckoutViewController {
 // MARK: Fetch menuItems on screen load
 
 extension CheckoutViewController {
+    
     // MARK: Fetch Data to display in the orders collection view
+    func searchMenuItemGroups(keyword: String?){
+        guard  let keyword = keyword else {
+            fetchMenuItemGroups()
+            return
+        }
+        self.view.showGradientSkeleton()
+        let request = Checkout.SearchMenuItems.Request(keyword: keyword)
+        self.interactor?.searchMenuItemGroups(request: request)
+    }
+    
+    
+    func displaySearchedMenuItemGroups(viewModel: Checkout.SearchMenuItems.ViewModel) {
+        print("displaySearchedMenuItemGroups\(viewModel.displayedMenuItemGroups)")
+        self.setupSearchMenuItemGroupDisplay(viewModel: viewModel)
+        self.view.hideSkeleton()
+    }
+    private func setupSearchMenuItemGroupDisplay(viewModel: Checkout.SearchMenuItems.ViewModel) {
+        guard viewModel.error == nil else {
+            Alert.showUnableToRetrieveDataAlert(on: self)
+            return
+        }
+        self.segmentGroups.removeAllSegments()
+        self.displayedMenuItemGroups = viewModel.displayedMenuItemGroups
+        if self.displayedMenuItemGroups.count == 0 { return }
 
+        for (index, menuGroup) in self.displayedMenuItemGroups.enumerated() {
+            self.segmentGroups.insertSegment(withTitle: menuGroup.name, at: index, animated: true)
+        }
+        self.onUpdateMenuItem(self.defaultSegmentIndex)
+        self.segmentGroups.selectedSegmentIndex = self.defaultSegmentIndex
+    }
+    
     func fetchMenuItemGroups() {
         self.view.showGradientSkeleton()
         let restaurantId = APIConfig.getRestaurantId()
         let request = Checkout.FetchMenuItems.Request(restaurantId: restaurantId)
         self.interactor?.fetchMenuItemGroups(request: request)
-        self.view.hideSkeleton()
     }
 
     func displayFetchedMenuItemGroups(viewModel: Checkout.FetchMenuItems.ViewModel) {
@@ -284,11 +318,16 @@ private extension CheckoutViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchMenuItems(_:)), name: Notification.Name("FetchMenuItems"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationRemoveOrder(_:)), name: Notification.Name("RemoveOrder"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationUpdateOrder(_:)), name: Notification.Name("UpdateOrder"), object: nil)
+        SwiftEventBus.onMainThread(self, name: "SearchMenuItems") { result in
+            let keyword = result?.object as? String
+            self.searchMenuItemGroups(keyword: keyword)
+        }
     }
 
     func setupNavBar() {
         navigationItem.title = "Checkout"
         setNavigationBarItem()
+        
         self.view.showAnimatedGradientSkeleton()
     }
 

@@ -124,7 +124,7 @@ extension OrdersPageInteractor {
     ///   - launches: All the launches
     ///   - typeOfLaunches: The type of launch to display (passed or upcoming)
     /// - Returns: Return a filtered array of launches
-    private func getFilteredByStatusOrders(_ orders: [Order]?, orderStatus: OrderStatus = .delivering) -> [Order] {
+    private func getFilteredByStatusOrders(_ orders: [Order]?, orderStatus: OrderStatus = .confirmed) -> [Order] {
         guard let orders = orders else { return [] }
 //        let isUpcommingOrder = orderStatus == .delivering ? false : true
 //        return orders.filter { $0.status == orderStatus }

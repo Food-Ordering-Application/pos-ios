@@ -39,6 +39,24 @@ enum Checkout {
         }
     }
 
+    
+    enum SearchMenuItems {
+        struct Request {
+            var keyword: String
+        }
+
+        struct Response {
+            var menu: Menu?
+            var menuGroups: [MenuGroup]?
+            var error: MenuItemErrors?
+        }
+
+        struct ViewModel {
+            var displayedMenuItemGroups: [DisplayedMenuItemGroup]
+            var error: MenuItemErrors?
+        }
+    }
+
     // MARK: MenuItemToppings
     
     

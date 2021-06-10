@@ -48,9 +48,9 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
     // MARK: - Variables
     
     var controlStatuses: [ControlStatus] = [
-        ControlStatus(name: "Chờ xác nhận", stasus: .draft, index: 0),
-        ControlStatus(name: "Đang thực hiện", stasus: .ordered, index: 1),
-        ControlStatus(name: "Đã hoàn thành", stasus: .complete, index: 2),
+        ControlStatus(name: "Chờ xác nhận", stasus: .ordered, index: 0),
+        ControlStatus(name: "Đang thực hiện", stasus: .confirmed, index: 1),
+        ControlStatus(name: "Đã hoàn thành", stasus: .completed, index: 2),
         ControlStatus(name: "Đã huỷ", stasus: .cancelled, index: 3)
     ]
     var currentStatusIndex = 0
@@ -140,15 +140,19 @@ extension OrdersPageViewController {
             Alert.showUnableToRetrieveDataAlert(on: self)
             return
         }
+        let ordersGroups = viewModel.displayedOrdersGroups
+        if ordersGroups.count == 0 { return }
+        var groups: [OrdersPage.DisplayedOrdersGroup] = []
+        controlStatuses.forEach { controlStatus in
+            if let group = ordersGroups.filter({ group -> Bool in
+                group.status == controlStatus.stasus.rawValue
+            }).first {
+                groups.append(group)
+            }
             
-        displayedOrdersGroups = viewModel.displayedOrdersGroups
-        if displayedOrdersGroups.count == 0 { return }
-            
-        displayedOrdersGroups.sort { (firstGroup, secondGroup) -> Bool in
-            let firstIndex = controlStatuses.filter { $0.stasus.rawValue == firstGroup.status }.first?.index ?? displayedOrdersGroups.count - 1
-            let secondIndex = controlStatuses.filter { $0.stasus.rawValue == secondGroup.status }.first?.index ?? displayedOrdersGroups.count - 1
-            return firstIndex < secondIndex
         }
+        self.displayedOrdersGroups = groups
+        
         for (index, orderGroup) in displayedOrdersGroups.enumerated() {
             if index < controlStatuses.count {
                 let controlStatus = controlStatuses[index]

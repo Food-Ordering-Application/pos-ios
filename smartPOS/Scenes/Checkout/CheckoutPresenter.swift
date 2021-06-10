@@ -14,6 +14,7 @@ import UIKit
 
 protocol CheckoutPresentationLogic {
     func presentFetchedMenuItemGroups(response: Checkout.FetchMenuItems.Response)
+    func presentSearchedMenuItemGroups(response: Checkout.SearchMenuItems.Response)
     func presentFetchedMenuItemToppings(response: Checkout.FetchMenuItemToppings.Response)
     func presentCreatedOrderItem(response: Checkout.CreateOrderItem.Response)
     func presentManipulateddOrderItem(response: Checkout.ManipulateOrderItemQuantity.Response)
@@ -23,6 +24,21 @@ protocol CheckoutPresentationLogic {
 }
 
 class CheckoutPresenter: CheckoutPresentationLogic {
+    func presentSearchedMenuItemGroups(response: Checkout.SearchMenuItems.Response) {
+        var displayedMenuItemGroups: [Checkout.DisplayedMenuItemGroup] = []
+        var allMenuItem = Checkout.DisplayedMenuItemGroup(id: "0", name: "Tất cả", index: 0, menuItems: [])
+        for menuItemGroup in response.menuGroups ?? [] {
+            let menuItems = menuItemGroup.menuItems
+            allMenuItem.menuItems.append(contentsOf: menuItems)
+            let displayedMenuItemGroup = Checkout.DisplayedMenuItemGroup(id: menuItemGroup.id, name: menuItemGroup.name, menuItems: menuItems)
+            displayedMenuItemGroups.append(displayedMenuItemGroup)
+        }
+        displayedMenuItemGroups.insert(allMenuItem, at: 0)
+
+        let viewModel = Checkout.SearchMenuItems.ViewModel(displayedMenuItemGroups: displayedMenuItemGroups)
+        viewController?.displaySearchedMenuItemGroups(viewModel: viewModel)
+    }
+    
     weak var viewController: CheckoutDisplayLogic?
 
     // MARK: Do something

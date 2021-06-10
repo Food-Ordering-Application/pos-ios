@@ -54,7 +54,7 @@ class DataTableViewCell: BaseTableViewCell {
             self.lbOrderId.text = order.id?.components(separatedBy: "-").first
             self.dataText.text = "Trinh"
             self.lbDate.text = order.createdAt?.toFormat("HH:mm")
-            self.lbTotal.text = String(format: "%.0f",order.grandTotal).currency()
+            self.lbTotal.text = String(format: "%.0f",order.grandTotal ?? 0.0).currency()
             self.lbStatus.text = order.status?.rawValue.uppercased()
         }
     }

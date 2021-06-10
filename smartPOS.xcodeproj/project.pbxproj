@@ -177,6 +177,7 @@
 		9BC2F861261C51DC00D5CFBC /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC2F859261C51DC00D5CFBC /* UIView.swift */; };
 		9BC31F6326280A3B003AAB3A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC31F6226280A3B003AAB3A /* UIButton.swift */; };
 		9BC31F6826281154003AAB3A /* OrdersCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC31F6726281154003AAB3A /* OrdersCollectionViewController.swift */; };
+		9BC3F9DD26653F4E002AB1CF /* DispatchQueue+Dedupe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC3F9DC26653F4D002AB1CF /* DispatchQueue+Dedupe.swift */; };
 		9BCB7851261F6D5000AD29E5 /* MenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCB784F261F6D5000AD29E5 /* MenuItemTableViewCell.swift */; };
 		9BCB7852261F6D5000AD29E5 /* MenuItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BCB7850261F6D5000AD29E5 /* MenuItemTableViewCell.xib */; };
 		9BCF66012626AA64008841BA /* MenuItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF66002626AA64008841BA /* MenuItemDetailView.swift */; };
@@ -409,6 +410,7 @@
 		9BC2F859261C51DC00D5CFBC /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		9BC31F6226280A3B003AAB3A /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		9BC31F6726281154003AAB3A /* OrdersCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersCollectionViewController.swift; sourceTree = "<group>"; };
+		9BC3F9DC26653F4D002AB1CF /* DispatchQueue+Dedupe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Dedupe.swift"; sourceTree = "<group>"; };
 		9BCB784F261F6D5000AD29E5 /* MenuItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemTableViewCell.swift; sourceTree = "<group>"; };
 		9BCB7850261F6D5000AD29E5 /* MenuItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuItemTableViewCell.xib; sourceTree = "<group>"; };
 		9BCF66002626AA64008841BA /* MenuItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemDetailView.swift; sourceTree = "<group>"; };
@@ -937,6 +939,7 @@
 				9BAD8903262870C00003C746 /* SelectionHeaderView.swift */,
 				9B3A7671264FA63A005A285E /* UITextField.swift */,
 				9BFE7427265431390024CC65 /* Formatter.swift */,
+				9BC3F9DC26653F4D002AB1CF /* DispatchQueue+Dedupe.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1522,6 +1525,7 @@
 				9B94D0EE264EAA7200502825 /* CSToppingItem.swift in Sources */,
 				9B85808E262183FC00BBC550 /* PromotionsViewController.swift in Sources */,
 				9B9926F62626827F00B6FDF9 /* User.swift in Sources */,
+				9BC3F9DD26653F4E002AB1CF /* DispatchQueue+Dedupe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

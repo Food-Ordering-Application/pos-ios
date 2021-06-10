@@ -61,7 +61,7 @@ class OrderCollectionViewCell: UICollectionViewCell {
             lbNote?.text = order.note
             lbTimeRemaining?.text = "14p:20s"
             lbTotalQuantity?.text = "1"
-            lbTotal?.text = String(format: "%.0f", order.grandTotal).currency()
+            lbTotal?.text = String(format: "%.0f", order.grandTotal ?? 0.0).currency()
             if let driver = order.delivery {
                 let distance: Float = floor((driver.distance ?? 0) / 1000)
                 lbDistance?.text = "\(distance)kms"

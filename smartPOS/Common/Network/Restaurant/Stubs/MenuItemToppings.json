@@ -12,21 +12,24 @@
                         "name": "Hilda Feeney",
                         "description": "Eos rerum quod repellendus soluta est exercitationem.",
                         "price": 8935,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "e4a212a4-61a6-4ae2-b299-658adf6c2501",
                         "name": "Eloisa Von PhD",
                         "description": "Ut iure reiciendis possimus aliquid velit consequatur sapiente corporis ratione.",
                         "price": 10224,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "17b027bc-2e3a-466f-bdcc-970f449e08d4",
                         "name": "Gavin Douglas",
                         "description": "Cumque autem eum sequi repellendus quia.",
                         "price": 6042,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     }
                 ]
             },
@@ -39,21 +42,24 @@
                         "name": "Colt Langworth",
                         "description": "Doloremque et quo aspernatur assumenda qui nemo debitis id quos.",
                         "price": 17654,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "f7d470b6-e62f-4034-9ff0-af8c7083412a",
                         "name": "Neoma McLaughlin",
                         "description": "Ipsam praesentium voluptatem rem.",
                         "price": 13276,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "b9bb7578-6d3d-4fbb-812a-e91c4d466320",
                         "name": "Chauncey Bruen",
                         "description": "Consequatur quia ea placeat distinctio velit.",
                         "price": 13423,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     }
                 ]
             },
@@ -66,21 +72,24 @@
                         "name": "Dr. Darlene Grant",
                         "description": "Aperiam id voluptatem ut sed.",
                         "price": 10706,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "623ee4cb-d451-4f7f-961f-ffc4a5e586be",
                         "name": "Destiney Spencer",
                         "description": "Totam voluptatibus dolor modi.",
                         "price": 11474,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     },
                     {
                         "id": "37b53e32-93f3-4305-bc96-e73ba33b2dd4",
                         "name": "Hailie Pagac",
                         "description": "Eum iure laudantium ad.",
                         "price": 9341,
-                        "maxQuantity": 3
+                        "maxQuantity": 3,
+                        "state": "IN_STOCK"
                     }
                 ]
             }

@@ -100,6 +100,40 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
         }
     }
   
+    func searchMenuAndMenuGroups(keyword: String, completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void) {
+        do {
+            let menu = try CSDatabase.stack.fetchOne(From<CSMenu>())?.toStruct()
+            let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { (csMenuItemGroup) -> MenuGroup in
+                let csMenuGroup = csMenuItemGroup.toStruct()
+                let menuItems = try CSDatabase.stack.fetchAll(From<CSMenuItem>().where(\.$menuItemGroup ~ \.$id == csMenuGroup.id).where(\.$name == keyword)).map { (csMenuItem) -> MenuItem in
+                    csMenuItem.toStruct()
+                }
+                
+//                    .filter { csMenuItem -> Bool in
+//                        csMenuItem.toStruct().name.contains("collin")
+//                    }
+//                    .map { (csMenuItem) -> MenuItem in
+//                        csMenuItem.toStruct()
+//                    }
+//                let menuItems = csMenuItemGroup.menuItems.map { (csMenuItem) -> MenuItem in
+//                    csMenuItem.toStruct()
+//                }
+                return MenuGroup(id: csMenuGroup.id, name: csMenuGroup.name, menuId: menu?.id, menuItems: menuItems)
+            }
+                
+            print("🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
+ 
+            completionHandler {
+                MenuAndMenuGroups(menu: menu, menuGroups: csMenuItemGroups)
+            }
+        }
+        catch {
+            completionHandler {
+                throw MenuItemsStoreError.CannotFetch("Cannot fetch menu and menuItemGroup from Local")
+            }
+        }
+    }
+    
     func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]) -> Void) {
         completionHandler { type(of: self).menuItems }
     }

@@ -12,6 +12,7 @@
                 "price": 53382,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             },
             {
@@ -23,6 +24,7 @@
                 "price": 49153,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             },
             {
@@ -34,6 +36,7 @@
                 "price": 50795,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             },
             {
@@ -45,6 +48,7 @@
                 "price": 49195,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             },
             {
@@ -56,6 +60,7 @@
                 "price": 91458,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             },
             {
@@ -67,6 +72,7 @@
                 "price": 67840,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             },
             {
@@ -78,6 +84,7 @@
                 "price": 85532,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             },
             {
@@ -89,6 +96,7 @@
                 "price": 78016,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             },
             {
@@ -100,6 +108,7 @@
                 "price": 58988,
                 "maxQuantity": 3,
                 "isActive": true,
+                "state": "IN_STOCK",
                 "index": 1
             }
         ],

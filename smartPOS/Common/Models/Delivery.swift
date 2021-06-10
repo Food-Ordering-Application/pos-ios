@@ -37,11 +37,12 @@ struct Delivery: Decodable {
 }
 
 enum DeliveryStatus: String, Decodable {
-    case waitingDriver = "WAITING_DRIVER"
-    case picking = "PICKING"
-    case delivering = "DELIVERING"
-    case delivered = "DELIVIRED"
+    case draft = "DRAFT"
+    case ongoing = "ON_GOING"
+    case pickedup = "PICKED_UP"
+    case completed = "COMPLETED"
     case cancelled = "CANCELLED"
+    case expired = "EXPIRED"
     case unknown = "UNKNOWN"
     public init(from decoder: Decoder) throws {
         self = try DeliveryStatus(rawValue: decoder.singleValueContainer().decode(String.self)) ?? .unknown
@@ -49,16 +50,18 @@ enum DeliveryStatus: String, Decodable {
 
     static func getType(_ type: String) -> DeliveryStatus {
         switch type {
-        case "WAITING_DRIVER":
-            return .waitingDriver
-        case "PICKING":
-            return .picking
-        case "DELIVERING":
-            return .delivering
-        case "DELIVIRED":
-            return .delivered
+        case "DRAFT":
+            return .draft
+        case "ON_GOING":
+            return .ongoing
+        case "PICKED_UP":
+            return .pickedup
+        case "COMPLETED":
+            return .completed
         case "CANCELLED":
             return .cancelled
+        case "EXPIRED" :
+            return .expired
         default:
             return .unknown
         }

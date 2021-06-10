@@ -177,7 +177,7 @@ extension OrderDetailViewController {
         self.setupOrderView(isHidden: false)
         self.lbOrderId!.text = order.id?.components(separatedBy: "-").first ?? "_"
         self.lbOrderStatus!.text = order.status.map { $0.rawValue }
-        self.lbTotal!.text = String(format: "%.0f", order.grandTotal).currency()
+        self.lbTotal!.text = String(format: "%.0f", order.grandTotal ?? 0.0).currency()
         self.lbDeliveryAddress!.text = "Chưa có địa chỉ giao hàng"
         self.lbDriverAvailabel!.text = "Chưa có tài xế hoạt động gần đây"
         

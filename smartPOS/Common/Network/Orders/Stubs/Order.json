@@ -3,66 +3,77 @@
     "message": "Order fetched successfully",
     "data": {
         "order": {
-            "id": "62983c29-b5d0-4f28-9d66-fefc664c6aec",
+            "id": "1016cdfa-5402-4ddb-9c80-6be728c469f0",
             "cashierId": null,
             "restaurantId": "59648039-fb38-4a5a-8ce7-6938b27b76ab",
             "itemDiscount": null,
             "discount": null,
-            "subTotal": 21920,
-            "grandTotal": 56920,
-            "note": "hello",
-            "createdAt": "2021-05-24T16:04:39.811Z",
-            "updatedAt": "2021-05-25T13:12:30.572Z",
-            "status": "ORDERED",
+            "subTotal": 22368,
+            "grandTotal": null,
+            "note": "Xin dùm em thêm giá, hành",
+            "createdAt": "2021-06-09T11:09:32.610Z",
+            "updatedAt": "2021-06-09T11:09:53.966Z",
+            "status": "CONFIRMED",
+            "delivery": {
+                "id": "e3ed730b-2b6c-495c-bec4-3a59336e19eb",
+                "customerId": "9763c821-a9f0-451d-baf7-df31358cca27",
+                "driverId": null,
+                "customerName": null,
+                "customerPhoneNumber": "0768777352",
+                "customerAddress": null,
+                "customerGeom": null,
+                "restaurantName": "Stuart Stiedemann",
+                "restaurantPhoneNumber": "0636286858",
+                "restaurantAddress": "3000 Dare Cape",
+                "restaurantGeom": {
+                    "type": "Point",
+                    "coordinates": [
+                        106.7049702,
+                        10.7058661
+                    ]
+                },
+                "distance": null,
+                "shippingFee": null,
+                "status": "ASSIGNING_DRIVER",
+                "issueNote": null,
+                "issueType": null,
+                "createdAt": "2021-06-09T11:09:32.610Z",
+                "updatedAt": "2021-06-09T11:09:53.892Z",
+                "orderTime": "2021-06-09T11:09:50.259Z",
+                "deliveredAt": null,
+                "expectedDeliveryTime": null
+            },
+            "invoice": {
+                "status": "UNPAID",
+                "payment": {
+                    "method": "COD",
+                    "status": "PENDING_USER_ACTION",
+                    "amount": 22368
+                }
+            },
             "orderItems": [
                 {
-                    "id": "9c7242a6-1a16-42b7-bebb-98a8cf1b9775",
-                    "menuItemId": "a7baf823-31a8-4952-be2a-579d78867617",
-                    "price": 14646,
-                    "subTotal": 21920,
-                    "name": "Ryann Sauer",
+                    "id": "8754cca5-d97d-43e7-bd69-e72d20f5399b",
+                    "menuItemId": "3cf0e55c-1677-4726-97b6-be5d8a76df6c",
+                    "orderId": "1016cdfa-5402-4ddb-9c80-6be728c469f0",
+                    "price": 13433,
+                    "subTotal": 22368,
+                    "name": "Josue Rippin",
                     "quantity": 1,
                     "discount": 0,
                     "state": "IN_STOCK",
                     "orderItemToppings": [
                         {
-                            "id": "59f37599-59b1-49ba-9733-1c46ab3c0ba1",
-                            "toppingItemId": "e4a212a4-61a6-4ae2-b299-658adf6c2501",
-                            "name": "Eloisa Von PhD",
+                            "id": "a8b28261-b7fb-4ca1-921f-611b26180986",
+                            "toppingItemId": "5a650e29-fefe-4c8b-a130-65a27ca21403",
+                            "name": "Hilda Feeney",
                             "quantity": 1,
-                            "price": 7274,
+                            "price": 8935,
                             "state": "IN_STOCK"
                         }
                     ]
                 }
-            ],
-            "delivery": {
-                "id": "e2ba94d9-c2c0-40df-85b2-885389367484",
-                "customerId": "db5fbd50-4f98-428a-98f6-b3282a980c8a",
-                "driverId": null,
-                "customerAddress": "25 Nguyễn Trãi, phường 2, Quận 5, Thành phố Hồ Chí Minh",
-                "customerGeom": {
-                    "type": "Point",
-                    "coordinates": [
-                        10.7589187,
-                        106.6829928
-                    ]
-                },
-                "restaurantAddress": "3000 Dare Cape",
-                "restaurantGeom": {
-                    "type": "Point",
-                    "coordinates": [
-                        10.7058661,
-                        106.7049702
-                    ]
-                },
-                "distance": 6489,
-                "shippingFee": 35000,
-                "status": "DRAFT",
-                "createdAt": "2021-05-24T16:04:40.191Z",
-                "updatedAt": "2021-05-24T16:04:40.191Z",
-                "deliveredAt": null
-            }
+            ]
         }
     }
 }

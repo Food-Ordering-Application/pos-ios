@@ -30,6 +30,20 @@ class MenuItemsWorker {
             }
         }
     }
+    func searchMenuAndMenuGroups(keyword: String, completionHandler: @escaping (MenuAndMenuGroups?) -> Void) {
+        menuItemsStore.searchMenuAndMenuGroups(keyword: keyword) { (menuAndMenuGroups: () throws -> MenuAndMenuGroups?) -> Void in
+            do {
+                let menuAndMenuGroups = try menuAndMenuGroups()
+                DispatchQueue.main.async {
+                    completionHandler(menuAndMenuGroups)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+            }
+        }
+    }
     func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping ([ToppingGroup]?) -> Void ){
         menuItemsStore.fetchMenuItemToppings(menuItemId: menuItemId) { (toppingGroups: () throws -> [ToppingGroup]?) in
             do {
@@ -97,6 +111,7 @@ protocol MenuItemsStoreProtocol {
     // MARK: CRUD operations - Inner closure
 
     func fetchMenuAndMenuGroups(completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void)
+    func searchMenuAndMenuGroups(keyword: String,completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void)
     func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]) -> Void)
     func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> [ToppingGroup]?) -> Void)
     func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (() throws -> MenuItem?) -> Void)

@@ -13,8 +13,8 @@ struct APIConfig {
 //    static let baseUrl = "http://iamfocused.local:8000"
     static let baseUrl = "https://apigway.herokuapp.com"
 //    static let apiVersion = "v3"
-    static let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjA3Njg3NzczNTIiLCJzdWIiOiIzYjQyYTMzMC00ZDAxLTQ2YjgtYTI4OC1kNTJjMTBkMzQxNmQiLCJpc0N1c3RvbWVyIjp0cnVlLCJpYXQiOjE2MjIyOTMxMjAsImV4cCI6MTYyMzUwMjcyMH0.h2iKpqGOOyWIbSPj--sHbdUpeJtRD4wHbRkZiMu3_PY"
-//    static let restaurantId = "22691c23-22ba-4496-828d-ed07f4d896c2"
+    static let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZU51bWJlciI6IjA3Njg3NzczNTIiLCJzdWIiOiI5NzYzYzgyMS1hOWYwLTQ1MWQtYmFmNy1kZjMxMzU4Y2NhMjciLCJpc0N1c3RvbWVyIjp0cnVlLCJpYXQiOjE2MjMyOTEwNTgsImV4cCI6MTYyNDUwMDY1OH0.uAashljP-UHEK4xQIYWIs7cbE7Wpc-Eb3vF6Q7nNy0A"
+//    static let restaurantId = "0963cd4b-bf91-4080-bcce-83c957077551" // MARK: Development
 
     static let restaurantId = "59648039-fb38-4a5a-8ce7-6938b27b76ab" // MARK: Production
 
