@@ -7,6 +7,7 @@
 //
 
 import BouncyLayout
+import CoreStore
 import EmptyDataSet_Swift
 import NumPad
 import SwiftEntryKit
@@ -66,13 +67,46 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
         }
     }
 
+    var orderId: String?
     var order: Order?
     var orderItems: [OrderItem] = []
     var paymentMethods: [String]? = ["Tiền mặt", "Paypal"]
 
+    // MARK: Private
+
+    var monitor: ObjectMonitor<CSOrder>?
+    // MARK: NSObject
+
+    deinit {
+        self.monitor?.removeObserver(self)
+    }
+
+    // MARK: UIViewController
+
+    required init?(coder aDecoder: NSCoder) {
+        if let order = try! CSDatabase.stack.fetchOne(From<CSOrder>().orderBy(.ascending(\.$createdAt))) {
+            self.monitor = CSDatabase.stack.monitorObject(order)
+        }
+        else {
+            _ = try? CSDatabase.stack.perform(
+                synchronous: { transaction in
+
+                    _ = transaction.create(Into<CSOrder>())
+                }
+            )
+
+            let order = try! CSDatabase.stack.fetchOne(From<CSOrder>().orderBy(.ascending(\.$createdAt)))!
+            self.monitor = CSDatabase.stack.monitorObject(order)
+        }
+
+        super.init(coder: aDecoder)
+    }
+
     override func viewDidLoad() {
         self.setup()
+        setupCoreStore()
     }
+
 
     @IBAction func doRemoveOrder(_ sender: UIButton) {
         switch sender.tag {
@@ -373,5 +407,79 @@ extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSourc
         default:
             break
         }
+    }
+}
+
+extension OrderCheckoutViewController: ObjectObserver {
+    
+    func setOrder<O: ObjectRepresentation>(_ newValue: O?) where O.ObjectType == CSOrder {
+        guard self.monitor?.object?.objectID() != newValue?.objectID() else {
+            return
+        }
+        if let newValue = newValue {
+            self.monitor = newValue.asReadOnly(in: CSDatabase.stack).map(CSDatabase.stack.monitorObject(_:))
+        }
+        else {
+            self.monitor = nil
+        }
+    }
+
+   
+
+    func setupCoreStore() {
+        self.monitor?.addObserver(self)
+
+        if let order = self.monitor?.object {
+            self.reloadOrderInfo(order, changedKeys: nil)
+        }
+    }
+
+    // MARK: ObjectObserver
+
+    func objectMonitor(_ monitor: ObjectMonitor<CSOrder>, didUpdateObject object: CSOrder, changedPersistentKeys: Set<KeyPathString>) {
+        self.reloadOrderInfo(object, changedKeys: changedPersistentKeys)
+    }
+
+    func objectMonitor(_ monitor: ObjectMonitor<CSOrder>, didDeleteObject object: CSOrder) {
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+
+//        self.colorNameLabel?.alpha = 0.3
+//        self.colorView?.alpha = 0.3
+//
+//        self.hsbLabel?.text = "Deleted"
+//        self.hsbLabel?.textColor = UIColor.red
+//
+//        self.hueSlider?.isEnabled = false
+//        self.saturationSlider?.isEnabled = false
+//        self.brightnessSlider?.isEnabled = false
+    }
+
+    func reloadOrderInfo(_ order: CSOrder, changedKeys: Set<String>?) {
+        print("order", order.id)
+        self.updateDataOrder(order: order.toStruct())
+        let orderItems = order.orderItems.map { csOrderItem -> OrderItem in
+            csOrderItem.toStruct()
+        }
+        self.updateDataOrderItems(orderItems: orderItems)
+//        self.colorNameLabel?.text = palette.colorName
+//
+//        let color = palette.color
+//        self.colorNameLabel?.textColor = color
+//        self.colorView?.backgroundColor = color
+//
+//        self.hsbLabel?.text = palette.colorText
+//
+//        if changedKeys == nil || changedKeys?.contains(String(keyPath: \CSOrder.$hue)) == true {
+//
+//            self.hueSlider?.value = Float(palette.hue)
+//        }
+//        if changedKeys == nil || changedKeys?.contains(String(keyPath: \CSOrder.$saturation)) == true {
+//
+//            self.saturationSlider?.value = palette.saturation
+//        }
+//        if changedKeys == nil || changedKeys?.contains(String(keyPath: \CSOrder.$brightness)) == true {
+//
+//            self.brightnessSlider?.value = palette.brightness
+//        }
     }
 }

@@ -45,4 +45,30 @@ enum OrderDetail {
             var error: OrderErrors?
         }
     }
+    enum CompleteOrder {
+        struct Request {
+           var id: String?
+        }
+
+        struct Response {
+            var error: OrderErrors?
+        }
+
+        struct ViewModel {
+            var error: OrderErrors?
+        }
+    }
+    enum RejectOrder {
+        struct Request {
+           var id: String?
+        }
+
+        struct Response {
+            var error: OrderErrors?
+        }
+
+        struct ViewModel {
+            var error: OrderErrors?
+        }
+    }
 }

@@ -35,7 +35,7 @@ class DataTableViewCell: BaseTableViewCell {
         self.dataText?.textColor = UIColor(hex: "9E9E9E")
         
         self.bgView.layer.borderWidth = 1
-        self.bgView.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        self.bgView.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         self.bgView.layer.cornerRadius = 8
         self.bgView.layer.shadowPath = UIBezierPath(rect: self.bgView.bounds).cgPath
     }

@@ -38,7 +38,7 @@ final class OrdersPageInteractor: OrdersPageBusinessLogic, OrdersPageDataStore {
     var orders: [Order]?
 
     init() {
-        SwiftEventBus.onBackgroundThread(self, name: "RTOrderStatus") { result in
+        SwiftEventBus.onMainThread(self, name: "RTOrderStatus") { result in
             let newOrder = result?.object as? RTOrderStatus
             guard var orders = self.orders else { return }
             if let row = orders.index(where: {$0.id == newOrder?.id}) {

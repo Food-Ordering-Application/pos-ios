@@ -43,9 +43,7 @@ class DeliveryViewController: UIViewController {
     }
 
     @IBOutlet var tableView: UITableView!
-//
-//    var mainContens = ["data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8", "data9", "data10", "data11", "data12", "data13", "data14", "data15"]
-//
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerCellNib(DataTableViewCell.self)
@@ -97,6 +95,19 @@ class DeliveryViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        switch (segue.identifier, segue.destination, sender) {
+        case ("OrderCheckoutViewController"?, let destinationViewController as OrderCheckoutViewController, let order as ObjectPublisher<CSOrder>):
+            destinationViewController.setOrder(order)
+        default:
+            break
+        }
+    }
+    
+    
+    
 }
 
 extension DeliveryViewController: UITableViewDelegate {
@@ -104,13 +115,26 @@ extension DeliveryViewController: UITableViewDelegate {
         return DataTableViewCell.height()
     }
 
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let orderDetailViewController = storyboard.instantiateViewController(withIdentifier: "OrderCheckoutViewController") as! OrderCheckoutViewController
+////        let order = CSDatabase.csOrders.snapshot[indexPath]
+//        let order =
+//
+//        orderDetailViewController.modalPresentationStyle = .fullScreen
+//        self.navigationController?.pushViewController(orderDetailViewController, animated: true)
+//    }
+    // MARK: UITableViewDelegate
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let orderDetailViewController = storyboard.instantiateViewController(withIdentifier: "OrderCheckoutViewController") as! OrderCheckoutViewController
-        orderDetailViewController.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(orderDetailViewController, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.performSegue(
+            withIdentifier: "OrderCheckoutViewController",
+            sender: CSDatabase.csOrders.snapshot[indexPath]
+        )
     }
-
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.white
         let header = view as! UITableViewHeaderFooterView

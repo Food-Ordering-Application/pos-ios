@@ -41,7 +41,14 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
             self.btnReject.setAnimation(LoadyAnimationType.topLine())
         }
     }
-
+    @IBOutlet weak var btnComplete: LoadyButton! {
+        didSet {
+            self.btnComplete.layer.cornerRadius = 8
+            self.btnComplete.setAnimation(LoadyAnimationType.indicator(with: .init(indicatorViewStyle: .light)))
+            self.btnComplete.isHidden = true
+        }
+    }
+    
     @IBOutlet var statusAreaView: UIView! {
         didSet {
             self.statusAreaView.isHidden = true
@@ -136,7 +143,16 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
         self.btnReject.startLoading()
     }
    
-   
+    @IBAction func completeOrder(_ sender: Any) {
+        print("complete my order pls")
+        if let orderId = order?.id {
+            self.btnComplete.startLoading()
+            self.completeOrder(for: orderId)
+            return
+        }
+        self.btnReject.startLoading()
+    }
+    
     
 }
 
@@ -188,7 +204,7 @@ extension OrderDetailViewController {
         /// Need to show or hide note area in here when having data
         self.noteAreaView.isHidden = true
         self.btnAreaView.isHidden = false
-        
+        self.btnComplete.isHidden = true
         self.timeAreaView.isHidden = true
         if let note = order.note, note != "" {
             self.noteAreaView.isHidden = false
@@ -197,6 +213,21 @@ extension OrderDetailViewController {
         if let deliver = order.delivery {
             self.lbDeliveryAddress!.text = deliver.customerAddress
         }
+        
+        if let status = order.status {
+            switch status {
+            case .ordered:
+                self.btnAreaView.isHidden = false
+                self.btnComplete.isHidden = true
+            case .confirmed:
+                self.btnAreaView.isHidden = true
+                self.btnComplete.isHidden = false
+            default:
+                self.btnAreaView.isHidden = true
+                self.btnComplete.isHidden = true
+            }
+        }
+        
     }
 
     func setupOrderView(isHidden: Bool = true) {
@@ -240,19 +271,62 @@ extension OrderDetailViewController {
     func updateConfirmedOrder() {
         self.btnAreaView.isHidden = true
         self.lbOrderStatus!.text = "CONFIRMED"
+        self.btnComplete.isHidden = false
     }
 }
 
-//// MARK: Display rejected order
-//
-// extension OrderDetailViewController {
-//    func rejectOrder(orderId: String){
-//
-//    }
-//    func displayRejectedOrder(viewModel: OrderDetail.ConfirmOrder.ViewModel) {
-//        // MARK: Update Status and Hide Button Action
-//    }
-// }
+// MARK: Display rejected order
+
+ extension OrderDetailViewController {
+    func rejectOrder(for id: String){
+      
+    }
+    func displayRejectedOrder(viewModel: OrderDetail.CompleteOrder.ViewModel) {
+        // MARK: Update Status and Hide Button Action
+        if self.btnReject.loadingIsShowing() {
+            self.btnReject.stopLoading()
+        }
+        guard viewModel.error == nil else {
+            Alert.showUnableToRetrieveDataAlert(on: self)
+            return
+        }
+
+        // MARK: Update Status and Hide Button Action
+
+        self.updateRejectedOrder()
+    }
+    func updateRejectedOrder() {
+        
+    }
+ }
+
+
+// MARK: Display rejected order
+
+ extension OrderDetailViewController {
+    func completeOrder(for id: String){
+
+    }
+    func displayCompletedOrder(viewModel: OrderDetail.CompleteOrder.ViewModel) {
+        // MARK: Update Status and Hide Button Action
+        
+        // MARK: Update Status and Hide Button Action
+        if self.btnComplete.loadingIsShowing() {
+            self.btnComplete.stopLoading()
+        }
+        guard viewModel.error == nil else {
+            Alert.showUnableToRetrieveDataAlert(on: self)
+            return
+        }
+
+        // MARK: Update Status and Hide Button Action
+
+        self.updateCompletedOrder()
+    }
+    func updateCompletedOrder() {
+        
+    }
+ }
 
 // MARK: Setup Notification to receive data from Another View Controller
 

@@ -6,15 +6,15 @@
 //  Copyright © 2018 mdev. All rights reserved.
 //
 
-import PromiseKit
 import Moya
+import PromiseKit
+import SwiftEventBus
 
 protocol GeneralAPI {
     static func callApi<T: TargetType, U: Decodable>(_ target: T, dataReturnType: U.Type, test: Bool, debugMode: Bool) -> Promise<U>
 }
 
 struct APIManager: GeneralAPI {
-    
     /// Generic function to call API endpoints using moya and decodable protocol
     ///
     /// - Parameters:
@@ -24,28 +24,31 @@ struct APIManager: GeneralAPI {
     ///   - debugMode: Toggle the verbose mode of moya
     /// - Returns: A promise containing the dataReturnType set in function params
     static func callApi<Target: TargetType, ReturnedObject: Decodable>(_ target: Target, dataReturnType: ReturnedObject.Type, test: Bool = false, debugMode: Bool = false) -> Promise<ReturnedObject> {
-        
         let token = APIConfig.token
         let authPlugin = AccessTokenPlugin { _ in token }
 
         let loggerConfig = NetworkLoggerPlugin.Configuration(logOptions: .verbose)
         let networkLogger = NetworkLoggerPlugin(configuration: loggerConfig)
-//        let provider = test ? (MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(0.0), plugins: [networkLogger])) :
-//            (debugMode ? MoyaProvider<Target>(plugins: [networkLogger, authPlugin]) : MoyaProvider<Target>(plugins: [authPlugin]))
-//        SwiftEventBus.post("Unauthorized")
-        
+        let provider = test ? MoyaProvider<Target>(stubClosure: MoyaProvider.delayedStub(0.0), plugins: [networkLogger]) :
+            (debugMode ? MoyaProvider<Target>(plugins: [networkLogger, authPlugin]) : MoyaProvider<Target>(plugins: [authPlugin]))
+
         // MARK: Api for testing
-        let provider = MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(2.0), plugins: [networkLogger])
+
+//        let provider = MoyaProvider<Target>(stubClosure:  MoyaProvider.delayedStub(2.0), plugins: [networkLogger])
         /// ------------------------------
         return Promise { seal in
             provider.request(target) { result in
                 switch result {
                 case let .success(response):
+
+                    let statusCode: Int? = response.statusCode
+                    if statusCode == 404 {
+                        SwiftEventBus.post("Unauthorized")
+                    }
+
                     let decoder = JSONDecoder()
-//                    decoder.dateDecodingStrategy = .iso8601
                     decoder.dateDecodingStrategy = .customISO8601
                     do {
-                        print("decoder")
                         let results = try decoder.decode(ReturnedObject.self, from: response.data)
                         seal.fulfill(results)
                     } catch {
