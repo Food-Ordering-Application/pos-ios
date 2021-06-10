@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 
         // MARK: Need have api to check available id
 
-////        self.createActivateCodeView()
+        ////        self.createActivateCodeView()
 //
         if APIConfig.getToken() == "" {
             self.createLoginView()
@@ -94,11 +94,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 
         // Triger event when callApi got code 401
         SwiftEventBus.onMainThread(self, name: "Unauthorized") { _ in
+            APIConfig.setToken(token: "")
             self.createLoginView()
         }
-//        let mainVC = ScannerViewController()
-//        window?.rootViewController = mainVC
-//        window?.makeKeyAndVisible()
+ 
         return true
     }
     

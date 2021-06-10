@@ -7,7 +7,8 @@
 //
 
 import PromiseKit
-
+  
+ 
 /// Name of the protocol to inject the network dependency managing the launches
 protocol UserNetworkInjected {}
 
@@ -41,6 +42,7 @@ extension UserDataManager {
 
 /// Class implementing the UserDataManager protocol. Used by UserNetworkInjector in non test cases
 final class UserNetworkManager: UserDataManager {
+
     /// List api for get information of menuItem referrence for offline
     /// - Parameters:
     ///   - menuId: The id number of the menu

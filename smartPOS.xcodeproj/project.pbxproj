@@ -17,7 +17,6 @@
 		7152835122136C09004602FF /* OrdersWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152835022136C09004602FF /* OrdersWorker.swift */; };
 		71528354221372BA004602FF /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71528353221372BA004602FF /* Order.swift */; };
 		7152835722137458004602FF /* OrdersMemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7152835622137458004602FF /* OrdersMemStore.swift */; };
-		71F1232A2214E2720009FC03 /* OrdersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F123292214E2720009FC03 /* OrdersAPI.swift */; };
 		71F123432214EAD40009FC03 /* OrdersCoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F123422214EAD40009FC03 /* OrdersCoreDataStore.swift */; };
 		9B032D65265F395C00326D95 /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B032D64265F395C00326D95 /* DeepLinkManager.swift */; };
 		9B032D6A265F396F00326D95 /* DeeplinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B032D69265F396F00326D95 /* DeeplinkParser.swift */; };
@@ -210,9 +209,7 @@
 		9BFE7420265425ED0024CC65 /* OrdersLocalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE741A265425EC0024CC65 /* OrdersLocalRouter.swift */; };
 		9BFE7428265431390024CC65 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE7427265431390024CC65 /* Formatter.swift */; };
 		9F8FB053ABB2B4B50BFA882F /* Pods_smartPOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4979C1A7B297667E44D77BB1 /* Pods_smartPOS.framework */; };
-		AFDF88B72671D1FB001BF621 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDF88B52671D1FA001BF621 /* ScannerViewController.swift */; };
-		AFDF88B82671D1FB001BF621 /* ScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFDF88B62671D1FA001BF621 /* ScannerViewController.xib */; };
-		AFDF891F26720955001BF621 /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDF891E26720955001BF621 /* AppManager.swift */; };
+		AF8AF80D267236DD00A4BC04 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AF80C267236DD00A4BC04 /* UIStoryboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,7 +247,6 @@
 		7152835022136C09004602FF /* OrdersWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersWorker.swift; sourceTree = "<group>"; };
 		71528353221372BA004602FF /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		7152835622137458004602FF /* OrdersMemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersMemStore.swift; sourceTree = "<group>"; };
-		71F123292214E2720009FC03 /* OrdersAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersAPI.swift; sourceTree = "<group>"; };
 		71F123422214EAD40009FC03 /* OrdersCoreDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersCoreDataStore.swift; sourceTree = "<group>"; };
 		756B49B95E7629404DAC3C16 /* Pods-smartPOS-smartPOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS-smartPOSUITests.release.xcconfig"; path = "Target Support Files/Pods-smartPOS-smartPOSUITests/Pods-smartPOS-smartPOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		83F7CE37DC57B6E9EFE144C1 /* Pods-smartPOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOSTests.debug.xcconfig"; path = "Target Support Files/Pods-smartPOSTests/Pods-smartPOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -445,9 +441,7 @@
 		9BFE7419265425EC0024CC65 /* OrdersLocalModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersLocalModels.swift; sourceTree = "<group>"; };
 		9BFE741A265425EC0024CC65 /* OrdersLocalRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersLocalRouter.swift; sourceTree = "<group>"; };
 		9BFE7427265431390024CC65 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
-		AFDF88B52671D1FA001BF621 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
-		AFDF88B62671D1FA001BF621 /* ScannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScannerViewController.xib; sourceTree = "<group>"; };
-		AFDF891E26720955001BF621 /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		AF8AF80C267236DD00A4BC04 /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
 		C2D2C7F49934219DF4A8F720 /* Pods-smartPOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS.release.xcconfig"; path = "Target Support Files/Pods-smartPOS/Pods-smartPOS.release.xcconfig"; sourceTree = "<group>"; };
 		E26DE8D32A94BA2C1C722DE7 /* Pods-smartPOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOSTests.release.xcconfig"; path = "Target Support Files/Pods-smartPOSTests/Pods-smartPOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F83F18F6B29A4C7F9E835502 /* Pods-smartPOS-smartPOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smartPOS-smartPOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-smartPOS-smartPOSUITests/Pods-smartPOS-smartPOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -519,7 +513,6 @@
 				9B5C545D262AC63300D7120A /* Common */,
 				71528334221315DB004602FF /* Scenes */,
 				715283062213143A004602FF /* AppDelegate.swift */,
-				AFDF891E26720955001BF621 /* AppManager.swift */,
 				7152830A2213143A004602FF /* Main.storyboard */,
 				7152830D2213143D004602FF /* Assets.xcassets */,
 				7152830F2213143D004602FF /* LaunchScreen.storyboard */,
@@ -552,8 +545,6 @@
 				9BC2F78B261C511F00D5CFBC /* DeliveryViewController.swift */,
 				9BD48C27264BD52E0025655E /* LoginViewController.swift */,
 				9BD48C2C264BD55C0025655E /* ActivateCodeViewController.swift */,
-				AFDF88B52671D1FA001BF621 /* ScannerViewController.swift */,
-				AFDF88B62671D1FA001BF621 /* ScannerViewController.xib */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -591,7 +582,6 @@
 				7152835622137458004602FF /* OrdersMemStore.swift */,
 				9B57A012263126AF00D521C1 /* MenuItemsMemStore.swift */,
 				71F123422214EAD40009FC03 /* OrdersCoreDataStore.swift */,
-				71F123292214E2720009FC03 /* OrdersAPI.swift */,
 				9BD48C41264C2DAC0025655E /* NoInternetService.swift */,
 				9B3A76B32650E13D005A285E /* SyncService.swift */,
 			);
@@ -949,6 +939,7 @@
 				9B3A7671264FA63A005A285E /* UITextField.swift */,
 				9BFE7427265431390024CC65 /* Formatter.swift */,
 				9BC3F9DC26653F4D002AB1CF /* DispatchQueue+Dedupe.swift */,
+				AF8AF80C267236DD00A4BC04 /* UIStoryboard.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1238,7 +1229,6 @@
 				9B96823B261B559200D1980B /* Poppins-LightItalic.ttf in Resources */,
 				9B3A768D2650B9D9005A285E /* CSToppingItems.json in Resources */,
 				9B3A769F2650BA2C005A285E /* CSMenuItemToppings.json in Resources */,
-				AFDF88B82671D1FB001BF621 /* ScannerViewController.xib in Resources */,
 				9B3A769A2650BA0F005A285E /* CSToppingGroups.json in Resources */,
 				715283112213143D004602FF /* LaunchScreen.storyboard in Resources */,
 				9BC2F84D261C51CC00D5CFBC /* DataTableViewCell.xib in Resources */,
@@ -1457,7 +1447,6 @@
 				9BC2F861261C51DC00D5CFBC /* UIView.swift in Sources */,
 				9B5C543C262ABC8600D7120A /* OrdersPageRouter.swift in Sources */,
 				9BCF66012626AA64008841BA /* MenuItemDetailView.swift in Sources */,
-				AFDF891F26720955001BF621 /* AppManager.swift in Sources */,
 				9BC2F85E261C51DC00D5CFBC /* UITableViewExtension.swift in Sources */,
 				9B6792CE263D714500B37B79 /* CreateOrderAndOrderItemResponse.swift in Sources */,
 				9B3A76AF2650BB9D005A285E /* CSMenuItemToppingsResponce.swift in Sources */,
@@ -1499,9 +1488,9 @@
 				9B9926C62626813500B6FDF9 /* Restaurant.swift in Sources */,
 				9B94D0F3264EAA8700502825 /* CSToppingGroup.swift in Sources */,
 				9B57A009263119B200D521C1 /* MenuItemsWorker.swift in Sources */,
+				AF8AF80D267236DD00A4BC04 /* UIStoryboard.swift in Sources */,
 				9BA4E167262C3B9400BA9F10 /* CheckoutModels.swift in Sources */,
 				9BC2F85D261C51DC00D5CFBC /* UIImage.swift in Sources */,
-				71F1232A2214E2720009FC03 /* OrdersAPI.swift in Sources */,
 				9B1598F32646FA770004B24D /* OrdersResponse.swift in Sources */,
 				9BFE741E265425ED0024CC65 /* OrdersLocalPresenter.swift in Sources */,
 				9B94D0E1264EAA4C00502825 /* CSMenuItemGroup.swift in Sources */,
@@ -1529,7 +1518,6 @@
 				9B9926E4262681CB00B6FDF9 /* CouponCampaign.swift in Sources */,
 				9BD269C1262AEB60000CDABE /* Moya+Extensions.swift in Sources */,
 				9B9926BC262680FB00B6FDF9 /* Menu.swift in Sources */,
-				AFDF88B72671D1FB001BF621 /* ScannerViewController.swift in Sources */,
 				9B5C543B262ABC8600D7120A /* OrdersPageWorker.swift in Sources */,
 				9BC2F794261C511F00D5CFBC /* SettingViewController.swift in Sources */,
 				9B3CEC4F262BFD1E00273A65 /* OrderDetailPresenter.swift in Sources */,

@@ -7,6 +7,7 @@
 
 import SwiftEntryKit
 import UIKit
+import SwiftEventBus
 
 enum LeftMenu: Int {
     case main = 0
@@ -165,9 +166,9 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
     }
     
     @IBAction func handleLogour(_ sender: Any) {
-        print("Iam logout")
-    }
-    
+        SwiftEventBus.post("Unauthorized")
+        
+    } 
 }
 
 extension LeftViewController {

@@ -36,7 +36,6 @@ PODS:
   - SwiftEntryKit (1.2.7):
     - QuickLayout (= 3.0.0)
   - SwiftEventBus (5.0.0)
-  - SwiftKeychainWrapper (4.0.1)
   - TextFieldEffects (1.6.0)
 
 DEPENDENCIES:
@@ -60,7 +59,6 @@ DEPENDENCIES:
   - SwiftDate (~> 5.0)
   - SwiftEntryKit (= 1.2.7)
   - SwiftEventBus (from `https://github.com/cesarferreira/SwiftEventBus.git`, tag `5.1.0`)
-  - SwiftKeychainWrapper
   - TextFieldEffects
 
 SPEC REPOS:
@@ -87,7 +85,6 @@ SPEC REPOS:
     - Starscream
     - SwiftDate
     - SwiftEntryKit
-    - SwiftKeychainWrapper
     - TextFieldEffects
 
 EXTERNAL SOURCES:
@@ -124,9 +121,8 @@ SPEC CHECKSUMS:
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftEntryKit: 537c92699d6034efb1ef9c32b11e0b37c97aa589
   SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
-  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: 8ab6b18375aa4bbceecd0043a1778d8fd97a9829
+PODFILE CHECKSUM: 2c20eb7337cf662c77a25a79f21b6f2d5646c083
 
 COCOAPODS: 1.10.1

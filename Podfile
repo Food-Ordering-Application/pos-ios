@@ -7,7 +7,6 @@ target 'smartPOS' do
 
   # Pods for smartPOS
   
-  pod 'SwiftKeychainWrapper'
   pod 'QRCodeReader.swift', '~> 10.1.0'
   pod 'SlideMenuControllerSwift'
   pod "BouncyLayout"

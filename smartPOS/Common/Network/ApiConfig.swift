@@ -33,8 +33,8 @@ struct APIConfig {
     }
     // MARK: Do not hard code
     static func getRestaurantId() -> String {
-//        return UserDefaults.standard.string(forKey: "restaurantId") ?? APIConfig.restaurantId
-        return  APIConfig.restaurantId
+        return UserDefaults.standard.string(forKey: "restaurantId") ?? APIConfig.restaurantId
+//        return  APIConfig.restaurantId
     }
 
     static func setUserId(userId: String?) {
@@ -42,8 +42,8 @@ struct APIConfig {
     }
     // MARK: Do not hard code
     static func getUserId() -> String {
-//        return UserDefaults.standard.string(forKey: "userId") ?? ""
-        return APIConfig.userId
+        return UserDefaults.standard.string(forKey: "userId") ?? ""
+//        return APIConfig.userId
     }
 
     static func setMerchantId(merchantId: String?) {
@@ -59,7 +59,6 @@ struct APIConfig {
     }
     // MARK: Do not hard code
     static func getToken() -> String {
-//        return UserDefaults.standard.string(forKey: "token") ?? ""
-        return APIConfig.token
+        return UserDefaults.standard.string(forKey: "token") ?? ""
     }
 }
