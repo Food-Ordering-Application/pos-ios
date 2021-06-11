@@ -58,9 +58,8 @@ class MenuItemsWorker {
             }
         }
     }
-//    func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
-    func fetchMenuItems(completionHandler: @escaping ([MenuItem]) -> Void) {
-        menuItemsStore.fetchMenuItems { (menuItems: () throws -> [MenuItem]) -> Void in
+    func fetchMenuItems(completionHandler: @escaping ([MenuItem]?) -> Void) {
+        menuItemsStore.fetchMenuItems { (menuItems: () throws -> [MenuItem]?) -> Void in
             do {
                 let menuItems = try menuItems()
                 DispatchQueue.main.async {
@@ -73,7 +72,20 @@ class MenuItemsWorker {
             }
         }
     }
-
+    func fetchToppingItems(completionHandler: @escaping ([ToppingItem]?) -> Void) {
+        menuItemsStore.fetchToppingItems { (toppingItems: () throws -> [ToppingItem]?) -> Void in
+            do {
+                let toppingItems = try toppingItems()
+                DispatchQueue.main.async {
+                    completionHandler(toppingItems)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler([])
+                }
+            }
+        }
+    }
     func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (MenuItem?) -> Void) {
         menuItemsStore.createMenuItem(menuItemToCreate: menuItemToCreate) { (menuItem: () throws -> MenuItem?) -> Void in
             do {
@@ -112,7 +124,8 @@ protocol MenuItemsStoreProtocol {
 
     func fetchMenuAndMenuGroups(completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void)
     func searchMenuAndMenuGroups(keyword: String,completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void)
-    func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]) -> Void)
+    func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]?) -> Void)
+    func fetchToppingItems(completionHandler: @escaping (() throws -> [ToppingItem]?) -> Void)
     func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> [ToppingGroup]?) -> Void)
     func createMenuItem(menuItemToCreate: MenuItem, completionHandler: @escaping (() throws -> MenuItem?) -> Void)
     func updateMenuItem(menuItemToUpdate: MenuItem, completionHandler: @escaping (() throws -> MenuItem?) -> Void)

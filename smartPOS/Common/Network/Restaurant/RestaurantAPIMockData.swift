@@ -15,7 +15,8 @@ extension RestaurantAPI {
             return stubbedResponse("Menu")
         case .getMenuItemToppings:
             return stubbedResponse("MenuItemToppings")
-            
+        case .getCSMenuItem:
+            return stubbedResponse("CSMenuItems")
         case .getCSMenuItemToppings:
             return stubbedResponse("CSMenuItemToppings")
         case .getCSToppingItems:

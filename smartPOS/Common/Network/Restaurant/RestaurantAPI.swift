@@ -13,7 +13,7 @@ enum RestaurantAPI {
     case getMenuItemToppings(menuItemId: String)
 
     // MARK: Get data for Saving at local and sync | backup
-
+    case getCSMenuItem(menuId: String)
     case getCSMenuItemToppings(menuId: String)
     case getCSToppingItems(menuId: String)
     case getCSToppingGroups(menuId: String)
@@ -23,7 +23,7 @@ enum RestaurantAPI {
 extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
     var authorizationType: AuthorizationType? {
         switch self {
-        case .getMenuItemToppings, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
+        case .getMenuItemToppings, .getCSMenuItem, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
             return .bearer
         default:
             return .none
@@ -40,6 +40,8 @@ extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
             return "/restaurant/\(restaurantId)/get-menu-information"
         case .getMenuItemToppings:
             return "restaurant/get-menu-item-topping-info"
+        case .getCSMenuItem(let menuId):
+            return "/user/pos/menu/\(menuId)/menu-item"
         case .getCSMenuItemToppings(menuId: let menuId):
             return "/user/pos/menu/\(menuId)/menu-item-topping"
         case .getCSToppingItems(menuId: let menuId):
@@ -51,7 +53,7 @@ extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
 
     var method: Moya.Method {
         switch self {
-        case .getMenu, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
+        case .getMenu, .getCSMenuItem, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
             return .get
         case .getMenuItemToppings:
             return .post
@@ -60,7 +62,7 @@ extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
 
     var parameterEncoding: ParameterEncoding {
         switch self {
-        case .getMenu, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
+        case .getMenu, .getCSMenuItem, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
             return URLEncoding.default
         case .getMenuItemToppings:
             return JSONEncoding.default
@@ -74,7 +76,7 @@ extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
 //            params["limit"] = limit
 //            params["offset"] = offset
 //            return .requestParameters(parameters: params, encoding: URLEncoding.default)
-        case .getMenu, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
+        case .getMenu, .getCSMenuItem, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
             return .requestPlain
         case .getMenuItemToppings(let menuItemId):
             return .requestParameters(parameters: ["menuItemId": menuItemId], encoding: JSONEncoding.default)

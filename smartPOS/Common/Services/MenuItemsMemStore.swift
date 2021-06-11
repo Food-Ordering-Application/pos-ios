@@ -79,9 +79,9 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     func fetchMenuAndMenuGroups(completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void) {
         do {
             let menu = try CSDatabase.stack.fetchOne(From<CSMenu>())?.toStruct()
-            let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { (csMenuItemGroup) -> MenuGroup in
+            let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { csMenuItemGroup -> MenuGroup in
                 let csMenuGroup = csMenuItemGroup.toStruct()
-                let menuItems = csMenuItemGroup.menuItems.map { (csMenuItem) -> MenuItem in
+                let menuItems = csMenuItemGroup.menuItems.map { csMenuItem -> MenuItem in
                     csMenuItem.toStruct()
                 }
                 return MenuGroup(id: csMenuGroup.id, name: csMenuGroup.name, menuId: menu?.id, menuItems: menuItems)
@@ -103,9 +103,9 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     func searchMenuAndMenuGroups(keyword: String, completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void) {
         do {
             let menu = try CSDatabase.stack.fetchOne(From<CSMenu>())?.toStruct()
-            let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { (csMenuItemGroup) -> MenuGroup in
+            let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { csMenuItemGroup -> MenuGroup in
                 let csMenuGroup = csMenuItemGroup.toStruct()
-                let menuItems = try CSDatabase.stack.fetchAll(From<CSMenuItem>().where(\.$menuItemGroup ~ \.$id == csMenuGroup.id).where(\.$name == keyword)).map { (csMenuItem) -> MenuItem in
+                let menuItems = try CSDatabase.stack.fetchAll(From<CSMenuItem>().where(\.$menuItemGroup ~ \.$id == csMenuGroup.id).where(\.$name == keyword)).map { csMenuItem -> MenuItem in
                     csMenuItem.toStruct()
                 }
                 
@@ -134,33 +134,58 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
         }
     }
     
-    func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]) -> Void) {
-        completionHandler { type(of: self).menuItems }
+    func fetchMenuItems(completionHandler: @escaping (() throws -> [MenuItem]?) -> Void) {
+        do {
+            let menuItems = try CSDatabase.stack.fetchAll(From<CSMenuItem>()).map { csMenuItem -> MenuItem in
+                csMenuItem.toStruct()
+            }
+            completionHandler {
+                menuItems
+            }
+        }
+        catch {
+            completionHandler {
+                throw MenuItemsStoreError.CannotFetch("Cannot fetch MenuItems from Local")
+            }
+        }
     }
-    
+
+    func fetchToppingItems(completionHandler: @escaping (() throws -> [ToppingItem]?) -> Void) {
+        do {
+            let toppingItems = try CSDatabase.stack.fetchAll(From<CSToppingItem>()).map { csToppingItem -> ToppingItem in
+                csToppingItem.toStruct()
+            }
+            completionHandler {
+                toppingItems
+            }
+        }
+        catch {
+            completionHandler {
+                throw MenuItemsStoreError.CannotFetch("Cannot fetch ToppingItems from Local")
+            }
+        }
+    }
+
     func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> [ToppingGroup]?) -> Void) {
         do {
             let menuItemToppings = try CSDatabase.stack.fetchAll(From<CSMenuItemTopping>().where(\.$menuItem ~ \.$id == menuItemId))
             
             let menuItem = try CSDatabase.stack.fetchOne(From<CSMenuItem>().where(\.$id == menuItemId))
             
-            let toppingGroups: [ToppingGroup]? = menuItem?.menuItemToppings.map { (csMenuItemToppings) -> ToppingGroup in
+            let toppingGroups: [ToppingGroup]? = menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingGroup in
                 (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
             }
             print("🍀 🍀 🍀 🍀 🍀 🍀 fetchMenuItemToppings 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
-            print(menuItem?.toStruct())
-//            print(menuItem?.toppingGroups.map { (csToppingGroup) -> ToppingGroup in
-//                csToppingGroup.toStruct()
+//            print(menuItem?.toStruct())
+//            print(menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingItem in
+//                (csMenuItemToppings.toppingItem?.toStruct())!
 //            })
-            print(menuItem?.menuItemToppings.map { (csMenuItemToppings) -> ToppingItem in
-                (csMenuItemToppings.toppingItem?.toStruct())!
-            })
-            print(menuItem?.menuItemToppings.map { (csMenuItemToppings) -> ToppingGroup in
-                (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
-            })
-            print("---------------------------------------------------------------")
-            print(menuItemId)
-            print(toppingGroups)
+//            print(menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingGroup in
+//                (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
+//            })
+//            print("---------------------------------------------------------------")
+//            print(menuItemId)
+//            print(toppingGroups)
             print("🍀 🍀 🍀 🍀 🍀 🍀 fetchMenuItemToppings 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
             completionHandler {
                 Array(Set(toppingGroups ?? []))

@@ -209,6 +209,10 @@
 		9BFE7420265425ED0024CC65 /* OrdersLocalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE741A265425EC0024CC65 /* OrdersLocalRouter.swift */; };
 		9BFE7428265431390024CC65 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFE7427265431390024CC65 /* Formatter.swift */; };
 		9F8FB053ABB2B4B50BFA882F /* Pods_smartPOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4979C1A7B297667E44D77BB1 /* Pods_smartPOS.framework */; };
+		AF603F292673C48300104D09 /* CSMenuItemsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF603F282673C48300104D09 /* CSMenuItemsResponse.swift */; };
+		AF603F312673CFF900104D09 /* CSMenuItems.json in Resources */ = {isa = PBXBuildFile; fileRef = AF603F302673CFF900104D09 /* CSMenuItems.json */; };
+		AF603F3A2673D75300104D09 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF603F382673D75300104D09 /* ItemTableViewCell.swift */; };
+		AF603F3B2673D75300104D09 /* ItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF603F392673D75300104D09 /* ItemTableViewCell.xib */; };
 		AF608B4E26728469002D6C45 /* RejectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF608B4D26728469002D6C45 /* RejectionViewController.swift */; };
 		AF8AF80D267236DD00A4BC04 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8AF80C267236DD00A4BC04 /* UIStoryboard.swift */; };
 		AFC95C2326726F0200019BD0 /* VoidOrder.json in Resources */ = {isa = PBXBuildFile; fileRef = AFC95C2226726F0200019BD0 /* VoidOrder.json */; };
@@ -444,6 +448,10 @@
 		9BFE7419265425EC0024CC65 /* OrdersLocalModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersLocalModels.swift; sourceTree = "<group>"; };
 		9BFE741A265425EC0024CC65 /* OrdersLocalRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersLocalRouter.swift; sourceTree = "<group>"; };
 		9BFE7427265431390024CC65 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
+		AF603F282673C48300104D09 /* CSMenuItemsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSMenuItemsResponse.swift; sourceTree = "<group>"; };
+		AF603F302673CFF900104D09 /* CSMenuItems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CSMenuItems.json; sourceTree = "<group>"; };
+		AF603F382673D75300104D09 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		AF603F392673D75300104D09 /* ItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemTableViewCell.xib; sourceTree = "<group>"; };
 		AF608B4D26728469002D6C45 /* RejectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectionViewController.swift; sourceTree = "<group>"; };
 		AF8AF80C267236DD00A4BC04 /* UIStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
 		AFC95C2226726F0200019BD0 /* VoidOrder.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = VoidOrder.json; sourceTree = "<group>"; };
@@ -639,6 +647,7 @@
 		9B3A76A32650BB18005A285E /* CoreStore */ = {
 			isa = PBXGroup;
 			children = (
+				AF603F282673C48300104D09 /* CSMenuItemsResponse.swift */,
 				9B3A76A42650BB64005A285E /* CSToppingItemsResponce.swift */,
 				9B3A76A92650BB83005A285E /* CSToppingGroupsResponce.swift */,
 				9B3A76AE2650BB9D005A285E /* CSMenuItemToppingsResponce.swift */,
@@ -964,6 +973,8 @@
 				9B7E0A5226202E2C00DAEABB /* OrderItemTableViewCell.xib */,
 				9B087129262868A100DD465C /* RadioTableViewCell.swift */,
 				9B08712A262868A100DD465C /* RadioTableViewCell.xib */,
+				AF603F382673D75300104D09 /* ItemTableViewCell.swift */,
+				AF603F392673D75300104D09 /* ItemTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1064,6 +1075,7 @@
 			children = (
 				9BEDEC0526355C790011F71B /* Menu.json */,
 				9B6792EF263E1C2D00B37B79 /* MenuItemToppings.json */,
+				AF603F302673CFF900104D09 /* CSMenuItems.json */,
 				9B3A768C2650B9D9005A285E /* CSToppingItems.json */,
 				9B3A76992650BA0F005A285E /* CSToppingGroups.json */,
 				9B3A769E2650BA2C005A285E /* CSMenuItemToppings.json */,
@@ -1225,6 +1237,7 @@
 				9B96822F261B559200D1980B /* Poppins-ExtraLight.ttf in Resources */,
 				9BCB7852261F6D5000AD29E5 /* MenuItemTableViewCell.xib in Resources */,
 				9B713FB8263ECE1E005BD78D /* ManipulateOrderItem.json in Resources */,
+				AF603F3B2673D75300104D09 /* ItemTableViewCell.xib in Resources */,
 				9B96823F261B559200D1980B /* Poppins-SemiBold.ttf in Resources */,
 				9B968232261B559200D1980B /* Poppins-BoldItalic.ttf in Resources */,
 				9B968233261B559200D1980B /* Poppins-Light.ttf in Resources */,
@@ -1257,6 +1270,7 @@
 				9B9CF5AC26229B320023C83A /* PromotionItemCollectionViewCell.xib in Resources */,
 				7152830E2213143D004602FF /* Assets.xcassets in Resources */,
 				9B6792F0263E1C2D00B37B79 /* MenuItemToppings.json in Resources */,
+				AF603F312673CFF900104D09 /* CSMenuItems.json in Resources */,
 				9BEDEC0626355C790011F71B /* Menu.json in Resources */,
 				7152830C2213143A004602FF /* Main.storyboard in Resources */,
 			);
@@ -1475,6 +1489,7 @@
 				9B9926B7262680EF00B6FDF9 /* OpenHours.swift in Sources */,
 				9B3CEC50262BFD1E00273A65 /* OrderDetailWorker.swift in Sources */,
 				9BA4E165262C3B9400BA9F10 /* CheckoutWorker.swift in Sources */,
+				AF603F292673C48300104D09 /* CSMenuItemsResponse.swift in Sources */,
 				9B1598F82646FA860004B24D /* OrderDetailResponse.swift in Sources */,
 				9B9926C12626811700B6FDF9 /* Weekday.swift in Sources */,
 				9B9926A42625F3BD00B6FDF9 /* PresetDescription.swift in Sources */,
@@ -1537,6 +1552,7 @@
 				9B94D0EE264EAA7200502825 /* CSToppingItem.swift in Sources */,
 				9B85808E262183FC00BBC550 /* PromotionsViewController.swift in Sources */,
 				9B9926F62626827F00B6FDF9 /* User.swift in Sources */,
+				AF603F3A2673D75300104D09 /* ItemTableViewCell.swift in Sources */,
 				9BC3F9DD26653F4E002AB1CF /* DispatchQueue+Dedupe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

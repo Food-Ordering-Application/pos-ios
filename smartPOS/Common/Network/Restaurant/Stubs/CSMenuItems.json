@@ -1,0 +1,82 @@
+{
+    "statusCode": 200,
+    "message": "Fetched menu item successfully",
+    "data": {
+        "results": [
+            {
+                "id": "3cf0e55c-1677-4726-97b6-be5d8a76df6c",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "menuGroupId": "aa7e1cdc-b2b5-4801-b660-e804f8cb15b9",
+                "name": "Josue Rippin",
+                "description": "Pariatur est facere.",
+                "price": 13433,
+                "imageUrl": "http://lorempixel.com/640/480",
+                "isActive": true,
+                "state": "IN_STOCK",
+                "index": 1
+            },
+            {
+                "id": "fe06241d-5733-49be-92ec-7c53143311b8",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "menuGroupId": "239512a9-318f-4afa-a8df-a820f71fa7a0",
+                "name": "Athena Fahey",
+                "description": "Repudiandae autem ea.",
+                "price": 16124,
+                "imageUrl": "http://lorempixel.com/640/480",
+                "isActive": true,
+                "state": "IN_STOCK",
+                "index": 1
+            },
+            {
+                "id": "fd0a615e-f58b-425d-87c1-11240fce9edb",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "menuGroupId": "fdb545f2-f82d-43c9-a767-d9519dae065d",
+                "name": "Darron Hudson",
+                "description": "Tenetur repellendus perferendis recusandae qui voluptatem consequuntur voluptatem rerum.",
+                "price": 18471,
+                "imageUrl": "http://lorempixel.com/640/480",
+                "isActive": true,
+                "state": "IN_STOCK",
+                "index": 1
+            },
+            {
+                "id": "d67e151b-e95b-4588-b2ef-acfa2ba26210",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "menuGroupId": "239512a9-318f-4afa-a8df-a820f71fa7a0",
+                "name": "Rey Brakus",
+                "description": "Deserunt neque eos pariatur.",
+                "price": 15497,
+                "imageUrl": "http://lorempixel.com/640/480",
+                "isActive": true,
+                "state": "IN_STOCK",
+                "index": 1
+            },
+            {
+                "id": "e33d8472-ab40-4655-8e3a-831e2ba9bdc3",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "menuGroupId": "fdb545f2-f82d-43c9-a767-d9519dae065d",
+                "name": "King Hilll",
+                "description": "Odit deserunt asperiores optio enim animi iure harum sit.",
+                "price": 12393,
+                "imageUrl": "http://lorempixel.com/640/480",
+                "isActive": true,
+                "state": "IN_STOCK",
+                "index": 1
+            },
+            {
+                "id": "a7baf823-31a8-4952-be2a-579d78867617",
+                "menuId": "53aadf06-1873-49a6-bdc1-442dd6fee910",
+                "menuGroupId": "aa7e1cdc-b2b5-4801-b660-e804f8cb15b9",
+                "name": "Ryann Sauer",
+                "description": "Alias qui et aut.",
+                "price": 14646,
+                "imageUrl": "http://lorempixel.com/640/480",
+                "isActive": true,
+                "state": "IN_STOCK",
+                "index": 1
+            }
+        ],
+        "size": 50,
+        "total": 6
+    }
+}
