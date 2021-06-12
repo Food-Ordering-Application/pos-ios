@@ -10,11 +10,11 @@
 //  see http://clean-swift.com
 //
 
+import AVFoundation
+import QRCodeReader
 import SkeletonView
 import SlideMenuControllerSwift
 import UIKit
-import AVFoundation
-import QRCodeReader
 
 struct ControlStatus {
     let name: String
@@ -46,6 +46,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
 
         return QRCodeReaderViewController(builder: builder)
     }()
+
     // MARK: - Actions
 
     @IBOutlet var segmentedControlStatus: UISegmentedControl! {
@@ -58,12 +59,12 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
             segmentedControlStatus.selectedSegmentIndex = currentStatusIndex
         }
     }
-    
+
     @IBOutlet var ordersConllectionView: UIView!
     @IBOutlet var orderDetailView: UIView!
-    
+
     // MARK: - Variables
-    
+
     var controlStatuses: [ControlStatus] = [
         ControlStatus(name: "Chờ xác nhận", stasus: .ordered, index: 0),
         ControlStatus(name: "Đang thực hiện", stasus: .confirmed, index: 1),
@@ -71,23 +72,23 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
         ControlStatus(name: "Đã huỷ", stasus: .cancelled, index: 3)
     ]
     var currentStatusIndex = 0
-    
+
     var displayedOrdersGroups: [OrdersPage.DisplayedOrdersGroup] = []
-    
+
     // MARK: Object lifecycle
-  
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-  
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
 
     // MARK: Routing
-  
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
@@ -96,20 +97,20 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
             }
         }
     }
-  
+
     // MARK: View lifecycle
-  
+
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+
         fetchOrders()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationBarItem()
     }
-  
+
     func displaySearchOrders(viewModel: OrdersPage.SearchOrders.ViewModel) {
         print("displaySearchOrders")
     }
@@ -117,7 +118,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
     func displayOrdersByStatus(viewModel: OrdersPage.FetchOrdersByStatus.ViewModel) {
         print("displayOrdersByStatus")
     }
-    
+
     func displayRefreshedOrders(viewModel: OrdersPage.RefreshOrders.ViewModel) {
         print("displayRefreshedOrders")
     }
@@ -127,7 +128,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
         onDisplayOrders(index)
         currentStatusIndex = index
     }
-    
+
     @IBAction func scanQRCoder(_ sender: Any) {
         guard checkScanPermissions() else { return }
 
@@ -142,7 +143,7 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
 
         present(readerVC, animated: true, completion: nil)
     }
-    
+
     private func checkScanPermissions() -> Bool {
         do {
             return try QRCodeReader.supportsMetadataObjectTypes()
@@ -172,7 +173,6 @@ class OrdersPageViewController: UIViewController, OrdersPageDisplayLogic {
             return false
         }
     }
-
 }
 
 // MARK: Fetch orders on screen load
@@ -188,7 +188,7 @@ extension OrdersPageViewController {
         let request = OrdersPage.FetchOrders.Request(restaurantId: restaurantId, query: query, pageNumber: pageNumber)
         interactor?.fetchOrders(request: request)
     }
-    
+
     func displayOrders(viewModel: OrdersPage.FetchOrders.ViewModel) {
         view.hideSkeleton()
 
@@ -207,8 +207,23 @@ extension OrdersPageViewController {
         if ordersGroups.count == 0 { return }
         var groups: [OrdersPage.DisplayedOrdersGroup] = []
         controlStatuses.forEach { controlStatus in
+            let status = controlStatus.stasus
+            // MARK: Merge some status of order to one tab is completed
+            if status == .completed {
+                guard var readyGroup = ordersGroups.filter({ group -> Bool in
+                    group.status == OrderStatus.ready.rawValue
+                }).first else { return }
+                let completedGroup = ordersGroups.filter { group -> Bool in
+                    group.status == OrderStatus.completed.rawValue
+                }.first
+                let completedOrders = completedGroup?.orders
+                readyGroup.orders?.append(contentsOf: completedOrders ?? [])
+                readyGroup.length = readyGroup.orders?.count
+                groups.append(readyGroup)
+                return
+            }
             if let group = ordersGroups.filter({ group -> Bool in
-                group.status == controlStatus.stasus.rawValue
+                group.status == status.rawValue
             }).first {
                 groups.append(group)
                 return
@@ -216,8 +231,8 @@ extension OrdersPageViewController {
             let tempGroup = OrdersPage.DisplayedOrdersGroup(status: controlStatus.stasus.rawValue, length: 0, orders: [])
             groups.append(tempGroup)
         }
-        self.displayedOrdersGroups = groups
-        
+        displayedOrdersGroups = groups
+
         for (index, orderGroup) in displayedOrdersGroups.enumerated() {
             if index < controlStatuses.count {
                 let controlStatus = controlStatuses[index]
@@ -252,28 +267,32 @@ private extension OrdersPageViewController {
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(didGetNotificationFetchOrders(_:)), name: Notification.Name("FetchOrders"), object: nil)
     }
-    
+
     @objc func didGetNotificationFetchOrders(_ notification: Notification) {
         fetchOrders()
     }
 }
+
 // MARK: - QRCodeReader Delegate Methods
+
 extension OrdersPageViewController: QRCodeReaderViewControllerDelegate {
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
         reader.stopScanning()
 
         dismiss(animated: true) { [weak self] in
-            let alert = UIAlertController(
-                title: "QRCodeReader",
-                message: String(format: "%@ (of type %@)", result.value, result.metadataType),
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-
-            self?.present(alert, animated: true, completion: nil)
+//            let alert = UIAlertController(
+//                title: "QRCodeReader",
+//                message: String(format: "%@ (of type %@)", result.value, result.metadataType),
+//                preferredStyle: .alert
+//            )
+//            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//
+//            self?.present(alert, animated: true, completion: nil)
+            let orderId = result.value
+            NotificationCenter.default.post(name: Notification.Name("OrderDetail"), object: orderId)
         }
     }
 
@@ -283,7 +302,6 @@ extension OrdersPageViewController: QRCodeReaderViewControllerDelegate {
 
     func readerDidCancel(_ reader: QRCodeReaderViewController) {
         reader.stopScanning()
-
         dismiss(animated: true, completion: nil)
     }
 }

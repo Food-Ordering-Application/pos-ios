@@ -59,6 +59,7 @@ enum OrderStatus: String, Decodable {
     case draft = "DRAFT"
     case ordered = "ORDERED"
     case confirmed = "CONFIRMED"
+    case ready = "READY"
     case cancelled = "CANCELLED"
     case completed = "COMPLETED"
     case unknown = "UNKNOWN"
@@ -74,6 +75,8 @@ enum OrderStatus: String, Decodable {
             return .ordered
         case "CONFIRMED":
             return .confirmed
+        case "READY":
+            return .ready
         case "COMPLETED" :
             return .completed
         case "CANCELLED":

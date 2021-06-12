@@ -235,6 +235,7 @@ extension OrderDetailViewController {
             switch status {
             case .ordered:
                 self.btnAreaView.isHidden = false
+                self.btnAccept.isHidden = false
                 self.btnComplete.isHidden = true
             case .confirmed:
                 self.btnAreaView.isHidden = true
@@ -305,6 +306,8 @@ extension OrderDetailViewController {
         }
         guard viewModel.error == nil else {
             Alert.showUnableToRetrieveDataAlert(on: self)
+            self.btnReject.tag = 0
+            self.btnAccept.isHidden = false
             return
         }
 
@@ -322,11 +325,12 @@ extension OrderDetailViewController {
 // MARK: Display rejected order
 
 extension OrderDetailViewController {
-    func completeOrder(for id: String) {}
+    func completeOrder(for id: String) {
+        let request = OrderDetail.CompleteOrder.Request(id: id)
+        self.interactor?.completeOrder(request: request)
+    }
 
     func displayCompletedOrder(viewModel: OrderDetail.CompleteOrder.ViewModel) {
-        // MARK: Update Status and Hide Button Action
-
         // MARK: Update Status and Hide Button Action
 
         if self.btnComplete.loadingIsShowing() {
@@ -342,7 +346,9 @@ extension OrderDetailViewController {
         self.updateCompletedOrder()
     }
 
-    func updateCompletedOrder() {}
+    func updateCompletedOrder() {
+        self.btnComplete.isHidden = true
+    }
 }
 
 // MARK: Setup Notification to receive data from Another View Controller

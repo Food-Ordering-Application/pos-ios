@@ -75,10 +75,15 @@ extension OrdersPagePresenter {
 //
 //        return displayedOrders
 //    }
+    
+    
     private func groupOrderByStatus(_ orderToDisplay: [Order]?) ->  [OrdersPage.DisplayedOrdersGroup] {
         var displayedOrderGroups: [OrdersPage.DisplayedOrdersGroup] = []
         
         if let orders = orderToDisplay {
+            
+            // MARK: status complete = .ready, .completed, .pickedup
+            
             let groupedDictionary = Dictionary(grouping: orders) { order -> String in
                 return order.status?.rawValue ?? "unknown"
             }

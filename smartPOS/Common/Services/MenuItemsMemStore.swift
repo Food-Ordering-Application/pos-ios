@@ -22,6 +22,7 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     static var toppingGroups: [ToppingGroupData]?
     
     init() {
+        // MARK: This is sync for menuItem and groups
         SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenu") { _ in
 //            if NoInternetService.isReachable() {
 //                print("🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑")
@@ -34,7 +35,6 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
                 DispatchQueue.main.async {
                     print("Hello Iam Sync Sync Sync")
                     MenuItemsMemStore.storeMenuItems()
-                    //                SwiftEventBus.post("POSSyncMenu", sender:  MenuItemsMemStore.menu?.id)
                 }
             }
          
@@ -45,7 +45,6 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     static func storeMenuItems() {
         if let menu = MenuItemsMemStore.menu, let menuItemGroups = MenuItemsMemStore.menuItemGroups {
             // MARK: Save data to local
-
             CSWorker.storeLocal(menu: menu, menuGroups: menuItemGroups)
         }
     }

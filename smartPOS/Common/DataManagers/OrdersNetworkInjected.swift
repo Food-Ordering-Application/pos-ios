@@ -33,6 +33,7 @@ protocol OrdersDataManager: class {
 
     func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse>
     func voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String?, _ debugMode: Bool) -> Promise<VoidOrderResponse>
+    func completeOrder(orderId: String, _ debugMode: Bool) -> Promise<CompleteOrderResponse>
     func syncOrder(orderAndOrderItemData: OrderAndOrderItemData, _ debugMode: Bool) -> Promise<CreateOrderAndOrderItemResponse>
 }
 
@@ -63,6 +64,9 @@ extension OrdersDataManager {
 
     func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse> {
         return confirmOrder(orderId: orderId, debugMode)
+    }
+    func completeOrder(orderId: String, _ debugMode: Bool) -> Promise<CompleteOrderResponse> {
+        return completeOrder(orderId: orderId, debugMode)
     }
 
     func voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String, _ debugMode: Bool) -> Promise<VoidOrderResponse> {
@@ -104,7 +108,9 @@ final class OrdersNetworkManager: OrdersDataManager {
     func confirmOrder(orderId: String, _ debugMode: Bool) -> Promise<ConfirmOrderResponse> {
         return APIManager.callApi(OrderAPI.confirmOrder(orderId: orderId), dataReturnType: ConfirmOrderResponse.self, debugMode: debugMode)
     }
-
+    func completeOrder(orderId: String, _ debugMode: Bool) -> Promise<CompleteOrderResponse> {
+        return APIManager.callApi(OrderAPI.completeOrder(orderId: orderId), dataReturnType: CompleteOrderResponse.self, debugMode: debugMode)
+    }
     func voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String?, _ debugMode: Bool) -> Promise<VoidOrderResponse> {
         return APIManager.callApi(OrderAPI.voidOrder(orderId: orderId, orderItemIds: orderItemIds, cashierNote: cashierNote), dataReturnType: VoidOrderResponse.self, debugMode: debugMode)
     }

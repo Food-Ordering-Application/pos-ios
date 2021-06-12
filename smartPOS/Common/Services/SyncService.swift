@@ -8,31 +8,30 @@
 
 import Foundation
 import SwiftEventBus
-
+import SwiftDate
 class SyncService {
     init(){
 //        setupSyncMachine()
         SwiftEventBus.onBackgroundThread(self, name: "POSSynced") { result in
-            UserDefaults.standard.setValue(Date().toString(), forKey: "LastedSync")
+            APIConfig.setLatestSync(latestSync: Date())
+            APIConfig.setIsSynced(true)
         }
     }
     
     func setupSyncMachine() {
-        let lastedSync = UserDefaults.standard.string(forKey: "LastedSync")
-        print("⏰ ⏰ ⏰ lastedSync: \(String(describing: lastedSync)) ⏰ ⏰ ⏰")
+        let latestSync = APIConfig.getLatestSync()
+        print("⏰ ⏰ ⏰ latestSync: \(String(describing: latestSync)) ⏰ ⏰ ⏰")
         let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
         // Do somthing after 10.5 seconds
         queue.asyncAfter(deadline: .now() + 6 ) {
             // your task code here
             DispatchQueue.main.async {
-                print("Hello Iam Sync Sync Sync")
 //                SwiftEventBus.post("POSSyncMenu", sender:  MenuItemsMemStore.menu?.id)
             }
         }
     }
     
     static func canHandleLocal() -> Bool {
-        return !NoInternetService.isReachable() || true
-//        return !NoInternetService.isReachable()
+        return !NoInternetService.isReachable() || APIConfig.getIsSynced() ?? false
     }
 }

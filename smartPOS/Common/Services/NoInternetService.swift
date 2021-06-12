@@ -48,12 +48,11 @@ class NoInternetService {
             UserDefaults.standard.setValue(isReachable, forKey: "isReachable")
             print("Internet in Reachable: ", isReachable)
             self.setup()
-            
+            SwiftEventBus.post("UpdatePOSStatus", sender: isReachable)
             if isReachable {
                 SwiftEntryKit.dismiss()
                 return
             }
-            
             self.showImageNote(attributes: self.attributes!)
 //            self.play()
         }

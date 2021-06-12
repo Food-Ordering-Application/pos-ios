@@ -138,7 +138,7 @@ private extension OrdersCollectionViewController {
         title = "Items Collection"
         view.backgroundColor = .white
         view.clipsToBounds = true
-        
+        collectionView.isSkeletonable = true
         collectionView.contentInset = UIEdgeInsets(top: insets.top + additionalInsets.top, left: insets.left + additionalInsets.left, bottom: insets.bottom + additionalInsets.bottom, right: insets.right + additionalInsets.right)
         collectionView.scrollIndicatorInsets = UIEdgeInsets(top: insets.top, left: insets.left, bottom: insets.bottom, right: insets.right)
         

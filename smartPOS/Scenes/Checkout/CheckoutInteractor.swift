@@ -56,9 +56,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
         SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenu") { result in
             if NoInternetService.isReachable() {
                 guard let menuId = result?.object as? String else { return }
-
                 self.POSSyncMenuItemsDetail(menuId: menuId)
-                SwiftEventBus.post("POSSynced")
             }
         }
 
@@ -384,8 +382,8 @@ extension CheckoutInteractor {
             print(error)
         }.finally {
             // MARK: Handle to save to local
-
             MenuItemsMemStore.storeMenuItemToppings()
+            SwiftEventBus.post("POSSynced")
         }
     }
 
@@ -402,8 +400,8 @@ extension CheckoutInteractor {
             print(error)
         }.finally {
             // MARK: Handle to save to local
-
             MenuItemsMemStore.storeToppingItems()
+            SwiftEventBus.post("POSSynced")
         }
     }
 
@@ -420,8 +418,8 @@ extension CheckoutInteractor {
             print(error)
         }.finally {
             // MARK: Handle to save to local
-
             MenuItemsMemStore.storeToppingGroups()
+            SwiftEventBus.post("POSSynced")
         }
     }
 

@@ -6,6 +6,7 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
+import Schedule
 import SwiftDate
 import SwiftEventBus
 import UIKit
@@ -36,6 +37,8 @@ class POSStatusView: UIView {
         }
     }
 
+    var timerTest: Timer?
+
     init(_ status: POSStatusModel?) {
         super.init(frame: .zero)
         self.setup()
@@ -58,7 +61,6 @@ class POSStatusView: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
         SwiftEventBus.onMainThread(self, name: "POSSynced") { _ in
 
             let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
@@ -67,7 +69,7 @@ class POSStatusView: UIView {
                 // your task code here
                 DispatchQueue.main.async {
                     let posStatus = POSStatusModel(status: .synced, time: Date())
-                    print("Hello Iam Sync Sync Sync")
+                    print("SwiftEventBus.onMainThread(self, name: POSSynced)")
                     self.updateView(posStatus: posStatus)
                 }
             }
@@ -81,15 +83,21 @@ class POSStatusView: UIView {
         self.containerView.backgroundColor = UIColor(white: 1, alpha: 0)
         let syncingGif = UIImage.gifImageWithName("ic_syncing")
         self.iconStatus.image = syncingGif
-
-//        SwiftEventBus.onBackgroundThread(self, name: "POSSync") { result in
-//            let posStatus = POSStatusModel(status: .synced, time: Date())
-//            self.updateView(posStatus: posStatus)
-//        }
-//        SwiftEventBus.onMainThread(self, name: "POSSyncMenu") { result in
-//            let posStatus = POSStatusModel(status: .syncing, time: Date())
-//            self.updateView(posStatus: posStatus)
-//        }
+        let posStatus = POSStatusModel(status: .synced, time: APIConfig.getLatestSync() ?? Date())
+        self.updateView(posStatus: posStatus)
+        SwiftEventBus.onMainThread(self, name: "POSStatusIsSyncing") { result in
+            guard let isSyncing = result?.object as? Bool else { return }
+            let status: EStatus = isSyncing ? .syncing : .synced
+            let posStatus = POSStatusModel(status: status, time: Date())
+            self.updateView(posStatus: posStatus)
+        }
+        SwiftEventBus.onMainThread(self, name: "UpdatePOSStatus") { result in
+            let isReachable = result?.object as! Bool
+            let status: EStatus = isReachable ? .online : .offline
+            let posStatus = POSStatusModel(status: status, time: APIConfig.getLatestSync() ?? Date())
+            self.updateView(posStatus: posStatus)
+        }
+        self.startTimer()
     }
 
     @IBAction func onSync(_ sender: Any) {
@@ -97,12 +105,30 @@ class POSStatusView: UIView {
         self.updateView(posStatus: posStatus)
     }
 
+    @objc func updateTime() {
+        let posStatus = POSStatusModel(status: .synced, time: Date())
+        self.updateView(posStatus: posStatus)
+    }
+
+    func startTimer() {
+        guard self.timerTest == nil else { return }
+        let interval = 10.0
+        self.timerTest = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(POSStatusView.updateTime), userInfo: nil, repeats: true)
+    }
+
+    func stopTimerTest() {
+        self.timerTest?.invalidate()
+        self.timerTest = nil
+    }
+
     func updateView(posStatus: POSStatusModel?) {
         self.iconStatus.isHidden = true
         var timeString = "Vừa xong"
-        let lastedSync = UserDefaults.standard.data(forKey: "LastedSync") as? Date
-        let time = DateInRegion((posStatus?.time ?? lastedSync) ?? Date(), region: .local)
-        let rangedTime = time.date - Date()
+        let latestSync = APIConfig.getLatestSync()
+        let from = posStatus?.time ?? Date()
+        let to = latestSync ?? Date()
+        let rangedTime = from - to
+
         if let minute = rangedTime.minute {
             switch minute {
             case 0...1:
@@ -110,7 +136,7 @@ class POSStatusView: UIView {
             case 2...10:
                 timeString = "\(minute) phút trước"
             default:
-                timeString = time.toFormat("dd MMM yyyy")
+                timeString = from.toFormat("dd MMM yyyy")
             }
         }
 

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import SwiftDate
 /// Contains all the information related to the general informations of the API
 struct APIConfig {
 //    static let baseUrl = "http://iamfocused.local:8000"
@@ -17,14 +17,12 @@ struct APIConfig {
 //    static let restaurantId = "0963cd4b-bf91-4080-bcce-83c957077551" // MARK: Development
 
     static let restaurantId = "59648039-fb38-4a5a-8ce7-6938b27b76ab" // MARK: Production
-
     static let merchantId = "5baf057d-0314-4a63-b08e-2cecb8a55bd2"
     static let userId = "d409255a-7067-4ea9-81d0-3faf8a5d7a06"
     static let channelName = "orders_\(APIConfig.restaurantId)"
     static let limitDisplay = 20
     static let debugMode = true
     static func getBaseUrl() -> String {
-//        return "\(baseUrl)\(apiVersion)"
         return "\(baseUrl)"
     }
 
@@ -60,5 +58,22 @@ struct APIConfig {
     // MARK: Do not hard code
     static func getToken() -> String {
         return UserDefaults.standard.string(forKey: "token") ?? ""
+    }
+    
+    static func setLatestSync(latestSync: Date?) {
+        let date = latestSync?.toRSS(alt: true)
+        UserDefaults.standard.set(date, forKey: "latestSync")
+    }
+    
+    static func getLatestSync() -> Date? {
+        let latestSync = UserDefaults.standard.string(forKey: "latestSync")
+        return latestSync?.toRSSDate(alt: true)?.date
+    }
+    static func setIsSynced(_ isSynced: Bool?) {
+        UserDefaults.standard.set(isSynced, forKey: "isSynced")
+    }
+    // MARK: Do not hard code
+    static func getIsSynced() -> Bool? {
+        return UserDefaults.standard.bool(forKey: "isSynced")
     }
 }
