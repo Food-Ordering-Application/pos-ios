@@ -53,9 +53,10 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
     var ordersWorker: OrdersWorker? = OrdersWorker(ordersStore: OrdersMemStore())
 
     init() {
-        SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenu") { result in
+        SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenuItemDetail") { result in
             if NoInternetService.isReachable() {
                 guard let menuId = result?.object as? String else { return }
+                SwiftEventBus.post("POSSyncMenuItem")
                 self.POSSyncMenuItemsDetail(menuId: menuId)
             }
         }
@@ -120,7 +121,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
                 MenuItemsMemStore.menuItemGroups = data.menuGroups
 
                 let menuId = data.menu.id
-                SwiftEventBus.post("POSSyncMenu", sender: menuId)
+                SwiftEventBus.post("POSSyncMenuItemDetail", sender: menuId)
                 response = Checkout.FetchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
             }
 

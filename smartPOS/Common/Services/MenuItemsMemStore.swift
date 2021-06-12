@@ -23,21 +23,22 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     
     init() {
         // MARK: This is sync for menuItem and groups
-        SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenu") { _ in
-//            if NoInternetService.isReachable() {
-//                print("🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑")
-//            CSWorker.clearStoreLocalMenu()
-//            }
-            let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
-            // Do somthing after 10.5 seconds
-            queue.asyncAfter(deadline: .now() + 6) {
-                // your task code here
-                DispatchQueue.main.async {
-                    print("Hello Iam Sync Sync Sync")
-                    MenuItemsMemStore.storeMenuItems()
-                }
+
+        SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenuItem") { _ in
+            if NoInternetService.isReachable(), let menu = MenuItemsMemStore.menu, let menuItemGroups = MenuItemsMemStore.menuItemGroups {
+                print("🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑 🆑")
+                CSWorker.clearStoreLocalMenu()
             }
-         
+//            let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
+//            // Do somthing after 10.5 seconds
+//            queue.asyncAfter(deadline: .now() + 6) {
+//                // your task code here
+//                DispatchQueue.main.async {
+//                    print("Hello Iam Sync Sync Sync")
+//                    MenuItemsMemStore.storeMenuItems()
+//                }
+//            }
+            MenuItemsMemStore.storeMenuItems()
             SwiftEventBus.post("POSSynced")
         }
     }
@@ -78,6 +79,7 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     func fetchMenuAndMenuGroups(completionHandler: @escaping (() throws -> MenuAndMenuGroups?) -> Void) {
         do {
             let menu = try CSDatabase.stack.fetchOne(From<CSMenu>())?.toStruct()
+            MenuItemsMemStore.menu = menu
             let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { csMenuItemGroup -> MenuGroup in
                 let csMenuGroup = csMenuItemGroup.toStruct()
                 let menuItems = csMenuItemGroup.menuItems.map { csMenuItem -> MenuItem in

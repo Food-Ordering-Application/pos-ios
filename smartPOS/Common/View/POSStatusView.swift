@@ -38,7 +38,7 @@ class POSStatusView: UIView {
     }
 
     var timerTest: Timer?
-
+    var timeToSync: Int = 0
     init(_ status: POSStatusModel?) {
         super.init(frame: .zero)
         self.setup()
@@ -61,19 +61,6 @@ class POSStatusView: UIView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        SwiftEventBus.onMainThread(self, name: "POSSynced") { _ in
-
-            let queue = DispatchQueue.global(qos: .background) // or some higher QOS level
-            // Do somthing after 10.5 seconds
-            queue.asyncAfter(deadline: .now() + 10) {
-                // your task code here
-                DispatchQueue.main.async {
-                    let posStatus = POSStatusModel(status: .synced, time: Date())
-                    print("SwiftEventBus.onMainThread(self, name: POSSynced)")
-                    self.updateView(posStatus: posStatus)
-                }
-            }
-        }
     }
 
     func setup() {
@@ -101,13 +88,26 @@ class POSStatusView: UIView {
     }
 
     @IBAction func onSync(_ sender: Any) {
-        let posStatus = POSStatusModel(status: .syncing, time: Date())
-        self.updateView(posStatus: posStatus)
+//        let posStatus = POSStatusModel(status: .syncing, time: Date())
+//        self.updateView(posStatus: posStatus)
+        self.onPOSSync()
     }
 
     @objc func updateTime() {
+        self.timeToSync += 1
         let posStatus = POSStatusModel(status: .synced, time: Date())
         self.updateView(posStatus: posStatus)
+        if self.timeToSync > 60 {
+            self.onPOSSync()
+        }
+    }
+
+    func onPOSSync() {
+        guard let menuId = MenuItemsMemStore.menu?.id else { return }
+        SwiftEventBus.post("POSSyncMenuItemDetail", sender: menuId)
+        let posStatus = POSStatusModel(status: .syncing, time: Date())
+        self.updateView(posStatus: posStatus)
+        self.timeToSync = 0
     }
 
     func startTimer() {
