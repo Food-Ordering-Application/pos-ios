@@ -17,6 +17,8 @@ extension OrderAPI {
             return stubbedResponse("Order")
         case .confirmOrder:
             return stubbedResponse("ConfirmOrder")
+        case .completeOrder:
+            return stubbedResponse("FinishOrder")
         case .voidOrder:
             return stubbedResponse("VoidOrder")
         case .syncOrder:

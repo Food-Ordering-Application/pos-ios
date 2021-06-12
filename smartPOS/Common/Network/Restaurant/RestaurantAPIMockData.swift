@@ -23,6 +23,10 @@ extension RestaurantAPI {
             return stubbedResponse("CSToppingItems")
         case .getCSToppingGroups:
             return stubbedResponse("CSToppingGroups")
+        case .updateMenuItem:
+            return stubbedResponse("UpdateMenuItem")
+        case .updateToppingItem:
+            return stubbedResponse("UpdateToppingItem")
         }
         
     }

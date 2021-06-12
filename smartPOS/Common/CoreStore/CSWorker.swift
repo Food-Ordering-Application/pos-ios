@@ -39,6 +39,7 @@ final class CSWorker {
                                 csMenuItem?.price = menuItem.price
                                 csMenuItem?.isActive = menuItem.isActive ?? true
                                 csMenuItem?.menuItemGroup = try transaction.fetchOne(From<CSMenuItemGroup>().where(\.$id == menuGroup.id))
+                                csMenuItem?.state = menuItem.state!.rawValue
                                 csMenuItems.append(csMenuItem!)
                                 
                             } catch {
@@ -102,7 +103,6 @@ final class CSWorker {
                     csToppingItem?.isActive = true
                     csToppingItem?.price = toppingItem.price
                     csToppingItem?.maxQuantity = toppingItem.maxQuantity
-                        
                     let existingToppingGroup = try transaction.fetchOne(From<CSToppingGroup>().where(\.$id == toppingItem.toppingGroupId))
                     let csToppingGroup = existingToppingGroup != nil ? existingToppingGroup : transaction.create(Into<CSToppingGroup>())
                     csToppingGroup?.id = toppingItem.toppingGroupId

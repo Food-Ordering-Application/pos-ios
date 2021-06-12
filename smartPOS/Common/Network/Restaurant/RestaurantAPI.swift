@@ -11,7 +11,9 @@ enum RestaurantAPI {
 //    case getAllOrders(limit: Int?, offset: Int?)
     case getMenu(restaurantId: String)
     case getMenuItemToppings(menuItemId: String)
-
+    case updateMenuItem(menuItem: MenuItem)
+    case updateToppingItem(toppingItem: ToppingItem)
+    
     // MARK: Get data for Saving at local and sync | backup
     case getCSMenuItem(menuId: String)
     case getCSMenuItemToppings(menuId: String)
@@ -23,7 +25,7 @@ enum RestaurantAPI {
 extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
     var authorizationType: AuthorizationType? {
         switch self {
-        case .getMenuItemToppings, .getCSMenuItem, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
+        case .getMenuItemToppings,.updateMenuItem,.updateToppingItem, .getCSMenuItem, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
             return .bearer
         default:
             return .none
@@ -48,6 +50,10 @@ extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
             return "/user/pos/menu/\(menuId)/topping-item"
         case .getCSToppingGroups(menuId: let menuId):
             return "/user/pos/menu/\(menuId)/topping-group"
+        case .updateMenuItem(let menuItem):
+            return "/user/pos/menu-item/\(menuItem.id)"
+        case .updateToppingItem(let toppingItem):
+            return "/user/pos/topping-item/\(toppingItem.id)"
         }
     }
 
@@ -57,6 +63,8 @@ extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
             return .get
         case .getMenuItemToppings:
             return .post
+        case .updateMenuItem, .updateToppingItem:
+            return .patch
         }
     }
 
@@ -64,7 +72,7 @@ extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getMenu, .getCSMenuItem, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
             return URLEncoding.default
-        case .getMenuItemToppings:
+        case .getMenuItemToppings, .updateMenuItem, .updateToppingItem:
             return JSONEncoding.default
         }
     }
@@ -78,8 +86,19 @@ extension RestaurantAPI: TargetType, AccessTokenAuthorizable {
 //            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .getMenu, .getCSMenuItem, .getCSMenuItemToppings, .getCSToppingItems, .getCSToppingGroups:
             return .requestPlain
+            
         case .getMenuItemToppings(let menuItemId):
             return .requestParameters(parameters: ["menuItemId": menuItemId], encoding: JSONEncoding.default)
+            
+        case .updateMenuItem(let menuItem):
+            var params: [String: Any] = [:]
+            params["state"] = menuItem.state?.rawValue
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            
+        case .updateToppingItem(let toppingItem):
+            var params: [String: Any] = [:]
+            params["state"] = toppingItem.state?.rawValue
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         }
     }
 }

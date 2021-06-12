@@ -28,6 +28,7 @@ enum OrderAPI {
     case createOrderItem(orderId: String, data: Checkout.OrderItemFormFields?)
     case manipulateOrderItemQuantity(action: ManipulateOrderItemRequest, orderId: String, orderItemId: String)
     case confirmOrder(orderId: String)
+    case completeOrder(orderId: String)
     case voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String?)
     
     // MARK: Communicated with CoreStore and Server to Sync
@@ -53,6 +54,8 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .confirmOrder(let orderId):
             return "/user/pos/order/\(orderId)/confirm"
+        case .completeOrder(let orderId):
+            return "/user/pos/order/\(orderId)/finish"
         case .voidOrder(let orderId, _, _):
             return "/user/pos/order/\(orderId)/void"
         case .syncOrder:
@@ -74,7 +77,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return .get
-        case .confirmOrder, .voidOrder, .syncOrder, .createOrderAndOrderItem:
+        case .confirmOrder,.completeOrder, .voidOrder, .syncOrder, .createOrderAndOrderItem:
             return .post
         case .createOrderItem, .manipulateOrderItemQuantity:
             return .patch
@@ -85,7 +88,7 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
         switch self {
         case .getAllOrders, .getOrder:
             return URLEncoding.default
-        case .confirmOrder, .voidOrder, .syncOrder, .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
+        case .confirmOrder,.completeOrder, .voidOrder, .syncOrder, .createOrderAndOrderItem, .createOrderItem, .manipulateOrderItemQuantity:
             return JSONEncoding.default
         }
     }
@@ -104,6 +107,8 @@ extension OrderAPI: TargetType, AccessTokenAuthorizable {
             return .requestPlain
         
         case .confirmOrder:
+            return .requestPlain
+        case .completeOrder:
             return .requestPlain
             
         case .voidOrder(_, let orderItemIds, let cashierNote):

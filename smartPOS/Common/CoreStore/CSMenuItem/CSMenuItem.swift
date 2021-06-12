@@ -31,6 +31,9 @@ final class CSMenuItem: CoreStoreObject {
     @Field.Stored("isActive")
     var isActive: Bool = true
    
+    @Field.Stored("state")
+    var state: String = ItemState.instock.rawValue
+    
     @Field.Relationship("menuItemGroup")
     var menuItemGroup: CSMenuItemGroup?
     
@@ -48,6 +51,6 @@ final class CSMenuItem: CoreStoreObject {
 
 extension CSMenuItem {
     func toStruct() -> MenuItem {
-        return MenuItem(id: id, name: name, description: description, price: price, imageUrl: imageUrl, isActive: isActive)
+        return MenuItem(id: id, name: name, description: description, price: price, imageUrl: imageUrl, isActive: isActive, state: ItemState(rawValue: state))
     }
 }

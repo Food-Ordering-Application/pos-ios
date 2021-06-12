@@ -25,6 +25,8 @@ final class CSToppingItem: CoreStoreObject {
     @Field.Stored("maxQuantity")
     var maxQuantity: Int?
     
+    @Field.Stored("state")
+    var state: String = ItemState.instock.rawValue
 //    @Field.Stored("index")
 //    var index: Float?
     
@@ -41,6 +43,6 @@ final class CSToppingItem: CoreStoreObject {
 
 extension CSToppingItem {
     func toStruct() -> ToppingItem {
-        return ToppingItem(id: id ?? "", name: name ?? "No name", description: description ?? "", price: price ?? 0, maxQuantity: maxQuantity ?? 1)
+        return ToppingItem(id: id ?? "", name: name ?? "No name", description: description ?? "", price: price ?? 0, maxQuantity: maxQuantity ?? 1, state: ItemState(rawValue: state))
     }
 }

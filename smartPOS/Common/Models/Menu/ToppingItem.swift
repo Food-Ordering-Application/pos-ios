@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 typealias ToppingItems = [ToppingItem]
 struct ToppingItem: Decodable {
     var id: String
@@ -16,7 +15,8 @@ struct ToppingItem: Decodable {
     var description: String
     var price: Double
     var maxQuantity: Int
-//    var index: Float
-//    var isActive: Bool
-//    var menuItemToppings: [MenuItemTopping]
+//    var isActive: Bool? = true
+    var state: ItemState? = .instock
+    //    var index: Float
+    //    var menuItemToppings: [MenuItemTopping]
 }
