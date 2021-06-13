@@ -72,7 +72,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
         let keyword = request.keyword
         var response: Checkout.SearchMenuItems.Response!
 
-        menuItemsWorker?.fetchMenuAndMenuGroups(completionHandler: { menuAndMenuItemGroups in
+        menuItemsWorker?.searchMenuAndMenuGroups(keyword: keyword, completionHandler: { menuAndMenuItemGroups in
             if let data = menuAndMenuItemGroups {
                 response = Checkout.SearchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
             }

@@ -106,19 +106,15 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
             let menu = try CSDatabase.stack.fetchOne(From<CSMenu>())?.toStruct()
             let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { csMenuItemGroup -> MenuGroup in
                 let csMenuGroup = csMenuItemGroup.toStruct()
-                let menuItems = try CSDatabase.stack.fetchAll(From<CSMenuItem>().where(\.$menuItemGroup ~ \.$id == csMenuGroup.id).where(\.$name == keyword)).map { csMenuItem -> MenuItem in
+                var menuItems: MenuItems = []
+                menuItems = csMenuItemGroup.menuItems.map { csMenuItem -> MenuItem in
                     csMenuItem.toStruct()
                 }
-                
-//                    .filter { csMenuItem -> Bool in
-//                        csMenuItem.toStruct().name.contains("collin")
-//                    }
-//                    .map { (csMenuItem) -> MenuItem in
-//                        csMenuItem.toStruct()
-//                    }
-//                let menuItems = csMenuItemGroup.menuItems.map { (csMenuItem) -> MenuItem in
-//                    csMenuItem.toStruct()
-//                }
+                if keyword != nil && keyword != "" {
+                    menuItems = menuItems.filter { menuItem -> Bool in
+                        menuItem.name.contains(keyword)
+                    }
+                }
                 return MenuGroup(id: csMenuGroup.id, name: csMenuGroup.name, menuId: menu?.id, menuItems: menuItems)
             }
                 
