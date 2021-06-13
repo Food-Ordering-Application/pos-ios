@@ -13,6 +13,9 @@ import UIKit
 class DeliveryViewController: UIViewController {
     weak var delegate: LeftMenuProtocol?
 
+    var worker = OrdersPageWorker()
+    var ordersWorker: OrdersWorker? = OrdersWorker(ordersStore: OrdersMemStore())
+
     // MARK: - EditableDataSource
 
     final class EditableDataSource: DiffableDataSource.TableViewAdapter<CSOrder> {
@@ -37,7 +40,7 @@ class DeliveryViewController: UIViewController {
 
     private var filterBarButton: UIBarButtonItem?
     private var dataSource: DiffableDataSource.TableViewAdapter<CSOrder>?
-
+    private var orders: Orders?
     deinit {
         CSDatabase.csOrders.removeObserver(self)
     }
@@ -46,6 +49,7 @@ class DeliveryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.ferchOrders()
         self.tableView.registerCellNib(DataTableViewCell.self)
         self.tableView.separatorStyle = .none
         self.tableView.emptyDataSetView { [weak self] view in
@@ -95,7 +99,7 @@ class DeliveryViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         switch (segue.identifier, segue.destination, sender) {
@@ -105,9 +109,36 @@ class DeliveryViewController: UIViewController {
             break
         }
     }
-    
-    
-    
+
+    func ferchOrders() {
+        print("i am fetching order from server")
+        let restaurantId = APIConfig.getRestaurantId()
+        let query = "POS"
+        let pageNumber = 1
+        self.worker.ordersDataManager.getOrders(restaurantId: restaurantId, query: query, pageNumber: pageNumber).done { ordersRes in
+            if ordersRes.statusCode >= 200 || ordersRes.statusCode <= 300 {
+                let data = ordersRes.data
+                self.orders = data.orders
+            }
+        }.catch { error in
+            print("Error backup order from server: ", error)
+        }.finally {
+            print("order from pos")
+            self.orders?.forEach { order in
+                self.onBackupOrder(order: order)
+            }
+        }
+    }
+
+    func onBackupOrder(order: Order) {
+        let orderItems = order.orderItems?.map({ orderItem -> OrderItemRes in
+            OrderItemRes(id: orderItem.id, menuItemId: orderItem.menuItemId, orderId: orderItem.orderId, price: orderItem.price, name: orderItem.name, discount: orderItem.discount, subTotal: orderItem.subTotal, quantity: orderItem.quantity, state: orderItem.state, orderItemToppings: nil)
+        })
+        let nestedOrder = NestedOrder(id: order.id, status: order.status, cashierId: order.cashierId, restaurantId: order.restaurantId, paymentType: order.paymentType, serviceFee: order.serviceFee, subTotal: order.subTotal, grandTotal: order.grandTotal, itemDiscount: order.itemDiscount, discount: order.discount, createdAt: order.createdAt, updatedAt: order.updatedAt, note: order.note, orderItems: orderItems, delivery: order.delivery)
+        self.ordersWorker?.createOrderAndOrderItems(nestedOrder: nestedOrder) { orderData in
+            print("orderData", orderData)
+        }
+    }
 }
 
 extension DeliveryViewController: UITableViewDelegate {
@@ -115,42 +146,20 @@ extension DeliveryViewController: UITableViewDelegate {
         return DataTableViewCell.height()
     }
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let orderDetailViewController = storyboard.instantiateViewController(withIdentifier: "OrderCheckoutViewController") as! OrderCheckoutViewController
-////        let order = CSDatabase.csOrders.snapshot[indexPath]
-//        let order =
-//
-//        orderDetailViewController.modalPresentationStyle = .fullScreen
-//        self.navigationController?.pushViewController(orderDetailViewController, animated: true)
-//    }
     // MARK: UITableViewDelegate
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
         self.performSegue(
             withIdentifier: "OrderCheckoutViewController",
             sender: CSDatabase.csOrders.snapshot[indexPath]
         )
     }
+
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.white
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.black.withAlphaComponent(0.8)
     }
 }
-
-// extension DeliveryViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.mainContens.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = self.tableView.dequeueReusableCell(withIdentifier: DataTableViewCell.identifier) as! DataTableViewCell
-//        let data = DataTableViewCellData(imageUrl: "dummy", text: mainContens[indexPath.row])
-//        cell.setData(data)
-//        return cell
-//    }
-// }

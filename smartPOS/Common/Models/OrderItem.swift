@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct OrderItem {
+struct OrderItem: Decodable {
     let id: String?
     let menuItemId: String?
     let name: String?

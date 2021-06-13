@@ -30,6 +30,20 @@ class OrdersWorker {
         }
     }
 
+    func createOrderAndOrderItems(nestedOrder: NestedOrder, completionHandler: @escaping (OrderAndOrderItemData?) -> Void) {
+        ordersStore.createOrderAndOrderItems(nestedOrder: nestedOrder) { (orderAndOrderItemData: () throws -> OrderAndOrderItemData?) -> Void in
+            do {
+                let nestedOrder = try orderAndOrderItemData()
+                DispatchQueue.main.async {
+                    completionHandler(nestedOrder)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
+            }
+        }
+    }
     func createOrderAndOrderItem(orderItemFormFields: Checkout.OrderItemFormFields, completionHandler: @escaping (OrderAndOrderItemData?) -> Void) {
         ordersStore.createOrderAndOrderItem(orderItemFormFields: orderItemFormFields) { (orderAndOrderItemData: () throws -> OrderAndOrderItemData?) -> Void in
             do {
@@ -44,6 +58,7 @@ class OrdersWorker {
             }
         }
     }
+    
 
     func createOrderItem(orderId: String?, orderItemFormFields: Checkout.OrderItemFormFields, completionHandler: @escaping (OrderAndOrderItemData?) -> Void) {
         ordersStore.createOrderItem(orderId: orderId, orderItemFormFields: orderItemFormFields) { (orderAndOrderItemData: () throws -> OrderAndOrderItemData?) -> Void in
@@ -137,6 +152,8 @@ protocol OrdersStoreProtocol {
     func deleteOrder(id: String, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void)
 
     func createOrderAndOrderItem(orderItemFormFields: Checkout.OrderItemFormFields, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void)
+    
+    func createOrderAndOrderItems(nestedOrder: NestedOrder, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void)
 
     func createOrderItem(orderId: String?, orderItemFormFields: Checkout.OrderItemFormFields, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void)
 

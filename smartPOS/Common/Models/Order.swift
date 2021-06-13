@@ -23,6 +23,7 @@ struct Order: Decodable {
     var createdAt: Date?
     var updatedAt: Date?
     var note: String? = ""
+    var orderItems: [OrderItem]?
     var delivery: Delivery?
     
 //    var promotionId: String?

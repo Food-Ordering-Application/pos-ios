@@ -257,6 +257,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             print("😉 - createOrderAndOrderItems")
             let inputData = request.orderAndOrderItemFormFields
             guard let orderItemFormFields = inputData?.orderItem else { return }
+            print("orderItemFormFields", orderItemFormFields)
             ordersWorker?.createOrderAndOrderItem(orderItemFormFields: orderItemFormFields) { orderData in
                 guard let order = orderData?.order else {
                     response = Checkout.CreateOrderAndOrderItems.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not create order."))
@@ -323,9 +324,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
                 let orderAndOrderItemData = OrderAndOrderItemData(order: order)
                 print("⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰")
                 print(orderAndOrderItemData)
-                print("⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰ ⏰")
                 SwiftEventBus.post("POSSyncOrder", sender: orderAndOrderItemData)
-                
                 response = Checkout.UpdateOrder.Response(order: order, error: nil)
                 self.presenter?.presentUpdatedOrder(response: response)
             }

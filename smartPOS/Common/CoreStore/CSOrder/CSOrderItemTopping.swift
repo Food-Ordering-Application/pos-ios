@@ -6,11 +6,11 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
-import Foundation
 import CoreStore
+import Foundation
 final class CSOrderItemTopping: CoreStoreObject {
-    @Field.Stored("id", dynamicInitialValue: { UUID().uuidString })
-    var id: String?
+    @Field.Stored("id")
+    var id: String = CSDatabase.uuid()
     
     @Field.Stored("state")
     var state: String? = OrderItemStatus.instock.rawValue
@@ -29,12 +29,14 @@ final class CSOrderItemTopping: CoreStoreObject {
     
     @Field.Relationship("orderItem")
     var orderItem: CSOrderItem?
-
 }
+
 extension CSOrderItemTopping {
     func toStruct() -> OrderItemTopping {
-        return OrderItemTopping(id: id, state: state, name: name, toppingItemId: menuItemTopping?.orderItemTopping?.id, quantity: quantity, price: price)
+//        print("🙏", orderItem, menuItemTopping)
+        return OrderItemTopping(id: id, state: state, name: name, toppingItemId: menuItemTopping?.toppingItem?.id, quantity: quantity, price: price)
     }
+
     func calculateTotal() -> Double {
         return menuItemTopping?.customPrice ?? 0 * Double(quantity ?? 1)
     }

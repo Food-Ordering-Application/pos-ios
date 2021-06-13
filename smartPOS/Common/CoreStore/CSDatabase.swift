@@ -11,7 +11,7 @@ import CoreStore
 
 struct CSDatabase {
     static func uuid() -> String {
-        return "\(UUID())"
+        return UUID().uuidString
     }
     static let stack: DataStack = {
 
@@ -34,9 +34,9 @@ struct CSDatabase {
                     "CSMenuItem": [0xb9eb252146e77d9f, 0xcf6b0a649bfec5a, 0x162bdbbd1b30d153, 0xc871cad8976935dc],
                     "CSMenuItemGroup": [0x429c8c1ea1d6aa27, 0xf9e17d18c6b944af, 0x835644cbb1947713, 0x1ee0e175239bf921],
                     "CSMenuItemTopping": [0x753962372555d26, 0x4d4385614063fdc7, 0x1375de5c0c0ef941, 0x6fb4ff297a92a23a],
-                    "CSOrder": [0x99bd9875a15edf6f, 0x4256037b0544bb57, 0x16525d2be2733485, 0x26dcd37a992eadfe],
-                    "CSOrderItem": [0x22949653f9421399, 0xfcf98e6919829c69, 0x124b3c80ef1075bd, 0x2fe8d5d7d03cbd4e],
-                    "CSOrderItemTopping": [0x642c23073d3d0827, 0x29143a4c90a9819f, 0x4f964b8ea8d74584, 0x356aff012325bb9],
+                    "CSOrder": [0xe07636810d2340b0, 0x512f60b06a079837, 0xbefb38dc55d63b31, 0x4fb233e1330deff5],
+                    "CSOrderItem": [0x1c8ab5b6c56be1aa, 0x9baaaee5a9e1631f, 0x574ca317015ad367, 0xd23e146d36104dd4],
+                    "CSOrderItemTopping": [0x36e60b0ce9f32f59, 0x9368204355baf860, 0x2bacdcb9ebd385a4, 0x46ecd15aceeb4b3d],
                     "CSToppingGroup": [0x839896f33c6b2093, 0x545cca21f23c9db8, 0xabf8d982bd10cbd6, 0xfce639a416d17088],
                     "CSToppingItem": [0x6a544d22f8201a9b, 0x9ed185fbe9e0cf3d, 0x6a5adf0545401898, 0xe6efcc42b84ead0b]
                 ]

@@ -97,7 +97,7 @@ class POSStatusView: UIView {
         self.timeToSync += 1
         let posStatus = POSStatusModel(status: .synced, time: Date())
         self.updateView(posStatus: posStatus)
-        if self.timeToSync > 60 {
+        if self.timeToSync > 3 * 60 {
             self.onPOSSync()
         }
     }
@@ -133,7 +133,7 @@ class POSStatusView: UIView {
             switch minute {
             case 0...1:
                 timeString = "Vừa xong"
-            case 2...10:
+            case 2...59:
                 timeString = "\(minute) phút trước"
             default:
                 timeString = from.toFormat("dd MMM yyyy")

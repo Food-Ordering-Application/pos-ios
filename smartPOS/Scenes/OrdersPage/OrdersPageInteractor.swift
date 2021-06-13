@@ -13,8 +13,9 @@
 import PromiseKit
 import UIKit
 import SwiftEventBus
+
 struct RTDataOrder: Decodable {
-    let order: RTOrderStatus?
+    let order: Order?
 }
 struct RTOrderStatus: Decodable {
     let id: String?
@@ -39,14 +40,19 @@ final class OrdersPageInteractor: OrdersPageBusinessLogic, OrdersPageDataStore {
 
     init() {
         SwiftEventBus.onMainThread(self, name: "RTOrderStatus") { result in
-            let newOrder = result?.object as? RTOrderStatus
+            guard let newOrder = result?.object as? Order  else { return }
             guard var orders = self.orders else { return }
-            if let row = orders.index(where: {$0.id == newOrder?.id}) {
-                orders[row].status = newOrder?.status
-                print("🆑 🆑 🆑 🆑 🆑 RTOrderStatus 🆑 🆑 🆑 🆑 🆑")
-                self.orders = orders
-                self.onUpdateOrders(orders: orders)
+            if let row = orders.index(where: {$0.id == newOrder.id}) {
+                orders[row].status = newOrder.status
+                if let deiveryStatus = newOrder.delivery?.status {
+                    orders[row].delivery?.status = deiveryStatus
+                }
+            } else {
+                orders.insert(newOrder, at: 0)
             }
+            print("🆑 🆑 🆑 🆑 🆑 RTOrderStatus 🆑 🆑 🆑 🆑 🆑")
+            self.orders = orders
+            self.onUpdateOrders(orders: orders)
         }
     }
     

@@ -38,6 +38,7 @@ struct Delivery: Decodable {
 
 enum DeliveryStatus: String, Decodable {
     case draft = "DRAFT"
+    case assigning = "ASSIGNING_DRIVER"
     case ongoing = "ON_GOING"
     case pickedup = "PICKED_UP"
     case completed = "COMPLETED"
@@ -52,6 +53,8 @@ enum DeliveryStatus: String, Decodable {
         switch type {
         case "DRAFT":
             return .draft
+        case "ASSIGNING_DRIVER":
+            return .assigning
         case "ON_GOING":
             return .ongoing
         case "PICKED_UP":

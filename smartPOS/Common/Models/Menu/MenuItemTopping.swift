@@ -10,5 +10,7 @@ import Foundation
 typealias MenuItemToppings = [MenuItemTopping]
 struct MenuItemTopping: Decodable {
     var id: String
+    var menuItem: MenuItem?
+    var toppingItem: ToppingItem?
     var customPrice: Double
 }

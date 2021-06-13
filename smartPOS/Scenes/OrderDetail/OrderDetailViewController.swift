@@ -348,6 +348,7 @@ extension OrderDetailViewController {
 
     func updateCompletedOrder() {
         self.btnComplete.isHidden = true
+        self.lbOrderStatus.text = OrderStatus.ready.rawValue
     }
 }
 
@@ -394,6 +395,7 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
         myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
         myCustomSelectionColorView.layer.cornerRadius = 8
         cell.selectedBackgroundView = myCustomSelectionColorView
+        cell.selectionStyle = .none
         return cell
     }
 }

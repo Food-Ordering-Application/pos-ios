@@ -29,6 +29,85 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
         }
     }
     
+    func createOrderAndOrderItems(nestedOrder: NestedOrder, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void) {
+        var orderId = nestedOrder.id ?? ""
+        _ = try? CSDatabase.stack.perform(
+            asynchronous: { transaction in
+                let existingCSOrder = try transaction.fetchOne(From<CSOrder>().where(\.$id == orderId))
+                print(nestedOrder.id, existingCSOrder)
+                let csOrder: CSOrder? = existingCSOrder != nil ? existingCSOrder : transaction.create(Into<CSOrder>())
+                if let csOrderId = nestedOrder.id {
+                    csOrder?.id = csOrderId
+                }
+                orderId = csOrder?.id ?? ""
+                csOrder?.isSynced = true
+                csOrder?.cashierId = nestedOrder.cashierId
+                csOrder?.restaurantId = nestedOrder.restaurantId
+                csOrder?.itemDiscount = nestedOrder.itemDiscount ?? 0.0
+                csOrder?.discount = nestedOrder.discount ?? 0.0
+                csOrder?.note = nestedOrder.note ?? ""
+                csOrder?.subTotal = nestedOrder.subTotal ?? 0.0
+                csOrder?.grandTotal = nestedOrder.grandTotal ?? 0.0
+                csOrder?.createdAt = nestedOrder.createdAt ?? Date()
+                csOrder?.updatedAt = nestedOrder.updatedAt ?? Date()
+                csOrder?.status = nestedOrder.status?.rawValue ?? OrderStatus.unknown.rawValue
+                guard let orderItems = nestedOrder.orderItems else { return }
+                for orderItem in orderItems {
+                    let existingCSOrderItem = try transaction.fetchOne(From<CSOrderItem>().where(\.$id == orderItem.id ?? ""))
+                    let csOrderItem: CSOrderItem? = existingCSOrderItem != nil ? existingCSOrderItem : transaction.create(Into<CSOrderItem>())
+                    if let csOrderItemId = orderItem.id {
+                        csOrderItem?.id = csOrderItemId
+                    }
+                    let orderItemId = csOrderItem?.id ?? ""
+                    csOrderItem?.order = try transaction.fetchOne(From<CSOrder>().where(\.$id == orderId))
+                    //                    csOrderItem.menuItem = try transaction.fetchOne(From<CSMenuItem>().where(\.$id == orderItemFormF?ields.menuItemId))
+                    csOrderItem?.name = orderItem.name
+                    csOrderItem?.price = orderItem.price
+                    csOrderItem?.quantity = orderItem.quantity
+                    guard let orderItemToppings = orderItem.orderItemToppings else { return }
+                    for orderItemTopping in orderItemToppings {
+                        let existingCSOrderItemTopping = try transaction.fetchOne(From<CSOrderItemTopping>().where(\.$id == orderItemTopping.id ?? ""))
+                        let csOrderItemTopping: CSOrderItemTopping? = existingCSOrderItemTopping != nil ? existingCSOrderItemTopping : transaction.create(Into<CSOrderItemTopping>())
+                        if let csOrderItemToppingId = orderItemTopping.id {
+                            csOrderItemTopping?.id = csOrderItemToppingId
+                        }
+                        csOrderItemTopping?.orderItem = try transaction.fetchOne(From<CSOrderItem>().where(\.$id == orderItemId))
+
+//                        csOrderItemTopping?.menuItemTopping = try transaction.fetchOne(From<CSMenuItemTopping>().where(\.$toppingItem ~ \.$id == orderItemTopping.menuItemToppingId && \.$menuItem ~ \.$id == orderItemFormFields.menuItemId))
+                        csOrderItemTopping?.name = orderItemTopping.name
+                        csOrderItemTopping?.price = orderItemTopping.price
+                        csOrderItemTopping?.quantity = orderItemTopping.quantity
+                    }
+                    csOrderItem?.orderItemToppings = try transaction.fetchAll(From<CSOrderItemTopping>().where(\.$orderItem ~ \.$id == orderItemId))
+                }
+            },
+            completion: { result -> Void in
+                switch result {
+                case .success:
+                    print("success!")
+                    if let nestedOrder: CSOrder = try! CSDatabase.stack.fetchOne(From<CSOrder>().where(\.$id == orderId)) {
+                        print("🆑 ------------------- ")
+                        print(nestedOrder.toDeepStruct())
+                        print("🆑 ------------------- ")
+                        completionHandler {
+                            OrderAndOrderItemData(order: nestedOrder.toDeepStruct())
+                        }
+                    }
+                    else {
+                        completionHandler {
+                            throw OrdersStoreError.CannotFetch("Cannot create order from Local - Parsing")
+                        }
+                    }
+                    
+                case .failure(let error):
+                    completionHandler {
+                        throw OrdersStoreError.CannotFetch("Cannot create order from Local: \(error)")
+                    }
+                }
+            }
+        )
+    }
+    
     func createOrderAndOrderItem(orderItemFormFields: Checkout.OrderItemFormFields, completionHandler: @escaping (() throws -> OrderAndOrderItemData?) -> Void) {
 //        print("😉 😉 createOrderAndOrderItem 😉 😉")
 //        print(orderItemFormFields)
@@ -37,11 +116,13 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
         _ = try? CSDatabase.stack.perform(
             asynchronous: { transaction in
                 let csOrder = transaction.create(Into<CSOrder>())
+                csOrder.id = CSDatabase.uuid()
                 orderId = csOrder.id
                 var subTotal = csOrder.subTotal
                 let csOrderItem = transaction.create(Into<CSOrderItem>())
+                csOrderItem.id = CSDatabase.uuid()
                 let orderItemId = csOrderItem.id
-                csOrderItem.order = try transaction.fetchOne(From<CSOrder>().where(\.$id == orderId))
+                csOrderItem.order = try transaction.fetchOne(From<CSOrder>().where(\.$id == orderId ?? ""))
                 csOrderItem.menuItem = try transaction.fetchOne(From<CSMenuItem>().where(\.$id == orderItemFormFields.menuItemId))
                 csOrderItem.name = orderItemFormFields.name
                 csOrderItem.price = orderItemFormFields.price
@@ -50,12 +131,13 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
                 var toppingPrice: Double = 0
                 for orderItemTopping in orderItemFormFields.orderItemToppings {
                     let csOrderItemTopping = transaction.create(Into<CSOrderItemTopping>())
+                    csOrderItemTopping.id = CSDatabase.uuid()
                     csOrderItemTopping.orderItem = try transaction.fetchOne(From<CSOrderItem>().where(\.$id == orderItemId))
-                    csOrderItemTopping.menuItemTopping = try transaction.fetchOne(From<CSMenuItemTopping>().where(\.$id == orderItemTopping.menuItemToppingId))
+                    csOrderItemTopping.menuItemTopping = try transaction.fetchOne(From<CSMenuItemTopping>().where(\.$toppingItem ~ \.$id == orderItemTopping.menuItemToppingId && \.$menuItem ~ \.$id == orderItemFormFields.menuItemId))
                     csOrderItemTopping.name = orderItemTopping.name
                     csOrderItemTopping.price = orderItemTopping.price
                     csOrderItemTopping.quantity = orderItemTopping.quantity
-                    
+//                    print("👻", orderItemTopping.menuItemToppingId, csOrderItemTopping.menuItemTopping?.toStruct())
                     /// Caculated total Order
                     toppingPrice += csOrderItemTopping.price ?? 0 * Double(csOrderItemTopping.quantity ?? 1)
                 }
@@ -68,11 +150,11 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
                 csOrder.grandTotal = subTotal
 
             },
-            completion: { (result) -> Void in
+            completion: { result -> Void in
                 switch result {
                 case .success:
                     print("success!")
-                    if let nestedOrder: CSOrder = try! CSDatabase.stack.fetchOne(From<CSOrder>().where(\.$id == orderId)) {
+                    if let nestedOrder: CSOrder = try! CSDatabase.stack.fetchOne(From<CSOrder>().where(\.$id == orderId ?? "")) {
                         print("🆑 ------------------- ")
                         print(nestedOrder.toDeepStruct())
                         print("🆑 ------------------- ")
@@ -107,6 +189,7 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
                 let csOrder = try! transaction.fetchOne(From<CSOrder>().where(\.$id == orderId))
                 var subTotal = csOrder?.subTotal ?? 0
                 let csOrderItem = transaction.create(Into<CSOrderItem>())
+                csOrderItem.id = CSDatabase.uuid()
                 let orderItemId = csOrderItem.id
                 csOrderItem.order = try transaction.fetchOne(From<CSOrder>().where(\.$id == orderId))
                 csOrderItem.menuItem = try transaction.fetchOne(From<CSMenuItem>().where(\.$id == orderItemFormFields.menuItemId))
@@ -116,8 +199,9 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
                 var toppingPrice: Double = 0
                 for orderItemTopping in orderItemFormFields.orderItemToppings {
                     let csOrderItemTopping = transaction.create(Into<CSOrderItemTopping>())
+                    csOrderItemTopping.id = CSDatabase.uuid()
                     csOrderItemTopping.orderItem = try transaction.fetchOne(From<CSOrderItem>().where(\.$id == orderItemId))
-                    csOrderItemTopping.menuItemTopping = try transaction.fetchOne(From<CSMenuItemTopping>().where(\.$id == orderItemTopping.menuItemToppingId))
+                    csOrderItemTopping.menuItemTopping = try transaction.fetchOne(From<CSMenuItemTopping>().where(\.$toppingItem ~ \.$id == orderItemTopping.menuItemToppingId && \.$menuItem ~ \.$id == orderItemFormFields.menuItemId))
                     csOrderItemTopping.name = orderItemTopping.name
                     csOrderItemTopping.price = orderItemTopping.price
                     csOrderItemTopping.quantity = orderItemTopping.quantity
@@ -231,9 +315,8 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
             asynchronous: { transaction in
                 let csOrder = try! transaction.fetchOne(From<CSOrder>().where(\.$id == orderId))
                 csOrder?.status = orderToUpdate.status!.rawValue
-                
                 guard let orderSynced = csOrder?.isSynced else { return }
-                csOrder?.isSynced =  orderSynced ? orderSynced : isSynced
+                csOrder?.isSynced = orderSynced ? orderSynced : isSynced
             },
             success: { _ in
                 if let nestedOrder: CSOrder = try! CSDatabase.stack.fetchOne(From<CSOrder>().where(\.$id == orderId)) {
@@ -263,8 +346,8 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
         _ = try CSDatabase.stack.perform(
             asynchronous: { transaction in
                 let csOrder = try! transaction.fetchOne(From<CSOrder>().where(\.$id == id))
-                _ = csOrder?.orderItems.map { (csOrderItem) -> Void in
-                    csOrderItem.orderItemToppings.map { (csOrderItemTopping) -> Void in
+                _ = csOrder?.orderItems.map { csOrderItem -> Void in
+                    csOrderItem.orderItemToppings.map { csOrderItemTopping -> Void in
                         transaction.delete(csOrderItemTopping)
                     }
                     transaction.delete(csOrderItem)

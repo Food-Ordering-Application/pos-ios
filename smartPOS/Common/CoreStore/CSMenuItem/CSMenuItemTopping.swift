@@ -28,6 +28,6 @@ final class CSMenuItemTopping: CoreStoreObject {
 
 extension CSMenuItemTopping {
     func toStruct() -> MenuItemTopping {
-        return MenuItemTopping(id: id ?? "", customPrice: customPrice ?? 0)
+        return MenuItemTopping(id: id ?? "",menuItem: menuItem?.toStruct(), toppingItem: toppingItem?.toStruct(), customPrice: customPrice ?? 0)
     }
 }

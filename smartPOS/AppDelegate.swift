@@ -78,6 +78,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
             SwiftEventBus.post("RTOrderStatus", sender: orderUpdate.order)
             
         })
+        // bind a callback to handle an event
+        _ = channel.bind(eventName: "new-order", eventCallback: { (event: PusherEvent) -> Void in
+            guard let json: String = event.data,
+                  let jsonData: Data = json.data(using: .utf8)
+            else {
+                print("Could not convert JSON string to data")
+                return
+            }
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .customISO8601
+            let decoded = try? decoder.decode(Order.self, from: jsonData)
+            guard let orderUpdate = decoded else {
+                print("Could not decode price update")
+                return
+            }
+            print("🔔 new-order", orderUpdate)
+            SwiftEventBus.post("RTOrderStatus", sender: orderUpdate)
+            
+        })
 
         self.pusher.connect()
 

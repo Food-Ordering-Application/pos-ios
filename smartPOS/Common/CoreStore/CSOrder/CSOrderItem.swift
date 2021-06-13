@@ -9,8 +9,8 @@
 import CoreStore
 import Foundation
 final class CSOrderItem: CoreStoreObject {
-    @Field.Stored("id", dynamicInitialValue: { UUID().uuidString })
-    var id: String?
+    @Field.Stored("id")
+    var id: String = CSDatabase.uuid()
     
     @Field.Relationship("menuItem")
     var menuItem: CSMenuItem?

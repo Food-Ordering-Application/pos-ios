@@ -11,8 +11,8 @@ import Foundation
 import SwiftDate
 
 final class CSOrder: CoreStoreObject {
-    @Field.Stored("id", dynamicInitialValue: { UUID().uuidString })
-    var id: String?
+    @Field.Stored("id")
+    var id: String = CSDatabase.uuid()
     
     @Field.Stored("cashierId")
     var cashierId: String?

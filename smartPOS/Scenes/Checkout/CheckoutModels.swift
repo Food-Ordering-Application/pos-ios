@@ -78,6 +78,12 @@ enum Checkout {
 
     // MARK: OrderItems
 
+    struct OrderAndOrderItemsFormFields {
+        var orderItems: [OrderItemFormFields]
+        var restaurantId: String
+        var customerId: String
+    }
+    
     struct OrderAndOrderItemFormFields {
         var orderItem: OrderItemFormFields
         var restaurantId: String

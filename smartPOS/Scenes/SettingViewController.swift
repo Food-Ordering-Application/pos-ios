@@ -22,7 +22,7 @@ class SettingViewController: UIViewController {
         }
     }
 
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var tableView: UITableView! 
     var worker: CheckoutWorker? = CheckoutWorker()
     let menuItemsWorker: MenuItemsWorker? = MenuItemsWorker(menuItemsStore: MenuItemsMemStore())
 
@@ -151,7 +151,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemStore")!
-
+        cell.selectionStyle = .none
         let curSegmentIndex = segmentItems.selectedSegmentIndex
         var name: String? = "_"
         var imageURL: String? = ""

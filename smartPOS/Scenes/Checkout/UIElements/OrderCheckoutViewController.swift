@@ -94,7 +94,6 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
                     _ = transaction.create(Into<CSOrder>())
                 }
             )
-
             let order = try! CSDatabase.stack.fetchOne(From<CSOrder>().orderBy(.ascending(\.$createdAt)))!
             self.monitor = CSDatabase.stack.monitorObject(order)
         }
@@ -390,6 +389,7 @@ extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSourc
         myCustomSelectionColorView.backgroundColor = #colorLiteral(red: 0.9333369732, green: 0.4588472247, blue: 0.2666652799, alpha: 0.161368649)
         myCustomSelectionColorView.layer.cornerRadius = 8
         cell.selectedBackgroundView = myCustomSelectionColorView
+        cell.selectionStyle = .none
         return cell
     }
 
@@ -422,6 +422,7 @@ extension OrderCheckoutViewController: ObjectObserver {
         else {
             self.monitor = nil
         }
+        
     }
 
    
