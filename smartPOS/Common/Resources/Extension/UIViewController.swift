@@ -88,10 +88,10 @@ extension UIViewController: UITextFieldDelegate {
                     SwiftEventBus.post("SearchMenuItems", sender: keyword)
                 }
                 if vc is DeliveryViewController {
-                    SwiftEventBus.post("SearchOrdersDelivery", sender: keyword)
+                    SwiftEventBus.post("SearchOrdersLocal", sender: keyword)
                 }
                 if vc is OrdersPageViewController {
-                    SwiftEventBus.post("SearchOrdersLocal", sender: keyword)
+                    SwiftEventBus.post("SearchOrdersDelivery", sender: keyword)
                 }
                 if vc is SettingViewController {
                     SwiftEventBus.post("SearchCSMenuItems", sender: keyword)

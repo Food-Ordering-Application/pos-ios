@@ -9,6 +9,7 @@
 import CoreStore
 import SlideMenuControllerSwift
 import UIKit
+import SwiftEventBus
 
 class DeliveryViewController: UIViewController {
     weak var delegate: LeftMenuProtocol?
@@ -85,6 +86,11 @@ class DeliveryViewController: UIViewController {
             self.dataSource?.apply(listPublisher.snapshot, animatingDifferences: true)
         }
         self.dataSource?.apply(CSDatabase.csOrders.snapshot, animatingDifferences: false)
+        SwiftEventBus.onMainThread(self, name: "SearchOrdersLocal") { result in
+            let keyword = result?.object as? String
+            print("SearchOrdersLocal", keyword)
+            CSDatabase.searchCSOrders(keyword: keyword ?? "")
+        }
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

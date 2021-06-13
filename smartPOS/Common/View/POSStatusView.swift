@@ -104,7 +104,21 @@ class POSStatusView: UIView {
 
     func onPOSSync() {
         guard let menuId = MenuItemsMemStore.menu?.id else { return }
-        SwiftEventBus.post("POSSyncMenuItemDetail", sender: menuId)
+        
+        if let vc = UIApplication.topViewController() {
+            if vc is CheckoutViewController {
+                SwiftEventBus.post("POSSyncMenuItemDetail", sender: menuId)
+            }
+//            if vc is DeliveryViewController {
+//                SwiftEventBus.post("SearchOrdersLocal", sender: keyword)
+//            }
+//            if vc is OrdersPageViewController {
+//                SwiftEventBus.post("SearchOrdersDelivery", sender: keyword)
+//            }
+//            if vc is SettingViewController {
+//                SwiftEventBus.post("SearchCSMenuItems", sender: keyword)
+//            }
+        }
         let posStatus = POSStatusModel(status: .syncing, time: Date())
         self.updateView(posStatus: posStatus)
         self.timeToSync = 0

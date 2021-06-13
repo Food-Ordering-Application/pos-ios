@@ -66,5 +66,20 @@ struct CSDatabase {
                 .orderBy(.descending(\.$createdAt))
         )
     }()
-    
+    static func searchCSOrders(keyword: String) {
+        if keyword != "" {
+            try! self.csOrders.refetch(
+                From<CSOrder>()
+                    .sectionBy(\.$dateName)
+                    .where(\.$id == keyword)
+                    .orderBy(.ascending(\.$createdAt))
+            )
+            return
+        }
+        try! self.csOrders.refetch(
+            From<CSOrder>()
+                .sectionBy(\.$dateName)
+                .orderBy(.descending(\.$createdAt))
+        )
+    }
 }
