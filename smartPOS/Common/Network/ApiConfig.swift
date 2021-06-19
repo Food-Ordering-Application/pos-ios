@@ -19,7 +19,7 @@ struct APIConfig {
     static let restaurantId = "59648039-fb38-4a5a-8ce7-6938b27b76ab" // MARK: Production
     static let merchantId = "5baf057d-0314-4a63-b08e-2cecb8a55bd2"
     static let userId = "d409255a-7067-4ea9-81d0-3faf8a5d7a06"
-    static let channelName = "orders_\(APIConfig.restaurantId)"
+    static let channelName = "orders_\(String(describing: APIConfig.getRestaurantId()))"
     static let limitDisplay = 20
     static let debugMode = true
     static func getBaseUrl() -> String {

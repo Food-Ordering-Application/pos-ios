@@ -38,9 +38,14 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
 //                    MenuItemsMemStore.storeMenuItems()
 //                }
 //            }
+            SwiftEventBus.post("POSStoreMenuItem")
+        }
+        
+        SwiftEventBus.onBackgroundThread(self, name: "POSStoreMenuItem") { _ in
             MenuItemsMemStore.storeMenuItems()
             SwiftEventBus.post("POSSynced")
         }
+        
     }
     
     static func storeMenuItems() {

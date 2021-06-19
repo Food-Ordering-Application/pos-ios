@@ -28,6 +28,7 @@ target 'smartPOS' do
   pod 'PushNotifications'
   pod 'loady'
   pod 'PusherSwift'
+  pod 'Kingfisher'
 
   target 'smartPOSTests' do
     inherit! :search_paths

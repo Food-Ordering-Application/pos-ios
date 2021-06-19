@@ -5,6 +5,7 @@ PODS:
   - CoreStore (8.0.1)
   - EmptyDataSet-Swift (5.0.0)
   - IQKeyboardManagerSwift (6.5.6)
+  - Kingfisher (6.3.0)
   - loady (1.0.7)
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
@@ -44,6 +45,7 @@ DEPENDENCIES:
   - CoreStore (~> 8.0)
   - EmptyDataSet-Swift (~> 5.0.0)
   - IQKeyboardManagerSwift
+  - Kingfisher
   - loady
   - Moya
   - NumPad
@@ -69,6 +71,7 @@ SPEC REPOS:
     - CoreStore
     - EmptyDataSet-Swift
     - IQKeyboardManagerSwift
+    - Kingfisher
     - loady
     - Moya
     - NumPad
@@ -104,6 +107,7 @@ SPEC CHECKSUMS:
   CoreStore: b8ed5be7d39af83a235878e4c8555134591badf4
   EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   loady: f2acbcbd53bdeb55425e478304da2f7ff3ec706e
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   NumPad: 4bed9fe05f294bd7ba5d109f3245d96b38c998f4
@@ -123,6 +127,6 @@ SPEC CHECKSUMS:
   SwiftEventBus: 976fdca8270b925c5f8e897f519cc49597e1f13c
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: 2c20eb7337cf662c77a25a79f21b6f2d5646c083
+PODFILE CHECKSUM: 60f19f5d2f6b0b454b5253bdf922cf2e52a71158
 
 COCOAPODS: 1.10.1

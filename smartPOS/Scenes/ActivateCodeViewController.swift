@@ -39,10 +39,10 @@ class ActivateCodeViewController: UIViewController {
             btnActivate.layer.cornerRadius = 8
             btnActivate.loadingColor = UIColor(red: 0.38, green: 0.66, blue: 0.09, alpha: 1.0)
             btnActivate.setPhases(phases: .init(normalPhase:
-                (title: "Lock", image: UIImage(named: "unlocked"), background: UIColor(red: 0.00, green: 0.49, blue: 0.90, alpha: 1.0)), loadingPhase:
-                (title: "Waiting...", image: nil, background: UIColor(red: 0.17, green: 0.24, blue: 0.31, alpha: 1.0)), successPhase:
-                (title: "Activated", image: UIImage(named: "locked"), background: UIColor(red: 0.15, green: 0.68, blue: 0.38, alpha: 1.0)), errorPhase:
-                (title: "Error", image: UIImage(named: "unlocked"), background: UIColor(red: 0.64, green: 0.00, blue: 0.15, alpha: 1.0))))
+                (title: "Khoá", image: UIImage(named: "unlocked"), background: UIColor(red: 0.00, green: 0.49, blue: 0.90, alpha: 1.0)), loadingPhase:
+                (title: "Đang đợi ...", image: nil, background: UIColor(red: 0.17, green: 0.24, blue: 0.31, alpha: 1.0)), successPhase:
+                (title: "Đã kích hoạt", image: UIImage(named: "locked"), background: UIColor(red: 0.15, green: 0.68, blue: 0.38, alpha: 1.0)), errorPhase:
+                (title: "Lỗi", image: UIImage(named: "unlocked"), background: UIColor(red: 0.64, green: 0.00, blue: 0.15, alpha: 1.0))))
         }
     }
 

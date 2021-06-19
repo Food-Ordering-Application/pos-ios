@@ -20,17 +20,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ItemCollectionViewCell" id="gTV-IL-0wX" customClass="ItemCollectionViewCell" customModule="smartPOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="301" height="121"/>
+            <rect key="frame" x="0.0" y="0.0" width="198" height="156"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="301" height="121"/>
+                <rect key="frame" x="0.0" y="0.0" width="198" height="156"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHM-g0-O4A">
-                        <rect key="frame" x="4" y="4" width="293" height="113"/>
+                        <rect key="frame" x="4" y="4" width="190" height="148"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="300,000đ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVE-MU-vdL">
-                                <rect key="frame" x="12" y="81" width="209" height="24"/>
+                                <rect key="frame" x="12" y="116" width="106" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="Sgp-zV-7js"/>
                                 </constraints>
@@ -50,7 +50,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="vcM-db-qqZ">
-                                <rect key="frame" x="221" y="41" width="64" height="64"/>
+                                <rect key="frame" x="118" y="76" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="YiD-re-smq"/>
                                     <constraint firstAttribute="width" constant="64" id="ddn-ad-n5G"/>
@@ -63,10 +63,10 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WAE-er-Ghv">
-                                <rect key="frame" x="12" y="8" width="273" height="33"/>
+                                <rect key="frame" x="12" y="4" width="170" height="72"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamburger Hot Dog" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9m-Il-lGV">
-                                        <rect key="frame" x="0.0" y="0.0" width="273" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="170" height="62"/>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -89,7 +89,7 @@
                                 </userDefinedRuntimeAttributes>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamburger, Trà xanh, Có đường, vị ngọt " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubb-5f-hEL">
-                                <rect key="frame" x="12" y="41" width="205" height="36"/>
+                                <rect key="frame" x="12" y="76" width="102" height="36"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -116,7 +116,7 @@
                             <constraint firstItem="WAE-er-Ghv" firstAttribute="trailing" secondItem="vcM-db-qqZ" secondAttribute="trailing" id="OJO-hY-gts"/>
                             <constraint firstItem="ubb-5f-hEL" firstAttribute="top" secondItem="vcM-db-qqZ" secondAttribute="top" id="SBs-6T-GP0"/>
                             <constraint firstAttribute="bottom" secondItem="vcM-db-qqZ" secondAttribute="bottom" constant="8" id="g7e-pK-Ebe"/>
-                            <constraint firstItem="WAE-er-Ghv" firstAttribute="top" secondItem="vHM-g0-O4A" secondAttribute="top" constant="8" id="oUh-9o-dox"/>
+                            <constraint firstItem="WAE-er-Ghv" firstAttribute="top" secondItem="vHM-g0-O4A" secondAttribute="top" constant="4" id="oUh-9o-dox"/>
                             <constraint firstItem="WAE-er-Ghv" firstAttribute="leading" secondItem="vHM-g0-O4A" secondAttribute="leading" constant="12" id="tpq-Qe-K64"/>
                             <constraint firstItem="IVE-MU-vdL" firstAttribute="leading" secondItem="vHM-g0-O4A" secondAttribute="leading" constant="12" id="ybI-Kf-5Gi"/>
                             <constraint firstItem="vcM-db-qqZ" firstAttribute="leading" secondItem="IVE-MU-vdL" secondAttribute="trailing" id="ysZ-Ez-dGW"/>
@@ -138,7 +138,7 @@
                 <constraint firstAttribute="bottom" secondItem="vHM-g0-O4A" secondAttribute="bottom" constant="4" id="rHw-e2-JxK"/>
                 <constraint firstAttribute="trailing" secondItem="vHM-g0-O4A" secondAttribute="trailing" constant="4" id="s8E-dF-Azf"/>
             </constraints>
-            <size key="customSize" width="301" height="121"/>
+            <size key="customSize" width="198" height="156"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
             </userDefinedRuntimeAttributes>
@@ -149,7 +149,7 @@
                 <outlet property="lbPrice" destination="IVE-MU-vdL" id="reu-23-dtK"/>
                 <outlet property="viewBackground" destination="vHM-g0-O4A" id="hSE-Dh-pIk"/>
             </connections>
-            <point key="canvasLocation" x="-570" y="-12"/>
+            <point key="canvasLocation" x="-651" y="-62"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -63,7 +63,7 @@ enum OrderDetail {
     enum RejectOrder {
         struct Request {
             var id: String?
-            var orderItemIds: [String?]?
+            var orderItemIds: [String]?
             var cashierNote: String?
         }
 

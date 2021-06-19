@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 struct RejectionDataModel {
     var note: String?
-    var orderItemIds: [String?]?
+    var orderItemIds: [String]?
 }
 protocol RejectionViewControllerDelegate {
     func rejectionData(data: RejectionDataModel)
@@ -106,13 +106,15 @@ class RejectionViewController: UIViewController {
     
     @IBAction func readyRejectHandler(_ sender: Any) {
         print("iam ready reject")
-        print(tvNote.text)
-        var orderItemIds: [String?] = []
+
+        var orderItemIds: [String] = []
         for indexPath in selectedIndexPaths {
-            let orderItemId = self.orderItems[indexPath.row].id
-            orderItemIds.append(orderItemId)
+            if let orderItemId = self.orderItems[indexPath.row].id {
+                orderItemIds.append(orderItemId)
+            }
         }
         let data = RejectionDataModel(note: tvNote.text, orderItemIds: orderItemIds)
+        print(data)
         self.presentingViewController!.dismiss(animated: true, completion: nil)
         self.delegate?.rejectionData(data: data)
     }

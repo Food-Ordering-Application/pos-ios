@@ -327,7 +327,6 @@ private extension CheckoutViewController {
     func setupNavBar() {
         navigationItem.title = "Checkout"
         setNavigationBarItem()
-        
         self.view.showAnimatedGradientSkeleton()
     }
 

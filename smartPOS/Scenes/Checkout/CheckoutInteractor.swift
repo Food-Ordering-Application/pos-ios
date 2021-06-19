@@ -56,18 +56,18 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
         SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenuItemDetail") { result in
             if NoInternetService.isReachable() {
                 guard let menuId = result?.object as? String else { return }
-                SwiftEventBus.post("POSSyncMenuItem")
+                SwiftEventBus.post("POSSyncMenuItem") 
+                self.backupMenuItemGroups()
                 self.POSSyncMenuItemsDetail(menuId: menuId)
             }
         }
-
         SwiftEventBus.onBackgroundThread(self, name: "POSSyncOrder") { result in
             if let orderAndOrderItemData = result?.object as? OrderAndOrderItemData {
                 self.POSSyncOrderDetail(orderAndOrderItemData: orderAndOrderItemData)
             }
         }
     }
-    
+
     func searchMenuItemGroups(request: Checkout.SearchMenuItems.Request) {
         let keyword = request.keyword
         var response: Checkout.SearchMenuItems.Response!
@@ -81,10 +81,8 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             }
             self.presenter?.presentSearchedMenuItemGroups(response: response)
         })
-        return
-
     }
-    
+
     // MARK: Fetch MenuItems
 
     func fetchMenuItemGroups(request: Checkout.FetchMenuItems.Request) {
@@ -95,8 +93,6 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 
         if SyncService.canHandleLocal() {
             menuItemsWorker?.fetchMenuAndMenuGroups(completionHandler: { menuAndMenuItemGroups in
-                print("🍀 🍀 🍀 🍀 🍀 🍀 🍀 menuAndMenuItemGroups 🍀 🍀 🍀 🍀 🍀 🍀")
-                print(menuAndMenuItemGroups)
                 if let data = menuAndMenuItemGroups {
                     response = Checkout.FetchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
                 }
@@ -107,21 +103,17 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             })
             return
         }
-
         worker?.restaurantDataManager.getMenu(restaurantId: restaurantId, false).done { menuRes in
             print("menuRes")
-
             // MARK: Need to check status code in here 200 -> 300
-
             print(menuRes.data)
             if menuRes.statusCode == 200 {
                 let data = menuRes.data
-
                 MenuItemsMemStore.menu = data.menu
                 MenuItemsMemStore.menuItemGroups = data.menuGroups
-
                 let menuId = data.menu.id
-                SwiftEventBus.post("POSSyncMenuItemDetail", sender: menuId)
+//                SwiftEventBus.post("POSSyncMenuItemDetail", sender: menuId)
+                SwiftEventBus.post("POSStoreMenuItem", sender: menuId)
                 response = Checkout.FetchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
             }
 
@@ -130,6 +122,22 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
             response = Checkout.FetchMenuItems.Response(menu: nil, menuGroups: nil, error: MenuItemErrors.couldNotLoadMenuItems(error: error.localizedDescription))
         }.finally {
             self.presenter?.presentFetchedMenuItemGroups(response: response)
+        }
+    }
+
+    func backupMenuItemGroups() {
+        // MARK: Donothing if no the internet
+        let restaurantId = APIConfig.getRestaurantId()
+        worker?.restaurantDataManager.getMenu(restaurantId: restaurantId, false).done { menuRes in
+            if menuRes.statusCode == 200 {
+                let data = menuRes.data
+                MenuItemsMemStore.menu = data.menu
+                MenuItemsMemStore.menuItemGroups = data.menuGroups
+                SwiftEventBus.post("POSStoreMenuItem")
+            }
+        }.catch { _ in
+        }.finally {
+            NotificationCenter.default.post(name: Notification.Name("FetchMenuItems"), object: nil)
         }
     }
 
@@ -382,6 +390,7 @@ extension CheckoutInteractor {
             print(error)
         }.finally {
             // MARK: Handle to save to local
+
             MenuItemsMemStore.storeMenuItemToppings()
             SwiftEventBus.post("POSSynced")
         }
@@ -400,6 +409,7 @@ extension CheckoutInteractor {
             print(error)
         }.finally {
             // MARK: Handle to save to local
+
             MenuItemsMemStore.storeToppingItems()
             SwiftEventBus.post("POSSynced")
         }
@@ -418,6 +428,7 @@ extension CheckoutInteractor {
             print(error)
         }.finally {
             // MARK: Handle to save to local
+
             MenuItemsMemStore.storeToppingGroups()
             SwiftEventBus.post("POSSynced")
         }

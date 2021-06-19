@@ -223,7 +223,7 @@ extension OrderDetailViewController {
         self.btnAreaView.isHidden = false
         self.btnComplete.isHidden = true
         self.timeAreaView.isHidden = true
-        if let note = order.note, note != "" {
+        if let note = order.note {
             self.noteAreaView.isHidden = false
             self.lbNote.text = note
         }

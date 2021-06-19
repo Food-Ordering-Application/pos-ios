@@ -29,7 +29,7 @@ enum OrderAPI {
     case manipulateOrderItemQuantity(action: ManipulateOrderItemRequest, orderId: String, orderItemId: String)
     case confirmOrder(orderId: String)
     case completeOrder(orderId: String)
-    case voidOrder(orderId: String, orderItemIds: [String?]?, cashierNote: String?)
+    case voidOrder(orderId: String, orderItemIds: [String]?, cashierNote: String?)
     
     // MARK: Communicated with CoreStore and Server to Sync
 

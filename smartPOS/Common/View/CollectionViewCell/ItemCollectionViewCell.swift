@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ItemCollectionViewCell: UICollectionViewCell {
     class var identifier: String { return String.className(self) }
@@ -14,7 +15,13 @@ class ItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet var lbName: UILabel!
     @IBOutlet var lbDescription: UILabel!
     @IBOutlet var lbPrice: UILabel!
-    @IBOutlet var imageItem: UIImageView!
+    @IBOutlet var imageItem: UIImageView! {
+        didSet {
+            imageItem.layer.cornerRadius = 8
+            imageItem.clipsToBounds = true
+            imageItem.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+        }
+    }
     @IBOutlet var viewBackground: UIView!
 
     override func awakeFromNib() {
@@ -54,18 +61,32 @@ class ItemCollectionViewCell: UICollectionViewCell {
             lbName?.text = menuItem.name
             
             lbPrice?.text = String(format: "%.0f",menuItem.price).currency()
-//            self.setImage(imageUrl: menuItem.imageUrl)
+            self.setImage(imageUrl: menuItem.imageUrl)
+        
 //            print("Setlected CollectionViewCell",menuItem.imageUrl, menuItem)
         }
     }
-    func setImage(imageUrl: String){
+    func setImage(imageUrl: String) {
         guard let url = URL(string: imageUrl) else { return }
-            
-        DispatchQueue.global().async {
-            let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-            DispatchQueue.main.async {
-                self.imageItem.image = UIImage(data: data!)
-            }
-        }
+        KF.url(url)
+          .placeholder(UIImage(named: "placeholder"))
+          .loadDiskFileSynchronously()
+          .cacheMemoryOnly()
+          .fade(duration: 0.25)
+          .onProgress { receivedSize, totalSize in  }
+          .onSuccess { result in  }
+          .onFailure { error in }
+          .set(to: self.imageItem)
+        
     }
+//    func setImage(imageUrl: String){
+//        guard let url = URL(string: imageUrl) else { return }
+//
+//        DispatchQueue.global().async {
+//            let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+//            DispatchQueue.main.async {
+//                self.imageItem.image = UIImage(data: data!)
+//            }
+//        }
+//    }
 }

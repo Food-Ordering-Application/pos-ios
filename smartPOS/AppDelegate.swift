@@ -101,10 +101,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
         self.pusher.connect()
 
         // MARK: Need have api to check available id
-
-        ////        self.createActivateCodeView()
-//
-        if APIConfig.getToken() == "" {
+//        self.createActivateCodeView()
+        if APIConfig.getRestaurantId() == "" {
+            self.createActivateCodeView()
+        } else if APIConfig.getToken() == "" {
             self.createLoginView()
         } else {
             self.createMenuView()

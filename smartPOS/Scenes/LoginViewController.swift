@@ -44,8 +44,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var fUsername: AnimatedField! {
         didSet {
             fUsername.becomeFirstResponder()
-            fUsername.text = "0768777352"
-            fUsername.placeholder = "Tài khoản"
+            fUsername.placeholder = "Số điện thoại"
             fUsername.lowercased = true
             fUsername.type = .username(4, 20)
             fUsername.tintColor = #colorLiteral(red: 1, green: 0.4196293056, blue: 0.2078702748, alpha: 1)
@@ -56,7 +55,6 @@ class LoginViewController: UIViewController {
     @IBOutlet var fPassword: AnimatedField! {
         didSet {
             fPassword.placeholder = "Mật khẩu"
-            fPassword.text = "Timtimconcacne2"
             fPassword.type = .password(6, 20)
             fPassword.isSecure = true
             fPassword.showVisibleButton = true

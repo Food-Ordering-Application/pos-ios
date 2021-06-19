@@ -9,6 +9,8 @@
 import SwiftEntryKit
 import UIKit
 import SkeletonView
+import Kingfisher
+
 struct MenuItemAndToppings {
     let menuItem: MenuItem?
     let menuItemQuantity: Int?
@@ -20,7 +22,12 @@ class MenuItemDetailView: UIView {
     @IBOutlet var btnAdd: UIButton!
     @IBOutlet var lbName: UILabel!
     @IBOutlet var lbPrice: UILabel!
-    @IBOutlet var imageItem: UIImageView!
+    @IBOutlet var imageItem: UIImageView! {
+        didSet {
+            imageItem.layer.cornerRadius = 8
+            imageItem.clipsToBounds = true
+        }
+    }
     @IBOutlet var tableViewTopping: UITableView!
     @IBOutlet var lbQuantity: UILabel!
     @IBOutlet var btnMinusQuantity: UIButton! {
@@ -65,9 +72,22 @@ class MenuItemDetailView: UIView {
             self.lbName!.text = menuItem.name
             self.lbPrice!.text = String(format: "%.0f",menuItem.price).currency()
             self.lbQuantity!.text = String(menuItemQuantity)
+            self.setImage(imageUrl: menuItem.imageUrl)
         }
     }
-    
+    func setImage(imageUrl: String) {
+        guard let url = URL(string: imageUrl) else { return }
+        KF.url(url)
+          .placeholder(UIImage(named: "placeholder"))
+          .loadDiskFileSynchronously()
+          .cacheMemoryOnly()
+          .fade(duration: 0.25)
+          .onProgress { receivedSize, totalSize in  }
+          .onSuccess { result in  }
+          .onFailure { error in }
+          .set(to: self.imageItem)
+        
+    }
     private func setup() {
         fromNib()
         clipsToBounds = true
