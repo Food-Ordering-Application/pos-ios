@@ -9,6 +9,7 @@
 import CoreStore
 import SkeletonView
 import UIKit
+import Kingfisher
 
 enum SegmentItemsTab: Int {
     case menuItem = 0
@@ -154,19 +155,39 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         let curSegmentIndex = segmentItems.selectedSegmentIndex
         var name: String? = "_"
-        var imageURL: String? = ""
+        var imageURL: String = ""
         var state: ItemState? = .instock
         if curSegmentIndex == SegmentItemsTab.menuItem.rawValue {
             name = menuItems![indexPath.row].name
             state = menuItems![indexPath.row].state ?? .unknown
+            imageURL =  menuItems![indexPath.row].imageUrl
         }
         if curSegmentIndex == SegmentItemsTab.toppingItem.rawValue {
             name = toppingItems![indexPath.row].name
             state = toppingItems![indexPath.row].state ?? .unknown
         }
         cell.textLabel?.text = name
+      
         let image = UIImage(named: "pizza")
         cell.imageView?.image = image
+//        if let imageView = cell.imageView, let url = URL(string: imageURL) {
+//            
+//            
+//            KF.url(url)
+//              .placeholder(UIImage(named: "placeholder"))
+//              .loadDiskFileSynchronously()
+//              .cacheMemoryOnly()
+//              .fade(duration: 0.25)
+//              .onProgress { receivedSize, totalSize in  }
+//              .onSuccess { result in  }
+//              .onFailure { error in }
+//              .set(to: imageView)
+//        }
+        
+        
+        
+        
+        
         let isOn = state == .instock ? true : false
         // Add Switch
         let switchView = UISwitch(frame: .zero)

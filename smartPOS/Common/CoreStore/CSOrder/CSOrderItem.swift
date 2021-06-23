@@ -45,13 +45,13 @@ final class CSOrderItem: CoreStoreObject {
 
 extension CSOrderItem {
     func toDeepStruct() -> OrderItemRes {
-        return OrderItemRes(id: id, menuItemId: menuItem?.id, orderId: order?.id, price: price, name: name, discount: discount, subTotal: subTotal, quantity: quantity, state: OrderItemStatus(rawValue: state), orderItemToppings: orderItemToppings.map { (csOrderItemTopping) -> OrderItemTopping in
+        return OrderItemRes(id: id, menuItemId: menuItem?.id, menuItemImageUrl:menuItem?.imageUrl ,orderId: order?.id, price: price, name: name, discount: discount, subTotal: subTotal, quantity: quantity, state: OrderItemStatus(rawValue: state), orderItemToppings: orderItemToppings.map { (csOrderItemTopping) -> OrderItemTopping in
             csOrderItemTopping.toStruct()
         })
     }
 
     func toStruct() -> OrderItem {
-        return OrderItem(id: id, menuItemId: menuItem?.id, name: name, orderId: order?.id, price: price, discount: discount, subTotal: subTotal, state: OrderItemStatus(rawValue: state), quantity: quantity, note: note)
+        return OrderItem(id: id, menuItemId: menuItem?.id,menuItemImageUrl: menuItem?.imageUrl, name: name, orderId: order?.id, price: price, discount: discount, subTotal: subTotal, state: OrderItemStatus(rawValue: state), quantity: quantity, note: note)
     }
     
     func calculateTotal() -> Double {

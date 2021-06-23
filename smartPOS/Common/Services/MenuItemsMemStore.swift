@@ -170,13 +170,16 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
 
     func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> [ToppingGroup]?) -> Void) {
         do {
-            let menuItemToppings = try CSDatabase.stack.fetchAll(From<CSMenuItemTopping>().where(\.$menuItem ~ \.$id == menuItemId))
+//            let menuItemToppings = try CSDatabase.stack.fetchAll(From<CSMenuItemTopping>().where(\.$menuItem ~ \.$id == menuItemId))
             
             let menuItem = try CSDatabase.stack.fetchOne(From<CSMenuItem>().where(\.$id == menuItemId))
             
             let toppingGroups: [ToppingGroup]? = menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingGroup in
                 (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
             }
+//            let toppingGroups: [ToppingGroup]? = csMenuItemToppings.map { csMenuItemToppings -> ToppingGroup in
+//                (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
+//            }
             print("🍀 🍀 🍀 🍀 🍀 🍀 fetchMenuItemToppings 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
 //            print(menuItem?.toStruct())
 //            print(menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingItem in

@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import Kingfisher
 
 class OrderItemTableViewCell: UITableViewCell {
     class var identifier: String { return String.className(self) }
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
 
-    @IBOutlet var imageItem: UIImageView!
+    @IBOutlet var imageItem: UIImageView! {
+        didSet {
+            imageItem.layer.cornerRadius = 8
+            imageItem.clipsToBounds = true
+        }
+    }
     @IBOutlet var lbName: UILabel!
     @IBOutlet var lbDescription: UILabel!
     @IBOutlet var lbPrice: UILabel!
@@ -58,6 +64,7 @@ class OrderItemTableViewCell: UITableViewCell {
             self.lbPrice?.text = String(format: "%.0f", orderItem.price ?? 0).currency()
             self.lbAmount?.text = String(orderItem.quantity ?? 1)
             self.setupBtnMinus(isRemove: orderItem.quantity == 1)
+            self.setImage(imageUrl: orderItem.menuItemImageUrl ?? "")
         }
         
         if let status = orderStatus {
@@ -73,7 +80,19 @@ class OrderItemTableViewCell: UITableViewCell {
             self.alpha = 1.0
         }
     }
-    
+    func setImage(imageUrl: String) {
+        guard let url = URL(string: imageUrl) else { return }
+        KF.url(url)
+          .placeholder(UIImage(named: "placeholder"))
+          .loadDiskFileSynchronously()
+          .cacheMemoryOnly()
+          .fade(duration: 0.25)
+          .onProgress { receivedSize, totalSize in  }
+          .onSuccess { result in  }
+          .onFailure { error in }
+          .set(to: self.imageItem)
+        
+    }
     func setupViewOnly(isHidden: Bool = false) {
         self.btnPlusItem.isHidden = isHidden
         self.btnMinusItem.isHidden = isHidden

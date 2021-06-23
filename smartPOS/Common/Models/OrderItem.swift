@@ -10,6 +10,7 @@ import Foundation
 struct OrderItem: Decodable {
     let id: String?
     let menuItemId: String?
+    var menuItemImageUrl: String?
     let name: String?
     let orderId: String?
     let price: Double?
