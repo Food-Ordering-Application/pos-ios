@@ -139,11 +139,12 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
                     csOrderItemTopping.quantity = orderItemTopping.quantity
 //                    print("👻", orderItemTopping.menuItemToppingId, csOrderItemTopping.menuItemTopping?.toStruct())
                     /// Caculated total Order
-                    toppingPrice += csOrderItemTopping.price ?? 0 * Double(csOrderItemTopping.quantity ?? 1)
+                    toppingPrice += (csOrderItemTopping.price ?? 0) * Double(csOrderItemTopping.quantity ?? 1)
+                    print("toppingPrice",toppingPrice)
                 }
                 csOrderItem.orderItemToppings = try transaction.fetchAll(From<CSOrderItemTopping>().where(\.$orderItem ~ \.$id == orderItemId))
                 /// Caculated total Order
-                csOrderItem.price = (csOrderItem.price ?? 0 + toppingPrice) * Double(csOrderItem.quantity ?? 1)
+                csOrderItem.price = ((csOrderItem.price ?? 0) + toppingPrice) * Double(csOrderItem.quantity ?? 1)
                 subTotal += csOrderItem.price ?? 0
                 /// Caculated total Order
                 csOrder.subTotal = subTotal
@@ -206,11 +207,11 @@ class OrdersMemStore: OrdersStoreProtocol, OrdersStoreUtilityProtocol {
                     csOrderItemTopping.price = orderItemTopping.price
                     csOrderItemTopping.quantity = orderItemTopping.quantity
                     /// Caculated total Order
-                    toppingPrice += csOrderItemTopping.price ?? 0 * Double(csOrderItemTopping.quantity ?? 1)
+                    toppingPrice += (csOrderItemTopping.price ?? 0) * Double(csOrderItemTopping.quantity ?? 1)
                 }
                 csOrderItem.orderItemToppings = try transaction.fetchAll(From<CSOrderItemTopping>().where(\.$orderItem ~ \.$id == orderItemId))
                 /// Caculated total Order
-                csOrderItem.price = (csOrderItem.price ?? 0 + toppingPrice) * Double(csOrderItem.quantity ?? 1)
+                csOrderItem.price = ((csOrderItem.price ?? 0) + toppingPrice) * Double(csOrderItem.quantity ?? 1)
                 subTotal += csOrderItem.price ?? 0
                 /// Caculated total Order
                 csOrder?.subTotal = subTotal

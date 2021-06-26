@@ -6,19 +6,20 @@
 //  Copyright © 2021 Clean Swift LLC. All rights reserved.
 //
 
-import UIKit
 import Kingfisher
 import SwiftEventBus
+import UIKit
 class OrderItemTableViewCell: UITableViewCell {
     class var identifier: String { return String.className(self) }
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
 
     @IBOutlet var imageItem: UIImageView! {
         didSet {
-            imageItem.layer.cornerRadius = 8
-            imageItem.clipsToBounds = true
+            self.imageItem.layer.cornerRadius = 8
+            self.imageItem.clipsToBounds = true
         }
     }
+
     @IBOutlet var lbName: UILabel!
     @IBOutlet var lbDescription: UILabel!
     @IBOutlet var lbPrice: UILabel!
@@ -61,14 +62,20 @@ class OrderItemTableViewCell: UITableViewCell {
         if let orderItem = data {
             self.orderItem = orderItem
             self.lbName?.text = orderItem.name
+            self.lbDescription?.text = "_"
             self.lbPrice?.text = String(format: "%.0f", orderItem.price ?? 0).currency()
             self.lbAmount?.text = String(orderItem.quantity ?? 1)
             self.setupBtnMinus(isRemove: orderItem.quantity == 1)
-            self.setImage(imageUrl: orderItem.menuItemImageUrl ?? "")
+            if let imageUrl = orderItem.menuItemImageUrl {
+                self.setImage(imageUrl: imageUrl)
+            } else {
+                self.imageItem.isHidden = true
+            }
+            
         }
         
         if let status = orderStatus {
-            let editable = canEdit(orderStatus: status)
+            let editable = self.canEdit(orderStatus: status)
             self.setupViewOnly(isHidden: !editable)
         }
     }
@@ -80,19 +87,21 @@ class OrderItemTableViewCell: UITableViewCell {
             self.alpha = 1.0
         }
     }
+
     func setImage(imageUrl: String) {
-        guard let url = URL(string: imageUrl) else { return }
+        let url = URL(string: imageUrl)
+        imageItem.isHidden = false
         KF.url(url)
-          .placeholder(UIImage(named: "placeholder"))
-          .loadDiskFileSynchronously()
-          .cacheMemoryOnly()
-          .fade(duration: 0.25)
-          .onProgress { receivedSize, totalSize in  }
-          .onSuccess { result in  }
-          .onFailure { error in }
-          .set(to: self.imageItem)
-        
+            .placeholder(UIImage(named: "placeholder"))
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly(false)
+            .fade(duration: 0.25)
+            .onProgress { _, _ in }
+            .onSuccess { _ in }
+            .onFailure { _ in }
+            .set(to: self.imageItem)
     }
+
     func setupViewOnly(isHidden: Bool = false) {
         self.btnPlusItem.isHidden = isHidden
         self.btnMinusItem.isHidden = isHidden

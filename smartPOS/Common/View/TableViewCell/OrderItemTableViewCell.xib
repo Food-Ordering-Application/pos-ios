@@ -8,14 +8,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Poppins-Bold.ttf">
+            <string>Poppins-Bold</string>
+        </array>
         <array key="Poppins-Medium.ttf">
             <string>Poppins-Medium</string>
         </array>
         <array key="Poppins-Regular.ttf">
             <string>Poppins-Regular</string>
-        </array>
-        <array key="Poppins-SemiBold.ttf">
-            <string>Poppins-SemiBold</string>
         </array>
     </customFonts>
     <objects>
@@ -29,10 +29,73 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="osu-wF-hRW">
-                        <rect key="frame" x="549" y="23.5" width="88" height="30"/>
+                        <rect key="frame" x="8" y="4" width="713" height="69"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="cC1-g5-Z34">
+                                <rect key="frame" x="0.0" y="9.5" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="41F-c3-m6I"/>
+                                    <constraint firstAttribute="width" constant="50" id="Ymt-mU-0a8"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="d0k-SU-sfP">
+                                <rect key="frame" x="54" y="10.5" width="483" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hambuger Big Bang" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zk5-EX-48D">
+                                        <rect key="frame" x="0.0" y="0.0" width="154.5" height="48"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="skeletonLineSpacing">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Salad, Salad, hambuger" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXQ-b8-bxa">
+                                        <rect key="frame" x="0.0" y="48" width="168" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="highlightedColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="skeletonLineSpacing">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="Yrs-vW-j7V"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOm-jU-R1f">
-                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                <rect key="frame" x="541" y="19.5" width="30" height="30"/>
                                 <color key="backgroundColor" red="0.82245942735180411" green="0.82245942735180411" blue="0.82245942735180411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="Vr9-YX-RaL"/>
@@ -52,7 +115,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOX-oU-GA7">
-                                <rect key="frame" x="34" y="3" width="20" height="24"/>
+                                <rect key="frame" x="575" y="22.5" width="20" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="W2F-Qt-a7o"/>
                                 </constraints>
@@ -73,7 +136,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6e-wH-fbd">
-                                <rect key="frame" x="58" y="0.0" width="30" height="30"/>
+                                <rect key="frame" x="599" y="19.5" width="30" height="30"/>
                                 <color key="backgroundColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="87v-UN-18h"/>
@@ -92,44 +155,12 @@
                                     <action selector="doPlusItem:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xvP-7r-T45"/>
                                 </connections>
                             </button>
-                        </subviews>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                            <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
-                                <real key="value" value="8"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200,000đ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tT0-Cv-N2v">
-                        <rect key="frame" x="641" y="27.5" width="80" height="22.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="80" id="nLM-QI-A8r"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
-                                <integer key="value" value="8"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                            <userDefinedRuntimeAttribute type="number" keyPath="skeletonLineSpacing">
-                                <real key="value" value="8"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
-                                <real key="value" value="8"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </label>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="d0k-SU-sfP">
-                        <rect key="frame" x="66" y="14.5" width="479" height="48"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hambuger Big Bang" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zk5-EX-48D">
-                                <rect key="frame" x="0.0" y="0.0" width="479" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200,000đ" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tT0-Cv-N2v">
+                                <rect key="frame" x="633" y="23.5" width="80" height="22.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="9sW-xH-uYS"/>
+                                    <constraint firstAttribute="width" constant="80" id="nLM-QI-A8r"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
@@ -145,29 +176,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Salad, Salad, hambuger" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXQ-b8-bxa">
-                                <rect key="frame" x="0.0" y="24" width="479" height="24"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="highlightedColor" red="0.93333697319999998" green="0.4588472247" blue="0.2666652799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="linesCornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="skeletonLineSpacing">
-                                        <real key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
-                                        <real key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="48" id="Yrs-vW-j7V"/>
-                            <constraint firstItem="aXQ-b8-bxa" firstAttribute="top" secondItem="zk5-EX-48D" secondAttribute="bottom" id="mgv-S9-0Sj"/>
-                        </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                             <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
@@ -175,29 +184,12 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </stackView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pizza" translatesAutoresizingMaskIntoConstraints="NO" id="cC1-g5-Z34">
-                        <rect key="frame" x="8" y="13.5" width="50" height="50"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="50" id="41F-c3-m6I"/>
-                            <constraint firstAttribute="width" constant="50" id="Ymt-mU-0a8"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                            <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
-                                <real key="value" value="8"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="tT0-Cv-N2v" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9dc-Wm-jby"/>
-                    <constraint firstItem="d0k-SU-sfP" firstAttribute="leading" secondItem="cC1-g5-Z34" secondAttribute="trailing" constant="8" id="DVP-NV-ZKL"/>
-                    <constraint firstItem="cC1-g5-Z34" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Jck-Sx-RgJ"/>
-                    <constraint firstItem="d0k-SU-sfP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Uah-fs-4pT"/>
-                    <constraint firstItem="tT0-Cv-N2v" firstAttribute="leading" secondItem="osu-wF-hRW" secondAttribute="trailing" constant="4" id="ZE7-Dn-Mds"/>
-                    <constraint firstAttribute="trailing" secondItem="tT0-Cv-N2v" secondAttribute="trailing" constant="8" id="gSe-Mp-vjf"/>
-                    <constraint firstItem="cC1-g5-Z34" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lNy-a2-BDI"/>
-                    <constraint firstItem="osu-wF-hRW" firstAttribute="leading" secondItem="d0k-SU-sfP" secondAttribute="trailing" constant="4" id="n0O-ie-TLp"/>
+                    <constraint firstItem="osu-wF-hRW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="AQq-mp-Gvc"/>
+                    <constraint firstItem="osu-wF-hRW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="PVy-ox-nSk"/>
+                    <constraint firstAttribute="trailing" secondItem="osu-wF-hRW" secondAttribute="trailing" constant="8" id="dBj-XM-3ym"/>
+                    <constraint firstAttribute="bottom" secondItem="osu-wF-hRW" secondAttribute="bottom" constant="4" id="uT6-QV-eHp"/>
                     <constraint firstItem="osu-wF-hRW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yku-aR-yMl"/>
                 </constraints>
                 <userDefinedRuntimeAttributes>

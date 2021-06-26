@@ -55,9 +55,9 @@ extension CSOrderItem {
     }
     
     func calculateTotal() -> Double {
-        let toppingTotal = orderItemToppings.map { (csOrderItemTopping) -> Double in
-            csOrderItemTopping.calculateTotal()
-        }.reduce(0, +)
-        return (menuItem?.price ?? 0 + toppingTotal) * Double(quantity ?? 1)
+//        let toppingTotal = orderItemToppings.map { (csOrderItemTopping) -> Double in
+//            csOrderItemTopping.calculateTotal()
+//        }.reduce(0, +)
+        return (price ?? 0) * Double(quantity ?? 1)
     }
 }

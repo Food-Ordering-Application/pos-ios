@@ -176,6 +176,7 @@ extension OrderCheckoutViewController {
         if exCash < 0 {
             self.btnPayment.isEnabled = false
             self.btnPayment.setTitle("Không đủ tiền :(", for: .normal)
+            self.btnPayment.backgroundColor = .gray
             let amount = exCash * -1
             self.lbExcessCash?.text = String(format: "%.0f", amount).currency()
         }
@@ -236,8 +237,8 @@ extension OrderCheckoutViewController {
 
     @objc func didGetNotificationPaidByCash(_ notification: Notification) {
         let cash = notification.object as? String
-//        self.setupCashInfo(isHidden: false, cash: cash)
         self.setupBtnComplete()
+        self.setupCashInfo(isHidden: false, cash: cash)
     }
 
     @objc func didGetNotificationCreateOrderItem(_ notification: Notification) {
