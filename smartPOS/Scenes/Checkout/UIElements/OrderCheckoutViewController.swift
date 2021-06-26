@@ -11,6 +11,7 @@ import CoreStore
 import EmptyDataSet_Swift
 import NumPad
 import SwiftEntryKit
+import SwiftEventBus
 import UIKit
 
 enum SelectedPaymentButton: Int {
@@ -75,6 +76,7 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
     // MARK: Private
 
     var monitor: ObjectMonitor<CSOrder>?
+
     // MARK: NSObject
 
     deinit {
@@ -84,28 +86,28 @@ class OrderCheckoutViewController: UIViewController, EmptyDataSetSource, EmptyDa
     // MARK: UIViewController
 
     required init?(coder aDecoder: NSCoder) {
-        if let order = try! CSDatabase.stack.fetchOne(From<CSOrder>().orderBy(.ascending(\.$createdAt))) {
-            self.monitor = CSDatabase.stack.monitorObject(order)
-        }
-        else {
-            _ = try? CSDatabase.stack.perform(
-                synchronous: { transaction in
-
-                    _ = transaction.create(Into<CSOrder>())
-                }
-            )
-            let order = try! CSDatabase.stack.fetchOne(From<CSOrder>().orderBy(.ascending(\.$createdAt)))!
-            self.monitor = CSDatabase.stack.monitorObject(order)
-        }
+//        if let order = try! CSDatabase.stack.fetchOne(From<CSOrder>().orderBy(.ascending(\.$createdAt))) {
+//            self.monitor = CSDatabase.stack.monitorObject(order)
+//        }
+//        else {
+//            _ = try? CSDatabase.stack.perform(
+//                synchronous: { transaction in
+//
+//                    _ = transaction.create(Into<CSOrder>())
+//                }
+//            )
+//            let order = try! CSDatabase.stack.fetchOne(From<CSOrder>().orderBy(.ascending(\.$createdAt)))!
+//            self.monitor = CSDatabase.stack.monitorObject(order)
+//        }
 
         super.init(coder: aDecoder)
     }
 
     override func viewDidLoad() {
         self.setup()
+        setupNotiEvents()
         setupCoreStore()
     }
-
 
     @IBAction func doRemoveOrder(_ sender: UIButton) {
         switch sender.tag {
@@ -146,17 +148,22 @@ extension OrderCheckoutViewController {
         self.view.layer.shadowPath = UIBezierPath(rect: self.view.bounds).cgPath
         self.setupTableView()
         self.setupOrderView()
+    }
 
+    func setupNotiEvents() {
         // MARK: Notifications
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationManipulatedOrderItem(_:)), name: Notification.Name("ManipulatedOrderItem"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationManipulateOrderItem(_:)), name: Notification.Name("ManipulateOrderItem"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreatedOrderItem(_:)), name: Notification.Name("CreatedOrderItem"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreateOrderItem(_:)), name: Notification.Name("CreateOrderItem"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreatedOrderAndOrderItems(_:)), name: Notification.Name("CreatedOrderAndOrderItems"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreateOrderAndOrderItems(_:)), name: Notification.Name("CreateOrderAndOrderItems"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationPaidByCash(_:)), name: Notification.Name("PaidByCash"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationUpdatedOrder(_:)), name: Notification.Name("UpdatedOrder"), object: nil)
+        
+        SwiftEventBus.onMainThread(self, name: "ManipulateOrderItem") { [weak self] _ in
+            self?.view.showSkeleton()
+        }
     }
 
     func setupCashInfo(isHidden: Bool = true, cash: String?) {
@@ -229,7 +236,7 @@ extension OrderCheckoutViewController {
 
     @objc func didGetNotificationPaidByCash(_ notification: Notification) {
         let cash = notification.object as? String
-        self.setupCashInfo(isHidden: false, cash: cash)
+//        self.setupCashInfo(isHidden: false, cash: cash)
         self.setupBtnComplete()
     }
 
@@ -238,10 +245,6 @@ extension OrderCheckoutViewController {
     }
 
     @objc func didGetNotificationCreateOrderAndOrderItems(_ notification: Notification) {
-        self.view.showSkeleton()
-    }
-
-    @objc func didGetNotificationManipulateOrderItem(_ notification: Notification) {
         self.view.showSkeleton()
     }
 
@@ -398,12 +401,10 @@ extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSourc
         if self.order?.status != OrderStatus.draft { return }
         switch editingStyle {
         case .delete:
-
             let orderItem = self.orderItems[indexPath.row]
             let action = ManipulateOrderItemRequest.remove
             let manipulateOrderItem = ManipulateOrderItemModel(action: action, orderId: orderId, orderItemId: orderItem.id ?? "")
-            NotificationCenter.default.post(name: Notification.Name("ManipulateOrderItem"), object: manipulateOrderItem)
-
+            SwiftEventBus.post("ManipulateOrderItem", sender: manipulateOrderItem)
         default:
             break
         }
@@ -411,7 +412,6 @@ extension OrderCheckoutViewController: UITableViewDelegate, UITableViewDataSourc
 }
 
 extension OrderCheckoutViewController: ObjectObserver {
-    
     func setOrder<O: ObjectRepresentation>(_ newValue: O?) where O.ObjectType == CSOrder {
         guard self.monitor?.object?.objectID() != newValue?.objectID() else {
             return
@@ -422,10 +422,7 @@ extension OrderCheckoutViewController: ObjectObserver {
         else {
             self.monitor = nil
         }
-        
     }
-
-   
 
     func setupCoreStore() {
         self.monitor?.addObserver(self)

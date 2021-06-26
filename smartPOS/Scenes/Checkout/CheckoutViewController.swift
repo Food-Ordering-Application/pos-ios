@@ -12,8 +12,8 @@
 
 import SkeletonView
 import SlideMenuControllerSwift
-import UIKit
 import SwiftEventBus
+import UIKit
 protocol CheckoutDisplayLogic: class {
     func displayFetchedMenuItemGroups(viewModel: Checkout.FetchMenuItems.ViewModel)
     func displaySearchedMenuItemGroups(viewModel: Checkout.SearchMenuItems.ViewModel)
@@ -26,7 +26,6 @@ protocol CheckoutDisplayLogic: class {
 }
 
 class CheckoutViewController: UIViewController, CheckoutDisplayLogic, SlideMenuControllerDelegate {
-    
     var searchField: UITextField?
     var interactor: CheckoutBusinessLogic?
     var router: (NSObjectProtocol & CheckoutRoutingLogic & CheckoutDataPassing)?
@@ -68,8 +67,10 @@ class CheckoutViewController: UIViewController, CheckoutDisplayLogic, SlideMenuC
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNotiEvents()
         setupNavBar()
         fetchMenuItemGroups()
+        
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -104,24 +105,24 @@ extension CheckoutViewController {
 // MARK: Fetch menuItems on screen load
 
 extension CheckoutViewController {
-    
     // MARK: Fetch Data to display in the orders collection view
-    func searchMenuItemGroups(keyword: String?){
-        guard  let keyword = keyword else {
-            fetchMenuItemGroups()
+
+    func searchMenuItemGroups(keyword: String?) {
+        guard let keyword = keyword else {
+            self.fetchMenuItemGroups()
             return
         }
         self.view.showGradientSkeleton()
         let request = Checkout.SearchMenuItems.Request(keyword: keyword)
         self.interactor?.searchMenuItemGroups(request: request)
     }
-    
-    
+
     func displaySearchedMenuItemGroups(viewModel: Checkout.SearchMenuItems.ViewModel) {
         print("displaySearchedMenuItemGroups\(viewModel.displayedMenuItemGroups)")
         self.setupSearchMenuItemGroupDisplay(viewModel: viewModel)
         self.view.hideSkeleton()
     }
+
     private func setupSearchMenuItemGroupDisplay(viewModel: Checkout.SearchMenuItems.ViewModel) {
         guard viewModel.error == nil else {
             Alert.showUnableToRetrieveDataAlert(on: self)
@@ -137,7 +138,7 @@ extension CheckoutViewController {
         self.onUpdateMenuItem(self.defaultSegmentIndex)
         self.segmentGroups.selectedSegmentIndex = self.defaultSegmentIndex
     }
-    
+
     func fetchMenuItemGroups() {
         self.view.showGradientSkeleton()
         let restaurantId = APIConfig.getRestaurantId()
@@ -231,7 +232,7 @@ extension CheckoutViewController {
         self.updateOrderAndOrderItems(order: viewModel.order, orderItems: viewModel.orderItems)
         NotificationCenter.default.post(name: Notification.Name("CreatedOrderAndOrderItems"), object: viewModel)
     }
-    
+
     fileprivate func updateOrderAndOrderItems(order: Order?, orderItems: [OrderItem]?) {
         self.order = order
         self.orderItems = orderItems
@@ -276,24 +277,24 @@ extension CheckoutViewController {
         self.updateOrderAndOrderItems(order: viewModel.order, orderItems: viewModel.orderItems)
         NotificationCenter.default.post(name: Notification.Name("ManipulatedOrderItem"), object: viewModel)
     }
-    
-    func updateOrder(order: Order?){
+
+    func updateOrder(order: Order?) {
         let request = Checkout.UpdateOrder.Request(order: order)
         self.interactor?.updateOrder(request: request)
     }
-    
+
     func displayUpdatedOrder(viewModel: Checkout.UpdateOrder.ViewModel) {
         print("displayUpdatedOrder")
         guard viewModel.error == nil else {
             Alert.showUnableToRetrieveDataAlert(on: self)
             return
         }
-        
+
         // MARK: BAD CODE DO NOT HARD CODE -> HAVE TO SOLVE THIS PROBLEM
+
         self.updateOrderAndOrderItems(order: nil, orderItems: [])
         NotificationCenter.default.post(name: Notification.Name("UpdatedOrder"), object: viewModel)
     }
-    
 }
 
 // MARK: Setup
@@ -311,8 +312,16 @@ private extension CheckoutViewController {
         router.viewController = viewController
         router.dataStore = interactor
 
+       
+    }
+    func setupNotiEvents() {
         // Notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationManipulateOrderItem(_:)), name: Notification.Name("ManipulateOrderItem"), object: nil)
+        SwiftEventBus.onMainThread(self, name: "ManipulateOrderItem") { notification in
+            guard let manipulateOrderItem = notification?.object as? ManipulateOrderItemModel else { return }
+            print("didGetNotificationManipulateOrderItem-\(manipulateOrderItem)")
+            self.manipulateOrderItem(manipulateOrderItemModel: manipulateOrderItem)
+        }
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationCreateOrderItem(_:)), name: Notification.Name("CreateOrderItem"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchMenuItemToppings(_:)), name: Notification.Name("FetchMenuItemToppings"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchMenuItems(_:)), name: Notification.Name("FetchMenuItems"), object: nil)
@@ -323,7 +332,6 @@ private extension CheckoutViewController {
             self.searchMenuItemGroups(keyword: keyword)
         }
     }
-
     func setupNavBar() {
         navigationItem.title = "Checkout"
         setNavigationBarItem()
@@ -348,17 +356,11 @@ private extension CheckoutViewController {
         print("didGetNotificationRemoveOrder-\(orderId)")
         self.removeOrder(orderId: orderId)
     }
-    
+
     @objc func didGetNotificationUpdateOrder(_ notification: Notification) {
         let order = notification.object as? Order
         print("didGetNotificationUpdateOrder")
         self.updateOrder(order: order)
-    }
-
-    @objc func didGetNotificationManipulateOrderItem(_ notification: Notification) {
-        let manipulateOrderItem = notification.object as! ManipulateOrderItemModel
-        print("didGetNotificationManipulateOrderItem-\(manipulateOrderItem)")
-        self.manipulateOrderItem(manipulateOrderItemModel: manipulateOrderItem)
     }
 
     @objc func didGetNotificationCreateOrderItem(_ notification: Notification) {

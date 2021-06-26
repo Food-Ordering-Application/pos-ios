@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-
+import SwiftEventBus
 class OrderItemTableViewCell: UITableViewCell {
     class var identifier: String { return String.className(self) }
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
@@ -137,12 +137,12 @@ class OrderItemTableViewCell: UITableViewCell {
     }
     
     fileprivate func updateQuantity(_ quantity: Int) {
-        self.lbAmount!.text = String(quantity)
+//        self.lbAmount!.text = String(quantity)
         self.setupBtnMinus(isRemove: quantity == 1)
     }
 
     fileprivate func onUpdateOrderItem(action: ManipulateOrderItemRequest) {
         let manipulateOrderItem = ManipulateOrderItemModel(action: action, orderId: self.orderItem?.orderId ?? "", orderItemId: self.orderItem?.id ?? "")
-        NotificationCenter.default.post(name: Notification.Name("ManipulateOrderItem"), object: manipulateOrderItem)
+        SwiftEventBus.post("ManipulateOrderItem", sender: manipulateOrderItem)
     }
 }

@@ -183,7 +183,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
     }
 
     func manipulateOrderItem(request: Checkout.ManipulateOrderItemQuantity.Request) {
-        print("createOrderItem")
+        print("manipulateOrderItem")
         let orderId = request.orderId
         let orderItemId = request.orderItemId
         let action = request.action
@@ -193,6 +193,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
         if SyncService.canHandleLocal() {
             print("😉 - manipulateOrderItem ")
             ordersWorker?.manipulateOrderItem(handle: handle, orderItemToUpdate: nil) { orderData in
+                print(orderData)
                 guard let order = orderData?.order else {
                     response = Checkout.ManipulateOrderItemQuantity.Response(order: nil, error: OrderItemErrors.couldNotLoadCreateOrder(error: "Can not manipulate order."))
                     self.presenter?.presentManipulateddOrderItem(response: response)
