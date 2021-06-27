@@ -147,7 +147,7 @@ extension CheckoutViewController {
     }
 
     func displayFetchedMenuItemGroups(viewModel: Checkout.FetchMenuItems.ViewModel) {
-        print("displayFetchedMenuItems\(viewModel.displayedMenuItemGroups)")
+//        print("displayFetchedMenuItems\(viewModel.displayedMenuItemGroups)")
         self.setupMenuItemGroupDisplay(viewModel: viewModel)
         self.view.hideSkeleton()
     }
@@ -169,8 +169,10 @@ extension CheckoutViewController {
     }
 
     func onUpdateMenuItem(_ index: Int) {
-        let curMenuItems: MenuItems? = self.displayedMenuItemGroups[index].menuItems
-        NotificationCenter.default.post(name: Notification.Name("FetchedMenuItems"), object: curMenuItems)
+        if index < self.displayedMenuItemGroups.count {
+            let curMenuItems: MenuItems? = self.displayedMenuItemGroups[index].menuItems
+            NotificationCenter.default.post(name: Notification.Name("FetchedMenuItems"), object: curMenuItems)
+        }
     }
 
     @IBAction func onChangeSegmentGroups(_ sender: UISegmentedControl) {
@@ -302,7 +304,7 @@ extension CheckoutViewController {
 private extension CheckoutViewController {
     private func setup() {
         let viewController = self
-        let interactor = CheckoutInteractor()
+        let interactor = CheckoutInteractor.shared
         let presenter = CheckoutPresenter()
         let router = CheckoutRouter()
         viewController.interactor = interactor
@@ -311,8 +313,6 @@ private extension CheckoutViewController {
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-
-       
     }
     func setupNotiEvents() {
         // Notifications

@@ -24,7 +24,7 @@ struct APIManager: GeneralAPI {
     ///   - debugMode: Toggle the verbose mode of moya
     /// - Returns: A promise containing the dataReturnType set in function params
     static func callApi<Target: TargetType, ReturnedObject: Decodable>(_ target: Target, dataReturnType: ReturnedObject.Type, test: Bool = false, debugMode: Bool = false) -> Promise<ReturnedObject> {
-        let token = APIConfig.token
+        let token = APIConfig.getToken()
         let authPlugin = AccessTokenPlugin { _ in token }
 
         let loggerConfig = NetworkLoggerPlugin.Configuration(logOptions: .verbose)

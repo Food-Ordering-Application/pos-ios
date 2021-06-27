@@ -72,8 +72,6 @@ final class ItemsCollectionViewController: UIViewController {
 // MARK: Setup and update
 
 extension ItemsCollectionViewController {
-    
-    
     func setup(){
         title = "Items Collection"
         view.backgroundColor = .white

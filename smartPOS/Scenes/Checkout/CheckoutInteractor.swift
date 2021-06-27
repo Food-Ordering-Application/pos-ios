@@ -32,6 +32,7 @@ protocol CheckoutDataStore {
 }
 
 class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
+    static let shared = CheckoutInteractor()
     let debugMode = true
     var presenter: CheckoutPresentationLogic?
 
@@ -49,14 +50,14 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 
     // MARK: For CoreDara
 
-    var menuItemsWorker: MenuItemsWorker? = MenuItemsWorker(menuItemsStore: MenuItemsMemStore())
+    var menuItemsWorker: MenuItemsWorker? = MenuItemsWorker(menuItemsStore: MenuItemsMemStore.shared)
     var ordersWorker: OrdersWorker? = OrdersWorker(ordersStore: OrdersMemStore())
 
-    init() {
+    private init() {
         SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenuItemDetail") { result in
             if NoInternetService.isReachable() {
                 guard let menuId = result?.object as? String else { return }
-                SwiftEventBus.post("POSSyncMenuItem") 
+//                SwiftEventBus.post("POSSyncMenuItem")
                 self.backupMenuItemGroups()
                 self.POSSyncMenuItemsDetail(menuId: menuId)
             }
@@ -105,7 +106,9 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
         }
         worker?.restaurantDataManager.getMenu(restaurantId: restaurantId, false).done { menuRes in
             print("menuRes")
+
             // MARK: Need to check status code in here 200 -> 300
+
             print(menuRes.data)
             if menuRes.statusCode == 200 {
                 let data = menuRes.data
@@ -113,7 +116,9 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
                 MenuItemsMemStore.menuItemGroups = data.menuGroups
                 let menuId = data.menu.id
 //                SwiftEventBus.post("POSSyncMenuItemDetail", sender: menuId)
+                // ============ MINUS AREA =============
                 SwiftEventBus.post("POSStoreMenuItem", sender: menuId)
+                // ===================================================
                 response = Checkout.FetchMenuItems.Response(menu: data.menu, menuGroups: data.menuGroups, error: nil)
             }
 
@@ -127,6 +132,7 @@ class CheckoutInteractor: CheckoutBusinessLogic, CheckoutDataStore {
 
     func backupMenuItemGroups() {
         // MARK: Donothing if no the internet
+
         let restaurantId = APIConfig.getRestaurantId()
         worker?.restaurantDataManager.getMenu(restaurantId: restaurantId, false).done { menuRes in
             if menuRes.statusCode == 200 {

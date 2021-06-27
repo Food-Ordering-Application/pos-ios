@@ -12,7 +12,8 @@ import SwiftEventBus
 
 class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     // MARK: - Data
-
+    static let shared = MenuItemsMemStore()
+    
     static var menu: Menu?
     static var menuItems: [MenuItem] = []
     static var menuItemGroups: MenuGroups? /// its mean MenuItemGroup
@@ -21,7 +22,7 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
     static var toppingItems: [ToppingItemData]?
     static var toppingGroups: [ToppingGroupData]?
     
-    init() {
+    private init() {
         // MARK: This is sync for menuItem and groups
 
         SwiftEventBus.onBackgroundThread(self, name: "POSSyncMenuItem") { _ in
@@ -41,7 +42,7 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
             SwiftEventBus.post("POSStoreMenuItem")
         }
         
-        SwiftEventBus.onBackgroundThread(self, name: "POSStoreMenuItem") { _ in
+        SwiftEventBus.onMainThread(self, name: "POSStoreMenuItem") { _ in
             MenuItemsMemStore.storeMenuItems()
             SwiftEventBus.post("POSSynced")
         }
@@ -170,27 +171,26 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
 
     func fetchMenuItemToppings(menuItemId: String, completionHandler: @escaping (() throws -> [ToppingGroup]?) -> Void) {
         do {
-//            let menuItemToppings = try CSDatabase.stack.fetchAll(From<CSMenuItemTopping>().where(\.$menuItem ~ \.$id == menuItemId))
+            let csMenuItemToppings = try CSDatabase.stack.fetchAll(From<CSMenuItemTopping>())
             
             let menuItem = try CSDatabase.stack.fetchOne(From<CSMenuItem>().where(\.$id == menuItemId))
             
             let toppingGroups: [ToppingGroup]? = menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingGroup in
                 (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
             }
-//            let toppingGroups: [ToppingGroup]? = csMenuItemToppings.map { csMenuItemToppings -> ToppingGroup in
-//                (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
-//            }
             print("🍀 🍀 🍀 🍀 🍀 🍀 fetchMenuItemToppings 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
-//            print(menuItem?.toStruct())
-//            print(menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingItem in
-//                (csMenuItemToppings.toppingItem?.toStruct())!
-//            })
-//            print(menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingGroup in
-//                (csMenuItemToppings.toppingItem?.toppingGroup?.toStruct())!
-//            })
-//            print("---------------------------------------------------------------")
-//            print(menuItemId)
-//            print(toppingGroups)
+            print(menuItem?.toStruct())
+            print(menuItem?.menuItemToppings.count)
+            print(menuItem?.menuItemToppings.map { csMenuItemToppings -> ToppingItem in
+                (csMenuItemToppings.toppingItem?.toStruct())!
+            })
+            print(csMenuItemToppings.count)
+            print(csMenuItemToppings.map({ csMenuItemTopping -> MenuItemTopping in
+                csMenuItemTopping.toStruct()
+            }))
+            print("---------------------------------------------------------------")
+            print(menuItemId)
+            print(toppingGroups)
             print("🍀 🍀 🍀 🍀 🍀 🍀 fetchMenuItemToppings 🍀 🍀 🍀 🍀 🍀 🍀 🍀")
             completionHandler {
                 Array(Set(toppingGroups ?? []))

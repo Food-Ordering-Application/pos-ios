@@ -25,7 +25,7 @@ class SettingViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView! 
     var worker: CheckoutWorker? = CheckoutWorker()
-    let menuItemsWorker: MenuItemsWorker? = MenuItemsWorker(menuItemsStore: MenuItemsMemStore())
+    let menuItemsWorker: MenuItemsWorker? = MenuItemsWorker(menuItemsStore: MenuItemsMemStore.shared)
 
     let array = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     let array1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"]

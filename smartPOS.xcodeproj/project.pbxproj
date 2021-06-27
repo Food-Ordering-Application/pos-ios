@@ -1018,9 +1018,9 @@
 		9BD2698D262ADEFC000CDABE /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				9BD269C6262AEB66000CDABE /* Orders */,
 				9B1498F8265A4D4D002D3A5D /* User */,
 				9BEDEBF226355B340011F71B /* Restaurant */,
-				9BD269C6262AEB66000CDABE /* Orders */,
 				9BD269BD262AEB60000CDABE /* ApiConfig.swift */,
 				9BD269BF262AEB60000CDABE /* APIManager.swift */,
 				9BD269BE262AEB60000CDABE /* Moya+Extensions.swift */,

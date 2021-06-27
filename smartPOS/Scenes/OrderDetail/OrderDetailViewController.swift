@@ -213,7 +213,8 @@ extension OrderDetailViewController {
         }
         self.setupOrderView(isHidden: false)
         self.lbOrderId!.text = order.id?.components(separatedBy: "-").first ?? "_"
-        self.lbOrderStatus!.text = order.status.map { $0.rawValue }
+//        self.lbOrderStatus!.text = order.status.map { $0.rawValue }
+        self.setuplbStatus(status: order.status)
         self.lbTotal!.text = String(format: "%.0f", order.grandTotal ?? 0.0).currency()
         self.lbDeliveryAddress!.text = "Chưa có địa chỉ giao hàng"
         self.lbDriverAvailabel!.text = "Chưa có tài xế hoạt động gần đây"
@@ -245,6 +246,23 @@ extension OrderDetailViewController {
                 self.btnComplete.isHidden = true
             }
         }
+    }
+    fileprivate func setuplbStatus(status: OrderStatus?) {
+        lbOrderStatus?.text = status.map { $0.rawValue }
+        var tintColor: UIColor = .systemTeal
+        switch status {
+        case .ordered:
+            tintColor = .systemTeal
+        case .confirmed:
+            tintColor = .systemYellow
+        case .ready, .completed:
+            tintColor = .systemGreen
+        case .cancelled:
+            tintColor = .systemRed
+        default:
+            print("Unknown setuplbStatus")
+        }
+        lbOrderStatus.textColor = tintColor
     }
 
     func setupOrderView(isHidden: Bool = true) {
@@ -285,7 +303,8 @@ extension OrderDetailViewController {
 
     func updateConfirmedOrder() {
         self.btnAreaView.isHidden = true
-        self.lbOrderStatus!.text = "CONFIRMED"
+//        self.lbOrderStatus!.text = "CONFIRMED"
+        self.setuplbStatus(status: .confirmed)
         self.btnComplete.isHidden = false
     }
 }
@@ -348,7 +367,8 @@ extension OrderDetailViewController {
 
     func updateCompletedOrder() {
         self.btnComplete.isHidden = true
-        self.lbOrderStatus.text = OrderStatus.ready.rawValue
+//        self.lbOrderStatus.text = OrderStatus.ready.rawValue
+        self.setuplbStatus(status: .ready)
     }
 }
 

@@ -12,6 +12,7 @@ struct Delivery: Decodable {
     var orderId: String?
     var status: DeliveryStatus
     var customerId: String?
+    var customerName: String?
     var customerAddress: String?
     var note: String? = ""
     var driverId: String?
@@ -19,7 +20,10 @@ struct Delivery: Decodable {
     var shippingFee: Float?
     var createdAt: Date?
     var updatedAt: Date?
+    var orderTime: Date?
     var deliveredAt: Date?
+    var expectedDeliveryTime: Date?
+    var totalDeliveryDistance: Double?
     var asDictionary: [String: Any] {
         let mirror = Mirror(reflecting: self)
         let dict = Dictionary(uniqueKeysWithValues: mirror.children.lazy.map { (label: String?, value: Any) -> (String, Any)? in
