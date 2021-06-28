@@ -102,6 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 
         // MARK: Need have api to check available id
 //        self.createActivateCodeView()
+//        self.createLoginView()
         if APIConfig.getRestaurantId() == "" {
             self.createActivateCodeView()
         } else if APIConfig.getToken() == "" {
@@ -109,13 +110,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
         } else {
             self.createMenuView()
         }
+        
 //      self.openOrderDetailView(orderId: "62983c29-b5d0-4f28-9d66-fefc664c6aec")
-
-        // Triger event when callApi got code 401
-        SwiftEventBus.onMainThread(self, name: "Unauthorized") { _ in
-            APIConfig.setToken(token: "")
-            self.createLoginView()
-        }
  
         return true
     }

@@ -88,7 +88,9 @@ class MenuItemsMemStore: MenuItemsStoreProtocol, MenuItemsStoreUtilityProtocol {
             MenuItemsMemStore.menu = menu
             let csMenuItemGroups = try CSDatabase.stack.fetchAll(From<CSMenuItemGroup>()).map { csMenuItemGroup -> MenuGroup in
                 let csMenuGroup = csMenuItemGroup.toStruct()
-                let menuItems = csMenuItemGroup.menuItems.map { csMenuItem -> MenuItem in
+                let menuItems = csMenuItemGroup.menuItems.filter({ csMenuItem -> Bool in
+                    csMenuItem.state == ItemState.instock.rawValue
+                }).map { csMenuItem -> MenuItem in
                     csMenuItem.toStruct()
                 }
                 return MenuGroup(id: csMenuGroup.id, name: csMenuGroup.name, menuId: menu?.id, menuItems: menuItems)

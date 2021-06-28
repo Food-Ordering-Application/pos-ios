@@ -64,12 +64,23 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         super.init(coder: aDecoder)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationOrdersPage(_:)), name: Notification.Name("OrdersPage"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationOrderDetailNotification(_:)), name: Notification.Name("OrderDetailNotification"), object: nil)
+        // Triger event when callApi got code 401
+        SwiftEventBus.onMainThread(self, name: "Unauthorized") { _ in
+            APIConfig.setToken(token: "")
+            self.showLoginView()
+        }
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-
+    func showLoginView() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        loginViewController.canDismiss = true
+        loginViewController.modalPresentationStyle = .fullScreen
+        present(loginViewController, animated: true)
+    }
     @objc func didGetNotificationOrderDetailNotification(_ notification: Notification) {
         guard let orderId = notification.object as? String else { return }
         showOrderNotification(attributes: self.attributes!, orderId: orderId)
@@ -147,7 +158,7 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
         self.imgUserAvatar.layer.cornerRadius = 40
         self.imgUserAvatar.clipsToBounds = true
 
-        self.lbUsername?.text = "Nguyễn Văn A"
+        self.lbUsername?.text = APIConfig.getUserName()
     }
 
     func changeViewController(_ menu: LeftMenu) {

@@ -41,9 +41,14 @@ struct APIConfig {
     // MARK: Do not hard code
     static func getUserId() -> String {
         return UserDefaults.standard.string(forKey: "userId") ?? ""
-//        return APIConfig.userId
     }
 
+    static func setUserName(_ name: String?) {
+        UserDefaults.standard.set(name, forKey: "_userName")
+    }
+    static func getUserName() -> String? {
+        return UserDefaults.standard.string(forKey: "_userName")
+    }
     static func setMerchantId(merchantId: String?) {
         UserDefaults.standard.set(merchantId, forKey: "merchantId")
     }

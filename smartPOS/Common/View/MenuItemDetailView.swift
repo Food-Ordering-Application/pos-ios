@@ -18,6 +18,7 @@ struct MenuItemAndToppings {
 }
 
 class MenuItemDetailView: UIView {
+    static let shared = MenuItemDetailView()
     @IBOutlet var contenView: UIView!
     @IBOutlet var btnAdd: UIButton!
     @IBOutlet var lbName: UILabel!
@@ -65,15 +66,21 @@ class MenuItemDetailView: UIView {
     init(_ data: MenuItem?) {
         super.init(frame: .zero)
         self.setup()
-        
+        self.setupData(data)
+    }
+    public func setupData(_ data: MenuItem?){
         if let menuItem = data {
             self.menuItem = menuItem
-            NotificationCenter.default.post(name: Notification.Name("FetchMenuItemToppings"), object: menuItem.id)
             self.lbName!.text = menuItem.name
             self.lbPrice!.text = String(format: "%.0f",menuItem.price).currency()
             self.lbQuantity!.text = String(menuItemQuantity)
             self.setImage(imageUrl: menuItem.imageUrl)
+            NotificationCenter.default.post(name: Notification.Name("FetchMenuItemToppings"), object: menuItem.id)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchedMenuItemToppings(_:)), name: Notification.Name("FetchedMenuItemToppings"), object: nil)
         }
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("FetchedMenuItemToppings"), object: nil)
     }
     func setImage(imageUrl: String) {
         guard let url = URL(string: imageUrl) else { return }
@@ -96,8 +103,16 @@ class MenuItemDetailView: UIView {
         self.btnMinusQuantity.layer.cornerRadius = 8
         self.btnPlusQuantity.layer.cornerRadius = 8
         self.setupTableViewTopping()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didGetNotificationFetchedMenuItemToppings(_:)), name: Notification.Name("FetchedMenuItemToppings"), object: nil)
+       
         tableViewTopping.isSkeletonable = true
+        tableViewTopping.emptyDataSetView { [weak self] view in
+            if let `self` = self {
+                view.detailLabelString(NSAttributedString(string: "Không có món thêm.", attributes: [NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .regular)]))
+                    .image(UIImage.resizeImage(image: UIImage(named: "ic_info_outline")!, targetSize: CGSize(width: 50, height: 50)))
+                    .shouldFadeIn(true)
+                    .isTouchAllowed(false)
+            }
+        }
         self.tableViewTopping.showAnimatedGradientSkeleton()
     }
     
@@ -131,6 +146,7 @@ class MenuItemDetailView: UIView {
         }
         let menuItemAndToppings = MenuItemAndToppings(menuItem: self.menuItem, menuItemQuantity: self.menuItemQuantity , toppingItems: toppingItems)
         NotificationCenter.default.post(name: Notification.Name("CreateOrderItem"), object: menuItemAndToppings)
+        self.selectedIndexPaths = []
         SwiftEntryKit.dismiss()
     }
 

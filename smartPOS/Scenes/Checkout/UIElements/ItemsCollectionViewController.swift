@@ -30,7 +30,10 @@ final class ItemsCollectionViewController: UIViewController {
     var menuItems: [MenuItem] = []
     
     var currentGroup: Int = 0
-    
+//    lazy var menuItemDetailView: MenuItemDetailView = {
+//        let detail =  MenuItemDetailView.shared
+//        return detail
+//    }()
     
     // MARK: Setup to show list item by colection view controller using Bouncylayout
 
@@ -201,7 +204,7 @@ extension ItemsCollectionViewController {
     
     // Bumps a custom nib originated view
     private func showOrderItemPopupView(attributes: EKAttributes, data: MenuItem) {
-        SwiftEntryKit.display(entry: MenuItemDetailView(data), using: attributes)
+        SwiftEntryKit.display(entry: MenuItemDetailView(data) , using: attributes)
     }
 
 }

@@ -14,7 +14,8 @@ class LoginWorker: UserNetworkInjected {}
 
 class LoginViewController: UIViewController {
     var worker: LoginWorker? = LoginWorker()
-
+    var window: UIWindow? = UIApplication.shared.keyWindow
+    var canDismiss: Bool = false
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -109,7 +110,7 @@ class LoginViewController: UIViewController {
                 }
                 guard let user = data.user else { return }
                 APIConfig.setUserId(userId: user.id)
-                
+                APIConfig.setUserName(user.username)
                 // MARK: Do not hard code
                 APIConfig.setRestaurantId(restaurantId: user.restaurantId)
             } else {
@@ -126,7 +127,10 @@ class LoginViewController: UIViewController {
                 self.showError(error: errorString)
                 return
             }
-            
+            if self.canDismiss {
+                self.dismiss(animated: true)
+                return
+            }
             self.showMenuView()
             
         }
@@ -137,6 +141,7 @@ class LoginViewController: UIViewController {
         self.lbError.isHidden = false
     }
     fileprivate func showMenuView() {
+        canDismiss = false
         // create viewController code...
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -156,7 +161,30 @@ class LoginViewController: UIViewController {
         slideMenuController.modalPresentationStyle = .fullScreen
         present(slideMenuController, animated: false)
     }
-
+    // MARK: Setup show view controller
+    
+//    fileprivate func createMenuView() {
+//        // create viewController code...
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//
+//        let mainViewController = storyboard.instantiateViewController(withIdentifier: "CheckoutViewController") as! CheckoutViewController
+//        let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftViewController") as! LeftViewController
+//        let rightViewController = storyboard.instantiateViewController(withIdentifier: "RightViewController") as! RightViewController
+//
+//        let nvc = UINavigationController(rootViewController: mainViewController)
+//
+//        UINavigationBar.appearance().tintColor = UIColor(hex: "FF6B35")
+//
+//        leftViewController.mainViewController = nvc
+//
+//        let slideMenuController = ExSlideMenuController(mainViewController: nvc, leftMenuViewController: leftViewController, rightMenuViewController: rightViewController)
+//        slideMenuController.automaticallyAdjustsScrollViewInsets = true
+//        slideMenuController.delegate = mainViewController
+//        self.window?.backgroundColor = UIColor(white: 0.98, alpha: 1)
+//        self.window?.rootViewController = slideMenuController
+//        self.window?.makeKeyAndVisible()
+//    }
+//
     /*
      // MARK: - Navigation
 

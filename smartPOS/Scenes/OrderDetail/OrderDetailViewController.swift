@@ -25,6 +25,7 @@ class OrderDetailViewController: UIViewController, OrderDetailDisplayLogic, Empt
     var interactor: OrderDetailBusinessLogic?
     var router: (NSObjectProtocol & OrderDetailRoutingLogic & OrderDetailDataPassing)?
 
+    @IBOutlet weak var lbCustomerName: UILabel!
     @IBOutlet var btnAreaView: UIStackView!
     @IBOutlet var orderItemsTableView: UITableView!
     @IBOutlet var btnAccept: LoadyButton! {
@@ -229,7 +230,8 @@ extension OrderDetailViewController {
             self.lbNote.text = note
         }
         if let deliver = order.delivery {
-            self.lbDeliveryAddress!.text = deliver.customerAddress
+            self.lbDeliveryAddress!.text = deliver.customerAddress ?? "_"
+            self.lbCustomerName?.text = deliver.customerName ?? "Ẩn danh"
         }
 
         if let status = order.status {
