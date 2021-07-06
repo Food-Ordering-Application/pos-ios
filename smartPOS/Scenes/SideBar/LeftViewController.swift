@@ -98,7 +98,7 @@ class LeftViewController: UIViewController, LeftMenuProtocol {
             }
             DispatchQueue.main.async {
                 let defaultRow = IndexPath(row: 2, section: 0)
-                self.tableView.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
+                self.tableView?.selectRow(at: defaultRow, animated: false, scrollPosition: .none)
             }
         }
     }

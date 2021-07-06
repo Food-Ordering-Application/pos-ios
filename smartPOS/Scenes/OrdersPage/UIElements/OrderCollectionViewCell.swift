@@ -58,6 +58,10 @@ class OrderCollectionViewCell: UICollectionViewCell {
     }
 
     func setCell(_ data: Order?) {
+        if let timer = self.timer {
+            timer.invalidate()
+            self.timer = nil
+        }
         if let order = data {
             lbOrderID?.text = order.id?.components(separatedBy: "-").first?.uppercased()
 //            lbStatus?.text = order.status.map { $0.rawValue }

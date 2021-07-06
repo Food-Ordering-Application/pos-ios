@@ -81,6 +81,7 @@ extension UIViewController: UITextFieldDelegate {
     // MARK: Handle search for each view controller
 
     public func textFieldDidChangeSelection(_ textField: UITextField) {
+        
         DispatchQueue.main.asyncDeduped(target: self, after: 0.25) { [weak self] in
             let keyword = textField.text
             if let vc = UIApplication.topViewController() {
